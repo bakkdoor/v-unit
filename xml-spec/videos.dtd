@@ -1,10 +1,10 @@
 <!ELEMENT videos (video*)>
-<!ELEMENT video(vID, title, releaseDate, priceCategory, ratedAge)>
+<!ELEMENT video(vID, title, releaseDate, priceCategoryID, ratedAge)>
 					
 <!ELEMENT vID(#PCDATA)>
 <!ELEMENT title(#PCDATA)>
 <!ELEMENT releaseDate(#PCDATA)>
-<!ELEMENT priceCategory(#PCDATA)>
+<!ELEMENT priceCategoryID(#PCDATA)>
 <!ELEMENT ratedAge(#PCDATA)>
 
 
@@ -12,12 +12,3 @@
 
 <!ELEMENT uID(#PCDATA)>
 <!ELEMENT videoID(#PCDATA)>
-
-
-<!ELEMENT inRent(rID, customerID, videoUnitID, date, duration)>
-
-<!ELEMENT rID(#PCDATA)>
-<!ELEMENT customerID(#PCDATA)>
-<!ELEMENT videoUnitID(#PCDATA)>
-<!ELEMENT date(#PCDATA)>
-<!ELEMENT duration(#PCDATA)>

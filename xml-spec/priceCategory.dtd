@@ -1,0 +1,5 @@
+<!ELEMENT priceCategory(pID, name, price)>
+
+<!ELEMENT pID(#PCDATA)>
+<!ELEMENT name(#PCDATA)>
+<!ELEMENT price(#PCDATA)>
