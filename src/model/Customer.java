@@ -1,11 +1,11 @@
-package main;
+package model;
 
 import java.util.Date;
 import java.util.List;
 
  
 
-class Customer {
+public class Customer {
 	
 	int cID;
 	String firstName;

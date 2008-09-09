@@ -1,9 +1,9 @@
-package main;
+package model;
 
 import java.util.Date;
 import java.util.List;
 
-class Video {
+public class Video {
 	
 	int vID;
 	String title;

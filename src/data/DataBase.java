@@ -1,4 +1,8 @@
 package data;
+import javax.xml.parsers.*;
+import model.Customer;
+
+import data.xml.CustomerParser;
 
 /**
  * DataBase.java
@@ -17,7 +21,7 @@ public class DataBase {
 	 * Business-Logik Objekte (im package 'main').
 	 */
 	public static void loadData(){
-		
+		CustomerParser parser = new CustomerParser();
 	}
 	
 	/**
@@ -26,4 +30,5 @@ public class DataBase {
 	public static void saveData() throws DataSaveException{
 		
 	}
+
 }

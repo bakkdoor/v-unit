@@ -1,6 +1,6 @@
-package main;
+package model;
 
-class FalseIDException extends Exception {
+public class FalseIDException extends Exception {
 
 	/**
 	 * 

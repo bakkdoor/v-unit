@@ -1,6 +1,6 @@
-package main;
+package model;
 
-class PriceCategory {
+public class PriceCategory {
 	
 	int pID;
 	String name;
