@@ -1,3 +1,4 @@
+<!ELEMENT priceCategories (priceCategory*)>
 <!ELEMENT priceCategory(pID, name, price)>
 
 <!ELEMENT pID(#PCDATA)>

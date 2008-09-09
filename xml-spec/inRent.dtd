@@ -1,3 +1,4 @@
+<!ELEMENT inRents (inRent*)>
 <!ELEMENT inRent(rID, customerID, videoUnitID, date, duration)>
 
 <!ELEMENT rID(#PCDATA)>
