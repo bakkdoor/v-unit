@@ -3,6 +3,6 @@ Entwickelt im Zuge des Java-Praktikums an der Universität Osnabrück (September 2
 
 Entwickelt von:
 Waldemar Smirnoff
-Olga ?
-Andie ?
+Olga Baranouskaya
+Andie Hoffmann
 Christopher Bertels
