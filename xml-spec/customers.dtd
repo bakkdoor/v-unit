@@ -1,0 +1,14 @@
+<!ELEMENT customers (customer*)>
+<!ELEMENT customer(cID, firstName, lastName, birthDate, street, houseNr, zipCode, city, 
+					identificationNr, title)>
+					
+<!ELEMENT cID(#PCDATA)>
+<!ELEMENT firstName(#PCDATA)>
+<!ELEMENT lastName(#PCDATA)>
+<!ELEMENT birthDate(#PCDATA)>
+<!ELEMENT street(#PCDATA)>
+<!ELEMENT houseNr(#PCDATA)>
+<!ELEMENT zipCode(#PCDATA)>
+<!ELEMENT city(#PCDATA)>
+<!ELEMENT identificationNr(#PCDATA)>
+<!ELEMENT title(#PCDATA)>
