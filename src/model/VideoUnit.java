@@ -1,6 +1,6 @@
-package main;
+package model;
 
-class VideoUnit {
+public class VideoUnit {
 	
 	int uID;
 	boolean rented;

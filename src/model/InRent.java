@@ -1,8 +1,8 @@
-package main;
+package model;
 
 import java.util.Date;
 
-class InRent {
+public class InRent {
 	
 	int rID;
 	Customer customer;

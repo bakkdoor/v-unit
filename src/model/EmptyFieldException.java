@@ -1,6 +1,6 @@
-package main;
+package model;
 
-class EmptyFieldException extends Exception{
+public class EmptyFieldException extends Exception{
 
 	/**
 	 * 
