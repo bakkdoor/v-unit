@@ -1,0 +1,21 @@
+Protokoll 09.09.2008 (Videothek-Projekt)
+
+Allgemeine Fragen an den Kunden:
+
+ - Ausleihe: Wenn Filme überzogen, warten auf Bezahlung bevor neuer Film ausgeliehen werden kann.
+ - Mahngebühren: Nur eine Mahngebühr; unabhängig von Dauer der verzögerten Rückgabe (konfigurierbar)
+ - Regalplätze müssen nicht mit verwaltet werden
+
+
+Designbesprechung:
+
+ - Modellierung der Klassen in 3 Hauptpakete:
+ 	- gui: 	     alle GUI-bezogenen Klassen und Quelltexte
+	- model:     Business-Logik & Klassen für gespeicherte Daten (Kunden, Filme, Mahnungen etc.)
+		     Außerdem Validation von gültigen Werten (bei Neuanlegung oder speicherung etc.)
+		     Grundsätzliche Beschreibung von Relationen & Konsistenz-Bedingungen
+	- data:      Laden und Speichern von Daten & Konfigurationsparametern
+	- data.xml:  XML-Backend mit XML-Parser zum Laden & Speichern von jeglichen Daten
+		     Wird von DataBase-Klasse (im Paket data) genutzt.
+
+ - Sonstige Designentscheidungen bzgl. diverser Implementationsdetails
