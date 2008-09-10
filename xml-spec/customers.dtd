@@ -11,4 +11,4 @@
 <!ELEMENT zipCode(#PCDATA)>
 <!ELEMENT city(#PCDATA)>
 <!ELEMENT identificationNr(#PCDATA)>
-<!ELEMENT title(#PCDATA)>
+<!ELEMENT title(Herr|Frau)>

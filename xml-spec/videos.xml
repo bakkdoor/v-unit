@@ -1,0 +1,6 @@
+<videos>
+	<video vID="1" title="Rambo" releaseDate="1970" priceCategoryID="1" ratedAge="18">
+		<videoUnit uID="1" videoID="1" />
+		<videoUnit uID="2" videoID="1" />
+	</video>
+</videos>

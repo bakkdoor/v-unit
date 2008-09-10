@@ -1,14 +1,17 @@
 package data.xml;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.jar.Attributes;
-
+import java.util.zip.ZipEntry;
+import java.text.DateFormat;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import model.Customer;
+import model.EmptyFieldException;
+import model.FalseIDException;
+import model.InRent;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -26,8 +29,7 @@ public class CustomerParser extends DefaultHandler
 	private List<Customer> customers = null;
 	private boolean fileParsed = false;
 	private String buffer = null;
-	private Customer tmpCustomer = null;
-
+	
 	public CustomerParser()
 	{
 		customers = new LinkedList<Customer>();
@@ -47,37 +49,65 @@ public class CustomerParser extends DefaultHandler
 		{
 			SAXParser parser = factory.newSAXParser();
 			parser.parse("customers.xml", this);
-		} catch (SAXException ex)
+		}
+		catch (SAXException ex)
 		{
 			ex.printStackTrace();
-		} catch (IOException ex)
+		}
+		catch (IOException ex)
 		{
 			ex.printStackTrace();
-		} catch (Exception ex)
+		}
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
 
 	/*
-	 * Eventhandler für neue Elemente im XML-Dokument
+	 * Eventhandler fÃ¼r neue Elemente im XML-Dokument
 	 */
 	public void startElement(String uri, String localName, String qName,
-			Attributes attributes) throws SAXException
+			Attributes attributes) throws SAXException, FalseIDException, EmptyFieldException
 	{
 		this.buffer = "";
 		String tagname = qName.toLowerCase();
 
-		// customers-tag erreicht: außerstes tag im xml-dokument
+		// customers-tag erreicht: auï¿½erstes tag im xml-dokument
 		if (tagname == "customers")
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
-		} else if (tagname == "customer")
+		}
+		else if (tagname == "customer")
 		{
+			int cID = -1;
+			int zipCode, dayOfBirth, monthOfBirth, yearOfBirth = -1;
+			//Date birthdate;
+			String firstName, lastName, street, houseNr, city, identificationNr, title;
 			
-			//this.tmpCustomer = new Customer();
+			cID = Integer.parseInt(attributes.getValue("cID"));
+			firstName = attributes.getValue("firstName");
+			lastName = attributes.getValue("lastName");
+			
+			String[] birthDate = attributes.getValue("birthDate").split(".");
+			dayOfBirth = Integer.parseInt(birthDate[0]);
+			monthOfBirth = Integer.parseInt(birthDate[1]);
+			yearOfBirth = Integer.parseInt(birthDate[2]);
+			
+			street = attributes.getValue("street");
+			houseNr = attributes.getValue("houseNr");
+			zipCode = Integer.parseInt(attributes.getValue("zipCode"));
+			city = attributes.getValue("city");
+			identificationNr = attributes.getValue("identificationNr");
+			title = attributes.getValue("title");
+			
+			// Customer erstellen und hinzufÃ¼gen zur Liste
+			Customer newCustomer = new Customer(cID, firstName, lastName, 
+					yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr, zipCode, city,
+					identificationNr, title, new LinkedList<InRent>());
+			
+			this.customers.add(newCustomer);
 		}
 	}
-
 }
