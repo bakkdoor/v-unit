@@ -121,7 +121,7 @@ public class CustomerParser extends AbstractParser
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{
-		String tagname = qName.toLowerCase();,
+		String tagname = qName.toLowerCase();
 		
 		if (tagname == "customers")
 		{
