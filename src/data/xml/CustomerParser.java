@@ -19,7 +19,8 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
 
-import data.DataLoadException;
+import data.exceptions.DataException;
+import data.exceptions.DataLoadException;
 
 /**
  * CustomerParser.java
@@ -30,10 +31,11 @@ import data.DataLoadException;
 public class CustomerParser extends AbstractParser
 {
 	private List<Customer> customers = null;
+	private Map<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
 
-	public CustomerParser() throws DataLoadException
+	public CustomerParser() throws DataException
 	{
-		super();
+		super("customers");
 
 		customers = new LinkedList<Customer>();
 		parseCustomers();
@@ -45,7 +47,7 @@ public class CustomerParser extends AbstractParser
 	 * @return Liste von eingelesenen Customers
 	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
-	public List<Customer> parseCustomers() throws Exception
+	public List<Customer> parseCustomers() throws DataException
 	{
 		try
 		{
@@ -113,6 +115,7 @@ public class CustomerParser extends AbstractParser
 					zipCode, city, identificationNr, title);
 
 			this.customers.add(newCustomer);
+			this.customerMap.put(cID, newCustomer);
 		}
 	}
 

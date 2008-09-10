@@ -9,13 +9,10 @@ import javax.xml.parsers.SAXParser;
 
 import org.xml.sax.SAXException;
 
-import data.DataLoadException;
-
 import model.EmptyFieldException;
 import model.FalseBirthDateException;
 import model.FalseIDException;
 import model.InRent;
-import model.PriceCategory;
 
 /**
  * InRentParser.java
@@ -29,10 +26,10 @@ public class InRentParser extends AbstractParser
 
 	public InRentParser()
 	{
-		super();
+		super("inRents");
 	}
 
-	public List<InRent> parseInRents() throws Exception
+	public List<InRent> parseInRents() throws DataException
 	{
 		try
 		{

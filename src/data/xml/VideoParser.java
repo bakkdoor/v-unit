@@ -18,7 +18,7 @@ import model.VideoUnit;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import data.DataLoadException;
+import data.exceptions.DataLoadException;
 
 /**
  * VideoParser.java
@@ -37,10 +37,10 @@ public class VideoParser extends AbstractParser
 
 	public VideoParser()
 	{
-		super();
+		super("videos");
 	}
 
-	public List<Video> parseVideos() throws DataLoadException
+	public List<Video> parseVideos() throws DataException
 	{
 		try
 		{
@@ -117,7 +117,7 @@ public class VideoParser extends AbstractParser
 			}
 			catch (Exception ex)
 			{
-				this.exceptionsToThrow.add(ex);
+				this.exceptionsToThrow.add(new DataLoadException(ex.getMessage()));
 			}
 		}
 	}

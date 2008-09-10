@@ -6,7 +6,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import data.DataLoadException;
+
+import data.exceptions.DataException;
+import data.exceptions.DataLoadException;
+
 import java.util.LinkedList;
 
 /**
@@ -25,7 +28,7 @@ public abstract class AbstractParser extends DefaultHandler
 	protected SAXParserFactory parserFactory;
 	private String mainTag; 
 
-	protected List<Exception> exceptionsToThrow = new LinkedList<Exception>();
+	protected List<DataException> exceptionsToThrow = new LinkedList<DataException>();
 
 	public AbstractParser(String mainTag)
 	{
@@ -33,12 +36,12 @@ public abstract class AbstractParser extends DefaultHandler
 		this.mainTag = mainTag;
 	}
 
-	protected void checkForExceptions() throws Exception
+	protected void checkForExceptions() throws DataException
 	{
 		// gucken, ob evtl. eine DataLoadException vorgemerkt wurde
 		if (this.exceptionsToThrow.size() > 0)
 		{
-			for (Exception ex : this.exceptionsToThrow)
+			for (DataException ex : this.exceptionsToThrow)
 			{
 				throw ex;
 			}

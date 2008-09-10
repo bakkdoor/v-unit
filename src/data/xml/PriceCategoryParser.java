@@ -9,7 +9,7 @@ import javax.xml.parsers.SAXParser;
 
 import org.xml.sax.SAXException;
 
-import data.DataLoadException;
+import data.exceptions.DataLoadException;
 
 import model.EmptyFieldException;
 import model.FalseBirthDateException;
@@ -30,10 +30,10 @@ public class PriceCategoryParser extends AbstractParser
 
 	public PriceCategoryParser()
 	{
-		super();
+		super("priceCategories");
 	}
 
-	public List<PriceCategory> parsePriceCategories() throws DataLoadException
+	public List<PriceCategory> parsePriceCategories() throws DataException
 	{
 		try
 		{
