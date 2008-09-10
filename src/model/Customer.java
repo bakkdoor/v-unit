@@ -1,8 +1,14 @@
 package model;
 
 import java.util.Date;
+import model.exceptions.*;
 import java.util.LinkedList;
 import java.util.List;
+
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseBirthDateException;
+import model.exceptions.FalseIDException;
 
 
 public class Customer {
@@ -20,9 +26,10 @@ public class Customer {
 	String title;
 	List<InRent> rentList;
 	final int NotSet = -1;
+	static int mincID;
 	
 	
-	public Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+	Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
 			String houseNr, int zipCode, String city, String identificationNr, String title)
 			throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
 		
@@ -41,14 +48,23 @@ public class Customer {
 		
 		checkcID();
 		checkEmptyFields();
-		age = checkBirthDate();
-		
+		age = checkBirthDate();		
 		}
 		
-	private void checkcID() throws FalseIDException{
-		if( this.cID < 1) throw new FalseIDException();
-		
+	
+	public Customer( String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+	String houseNr, int zipCode, String city, String identificationNr, String title)
+	throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
+		this( mincID, firstName, lastName, yearOfBirth, monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
+				identificationNr, title);
+		mincID++;		
 	}
+	
+	
+	private void checkcID() throws FalseIDException{
+		if( this.cID != mincID ) throw new FalseIDException();		
+	}
+	
 	
 	private void checkEmptyFields()throws EmptyFieldException {
 		if( this.firstName == null || this.firstName == "" ||
@@ -60,9 +76,9 @@ public class Customer {
 			this.identificationNr == null || this.identificationNr == "" ||
 			this.rentList == null ||
 			this.zipCode == NotSet ||
-			this.birthDate == null)	throw new EmptyFieldException();
-			
+			this.birthDate == null)	throw new EmptyFieldException();			
 	}
+	
 	
 	private int checkBirthDate() throws FalseBirthDateException, CurrentDateException{		
 		int birthYear = this.birthDate.getYear();
@@ -77,18 +93,30 @@ public class Customer {
 		int diffMonth = currentMonth - birthMonth;
 		int diffDay = currentDay - birthDay;
 		
-		if( diffYear < 0 || diffYear > 110 ) throw new FalseBirthDateException("Bitte Geburtsjahr überprüfen");
+		if( diffYear < 0 || diffYear > 110 ) 
+			throw new FalseBirthDateException("Bitte Geburtsjahr überprüfen");
 		
 		if( diffMonth < 0 ) diffYear--;
 		if( diffMonth == 0 && diffDay <0 ) diffYear--;
 		
-		if( diffYear < 16) throw new FalseBirthDateException("Kunde unter 16");
-		return diffYear;
+		if( diffYear < 16) 
+			throw new FalseBirthDateException("Kunde unter 16");
 		
+		return diffYear;
 	}
+	
+	
+	void setMinID(int newMincID){
+		mincID = newMincID;
+	}
+	
 	
 	public int getAge() throws FalseBirthDateException, CurrentDateException {
 		return checkBirthDate();
+	}
+	
+	public int getID(){
+		return this.cID;
 	}
 	
 	
