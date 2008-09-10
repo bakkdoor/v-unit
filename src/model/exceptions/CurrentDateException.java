@@ -1,8 +1,8 @@
-package model;
+package model.exceptions;
 
 public class CurrentDateException extends Exception {
 	
-	CurrentDateException(String message){
+	public CurrentDateException(String message){
 		super(message);
 	}
 

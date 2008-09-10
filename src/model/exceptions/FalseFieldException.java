@@ -1,8 +1,8 @@
-package model;
+package model.exceptions;
 
 public class FalseFieldException extends Exception {
 	
-	FalseFieldException( String message ){
+	public FalseFieldException( String message ){
 		super( message );
 	}
 

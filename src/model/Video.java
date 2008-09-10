@@ -1,6 +1,12 @@
 package model;
 
 import java.util.LinkedList;
+import model.exceptions.*;
+
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 
 
 public class Video {
@@ -12,8 +18,9 @@ public class Video {
 	int ratedAge;
 	final int NotSet = -1;
 	LinkedList<VideoUnit> unitList;
+	static int minvID;
 	
-	public Video( int vID, String title, int releaseYear, PriceCategory priceCategory,
+	 Video( int vID, String title, int releaseYear, PriceCategory priceCategory,
 			int ratedAge) throws FalseIDException, EmptyFieldException, FalseFieldException,
 			CurrentDateException{
 		
@@ -31,9 +38,15 @@ public class Video {
 		checkFalseFields();
 		
 	}
+	 
+	public Video( String title, int releaseYear, PriceCategory priceCategory, int ratedAge) 
+			throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
+		this( minvID, title, releaseYear, priceCategory, ratedAge);
+		minvID++;
+	}
 	
 	private void checkvID() throws FalseIDException{
-		if( this.vID < 1) throw new FalseIDException();
+		if( this.vID != minvID ) throw new FalseIDException();
 	}
 	
 	private void checkEmptyFields() throws EmptyFieldException{
@@ -51,9 +64,14 @@ public class Video {
 		
 		if( this.releaseYear > CurrentDate.get().getYear() || this.releaseYear < 1900 )
 			throw new FalseFieldException("Bitte Erscheinungsjahr überprüfen");
-		
-			
+	}
 	
+	void setMinID( int newMinvID ){
+		minvID = newMinvID;
+	}
+	
+	public int getID(){
+		return this.vID;
 	}
 	
 	
