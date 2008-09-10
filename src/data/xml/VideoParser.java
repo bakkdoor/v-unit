@@ -102,24 +102,10 @@ public class VideoParser extends AbstractParser
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{
+		super.endElement(uri, localName, qName);
+		
 		String tagname = qName.toLowerCase();
-		if (tagname == "videos")
-		{
-			if (!this.fileParsed)
-			{
-				// eigentlich fertig.
-				this.fileParsed = true;
-			}
-			else
-			{
-				String msg = "Sollte eigentlich am Ende der Datei sein! Folgendes Tag war aber noch vorhanden: ";
-				msg += tagname;
-
-				// Exception merken und am Ende werfen.
-				this.exceptionsToThrow.add(new DataLoadException(msg));
-			}
-		}
-		else if (tagname == "video") // video zuende
+		if (tagname == "video") // video zuende
 		{
 			try
 			{
@@ -133,10 +119,6 @@ public class VideoParser extends AbstractParser
 			{
 				this.exceptionsToThrow.add(ex);
 			}
-		}
-		else if(tagname == "videoUnit")
-		{
-			// hier muss eigentlich nichts mehr gemacht werden (glaub ich)
 		}
 	}
 }

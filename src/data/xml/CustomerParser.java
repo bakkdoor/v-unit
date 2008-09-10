@@ -43,11 +43,9 @@ public class CustomerParser extends AbstractParser
 	 * XML-Dokument (customers.xml) durchlaufen und in die Liste packen.
 	 * 
 	 * @return Liste von eingelesenen Customers
-	 * @throws DataLoadException
-	 *             Wird geworfen, falls ein Fehler in der XML Datei gefunden
-	 *             wurde.
+	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
-	public List<Customer> parseCustomers() throws DataLoadException
+	public List<Customer> parseCustomers() throws Exception
 	{
 		try
 		{
@@ -121,23 +119,6 @@ public class CustomerParser extends AbstractParser
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{
-		String tagname = qName.toLowerCase();
-		
-		if (tagname == "customers")
-		{
-			if (!this.fileParsed)
-			{
-				// eigentlich fertig.
-				this.fileParsed = true;
-			}
-			else
-			{
-				String msg = "Sollte eigentlich am Ende der Datei sein! Folgendes Tag war aber noch vorhanden: ";
-				msg += tagname;
-
-				// Exception merken und am Ende werfen.
-				this.exceptionsToThrow.add(new DataLoadException(msg));
-			}
-		}
+		super.endElement(uri, localName, qName);
 	}
 }

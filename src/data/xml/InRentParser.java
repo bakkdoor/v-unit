@@ -14,31 +14,30 @@ import data.DataLoadException;
 import model.EmptyFieldException;
 import model.FalseBirthDateException;
 import model.FalseIDException;
+import model.InRent;
 import model.PriceCategory;
-import model.Video;
-import model.VideoUnit;
 
 /**
- * PriceCategoryParser.java
+ * InRentParser.java
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 10.09.2008
  */
-public class PriceCategoryParser extends AbstractParser
+public class InRentParser extends AbstractParser
 {
-	private List<PriceCategory> priceCategories = new LinkedList<PriceCategory>();
+	private List<InRent> inRents = new LinkedList<InRent>();
 
-	public PriceCategoryParser()
+	public InRentParser()
 	{
 		super();
 	}
 
-	public List<PriceCategory> parsePriceCategories() throws DataLoadException
+	public List<InRent> parseInRents() throws Exception
 	{
 		try
 		{
 			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse("priceCategories.xml", this);
+			parser.parse("inRents.xml", this);
 		}
 		catch (SAXException ex)
 		{
@@ -55,7 +54,7 @@ public class PriceCategoryParser extends AbstractParser
 
 		checkForExceptions();
 
-		return this.priceCategories;
+		return this.inRents;
 	}
 
 	/*
@@ -68,26 +67,30 @@ public class PriceCategoryParser extends AbstractParser
 		String tagname = qName.toLowerCase();
 
 		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "priceCategories")
+		if (tagname == "inRents")
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
 		}
-		else if (tagname == "priceCategory")
+		else if (tagname == "inRent")
 		{
-			int pID = -1; // TODO: anstatt -1 sollte hier konstante aus Klasse
-							// gewählt werden
-			float price = 0.0f;
-			String name;
+			// TODO: anstatt -1 sollte hier konstante aus Klasse
+			// gewählt werden
+			int rID, customerID, videoUnitID, day, month, year, duration = -1;
 
-			pID = Integer.parseInt(attributes.getValue("pID"));
-			name = attributes.getValue("name");
-			price = Float.parseFloat(attributes.getValue("price"));
+			rID = Integer.parseInt(attributes.getValue("rID"));
+			customerID = Integer.parseInt(attributes.getValue("rID"));
+			videoUnitID = Integer.parseInt(attributes.getValue("rID"));
+			String[] date = attributes.getValue("date").split(".");
+			day = Integer.parseInt(date[0]);
+			month = Integer.parseInt(date[1]);
+			year = Integer.parseInt(date[2]);
+			duration = Integer.parseInt(attributes.getValue("duration"));
 
 			// TODO: constructor muss angepasst werden!
-			PriceCategory newPriceCategory = new PriceCategory();
+			InRent newInRent = new InRent();
 
-			this.priceCategories.add(newPriceCategory);
+			this.inRents.add(newInRent);
 		}
 	}
 
@@ -96,4 +99,5 @@ public class PriceCategoryParser extends AbstractParser
 	{
 		super.endElement(uri, localName, qName);
 	}
+
 }
