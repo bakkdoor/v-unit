@@ -4,9 +4,10 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-import model.Customer;
 import org.xml.sax.helpers.DefaultHandler;
 import data.DataLoadException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * AbstractParser.java
@@ -22,10 +23,22 @@ public abstract class AbstractParser extends DefaultHandler
 	protected String buffer = null;
 	protected SAXParserFactory parserFactory;
 	
-	protected List<DataLoadException> exceptionsToThrow = new LinkedList<DataLoadException>();
+	protected List<Exception> exceptionsToThrow = new LinkedList<Exception>();
 	
 	public AbstractParser()
 	{
 		this.parserFactory = SAXParserFactory.newInstance();
+	}
+	
+	protected void checkForExceptions() throws DataLoadException
+	{
+		// gucken, ob evtl. eine DataLoadException vorgemerkt wurde
+		if (this.exceptionsToThrow.size() > 0)
+		{
+			for (Exception ex : this.exceptionsToThrow)
+			{
+				throw ex;
+			}
+		}
 	}
 }

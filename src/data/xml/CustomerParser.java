@@ -10,11 +10,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 import model.Customer;
 import model.EmptyFieldException;
+import model.FalseBirthDateException;
 import model.FalseIDException;
 import model.InRent;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
 
 import data.DataLoadException;
 
@@ -31,15 +34,18 @@ public class CustomerParser extends AbstractParser
 	public CustomerParser() throws DataLoadException
 	{
 		super();
-		
+
 		customers = new LinkedList<Customer>();
 		parseCustomers();
 	}
 
 	/**
 	 * XML-Dokument (customers.xml) durchlaufen und in die Liste packen.
+	 * 
 	 * @return Liste von eingelesenen Customers
-	 * @throws DataLoadException Wird geworfen, falls ein Fehler in der XML Datei gefunden wurde.
+	 * @throws DataLoadException
+	 *             Wird geworfen, falls ein Fehler in der XML Datei gefunden
+	 *             wurde.
 	 */
 	public List<Customer> parseCustomers() throws DataLoadException
 	{
@@ -60,16 +66,9 @@ public class CustomerParser extends AbstractParser
 		{
 			ex.printStackTrace();
 		}
-		
-		// gucken, ob evtl. eine DataLoadException vorgemerkt wurde
-		if(this.exceptionsToThrow.size() > 0)
-		{	
-			for(DataLoadException ex : this.exceptionsToThrow)
-			{
-				throw ex;
-			}
-		}
-		
+
+		checkForExceptions();
+
 		return this.customers;
 	}
 
@@ -78,11 +77,11 @@ public class CustomerParser extends AbstractParser
 	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException, FalseIDException,
-			EmptyFieldException
+			EmptyFieldException, FalseBirthDateException
 	{
 		String tagname = qName.toLowerCase();
 
-		// customers-tag erreicht: au�erstes tag im xml-dokument
+		// customers-tag erreicht: außerstes tag im xml-dokument
 		if (tagname == "customers")
 		{
 			// min ID wert auslesen
@@ -113,8 +112,7 @@ public class CustomerParser extends AbstractParser
 			// Customer erstellen und hinzufügen zur Liste
 			Customer newCustomer = new Customer(cID, firstName, lastName,
 					yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
-					zipCode, city, identificationNr, title,
-					new LinkedList<InRent>());
+					zipCode, city, identificationNr, title);
 
 			this.customers.add(newCustomer);
 		}
@@ -123,21 +121,23 @@ public class CustomerParser extends AbstractParser
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{
-		String tagname = qName.toLowerCase();
-		if (!this.fileParsed)
+		String tagname = qName.toLowerCase();,
+		
+		if (tagname == "customers")
 		{
-			if (tagname == "customers")
+			if (!this.fileParsed)
 			{
 				// eigentlich fertig.
 				this.fileParsed = true;
 			}
-		}
-		else{
-			String msg = "Sollte eigentlich am Ende der Datei sein! Folgendes Tag war aber noch vorhanden: ";
-			msg += tagname; 
-			
-			// Exception merken und am ende werfen.
-			this.exceptionsToThrow.add(new DataLoadException(msg));
+			else
+			{
+				String msg = "Sollte eigentlich am Ende der Datei sein! Folgendes Tag war aber noch vorhanden: ";
+				msg += tagname;
+
+				// Exception merken und am Ende werfen.
+				this.exceptionsToThrow.add(new DataLoadException(msg));
+			}
 		}
 	}
 }
