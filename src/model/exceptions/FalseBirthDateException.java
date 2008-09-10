@@ -1,8 +1,8 @@
-package model;
+package model.exceptions;
 
 public class FalseBirthDateException extends Exception{
 	
-	FalseBirthDateException( String message ){
+	public FalseBirthDateException( String message ){
 		super( message );
 	}
 
