@@ -1,9 +1,9 @@
 <!ELEMENT videos (video*)>
-<!ELEMENT video(vID, title, releaseDate, priceCategoryID, ratedAge, videoUnit*)>
+<!ELEMENT video(vID, title, releaseYear, priceCategoryID, ratedAge, videoUnit*)>
 					
 <!ELEMENT vID(#PCDATA)>
 <!ELEMENT title(#PCDATA)>
-<!ELEMENT releaseDate(#PCDATA)>
+<!ELEMENT releaseYear(#PCDATA)>
 <!ELEMENT priceCategoryID(#PCDATA)>
 <!ELEMENT ratedAge(#PCDATA)>
 
