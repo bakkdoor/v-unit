@@ -1,4 +1,4 @@
-package data.xml;
+package model.data.xml;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,14 +13,14 @@ import model.EmptyFieldException;
 import model.FalseBirthDateException;
 import model.FalseIDException;
 import model.InRent;
+import model.data.exceptions.DataException;
+import model.data.exceptions.DataLoadException;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
 
-import data.exceptions.DataException;
-import data.exceptions.DataLoadException;
 
 /**
  * CustomerParser.java

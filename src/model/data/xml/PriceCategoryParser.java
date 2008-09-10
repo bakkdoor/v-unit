@@ -1,4 +1,4 @@
-package data.xml;
+package model.data.xml;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,32 +9,36 @@ import javax.xml.parsers.SAXParser;
 
 import org.xml.sax.SAXException;
 
+
 import model.EmptyFieldException;
 import model.FalseBirthDateException;
 import model.FalseIDException;
-import model.InRent;
+import model.PriceCategory;
+import model.Video;
+import model.VideoUnit;
+import model.data.exceptions.DataLoadException;
 
 /**
- * InRentParser.java
+ * PriceCategoryParser.java
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 10.09.2008
  */
-public class InRentParser extends AbstractParser
+public class PriceCategoryParser extends AbstractParser
 {
-	private List<InRent> inRents = new LinkedList<InRent>();
+	private List<PriceCategory> priceCategories = new LinkedList<PriceCategory>();
 
-	public InRentParser()
+	public PriceCategoryParser()
 	{
-		super("inRents");
+		super("priceCategories");
 	}
 
-	public List<InRent> parseInRents() throws DataException
+	public List<PriceCategory> parsePriceCategories() throws DataException
 	{
 		try
 		{
 			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse("inRents.xml", this);
+			parser.parse("priceCategories.xml", this);
 		}
 		catch (SAXException ex)
 		{
@@ -51,7 +55,7 @@ public class InRentParser extends AbstractParser
 
 		checkForExceptions();
 
-		return this.inRents;
+		return this.priceCategories;
 	}
 
 	/*
@@ -64,30 +68,26 @@ public class InRentParser extends AbstractParser
 		String tagname = qName.toLowerCase();
 
 		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "inRents")
+		if (tagname == "priceCategories")
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
 		}
-		else if (tagname == "inRent")
+		else if (tagname == "priceCategory")
 		{
-			// TODO: anstatt -1 sollte hier konstante aus Klasse
-			// gewählt werden
-			int rID, customerID, videoUnitID, day, month, year, duration = -1;
+			int pID = -1; // TODO: anstatt -1 sollte hier konstante aus Klasse
+							// gewählt werden
+			float price = 0.0f;
+			String name;
 
-			rID = Integer.parseInt(attributes.getValue("rID"));
-			customerID = Integer.parseInt(attributes.getValue("rID"));
-			videoUnitID = Integer.parseInt(attributes.getValue("rID"));
-			String[] date = attributes.getValue("date").split(".");
-			day = Integer.parseInt(date[0]);
-			month = Integer.parseInt(date[1]);
-			year = Integer.parseInt(date[2]);
-			duration = Integer.parseInt(attributes.getValue("duration"));
+			pID = Integer.parseInt(attributes.getValue("pID"));
+			name = attributes.getValue("name");
+			price = Float.parseFloat(attributes.getValue("price"));
 
 			// TODO: constructor muss angepasst werden!
-			InRent newInRent = new InRent();
+			PriceCategory newPriceCategory = new PriceCategory();
 
-			this.inRents.add(newInRent);
+			this.priceCategories.add(newPriceCategory);
 		}
 	}
 
@@ -96,5 +96,4 @@ public class InRentParser extends AbstractParser
 	{
 		super.endElement(uri, localName, qName);
 	}
-
 }

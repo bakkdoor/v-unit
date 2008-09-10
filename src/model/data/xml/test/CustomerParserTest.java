@@ -1,4 +1,4 @@
-package data.xml.test;
+package model.data.xml.test;
 
 import junit.framework.TestCase;
 

@@ -1,15 +1,15 @@
-package data;
+package model.data;
 
 import javax.xml.parsers.*;
 import model.Customer;
+import model.data.exceptions.DataException;
+import model.data.exceptions.DataLoadException;
+import model.data.exceptions.DataSaveException;
+import model.data.xml.CustomerParser;
+import model.data.xml.InRentParser;
+import model.data.xml.PriceCategoryParser;
+import model.data.xml.VideoParser;
 
-import data.exceptions.DataException;
-import data.exceptions.DataLoadException;
-import data.exceptions.DataSaveException;
-import data.xml.CustomerParser;
-import data.xml.InRentParser;
-import data.xml.PriceCategoryParser;
-import data.xml.VideoParser;
 
 /**
  * DataBase.java

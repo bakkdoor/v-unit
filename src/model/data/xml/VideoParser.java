@@ -1,4 +1,4 @@
-package data.xml;
+package model.data.xml;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -14,11 +14,11 @@ import model.FalseIDException;
 import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
+import model.data.exceptions.DataLoadException;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import data.exceptions.DataLoadException;
 
 /**
  * VideoParser.java

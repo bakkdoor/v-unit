@@ -1,14 +1,15 @@
-package data.xml;
+package model.data.xml;
 
 import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import model.data.exceptions.DataException;
+import model.data.exceptions.DataLoadException;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import data.exceptions.DataException;
-import data.exceptions.DataLoadException;
 
 import java.util.LinkedList;
 

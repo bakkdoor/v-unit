@@ -1,4 +1,4 @@
-package data.exceptions;
+package model.data.exceptions;
 
 /**
  * DataLoadException.java

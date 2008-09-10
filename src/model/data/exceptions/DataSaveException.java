@@ -1,7 +1,7 @@
 /**
  * 
  */
-package data.exceptions;
+package model.data.exceptions;
 
 /**
  * DataSaveException.java
