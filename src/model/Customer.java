@@ -24,7 +24,7 @@ public class Customer {
 	
 	public Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
 			String houseNr, int zipCode, String city, String identificationNr, String title)
-			throws FalseIDException, EmptyFieldException, FalseBirthDateException {
+			throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
 		
 		this.zipCode = NotSet;
 		this.cID = cID;
@@ -64,16 +64,14 @@ public class Customer {
 			
 	}
 	
-	private int checkBirthDate() throws FalseBirthDateException{
-		Date currentDate = new CurrentDate();
-		
+	private int checkBirthDate() throws FalseBirthDateException, CurrentDateException{		
 		int birthYear = this.birthDate.getYear();
 		int birthMonth = this.birthDate.getMonth();
 		int birthDay = this.birthDate.getDate();
 		
-		int currentYear = currentDate.getYear();
-		int currentMonth = currentDate.getMonth();
-		int currentDay = currentDate.getDate();
+		int currentYear = CurrentDate.get().getYear();
+		int currentMonth = CurrentDate.get().getMonth();
+		int currentDay = CurrentDate.get().getDate();
 		
 		int diffYear = currentYear - birthYear;
 		int diffMonth = currentMonth - birthMonth;
@@ -89,7 +87,7 @@ public class Customer {
 		
 	}
 	
-	public int getAge() throws FalseBirthDateException {
+	public int getAge() throws FalseBirthDateException, CurrentDateException {
 		return checkBirthDate();
 	}
 	

@@ -1,6 +1,7 @@
 package model;
 
-import java.util.List;
+import java.util.LinkedList;
+
 
 public class Video {
 	
@@ -10,10 +11,11 @@ public class Video {
 	PriceCategory priceCategory;
 	int ratedAge;
 	final int NotSet = -1;
-	List<VideoUnit> unitList;
+	LinkedList<VideoUnit> unitList;
 	
 	public Video( int vID, String title, int releaseYear, PriceCategory priceCategory,
-			int ratedAge, List<VideoUnit> unitList) throws FalseIDException, EmptyFieldException{
+			int ratedAge) throws FalseIDException, EmptyFieldException, FalseFieldException,
+			CurrentDateException{
 		
 		this.ratedAge = NotSet;
 		this.releaseYear = NotSet;
@@ -22,10 +24,11 @@ public class Video {
 		this.releaseYear = releaseYear;
 		this.priceCategory = priceCategory;
 		this.ratedAge = ratedAge;
-		this.unitList = unitList;
+		this.unitList = new LinkedList<VideoUnit>();
 		
 		checkvID();
 		checkEmptyFields();
+		checkFalseFields();
 		
 	}
 	
@@ -39,7 +42,21 @@ public class Video {
 			this.priceCategory == null ||
 			this.ratedAge == -1 ||
 			this.unitList == null ) throw new EmptyFieldException();
-		}
+	}
+	
+	private void checkFalseFields() throws FalseFieldException, CurrentDateException{
+		if( this.ratedAge != 0 && this.ratedAge != 6 && this.ratedAge != 12 && this.ratedAge != 16
+				&& this.ratedAge != 18)
+			throw new FalseFieldException("Bitte FSK überprüfen");
+		
+		if( this.releaseYear > CurrentDate.get().getYear() || this.releaseYear < 1900 )
+			throw new FalseFieldException("Bitte Erscheinungsjahr überprüfen");
+		
+			
+	
+	}
+	
+	
 	
 	
 
