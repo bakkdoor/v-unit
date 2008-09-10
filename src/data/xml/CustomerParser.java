@@ -24,20 +24,15 @@ import data.DataLoadException;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 09.09.2008
  */
-public class CustomerParser extends DefaultHandler
+public class CustomerParser extends AbstractParser
 {
-	private static int minId;
-
 	private List<Customer> customers = null;
-	private boolean fileParsed = false;
-	private String buffer = null;
-	
-	private List<DataLoadException> exceptionsToThrow = new List<DataLoadException>();
 
-	public CustomerParser()
+	public CustomerParser() throws DataLoadException
 	{
+		super();
+		
 		customers = new LinkedList<Customer>();
-
 		parseCustomers();
 	}
 
@@ -48,12 +43,9 @@ public class CustomerParser extends DefaultHandler
 	 */
 	public List<Customer> parseCustomers() throws DataLoadException
 	{
-
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-
 		try
 		{
-			SAXParser parser = factory.newSAXParser();
+			SAXParser parser = parserFactory.newSAXParser();
 			parser.parse("customers.xml", this);
 		}
 		catch (SAXException ex)
@@ -77,6 +69,8 @@ public class CustomerParser extends DefaultHandler
 				throw ex;
 			}
 		}
+		
+		return this.customers;
 	}
 
 	/*
@@ -86,7 +80,6 @@ public class CustomerParser extends DefaultHandler
 			Attributes attributes) throws SAXException, FalseIDException,
 			EmptyFieldException
 	{
-		this.buffer = "";
 		String tagname = qName.toLowerCase();
 
 		// customers-tag erreicht: au�erstes tag im xml-dokument
@@ -99,7 +92,6 @@ public class CustomerParser extends DefaultHandler
 		{
 			int cID = -1;
 			int zipCode, dayOfBirth, monthOfBirth, yearOfBirth = -1;
-			// Date birthdate;
 			String firstName, lastName, street, houseNr, city, identificationNr, title;
 
 			cID = Integer.parseInt(attributes.getValue("cID"));
