@@ -1,9 +1,9 @@
 package model;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
- 
 
 public class Customer {
 	
@@ -11,6 +11,7 @@ public class Customer {
 	String firstName;
 	String lastName;
 	Date birthDate;
+	int age;
 	String street;
 	String houseNr;
 	int zipCode;
@@ -22,8 +23,8 @@ public class Customer {
 	
 	
 	public Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
-			String houseNr, int zipCode, String city, String identificationNr,
-			String title, List<InRent> rentList) throws FalseIDException, EmptyFieldException {
+			String houseNr, int zipCode, String city, String identificationNr, String title)
+			throws FalseIDException, EmptyFieldException, FalseBirthDateException {
 		
 		this.zipCode = NotSet;
 		this.cID = cID;
@@ -36,10 +37,11 @@ public class Customer {
 		this.city = city;
 		this.identificationNr = identificationNr;
 		this.title = title;
-		this.rentList = rentList;
+		this.rentList = new LinkedList<InRent>();
 		
 		checkcID();
 		checkEmptyFields();
+		age = checkBirthDate();
 		
 		}
 		
@@ -60,6 +62,35 @@ public class Customer {
 			this.zipCode == NotSet ||
 			this.birthDate == null)	throw new EmptyFieldException();
 			
+	}
+	
+	private int checkBirthDate() throws FalseBirthDateException{
+		Date currentDate = new CurrentDate();
+		
+		int birthYear = this.birthDate.getYear();
+		int birthMonth = this.birthDate.getMonth();
+		int birthDay = this.birthDate.getDate();
+		
+		int currentYear = currentDate.getYear();
+		int currentMonth = currentDate.getMonth();
+		int currentDay = currentDate.getDate();
+		
+		int diffYear = currentYear - birthYear;
+		int diffMonth = currentMonth - birthMonth;
+		int diffDay = currentDay - birthDay;
+		
+		if( diffYear < 0 || diffYear > 110 ) throw new FalseBirthDateException("Bitte Geburtsjahr überprüfen");
+		
+		if( diffMonth < 0 ) diffYear--;
+		if( diffMonth == 0 && diffDay <0 ) diffYear--;
+		
+		if( diffYear < 16) throw new FalseBirthDateException("Kunde unter 16");
+		return diffYear;
+		
+	}
+	
+	public int getAge() throws FalseBirthDateException {
+		return checkBirthDate();
 	}
 	
 	
