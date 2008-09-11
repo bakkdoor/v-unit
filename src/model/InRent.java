@@ -110,14 +110,14 @@ public class InRent {
 		return foundInRents;
 	}
 	
-	public static List<InRent> findByVideoUnit(VideoUnit videoUnit){
-		List<InRent> foundInRents = new LinkedList<InRent>();
+	public static InRent findByVideoUnit(VideoUnit videoUnit) throws RecordNotFoundException{
 		for(InRent ir : inRentList.values()){
 			if(ir.videoUnitID == videoUnit.getID()){
-				foundInRents.add(ir);
+				return ir;
 			}
 		}
-		return foundInRents;
+		
+		throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.", Integer.toString(videoUnit.getID()));
 	}
 	
 	public static List<InRent> findByDate(Date date){
