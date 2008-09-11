@@ -8,6 +8,10 @@ public class FalseFieldException extends VideothekException {
 		super( message );
 	}
 
+	public FalseFieldException() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 */

@@ -32,8 +32,7 @@ public class Customer {
 				identificationNr, title);
 		mincID++;		
 	}
-	
-	
+		
 	private Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
 			String houseNr, int zipCode, String city, String identificationNr, String title)
 			throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
@@ -55,22 +54,20 @@ public class Customer {
 		checkEmptyFields();
 		age = checkBirthDate();		
 		}
-		
-	
+			
 	
 	public static Customer reCreate( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
-			String houseNr, int zipCode, String city, String identificationNr, String title)
+									String houseNr, int zipCode, String city, String identificationNr, 
+									String title)
 			throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
 		return new Customer( mincID, firstName, lastName, yearOfBirth, monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
 				identificationNr, title);
 	}
-	
-	
+		
 	private void checkcID() throws FalseIDException{
-		if( this.cID != mincID ) throw new FalseIDException("");		
+		if( this.cID < 1 ) throw new FalseIDException("cID kleiner 1!");		
 	}
-	
-	
+		
 	private void checkEmptyFields()throws EmptyFieldException {
 		if( this.firstName == null || this.firstName == "" ||
 			this.lastName == null || this.lastName == "" ||
@@ -83,8 +80,7 @@ public class Customer {
 			this.zipCode == NotSet ||
 			this.birthDate == null)	throw new EmptyFieldException();			
 	}
-	
-	
+		
 	private int checkBirthDate() throws FalseBirthDateException, CurrentDateException{		
 		int birthYear = this.birthDate.getYear();
 		int birthMonth = this.birthDate.getMonth();
@@ -108,14 +104,12 @@ public class Customer {
 			throw new FalseBirthDateException("Kunde unter 16");
 		
 		return diffYear;
-	}
-	
+	}	
 	
 	public static void setMinID(int newMincID){
 		mincID = newMincID;
 	}
-	
-	
+		
 	public int getAge() throws FalseBirthDateException, CurrentDateException {
 		return checkBirthDate();
 	}
