@@ -2,6 +2,7 @@ package model;
 
 import java.util.Date;
 import model.exceptions.*;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -118,8 +119,43 @@ public class Customer {
 		return this.cID;
 	}
 	
+	public String getFirstName() throws EmptyFieldException{
+		if( this.firstName != null && this.firstName != "") 
+			return firstName;
+		else throw new EmptyFieldException("Kein Vorname vorhanden");
+	}
 	
+	public void setFirstName( String newFirstName) throws EmptyFieldException{
+		if( newFirstName != null && newFirstName != "")
+			this.firstName = newFirstName;
+		else throw new EmptyFieldException("Kein Vorname eingegeben");
+	}
 	
+	public String getLastName() throws EmptyFieldException{
+		if( this.lastName != null && this.lastName != "") 
+			return this.lastName;
+		else throw new EmptyFieldException("Kein Nachname vorhanden");
+	}
+	
+	public void setLastName( String newLastName) throws EmptyFieldException{
+		if( newLastName != null && newLastName != "")
+			this.lastName = newLastName;
+		else throw new EmptyFieldException("Kein Nachname eingegeben");
+	}
+	
+	public Date getBirthDate() throws EmptyFieldException{
+		if( birthDate != null )
+			return birthDate;
+		else throw new EmptyFieldException("Kein Geburtstag vorhanden");
+	}
+	
+/**	public void setBirthDate(Date newBirthDate){
+		if( newBirthDate != null ){
+			this.birthDate
+		}
+	}
+	
+*/	
 	
 	
 
