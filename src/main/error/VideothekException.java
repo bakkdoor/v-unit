@@ -16,15 +16,7 @@ public class VideothekException extends Exception
 	
 	public VideothekException(String message){
 		super(message);
-		try
-		{
-			Logger.get().write(message);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Logger.get().write(message);
 	}
 
 	

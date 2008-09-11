@@ -2,8 +2,8 @@
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.Attributes;
 
 import javax.xml.parsers.SAXParser;
@@ -22,14 +22,14 @@ import model.data.exceptions.DataException;
  */
 public class InRentParser extends AbstractParser
 {
-	private List<InRent> inRents = new LinkedList<InRent>();
+	private Map<Integer, InRent> inRents = new HashMap<Integer, InRent>();
 
 	public InRentParser()
 	{
 		super("inRents");
 	}
 
-	public List<InRent> parseInRents() throws DataException
+	public Map<Integer, InRent> parseInRents() throws DataException
 	{
 		try
 		{
@@ -88,7 +88,7 @@ public class InRentParser extends AbstractParser
 
 			InRent newInRent = InRent.reCreate(rID, customerID, videoUnitID, new Date(year, month, day), duration);
 
-			this.inRents.add(newInRent);
+			this.inRents.put(rID, newInRent);
 		}
 	}
 

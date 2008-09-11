@@ -1,14 +1,12 @@
 package model.data;
 
+import java.util.Map;
+
 import javax.xml.parsers.*;
-import model.Customer;
-import model.data.exceptions.DataException;
-import model.data.exceptions.DataLoadException;
-import model.data.exceptions.DataSaveException;
-import model.data.xml.CustomerParser;
-import model.data.xml.InRentParser;
-import model.data.xml.PriceCategoryParser;
-import model.data.xml.VideoParser;
+import model.*;
+import model.PriceCategory;
+import model.data.exceptions.*;
+import model.data.xml.*;
 
 
 /**
@@ -35,6 +33,11 @@ public class DataBase
 		CustomerParser costParser = new CustomerParser();
 		VideoParser vidParser = new VideoParser();
 		InRentParser irParser = new InRentParser();
+		
+		Map<Integer, PriceCategory> priceCategories = pcParser.parsePriceCategories();
+		Map<Integer, Customer> customers = costParser.parseCustomers();
+		Map<Integer, Video> videos = vidParser.parseVideos();
+		Map<Integer, InRent> inRents = irParser.parseInRents();
 	}
 
 	/**

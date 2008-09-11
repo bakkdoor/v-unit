@@ -1,8 +1,8 @@
 package model.data.xml;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.Attributes;
 
 import javax.xml.parsers.SAXParser;
@@ -25,14 +25,14 @@ import model.data.exceptions.DataLoadException;
  */
 public class PriceCategoryParser extends AbstractParser
 {
-	private List<PriceCategory> priceCategories = new LinkedList<PriceCategory>();
+	private Map<Integer,PriceCategory> priceCategoriesMap = new HashMap<Integer,PriceCategory> ();
 
 	public PriceCategoryParser()
 	{
 		super("priceCategories");
 	}
 
-	public List<PriceCategory> parsePriceCategories() throws DataException
+	public Map<Integer,PriceCategory> parsePriceCategories() throws DataException
 	{
 		try
 		{
@@ -54,7 +54,7 @@ public class PriceCategoryParser extends AbstractParser
 
 		checkForExceptions();
 
-		return this.priceCategories;
+		return this.priceCategoriesMap;
 	}
 
 	/*
@@ -86,7 +86,7 @@ public class PriceCategoryParser extends AbstractParser
 			// TODO: constructor muss angepasst werden!
 			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name, price);
 
-			this.priceCategories.add(newPriceCategory);
+			this.priceCategoriesMap.put(pID, newPriceCategory);
 		}
 	}
 

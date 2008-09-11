@@ -1,8 +1,8 @@
 package model.data.xml;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.Attributes;
 
 import javax.xml.parsers.SAXParser;
@@ -26,9 +26,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class VideoParser extends AbstractParser
 {
-	private List<Video> videos = new LinkedList<Video>();
+	private Map<Integer, Video> videos = new HashMap<Integer, Video>();
 
-	private List<VideoUnit> videoUnits = new LinkedList<VideoUnit>();
+	private Map<Integer, VideoUnit> videoUnits = new HashMap<Integer, VideoUnit>();
 
 	private int vID, releaseYear, priceCategoryID, ratedAge = -1;
 	private String title;
@@ -38,7 +38,7 @@ public class VideoParser extends AbstractParser
 		super("videos");
 	}
 
-	public List<Video> parseVideos() throws DataException
+	public Map<Integer, Video> parseVideos() throws DataException
 	{
 		try
 		{
@@ -93,7 +93,7 @@ public class VideoParser extends AbstractParser
 			uID = Integer.parseInt(attributes.getValue("uID"));
 			videoID = Integer.parseInt(attributes.getValue("videoID"));
 			// TODO: Es muss noch beziehung zu Video erstellt (Referenz) sowie Konstruktor anpasst werden
-			this.videoUnits.add(VideoUnit.reCreate(uID, videoID));
+			this.videoUnits.put(uID, VideoUnit.reCreate(uID, videoID));
 		}
 	}
 
@@ -111,7 +111,7 @@ public class VideoParser extends AbstractParser
 				Video newVideo = Video.reCreate(vID, title, releaseYear,
 						priceCategoryID, ratedAge, videoUnits);
 
-				this.videos.add(newVideo);
+				this.videos.put(vID, newVideo);
 			}
 			catch (Exception ex)
 			{

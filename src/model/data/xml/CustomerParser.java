@@ -28,14 +28,13 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
  */
 public class CustomerParser extends AbstractParser
 {
-	private List<Customer> customers = null;
-	private Map<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
+	private Map<Integer, Customer> customerMap = null;
 
 	public CustomerParser() throws DataException
 	{
 		super("customers");
 
-		customers = new LinkedList<Customer>();
+		customerMap = new HashMap<Integer, Customer>();
 		parseCustomers();
 	}
 
@@ -45,7 +44,7 @@ public class CustomerParser extends AbstractParser
 	 * @return Liste von eingelesenen Customers
 	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
-	public List<Customer> parseCustomers() throws DataException
+	public Map<Integer, Customer> parseCustomers() throws DataException
 	{
 		try
 		{
@@ -67,7 +66,7 @@ public class CustomerParser extends AbstractParser
 
 		checkForExceptions();
 
-		return this.customers;
+		return this.customerMap;
 	}
 
 	/*
@@ -112,7 +111,6 @@ public class CustomerParser extends AbstractParser
 					yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
 					zipCode, city, identificationNr, title);
 
-			this.customers.add(newCustomer);
 			this.customerMap.put(cID, newCustomer);
 		}
 	}

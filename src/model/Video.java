@@ -1,7 +1,9 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import model.exceptions.*;
 
@@ -19,7 +21,7 @@ public class Video {
 	PriceCategory priceCategory;
 	int ratedAge;
 	final int NotSet = -1;
-	List<VideoUnit> unitList;
+	Map<Integer, VideoUnit> videoUnits;
 	static int minvID;
 	
 	
@@ -41,7 +43,7 @@ public class Video {
 		this.releaseYear = releaseYear;
 		this.priceCategory = priceCategory;
 		this.ratedAge = ratedAge;
-		this.unitList = new LinkedList<VideoUnit>();
+		this.videoUnits = new HashMap<Integer, VideoUnit>();
 		
 		checkvID();
 		checkEmptyFields();
@@ -51,10 +53,10 @@ public class Video {
 	
 	 
 	public static Video reCreate( int vID, String title, int releaseYear, int priceCategoryID,
-			int ratedAge, List<VideoUnit> videoUnits) throws FalseIDException, EmptyFieldException, FalseFieldException,
+			int ratedAge, Map<Integer, VideoUnit> videoUnits) throws FalseIDException, EmptyFieldException, FalseFieldException,
 			CurrentDateException{
 		Video video = new Video( minvID, title, releaseYear, priceCategoryID, ratedAge);
-		video.unitList = videoUnits;
+		video.videoUnits = videoUnits;
 		
 		return video;
 	}
@@ -68,7 +70,7 @@ public class Video {
 			this.releaseYear == NotSet ||
 			this.priceCategory == null ||
 			this.ratedAge == -1 ||
-			this.unitList == null ) throw new EmptyFieldException();
+			this.videoUnits == null ) throw new EmptyFieldException();
 	}
 	
 	private void checkFalseFields() throws FalseFieldException, CurrentDateException{
