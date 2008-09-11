@@ -3,21 +3,25 @@ package model;
 import java.util.Date;
 import model.exceptions.*;
 
+public class CurrentDate
+{
 
-public class CurrentDate {
-	
 	private static Date currentDate = null;
-	
+
 	public static Date get() throws CurrentDateException
 	{
-		if( currentDate != null) return currentDate;
-		else throw new CurrentDateException("Keine Zeit gesetzt");
+		if (currentDate != null)
+			return currentDate;
+		else
+			throw new CurrentDateException("Keine Zeit gesetzt");
 	}
-	
+
 	public static void set(Date newCurrentDate) throws CurrentDateException
 	{
-		if( currentDate == null) currentDate = newCurrentDate;
-		else throw new CurrentDateException("Zeit schon gesetzt");
+		if (currentDate == null)
+			currentDate = newCurrentDate;
+		else
+			throw new CurrentDateException("Zeit schon gesetzt");
 	}
 
 	/**

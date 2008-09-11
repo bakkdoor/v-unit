@@ -2,15 +2,18 @@ package model.exceptions;
 
 import main.error.VideothekException;
 
-public class EmptyFieldException extends VideothekException{
+public class EmptyFieldException extends VideothekException
+{
 
-	public EmptyFieldException(String string) {
+	public EmptyFieldException(String string)
+	{
 		super(string);
 	}
-	public EmptyFieldException() {
+
+	public EmptyFieldException()
+	{
 		super();
 	}
-	
 
 	/**
 	 * 

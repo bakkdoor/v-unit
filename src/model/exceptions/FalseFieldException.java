@@ -2,13 +2,16 @@ package model.exceptions;
 
 import main.error.VideothekException;
 
-public class FalseFieldException extends VideothekException {
-	
-	public FalseFieldException( String message ){
-		super( message );
+public class FalseFieldException extends VideothekException
+{
+
+	public FalseFieldException(String message)
+	{
+		super(message);
 	}
 
-	public FalseFieldException() {
+	public FalseFieldException()
+	{
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,4 +21,3 @@ public class FalseFieldException extends VideothekException {
 	private static final long serialVersionUID = 1L;
 
 }
-

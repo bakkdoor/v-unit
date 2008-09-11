@@ -2,17 +2,18 @@ package model.exceptions;
 
 import main.error.VideothekException;
 
-public class FalseIDException extends VideothekException {
-	
-	public FalseIDException( String message){
-		super( message);
+public class FalseIDException extends VideothekException
+{
+
+	public FalseIDException(String message)
+	{
+		super(message);
 	}
 
-	
-	public FalseIDException(){
+	public FalseIDException()
+	{
 		super();
 	}
-	
 
 	/**
 	 * 
