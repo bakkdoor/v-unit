@@ -22,21 +22,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.SpringLayout.Constraints;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class Main {
+public class MainWindow {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-		Main videoProgramm = new Main();
-
-	}
-	
 	private JFrame mainFrame;
 	private String[] comboBoxRentDurationContent = 
 						{"1 Woche", "2 Wochen", "3 Wochen", "4 Wochen", "5 Wochen"};
@@ -50,16 +42,15 @@ public class Main {
 	private String[] stringArrTableModelRentVidCollNames = 
 		{"ID", "Titel", "Ausleidauer"};
 	
-	public Main() {
+	public MainWindow() {
 		
 		mainFrame = new JFrame("Videothek 3.Auge");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		mainFrame.addWindowListener(new WindowAdapter(){
-//			
-//			public void windowClosed(WindowEvent close) {
-//				super.windowClosed(close);
-//			}
-//		});
+		
+		
+		// Haupt Panel
+		JPanel panelCentral = new JPanel(new GridBagLayout());
+		GridBagConstraints gridBagConstCentral = new GridBagConstraints();
 		
 		
 		// **************************************************************
@@ -118,11 +109,15 @@ public class Main {
 		menuBarMain.add(menuSearch);
 		menuBarMain.add(menuTools);
 		menuBarMain.add(menuHelp);
-		mainFrame.setJMenuBar(menuBarMain);
-		// **************************************************************
 		
-		// Haupt Panel (Ausleihe, Details, Kartei)
-		JPanel panelCentralContent = new JPanel(new BorderLayout());
+		gridBagConstCentral.gridx = 0;
+		gridBagConstCentral.gridy = 0;
+//		gridBagConstCentral.gridwidth = 2;
+		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstCentral.anchor = GridBagConstraints.FIRST_LINE_START;
+		panelCentral.add(menuBarMain, gridBagConstCentral);
+		
+		// **************************************************************
 		
 		// Toolbar mit Buttons
 		JToolBar toolBarButtons = new JToolBar();
@@ -184,7 +179,10 @@ public class Main {
 //		toolBarButtons.add(separatorToolBar2);
 		toolBarButtons.setVisible(true);
 		
-		panelCentralContent.add(toolBarButtons, BorderLayout.NORTH);
+		gridBagConstCentral.gridx = 0;
+		gridBagConstCentral.gridy = 1;
+		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+		panelCentral.add(toolBarButtons, gridBagConstCentral);
 		
 		// **************************************************************
 		// Ausleihe 
@@ -237,12 +235,17 @@ public class Main {
 		layoutRent.setConstraints(comboBoxRentDuration,layoutRentConst);
 		panelRent.add(comboBoxRentDuration);
 		
-		// panelRent in panelCentralContent (WEST) einfügen
-		panelCentralContent.add(panelRent, BorderLayout.WEST);
+		// panelRent in panelCentral
+		gridBagConstCentral.gridx = 0;
+		gridBagConstCentral.gridy = 2;
+		gridBagConstCentral.gridwidth = 1;
+		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+		panelCentral.add(panelRent, gridBagConstCentral);
 		// ***************************************************************
-		mainFrame.add(panelCentralContent);
 		
-		mainFrame.setSize(800, 600);
+		mainFrame.add(panelCentral);
+		
+		mainFrame.setSize(800,600);
 		mainFrame.setVisible(true);
 	}
 
