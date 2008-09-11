@@ -73,7 +73,7 @@ public class Customer
 			String title) throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException
 	{
-		return new Customer(mincID, firstName, lastName, yearOfBirth,
+		return new Customer(cID, firstName, lastName, yearOfBirth,
 				monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
 				identificationNr, title);
 	}
