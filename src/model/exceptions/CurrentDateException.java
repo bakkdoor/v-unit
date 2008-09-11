@@ -1,6 +1,8 @@
 package model.exceptions;
 
-public class CurrentDateException extends Exception {
+import main.error.VideothekException;
+
+public class CurrentDateException extends VideothekException {
 	
 	public CurrentDateException(String message){
 		super(message);

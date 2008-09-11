@@ -1,6 +1,8 @@
 package model.exceptions;
 
-public class FalseBirthDateException extends Exception{
+import main.error.VideothekException;
+
+public class FalseBirthDateException extends VideothekException{
 	
 	public FalseBirthDateException( String message ){
 		super( message );

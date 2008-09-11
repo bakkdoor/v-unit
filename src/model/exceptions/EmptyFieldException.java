@@ -1,6 +1,8 @@
 package model.exceptions;
 
-public class EmptyFieldException extends Exception{
+import main.error.VideothekException;
+
+public class EmptyFieldException extends VideothekException{
 
 	/**
 	 * 

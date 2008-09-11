@@ -1,6 +1,8 @@
 package model.exceptions;
 
-public class FalseFieldException extends Exception {
+import main.error.VideothekException;
+
+public class FalseFieldException extends VideothekException {
 	
 	public FalseFieldException( String message ){
 		super( message );

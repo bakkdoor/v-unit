@@ -1,5 +1,7 @@
 package model.data.exceptions;
 
+import main.error.VideothekException;
+
 /**
  * DataException.java
  * @author Christopher Bertels (chbertel@uos.de)
@@ -7,7 +9,7 @@ package model.data.exceptions;
  * 
  * Oberklasser aller Exceptions im data Package.
  */
-public class DataException extends Exception
+public class DataException extends VideothekException
 {
 	private static final long serialVersionUID = 9142676993623774244L;
 
