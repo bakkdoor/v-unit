@@ -9,10 +9,9 @@ import javax.xml.parsers.SAXParser;
 
 import org.xml.sax.SAXException;
 
-import model.EmptyFieldException;
-import model.FalseBirthDateException;
-import model.FalseIDException;
+import model.exceptions.*;
 import model.InRent;
+import model.data.exceptions.DataException;
 
 /**
  * InRentParser.java
@@ -85,7 +84,7 @@ public class InRentParser extends AbstractParser
 			duration = Integer.parseInt(attributes.getValue("duration"));
 
 			// TODO: constructor muss angepasst werden!
-			InRent newInRent = new InRent();
+			InRent newInRent = InRent.reCreate();
 
 			this.inRents.add(newInRent);
 		}

@@ -9,9 +9,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import model.Customer;
-import model.EmptyFieldException;
-import model.FalseBirthDateException;
-import model.FalseIDException;
+import model.exceptions.*;
 import model.InRent;
 import model.data.exceptions.DataException;
 import model.data.exceptions.DataLoadException;
@@ -77,7 +75,7 @@ public class CustomerParser extends AbstractParser
 	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException, FalseIDException,
-			EmptyFieldException, FalseBirthDateException
+			EmptyFieldException, FalseBirthDateException, CurrentDateException
 	{
 		String tagname = qName.toLowerCase();
 
@@ -110,7 +108,7 @@ public class CustomerParser extends AbstractParser
 			title = attributes.getValue("title");
 
 			// Customer erstellen und hinzufügen zur Liste
-			Customer newCustomer = new Customer(cID, firstName, lastName,
+			Customer newCustomer = Customer.reCreate(cID, firstName, lastName,
 					yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
 					zipCode, city, identificationNr, title);
 

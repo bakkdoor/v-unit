@@ -1,6 +1,10 @@
 package model.exceptions;
 
 public class FalseIDException extends Exception {
+	
+	public FalseIDException( String message){
+		super( message);
+	}
 
 	/**
 	 * 

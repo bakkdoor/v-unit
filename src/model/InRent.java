@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import model.exceptions.*;
 
 public class InRent {
 	
@@ -25,7 +26,7 @@ public class InRent {
 	
 	public InRent(Customer customer, VideoUnit videoUnit, Date date, int duration){
 		// TODO: getID() muss jeweils noch gemacht werden
-		super(minrID, customer.getID(), videoUnit.getID(), date, duration); 
+		this(minrID, customer.getID(), videoUnit.getID(), date, duration); 
 		
 		minrID++;
 		
@@ -33,7 +34,7 @@ public class InRent {
 		this.videoUnit = videoUnit;
 	}
 	
-	void setMinID(int newMinrID){
+	void setMinID(int newMinrID) throws FalseIDException{
 		if(newMinrID > 0){
 		minrID = newMinrID;
 		}else{

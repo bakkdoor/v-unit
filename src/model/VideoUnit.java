@@ -22,6 +22,8 @@ public class VideoUnit {
 	void setminID( int newMinuID ){
 		minuID = newMinuID;
 	}
-	
+	 public int getID(){
+		 return this.videoID;
+	 }
 
 }
