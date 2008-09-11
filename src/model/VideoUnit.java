@@ -8,7 +8,7 @@ public class VideoUnit {
 	Video video;
 	static int minuID;
 	
-	VideoUnit( int uID, int videoID){
+	private VideoUnit(int uID, int videoID){
 		this.uID = uID;
 		this.videoID = videoID;
 		
@@ -19,11 +19,21 @@ public class VideoUnit {
 		minuID++;		
 	}
 	
-	void setminID( int newMinuID ){
+	public int getID(){
+		return this.uID;
+	}
+	
+	public static void setMinID( int newMinuID ){
 		minuID = newMinuID;
 	}
-	 public int getID(){
+
+	public int getID(){
 		 return this.videoID;
-	 }
+	}
+
+	
+	public static VideoUnit reCreate(int uID, int videoID){
+		return new VideoUnit(uID, videoID);
+	}
 
 }

@@ -1,4 +1,4 @@
-package model.data.xml;
+﻿package model.data.xml;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -84,7 +84,8 @@ public class InRentParser extends AbstractParser
 			duration = Integer.parseInt(attributes.getValue("duration"));
 
 			// TODO: constructor muss angepasst werden!
-			InRent newInRent = InRent.reCreate();
+
+			InRent newInRent = InRent.reCreate(rID, customerID, videoUnitID, date, duration);
 
 			this.inRents.add(newInRent);
 		}

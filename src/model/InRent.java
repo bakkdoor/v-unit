@@ -1,7 +1,9 @@
-package model;
+﻿package model;
 
 import java.util.Date;
 import model.exceptions.*;
+
+import model.exceptions.FalseIDException;
 
 public class InRent {
 	
@@ -15,7 +17,7 @@ public class InRent {
 	
 	private static int minrID;
 	
-	InRent(int rID, int customerID, int videoUnitID, Date date, int duration){
+	private InRent(int rID, int customerID, int videoUnitID, Date date, int duration){
 		this.rID = rID;
 		this.customerID = customerID;
 		this.videoUnitID = videoUnitID;
@@ -34,7 +36,8 @@ public class InRent {
 		this.videoUnit = videoUnit;
 	}
 	
-	void setMinID(int newMinrID) throws FalseIDException{
+
+	public static void setMinID(int newMinrID) throws FalseIDException{
 		if(newMinrID > 0){
 		minrID = newMinrID;
 		}else{
@@ -42,5 +45,8 @@ public class InRent {
 		}
 	}
 	
+	public static InRent reCreate(int rID, int customerID, int videoUnitID, Date date, int duration){
+		return new InRent(rID, customerID, videoUnitID, date, duration);
+	}
 	
 }

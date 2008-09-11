@@ -1,0 +1,22 @@
+Protokoll 10.09.2008 (Videothek-Projekt)
+  
+Allgemeine Fragestellungen & Klärungen
+
+  - Frage, ob verloren- bzw. kaputtgegangene Filme durch Kunden speziell gehandhabt werden können, wurde verneint.
+    In einem solchen Fall, müsste der Kunde den entstandenen Schaden bezahlen und der Mitarbeiter den Eintrag des Exemplars im Programm löschen.
+  - Allgemeine Klärung von Fragen zum Klassendesign/Schnittstellen zwischen jeweiligen Subsystem (GUI <-> Model/Business-Logik <-> Data/XML-Backend)
+
+Besprechung der aktuellen Fortschritte:
+
+  - GUI: 
+      Hauptfensterlayout soweit fertig (einzelne Details werden im Verlauf der nächsten Woche noch hinzugefügt), 
+      wird in den nächsten Tagen mit Funktionalität versehen und entsprechend implementiert
+
+  - Model/Business Logik: 
+      Klassen sind in Entwicklung. Alle bereits vorhanden, allerdings noch nicht vollkommen implementiert. Die Schnittstellen zur GUI sind aber im wesentlichen vorhanden
+
+  - Data/XML-Backend:
+      XML-Parser in entwicklung. Das Laden von XML-Dateien dürfte bis morgen (Do, 11.09.) fertig sein. Danach folgt das Speichern sowie einige automatisierte Tests (Unit Tests / JUnit).
+  
+  - Sonstiges:
+      Entwicklung eines Logging-Systems (zum Speichern von Fehlermeldungen/sonstige nützliche Angaben mit Zeit und Datum in Log-File) wird eben falls in den nächsten Tagen folgen.
