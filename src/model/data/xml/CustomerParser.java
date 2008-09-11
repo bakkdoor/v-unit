@@ -9,9 +9,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import model.Customer;
-import model.EmptyFieldException;
-import model.FalseBirthDateException;
-import model.FalseIDException;
+import model.exceptions.*;
 import model.InRent;
 import model.data.exceptions.DataException;
 import model.data.exceptions.DataLoadException;

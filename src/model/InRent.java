@@ -2,6 +2,8 @@ package model;
 
 import java.util.Date;
 
+import model.exceptions.FalseIDException;
+
 public class InRent {
 	
 	private int rID;
@@ -14,7 +16,7 @@ public class InRent {
 	
 	private static int minrID;
 	
-	InRent(int rID, int customerID, int videoUnitID, Date date, int duration){
+	private InRent(int rID, int customerID, int videoUnitID, Date date, int duration){
 		this.rID = rID;
 		this.customerID = customerID;
 		this.videoUnitID = videoUnitID;
@@ -25,7 +27,7 @@ public class InRent {
 	
 	public InRent(Customer customer, VideoUnit videoUnit, Date date, int duration){
 		// TODO: getID() muss jeweils noch gemacht werden
-		super(minrID, customer.getID(), videoUnit.getID(), date, duration); 
+		this(minrID, customer.getID(), videoUnit.getID(), date, duration); 
 		
 		minrID++;
 		
@@ -33,7 +35,7 @@ public class InRent {
 		this.videoUnit = videoUnit;
 	}
 	
-	void setMinID(int newMinrID){
+	public static void setMinID(int newMinrID) throws FalseIDException{
 		if(newMinrID > 0){
 		minrID = newMinrID;
 		}else{
@@ -41,5 +43,8 @@ public class InRent {
 		}
 	}
 	
+	public static InRent reCreate(int rID, int customerID, int videoUnitID, Date date, int duration){
+		return new InRent(rID, customerID, videoUnitID, date, duration);
+	}
 	
 }

@@ -85,7 +85,7 @@ public class InRentParser extends AbstractParser
 			duration = Integer.parseInt(attributes.getValue("duration"));
 
 			// TODO: constructor muss angepasst werden!
-			InRent newInRent = new InRent();
+			InRent newInRent = InRent.reCreate(rID, customerID, videoUnitID, date, duration);
 
 			this.inRents.add(newInRent);
 		}

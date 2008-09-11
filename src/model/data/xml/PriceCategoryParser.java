@@ -10,9 +10,8 @@ import javax.xml.parsers.SAXParser;
 import org.xml.sax.SAXException;
 
 
-import model.EmptyFieldException;
-import model.FalseBirthDateException;
-import model.FalseIDException;
+import model.exceptions.*;
+import model.data.exceptions.*;
 import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
@@ -85,7 +84,7 @@ public class PriceCategoryParser extends AbstractParser
 			price = Float.parseFloat(attributes.getValue("price"));
 
 			// TODO: constructor muss angepasst werden!
-			PriceCategory newPriceCategory = new PriceCategory();
+			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name, price);
 
 			this.priceCategories.add(newPriceCategory);
 		}

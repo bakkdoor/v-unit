@@ -106,7 +106,7 @@ public class Customer {
 	}
 	
 	
-	void setMinID(int newMincID){
+	public static void setMinID(int newMincID){
 		mincID = newMincID;
 	}
 	

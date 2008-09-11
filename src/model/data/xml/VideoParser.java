@@ -8,13 +8,11 @@ import java.util.jar.Attributes;
 import javax.xml.parsers.SAXParser;
 
 import model.Customer;
-import model.EmptyFieldException;
-import model.FalseBirthDateException;
-import model.FalseIDException;
+import model.exceptions.*;
 import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
-import model.data.exceptions.DataLoadException;
+import model.data.exceptions.*;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -95,7 +93,7 @@ public class VideoParser extends AbstractParser
 			uID = Integer.parseInt(attributes.getValue("uID"));
 			videoID = Integer.parseInt(attributes.getValue("videoID"));
 			// TODO: Es muss noch beziehung zu Video erstellt (Referenz) sowie Konstruktor anpasst werden
-			this.videoUnits.add(new VideoUnit(uID, videoID));
+			this.videoUnits.add(VideoUnit.reCreate(uID, videoID));
 		}
 	}
 
@@ -110,8 +108,8 @@ public class VideoParser extends AbstractParser
 			try
 			{
 				// Video erstellen und hinzufügen zur Liste
-				Video newVideo = new Video(vID, title, releaseYear,
-						new PriceCategory(), ratedAge, videoUnits);
+				Video newVideo = Video.reCreate(vID, title, releaseYear,
+						priceCategoryID, ratedAge, videoUnits);
 
 				this.videos.add(newVideo);
 			}
