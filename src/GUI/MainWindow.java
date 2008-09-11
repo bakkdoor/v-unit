@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -24,6 +25,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
@@ -100,7 +102,19 @@ public class MainWindow {
 		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
 		mainContainer.add(this.createDetailPanel(), gridBagConstCentral);
 		
-		this.changePanelDetailsCard(this.CUSTOMERDETAILS);
+//		this.changePanelDetailsCard(this.CUSTOMERDETAILS);
+		
+		// **************************************************************
+		// Tabelle
+		gridBagConstCentral.gridx = 0;
+		gridBagConstCentral.gridy = 3;
+		gridBagConstCentral.ipady = 300;
+		gridBagConstCentral.weightx = 1.0;
+		gridBagConstCentral.weighty = 1.0;
+		gridBagConstCentral.gridwidth = 2;
+		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+		mainContainer.add(this.createTablePanel(), gridBagConstCentral);
+		
 		
 		
 //		mainFrame.setSize(800,600);
@@ -176,7 +190,7 @@ public class MainWindow {
 		return menuBarMain;
 	}
 	
-	private JToolBar createToolBar() {
+	private Component createToolBar() {
 		
 		// ToolBar erzeugen
 		JToolBar toolBarButtons = new JToolBar();
@@ -242,7 +256,7 @@ public class MainWindow {
 		return toolBarButtons;
 	}
 	
-	private JPanel createRentPanel() {
+	private Component createRentPanel() {
 		
 		// Panel erstellen
 		JPanel panelRent = new JPanel(new GridBagLayout());
@@ -384,7 +398,7 @@ public class MainWindow {
 		return panelRent;
 	}
 	
-	private JPanel createDetailPanel() {
+	private Component createDetailPanel() {
 		
 		
 		// Panel für Videodetails
@@ -798,8 +812,31 @@ public class MainWindow {
 		return panelDetails;
 	}
 	
-	private JPanel createTablePanel() {
-		return null;
+	private Component createTablePanel() {
+		
+		String[][] videoContent = {{"123123", "Video1", "12.12.2006", "A", "16"},
+				  				   {"243524", "Video2", "02.02.2002", "B", ""},
+				  				   {"764234", "Video3", "05.10.1987", "A", "18"}};
+		String[]  videoCollName = {"ID", "Titel", "Erscheinungsdatum", "Preisklasse", "Altersbeschr."};
+		JTable tableVideo = new JTable(videoContent, videoCollName);
+		
+		
+		String[][] customerContent = {{"2453421", "Es", "Hoffman", "Ole", "05.10.1993", "Martinistr. 3, 32568 PetersBurg"}};
+		String[]   CustomerCollName  = {"ID", "Anrede", "Nachname", "Vorname", "Geburtsdatum", "Anschrift"};
+		JTable tableCustomer = new JTable(customerContent, CustomerCollName);
+		
+		
+		String[][] rentContent = {{"","","","",""}};
+		String[]   rentCollName  = {"ID", "KundenNr.", "FilmNr.", "Rückgabefrist", "Mahnung"};
+		JTable tableRent = new JTable(rentContent, rentCollName);
+		
+		JTabbedPane tableTabbedPane = new JTabbedPane();
+		tableTabbedPane.addTab("Filme", new ImageIcon("icons/film.png"), new JScrollPane(tableVideo));
+		tableTabbedPane.addTab("Kunden", new ImageIcon("icons/user.png"), new JScrollPane(tableCustomer));
+		tableTabbedPane.addTab("Ausgeliehen", new ImageIcon("icons/film_key.png"), new JScrollPane(tableRent));
+		
+		
+		return new JPanel().add(tableTabbedPane);
 	}
 	
 	private void changePanelDetailsCard(String cardName) {
