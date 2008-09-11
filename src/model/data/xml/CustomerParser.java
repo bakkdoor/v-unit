@@ -2,9 +2,10 @@ package model.data.xml;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.jar.Attributes;
-import java.util.zip.ZipEntry;
 import java.text.DateFormat;
+import java.text.ParseException;
+
+import javax.swing.JSpinner.DateEditor;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -14,11 +15,11 @@ import model.InRent;
 import model.data.exceptions.DataException;
 import model.data.exceptions.DataLoadException;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
-
 
 /**
  * CustomerParser.java
@@ -35,21 +36,23 @@ public class CustomerParser extends AbstractParser
 		super("customers");
 
 		customerMap = new HashMap<Integer, Customer>();
-		parseCustomers();
+		// parseCustomers();
 	}
 
 	/**
 	 * XML-Dokument (customers.xml) durchlaufen und in die Liste packen.
 	 * 
 	 * @return Liste von eingelesenen Customers
-	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
+	 * @throws Exception
+	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
-	public Map<Integer, Customer> parseCustomers() throws DataException
+	public Map<Integer, Customer> parseCustomers(String customersFile)
+			throws DataException
 	{
 		try
 		{
 			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse("customers.xml", this);
+			parser.parse(customersFile, this);
 		}
 		catch (SAXException ex)
 		{
@@ -73,9 +76,9 @@ public class CustomerParser extends AbstractParser
 	 * Eventhandler für neue Elemente im XML-Dokument
 	 */
 	public void startElement(String uri, String localName, String qName,
-			Attributes attributes) throws SAXException, FalseIDException,
-			EmptyFieldException, FalseBirthDateException, CurrentDateException
+			Attributes attributes) throws SAXException
 	{
+		super.startElement(uri, localName, qName, attributes);
 		String tagname = qName.toLowerCase();
 
 		// customers-tag erreicht: außerstes tag im xml-dokument
@@ -94,10 +97,9 @@ public class CustomerParser extends AbstractParser
 			firstName = attributes.getValue("firstName");
 			lastName = attributes.getValue("lastName");
 
-			String[] birthDate = attributes.getValue("birthDate").split(".");
-			dayOfBirth = Integer.parseInt(birthDate[0]);
-			monthOfBirth = Integer.parseInt(birthDate[1]);
-			yearOfBirth = Integer.parseInt(birthDate[2]);
+			dayOfBirth = Integer.parseInt(attributes.getValue("birthDay"));
+			monthOfBirth = Integer.parseInt(attributes.getValue("birthMonth"));
+			yearOfBirth = Integer.parseInt(attributes.getValue("birthYear"));
 
 			street = attributes.getValue("street");
 			houseNr = attributes.getValue("houseNr");
@@ -107,9 +109,33 @@ public class CustomerParser extends AbstractParser
 			title = attributes.getValue("title");
 
 			// Customer erstellen und hinzufügen zur Liste
-			Customer newCustomer = Customer.reCreate(cID, firstName, lastName,
-					yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
-					zipCode, city, identificationNr, title);
+			Customer newCustomer = null;
+			try
+			{
+				newCustomer = Customer.reCreate(cID, firstName, lastName,
+						yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
+						zipCode, city, identificationNr, title);
+			}
+			catch (FalseIDException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (EmptyFieldException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (FalseBirthDateException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (CurrentDateException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			this.customerMap.put(cID, newCustomer);
 		}
