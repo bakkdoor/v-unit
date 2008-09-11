@@ -30,7 +30,24 @@ public class Customer
 	private static int mincID;
 	private static Map<Integer, Customer> customerList;
 
-	
+	/**
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param yearOfBirth
+	 * @param monthOfBirth
+	 * @param dayOfBirth
+	 * @param street
+	 * @param houseNr
+	 * @param zipCode
+	 * @param city
+	 * @param identificationNr
+	 * @param title
+	 * @throws FalseIDException
+	 * @throws EmptyFieldException
+	 * @throws FalseBirthDateException
+	 * @throws CurrentDateException
+	 */
 	public Customer(String firstName, String lastName, int yearOfBirth,
 			int monthOfBirth, int dayOfBirth, String street, String houseNr,
 			int zipCode, String city, String identificationNr, String title)
@@ -74,7 +91,7 @@ public class Customer
 			String title) throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException
 	{
-		return new Customer(mincID, firstName, lastName, yearOfBirth,
+		return new Customer(cID, firstName, lastName, yearOfBirth,
 				monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
 				identificationNr, title);
 	}
