@@ -2,14 +2,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import model.exceptions.*;
-
-import model.exceptions.CurrentDateException;
-import model.exceptions.EmptyFieldException;
-import model.exceptions.FalseFieldException;
-import model.exceptions.FalseIDException;
-
 
 public class Video {
 	
@@ -17,6 +10,7 @@ public class Video {
 	String title;
 	int releaseYear;
 	PriceCategory priceCategory;
+	int priceCategoryID;
 	int ratedAge;
 	final int NotSet = -1;
 	List<VideoUnit> unitList;
@@ -24,50 +18,49 @@ public class Video {
 	
 	
 	public Video( String title, int releaseYear, PriceCategory priceCategory, int ratedAge) 
-					throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
+			throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
 		this( minvID, title, releaseYear, priceCategory.getID(), ratedAge);
 		minvID++;
 		this.priceCategory = priceCategory;
 	}
 	
-	Video( int vID, String title, int releaseYear, int priceCategoryID,
-			int ratedAge) throws FalseIDException, EmptyFieldException, FalseFieldException,
-			CurrentDateException{
+	private Video( int vID, String title, int releaseYear, int priceCategoryID,	int ratedAge) 
+			throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
 		
 		this.ratedAge = NotSet;
 		this.releaseYear = NotSet;
+		this.priceCategoryID = NotSet;
 		this.vID = vID;
 		this.title = title;
 		this.releaseYear = releaseYear;
-		this.priceCategory = priceCategory;
+		this.priceCategoryID = priceCategoryID;
 		this.ratedAge = ratedAge;
 		this.unitList = new LinkedList<VideoUnit>();
 		
-		checkvID();
+		checkIDs();
 		checkEmptyFields();
 		checkFalseFields();
 		
 	}
-	
-	 
-	public static Video reCreate( int vID, String title, int releaseYear, int priceCategoryID,
-			int ratedAge, List<VideoUnit> videoUnits) throws FalseIDException, EmptyFieldException, FalseFieldException,
-			CurrentDateException{
+		 
+	public static Video reCreate( int vID, String title, int releaseYear, int priceCategoryID, int ratedAge,
+								List<VideoUnit> videoUnits) 
+			throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
 		Video video = new Video( minvID, title, releaseYear, priceCategoryID, ratedAge);
-		video.unitList = videoUnits;
-		
+		video.unitList = videoUnits;		
 		return video;
 	}
 	
-	private void checkvID() throws FalseIDException{
-		if( this.vID != minvID ) throw new FalseIDException("");
+	private void checkIDs() throws FalseIDException{
+		if( this.vID < 1 ) throw new FalseIDException("vID kleiner 1!");
+		if( this.priceCategoryID < 1 ) throw new FalseIDException("pID kleiner 1!");
 	}
 	
 	private void checkEmptyFields() throws EmptyFieldException{
 		if( this.title == null || this.title == "" || 
 			this.releaseYear == NotSet ||
-			this.priceCategory == null ||
-			this.ratedAge == -1 ||
+			this.priceCategoryID == NotSet ||
+			this.ratedAge == NotSet ||
 			this.unitList == null ) throw new EmptyFieldException();
 	}
 	

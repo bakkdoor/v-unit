@@ -9,34 +9,39 @@ public class InRent {
 	
 	private int rID;
 	private int customerID;
-	private Customer customer;
+	private Customer customer = null;
 	private int videoUnitID;
-	private VideoUnit videoUnit;
+	private VideoUnit videoUnit = null;
 	private Date date;
 	private int duration;
 	
 	private static int minrID;
 	
-	private InRent(int rID, int customerID, int videoUnitID, Date date, int duration){
+	public InRent(Customer customer, VideoUnit videoUnit, Date date, int duration) 
+			throws FalseIDException, FalseFieldException, CurrentDateException{
+		this(minrID, customer.getID(), videoUnit.getID(), date, duration); 		
+		minrID++;
+		this.customer = customer;
+		this.videoUnit = videoUnit;
+	}
+	
+	private InRent(int rID, int customerID, int videoUnitID, Date date, int duration) 
+			throws FalseIDException, FalseFieldException, CurrentDateException{
 		this.rID = rID;
 		this.customerID = customerID;
 		this.videoUnitID = videoUnitID;
 		this.date = date;
 		this.duration = duration;
-		// TODO: hier müssen noch n paar checks und so hin...
+		checkIDs();
+		checkRentDate();
+		checkDuration();
 	}
 	
-	public InRent(Customer customer, VideoUnit videoUnit, Date date, int duration){
-		// TODO: getID() muss jeweils noch gemacht werden
-		this(minrID, customer.getID(), videoUnit.getID(), date, duration); 
-		
-		minrID++;
-		
-		this.customer = customer;
-		this.videoUnit = videoUnit;
+	public static InRent reCreate(int rID, int customerID, int videoUnitID, Date date, int duration) 
+			throws FalseIDException, FalseFieldException, CurrentDateException{
+		return new InRent(rID, customerID, videoUnitID, date, duration);
 	}
 	
-
 	public static void setMinID(int newMinrID) throws FalseIDException{
 		if(newMinrID > 0){
 		minrID = newMinrID;
@@ -45,8 +50,41 @@ public class InRent {
 		}
 	}
 	
-	public static InRent reCreate(int rID, int customerID, int videoUnitID, Date date, int duration){
-		return new InRent(rID, customerID, videoUnitID, date, duration);
+	private void checkRentDate() throws FalseFieldException, CurrentDateException{
+		if( this.date.compareTo(CurrentDate.get()) != 0) 
+			throw new FalseFieldException("Bitte Datum überprüfen");
 	}
+	
+	private void checkDuration() throws FalseFieldException{
+		if( this.duration < 1 || this.duration > 5 ) throw new FalseFieldException();
+	}
+	
+	public int getID(){
+		return this.rID;
+	}
+	
+	private void checkIDs() throws FalseIDException{
+		int rID = this.rID;
+		int customerID = this.customerID;
+		int videoUnitID = this.videoUnitID;
+		if( rID < 1 || customerID < 1 || videoUnitID < 1 ) 	throw new FalseIDException();
+	}
+	
+	public Customer getCustomer(){
+		if( this.customer == null){
+			// TODO: hier nach Customer objekt suchen mit der id = customerID und this.customer darauf verweisen
+		}
+		return this.customer;
+	}
+	
+	public VideoUnit getVideoUnit(){
+		if( this.videoUnit == null ){
+			// TODO: hier nach VideoUnit objekt suchen mit der id = videoUnitID und this.videoUnit darauf verweisen
+		}
+		return this.videoUnit;
+	}
+	
+
+
 	
 }

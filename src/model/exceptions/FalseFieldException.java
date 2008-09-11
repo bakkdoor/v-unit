@@ -6,6 +6,10 @@ public class FalseFieldException extends Exception {
 		super( message );
 	}
 
+	public FalseFieldException() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 */
