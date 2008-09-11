@@ -5,6 +5,7 @@ import java.util.Date;
 
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +125,36 @@ public class Customer {
 		return this.cID;
 	}
 	
+	public String getFirstName() throws EmptyFieldException{
+		if( this.firstName != null && this.firstName != "") 
+			return firstName;
+		else throw new EmptyFieldException("Kein Vorname vorhanden");
+	}
 	
+	public void setFirstName( String newFirstName) throws EmptyFieldException{
+		if( newFirstName != null && newFirstName != "")
+			this.firstName = newFirstName;
+		else throw new EmptyFieldException("Kein Vorname eingegeben");
+	}
+	
+	public String getLastName() throws EmptyFieldException{
+		if( this.lastName != null && this.lastName != "") 
+			return this.lastName;
+		else throw new EmptyFieldException("Kein Nachname vorhanden");
+	}
+	
+	public void setLastName( String newLastName) throws EmptyFieldException{
+		if( newLastName != null && newLastName != "")
+			this.lastName = newLastName;
+		else throw new EmptyFieldException("Kein Nachname eingegeben");
+	}
+	
+	public Date getBirthDate() throws EmptyFieldException{
+		if( birthDate != null )
+			return birthDate;
+		else throw new EmptyFieldException("Kein Geburtstag vorhanden");
+	}
+
 	public static Customer findByID(int customerID) throws RecordNotFoundException{
 		if(customerList.containsKey(customerID)){
 			return customerList.get(customerID);
@@ -151,6 +181,15 @@ public class Customer {
 		
 		throw new RecordNotFoundException("Kunde", "Geburtsdatum", DateFormat.getInstance().format(birthDate));
 	}
+
+/**	public void setBirthDate(Date newBirthDate){
+		if( newBirthDate != null ){
+			this.birthDate
+		}
+	}
+	
+*/	
+
 	
 	public static void setCustomerList(Map<Integer, Customer> newCustomerList){
 		if(newCustomerList != null){
