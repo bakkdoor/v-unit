@@ -5,10 +5,6 @@ import model.exceptions.*;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.exceptions.CurrentDateException;
-import model.exceptions.EmptyFieldException;
-import model.exceptions.FalseBirthDateException;
-import model.exceptions.FalseIDException;
 
 
 public class Customer {
@@ -29,7 +25,16 @@ public class Customer {
 	static int mincID;
 	
 	
-	Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+	public Customer( String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+	String houseNr, int zipCode, String city, String identificationNr, String title)
+	throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
+		this( mincID, firstName, lastName, yearOfBirth, monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
+				identificationNr, title);
+		mincID++;		
+	}
+	
+	
+	private Customer( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
 			String houseNr, int zipCode, String city, String identificationNr, String title)
 			throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
 		
@@ -52,17 +57,17 @@ public class Customer {
 		}
 		
 	
-	public Customer( String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
-	String houseNr, int zipCode, String city, String identificationNr, String title)
-	throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
-		this( mincID, firstName, lastName, yearOfBirth, monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
+	
+	public static Customer reCreate( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+			String houseNr, int zipCode, String city, String identificationNr, String title)
+			throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException {
+		return new Customer( mincID, firstName, lastName, yearOfBirth, monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
 				identificationNr, title);
-		mincID++;		
 	}
 	
 	
 	private void checkcID() throws FalseIDException{
-		if( this.cID != mincID ) throw new FalseIDException();		
+		if( this.cID != mincID ) throw new FalseIDException("");		
 	}
 	
 	
@@ -106,7 +111,7 @@ public class Customer {
 	}
 	
 	
-	void setMinID(int newMincID){
+	public static void setMinID(int newMincID){
 		mincID = newMincID;
 	}
 	

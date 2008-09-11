@@ -28,7 +28,6 @@ public class PriceCategory {
 	
 	private void checkpID() {
 		
-		
 	}		
 
 	private void checkName() {
@@ -37,8 +36,11 @@ public class PriceCategory {
 	
 	private void checkPrice() {
 		// TODO Auto-generated method stub
-
-		
+	
+	}
+	
+	public int getID(){
+		return this.pID;
 	}
 
 

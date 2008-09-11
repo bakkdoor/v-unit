@@ -20,7 +20,15 @@ public class Video {
 	LinkedList<VideoUnit> unitList;
 	static int minvID;
 	
-	 Video( int vID, String title, int releaseYear, PriceCategory priceCategory,
+	
+	public Video( String title, int releaseYear, PriceCategory priceCategory, int ratedAge) 
+					throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
+		this( minvID, title, releaseYear, priceCategory.getID(), ratedAge);
+		minvID++;
+		this.priceCategory = priceCategory;
+	}
+	
+	Video( int vID, String title, int releaseYear, int priceCategoryID,
 			int ratedAge) throws FalseIDException, EmptyFieldException, FalseFieldException,
 			CurrentDateException{
 		
@@ -38,15 +46,16 @@ public class Video {
 		checkFalseFields();
 		
 	}
+	
 	 
-	public Video( String title, int releaseYear, PriceCategory priceCategory, int ratedAge) 
-			throws FalseIDException, EmptyFieldException, FalseFieldException, CurrentDateException{
-		this( minvID, title, releaseYear, priceCategory, ratedAge);
-		minvID++;
+	public static Video reCreate( int vID, String title, int releaseYear, int priceCategoryID,
+			int ratedAge) throws FalseIDException, EmptyFieldException, FalseFieldException,
+			CurrentDateException{
+		return new Video( minvID, title, releaseYear, priceCategoryID, ratedAge);
 	}
 	
 	private void checkvID() throws FalseIDException{
-		if( this.vID != minvID ) throw new FalseIDException();
+		if( this.vID != minvID ) throw new FalseIDException("");
 	}
 	
 	private void checkEmptyFields() throws EmptyFieldException{
@@ -66,7 +75,7 @@ public class Video {
 			throw new FalseFieldException("Bitte Erscheinungsjahr überprüfen");
 	}
 	
-	void setMinID( int newMinvID ){
+	public static void setMinID( int newMinvID ){
 		minvID = newMinvID;
 	}
 	
