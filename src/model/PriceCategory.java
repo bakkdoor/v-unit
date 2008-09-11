@@ -1,11 +1,15 @@
 package model;
 
+import java.util.Map;
+
 public class PriceCategory {
 
-	int pID;
-	String name;
-	float price;
-	static int minpID;
+	private int pID;
+	private String name;
+	private float price;
+	
+	private static Map<Integer, PriceCategory> priceCategoryList;
+	private static int minpID;
 
 	private PriceCategory(int pID, String name, float price) {
 		this.pID = pID;
@@ -52,6 +56,12 @@ public class PriceCategory {
 
 	public static PriceCategory reCreate(int pID, String name, float price) {
 		return new PriceCategory(pID, name, price);
+	}
+	
+	public static void setPriceCategoryList(Map<Integer, PriceCategory> newPriceCategoryList){
+		if(newPriceCategoryList != null){
+			priceCategoryList = newPriceCategoryList;
+		}
 	}
 
 }

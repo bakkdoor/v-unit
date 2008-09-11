@@ -1,11 +1,15 @@
 package model;
 
+import java.util.Map;
+
 public class Warning {
 	
-	int wID;
-	InRent inRent = null;
-	int inRentID;
-	static int minwID;
+	private int wID;
+	private InRent inRent = null;
+	private int inRentID;
+	
+	private static int minwID;
+	private static Map<Integer, Warning> warningList;
 	
 	public Warning( InRent inRent){
 		this( minwID, inRent.getID());
@@ -28,5 +32,11 @@ public class Warning {
 	
 	public static Warning reCreate( int wID, int inRentID){
 		return new Warning( wID, inRentID);
+	}
+	
+	public static void setWarningList(Map<Integer, Warning> newWarningList){
+		if(newWarningList != null){
+			warningList = newWarningList;
+		}
 	}
 }

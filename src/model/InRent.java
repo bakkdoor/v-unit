@@ -1,6 +1,8 @@
 ﻿package model;
 
 import java.util.Date;
+import java.util.Map;
+
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
@@ -15,6 +17,7 @@ public class InRent {
 	private Date date;
 	private int duration;
 	
+	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
 	
 	public InRent(Customer customer, VideoUnit videoUnit, Date date, int duration) 
@@ -85,6 +88,10 @@ public class InRent {
 	}
 	
 
-
+	public static void setInRentList(Map<Integer, InRent> newInRentList){
+		if(newInRentList != null){
+			inRentList = newInRentList;
+		}
+	}
 	
 }

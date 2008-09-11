@@ -59,7 +59,7 @@ public class InRentParser extends AbstractParser
 	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException, FalseIDException,
-			EmptyFieldException, FalseBirthDateException
+			EmptyFieldException, FalseBirthDateException, FalseFieldException, CurrentDateException
 	{
 		String tagname = qName.toLowerCase();
 

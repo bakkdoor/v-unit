@@ -1,12 +1,16 @@
 package model;
 
+import java.util.Map;
+
 public class VideoUnit {
 	
-	int uID;
-	boolean rented = false;
-	int videoID;
-	Video video;
-	static int minuID;
+	private int uID;
+	private boolean rented = false;
+	private int videoID;
+	private Video video;
+	
+	private static Map<Integer, VideoUnit> videoUnitList;
+	private static int minuID;
 	
 	private VideoUnit(int uID, int videoID){
 		this.uID = uID;
@@ -29,6 +33,12 @@ public class VideoUnit {
 
 	public static VideoUnit reCreate(int uID, int videoID){
 		return new VideoUnit(uID, videoID);
+	}
+	
+	public static void setVideoUnitList(Map<Integer, VideoUnit> newVideoUnitList){
+		if(newVideoUnitList != null){
+			videoUnitList = newVideoUnitList;
+		}
 	}
 
 }

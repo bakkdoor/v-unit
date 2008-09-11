@@ -7,15 +7,17 @@ import model.exceptions.*;
 
 public class Video {
 	
-	int vID;
-	String title;
-	int releaseYear;
-	PriceCategory priceCategory;
-	int priceCategoryID;
-	int ratedAge;
-	final int NotSet = -1;
-	Map<Integer, VideoUnit> videoUnits;
-	static int minvID;
+	private int vID;
+	private String title;
+	private int releaseYear;
+	private PriceCategory priceCategory;
+	private int priceCategoryID;
+	private int ratedAge;
+	private final int NotSet = -1;
+	private Map<Integer, VideoUnit> videoUnits;
+	
+	private static Map<Integer, Video> videoList;
+	private static int minvID;
 	
 	
 	public Video( String title, int releaseYear, PriceCategory priceCategory, int ratedAge) 
@@ -85,7 +87,10 @@ public class Video {
 	}
 	
 	
-	
-	
+	public static void setVideoList(Map<Integer, Video> newVideoList){
+		if(newVideoList != null){
+			videoList = newVideoList;
+		}
+	}
 
 }

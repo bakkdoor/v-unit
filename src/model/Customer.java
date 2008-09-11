@@ -4,25 +4,28 @@ import java.util.Date;
 import model.exceptions.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 
 public class Customer {
 	
-	int cID;
-	String firstName;
-	String lastName;
-	Date birthDate;
-	int age;
-	String street;
-	String houseNr;
-	int zipCode;
-	String city;
-	String identificationNr;
-	String title;
-	List<InRent> rentList;
-	final int NotSet = -1;
-	static int mincID;
+	private int cID;
+	private String firstName;
+	private String lastName;
+	private Date birthDate;
+	private int age;
+	private String street;
+	private String houseNr;
+	private int zipCode;
+	private String city;
+	private String identificationNr;
+	private String title;
+	private List<InRent> rentList;
+	private final int NotSet = -1;
+	
+	private static int mincID;
+	private static Map<Integer, Customer> customerList;
 	
 	
 	public Customer( String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
@@ -53,7 +56,7 @@ public class Customer {
 		checkcID();
 		checkEmptyFields();
 		age = checkBirthDate();		
-		}
+	}
 			
 	
 	public static Customer reCreate( int cID, String firstName, String lastName, int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
@@ -71,7 +74,7 @@ public class Customer {
 	private void checkEmptyFields()throws EmptyFieldException {
 		if( this.firstName == null || this.firstName == "" ||
 			this.lastName == null || this.lastName == "" ||
-			this. street == null || this.street == "" ||
+			this.street == null || this.street == "" ||
 			this.houseNr == null || this.houseNr == "" ||
 			this.city == null || this.city == "" ||
 			this.title == null || this.title == "" ||
@@ -120,7 +123,11 @@ public class Customer {
 	
 	
 	
-	
+	public static void setCustomerList(Map<Integer, Customer> newCustomerList){
+		if(newCustomerList != null){
+			customerList = newCustomerList;
+		}
+	}
 	
 
 }
