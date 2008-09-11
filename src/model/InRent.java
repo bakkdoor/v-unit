@@ -1,8 +1,12 @@
 ﻿package model;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
@@ -87,6 +91,44 @@ public class InRent {
 		return this.videoUnit;
 	}
 	
+
+	public static InRent findByID(int inRentID) throws RecordNotFoundException{
+		if(inRentList.containsKey(inRentID)){
+			return inRentList.get(inRentID);
+		}else{
+			throw new RecordNotFoundException("Ausleihe", "AusleihNummer", Integer.toString(inRentID));
+		}
+	}
+	
+	public static List<InRent> findByCustomer(Customer customer){
+		List<InRent> foundInRents = new LinkedList<InRent>();
+		for(InRent ir : inRentList.values()){
+			if(ir.customer.getID() == customer.getID()){
+				foundInRents.add(ir);
+			}
+		}
+		return foundInRents;
+	}
+	
+	public static List<InRent> findByVideoUnit(VideoUnit videoUnit){
+		List<InRent> foundInRents = new LinkedList<InRent>();
+		for(InRent ir : inRentList.values()){
+			if(ir.videoUnitID == videoUnit.getID()){
+				foundInRents.add(ir);
+			}
+		}
+		return foundInRents;
+	}
+	
+	public static List<InRent> findByDate(Date date){
+		List<InRent> foundInRents = new LinkedList<InRent>();
+		for(InRent ir : inRentList.values()){
+			if(ir.date.equals(date)){
+				foundInRents.add(ir);
+			}
+		}
+		return foundInRents;
+	}
 
 	public static void setInRentList(Map<Integer, InRent> newInRentList){
 		if(newInRentList != null){

@@ -1,6 +1,9 @@
 package model;
 
+import java.text.DateFormat;
 import java.util.Date;
+
+import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -122,6 +125,32 @@ public class Customer {
 	}
 	
 	
+	public static Customer findByID(int customerID) throws RecordNotFoundException{
+		if(customerList.containsKey(customerID)){
+			return customerList.get(customerID);
+		}else{
+			throw new RecordNotFoundException("Kunde", "KundenNummer", Integer.toString(customerID));
+		}
+	}
+	
+	public static Customer findByLastName(String lastName) throws RecordNotFoundException{
+		for(Customer c : customerList.values()){
+			if(c.lastName.equals(lastName)){
+				return c;
+			}
+		}
+		throw new RecordNotFoundException("Kunde", "Nachname", lastName);
+	}
+	
+	public static Customer findByBirthDate(Date birthDate) throws RecordNotFoundException{
+		for(Customer c : customerList.values()){
+			if(c.birthDate.equals(c.birthDate)){
+				return c;
+			}
+		}
+		
+		throw new RecordNotFoundException("Kunde", "Geburtsdatum", DateFormat.getInstance().format(birthDate));
+	}
 	
 	public static void setCustomerList(Map<Integer, Customer> newCustomerList){
 		if(newCustomerList != null){
