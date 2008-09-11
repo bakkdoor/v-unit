@@ -27,11 +27,6 @@ public class VideoUnit {
 		minuID = newMinuID;
 	}
 
-	public int getID(){
-		 return this.videoID;
-	}
-
-	
 	public static VideoUnit reCreate(int uID, int videoID){
 		return new VideoUnit(uID, videoID);
 	}

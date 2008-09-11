@@ -1,6 +1,8 @@
 package model;
 
 import java.util.LinkedList;
+import java.util.List;
+
 import model.exceptions.*;
 
 import model.exceptions.CurrentDateException;
@@ -17,7 +19,7 @@ public class Video {
 	PriceCategory priceCategory;
 	int ratedAge;
 	final int NotSet = -1;
-	LinkedList<VideoUnit> unitList;
+	List<VideoUnit> unitList;
 	static int minvID;
 	
 	
@@ -49,9 +51,12 @@ public class Video {
 	
 	 
 	public static Video reCreate( int vID, String title, int releaseYear, int priceCategoryID,
-			int ratedAge) throws FalseIDException, EmptyFieldException, FalseFieldException,
+			int ratedAge, List<VideoUnit> videoUnits) throws FalseIDException, EmptyFieldException, FalseFieldException,
 			CurrentDateException{
-		return new Video( minvID, title, releaseYear, priceCategoryID, ratedAge);
+		Video video = new Video( minvID, title, releaseYear, priceCategoryID, ratedAge);
+		video.unitList = videoUnits;
+		
+		return video;
 	}
 	
 	private void checkvID() throws FalseIDException{
