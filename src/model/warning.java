@@ -7,9 +7,11 @@ public class Warning {
 	private int wID;
 	private InRent inRent = null;
 	private int inRentID;
-	
+
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
+
+	public static final float billFactor = 1.5f;
 	
 	public Warning( InRent inRent){
 		this( minwID, inRent.getID());

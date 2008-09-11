@@ -38,6 +38,13 @@ public class DataBase
 		Map<Integer, Customer> customers = costParser.parseCustomers();
 		Map<Integer, Video> videos = vidParser.parseVideos();
 		Map<Integer, InRent> inRents = irParser.parseInRents();
+//		Map<Integer, Warning> warnings = wParser.parseWarnings();
+		
+		PriceCategory.setPriceCategoryList(priceCategories);
+		Customer.setCustomerList(customers);
+		Video.setVideoList(videos);
+		InRent.setInRentList(inRents);
+//		Warning.setWarningList(warnings);
 	}
 
 	/**
