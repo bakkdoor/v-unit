@@ -31,6 +31,7 @@ public class Customer
 	private static Map<Integer, Customer> customerList;
 
 	/**
+	 * public Konstruktor, der von der GUI genutzt wird
 	 * 
 	 * @param firstName
 	 * @param lastName
@@ -60,6 +61,26 @@ public class Customer
 		mincID++;
 	}
 
+	/**
+	 * private Konstruktor, der von der recreate-Methode genutzt wird
+	 * 
+	 * @param cID
+	 * @param firstName
+	 * @param lastName
+	 * @param yearOfBirth
+	 * @param monthOfBirth
+	 * @param dayOfBirth
+	 * @param street
+	 * @param houseNr
+	 * @param zipCode
+	 * @param city
+	 * @param identificationNr
+	 * @param title
+	 * @throws FalseIDException
+	 * @throws EmptyFieldException
+	 * @throws FalseBirthDateException
+	 * @throws CurrentDateException
+	 */
 	private Customer(int cID, String firstName, String lastName,
 			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
