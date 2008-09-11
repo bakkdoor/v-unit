@@ -1,11 +1,18 @@
 package model.data.xml.test;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import main.error.VideothekException;
+import model.CurrentDate;
+import model.Customer;
 import model.Warning;
 import model.data.*;
+import model.data.xml.CustomerParser;
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
 
 /**
  * CustomerParserTest.java
@@ -42,25 +49,45 @@ public class CustomerParserTest extends TestCase
 		super.tearDown();
 	}
 	
-	public void testParseCustomers()
+	public void testParseCustomers() throws EmptyFieldException
 	{
-		assertEquals(true, true);
-	}
-	
-	public void testMap()
-	{
-		Map<Integer, Warning> warnings = new HashMap<Integer, Warning>();
-		Warning w1 = Warning.reCreate(1, 1);
-		Warning w2 = Warning.reCreate(2, 1);
-		Warning w3 = Warning.reCreate(3, 1);
+		try
+		{
+			CurrentDate.set(new Date());
+		}
+		catch (CurrentDateException e2)
+		{
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
-		warnings.put(1, w1);
-		warnings.put(2, w2);
-		warnings.put(3, w3);
+		CustomerParser parser = null;
+		Map<Integer, Customer> parsedCustomers = null;
+		try
+		{
+			parser = new CustomerParser();
+			parsedCustomers = parser.parseCustomers("xml-spec/customers.xml");
+		}
+		catch (VideothekException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		assertEquals(w1, warnings.get(1));
-		assertEquals(w2, warnings.get(2));
-		assertEquals(w3, warnings.get(3));
+		assertNotNull(parsedCustomers);
+		assertEquals(3, parsedCustomers.size());
+		
+		try
+		{	
+			assertEquals("Christopher", parsedCustomers.get(1).getFirstName());
+			assertEquals("Bertels", parsedCustomers.get(1).getLastName());
+			assertEquals("Max", parsedCustomers.get(2).getFirstName());
+			assertEquals("Mustermann", parsedCustomers.get(2).getLastName());
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
 }
