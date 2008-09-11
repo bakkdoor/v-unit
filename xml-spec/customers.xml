@@ -1,4 +1,4 @@
-<customers midID="4">
+<customers minID="4">
 	<customer cID="1" firstName="Christopher" lastName="Bertels" 
 			birthDay="3" birthMonth="2" birthYear="1987"
 			street="Woerthstr." houseNr="7" zipCode="49082" city="Osnabrueck"
