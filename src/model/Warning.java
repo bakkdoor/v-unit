@@ -36,6 +36,16 @@ public class Warning
 		}
 		return this.inRent;
 	}
+	
+	public int getID()
+	{
+		return this.wID;
+	}
+	
+	public int getInRentID()
+	{
+		return this.inRentID;
+	}
 
 	public static Warning reCreate(int wID, int inRentID)
 	{
