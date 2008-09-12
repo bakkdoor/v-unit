@@ -14,13 +14,12 @@ import java.util.Map;
  * Customer.java
  * 
  * @author Andie Hoffmann (andhoffm@uos.de)
- * @date 12.09.2008 
+ * @date 12.09.2008
  * 
- * Diese Klasse liefert Customer-Objekte, die je einen Kunden
- *       der Videothek repräsentieren. Ein Customer verfügt über eine feste,
- *       einzigartige ID, Vor- und Nachnamen, Geburtsdatum, Alter, Adresse,
- *       Personalausweisnummer, Anrede, und optional eine Liste der von ihm
- *       ausgliehenen Videos.
+ * Diese Klasse liefert Customer-Objekte, die je einen Kunden der Videothek
+ * repräsentieren. Ein Customer verfügt über eine feste, einzigartige ID, Vor-
+ * und Nachnamen, Geburtsdatum, Alter, Adresse, Personalausweisnummer, Anrede,
+ * und optional eine Liste der von ihm ausgliehenen Videos.
  */
 public class Customer
 {
@@ -41,42 +40,28 @@ public class Customer
 	/**
 	 * public Konstruktor, der von der GUI genutzt wird
 	 * 
-	 * @param firstName
-	 *            Vorname
-	 * @param lastName
-	 *            Nachname
-	 * @param yearOfBirth
-	 *            Geburtsjahr
-	 * @param monthOfBirth
-	 *            Geburtsmonat
-	 * @param dayOfBirth
-	 *            Geburtstag
-	 * @param street
-	 *            Straße
-	 * @param houseNr
-	 *            Hausnummer
-	 * @param zipCode
-	 *            PLZ
-	 * @param city
-	 *            Stadt
-	 * @param identificationNr
-	 *            Personalausweisnummer
-	 * @param title
-	 *            Anrede
-	 * @throws FalseIDException
-	 *             wird geworfen, wenn eine offensichtlich falsche ID für einen
-	 *             neuen Customer vergeben werden soll
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers leere Felder übergeben bzw. gefunden werden
-	 * @throws FalseBirthDateException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers ein offensichtlich falscher Geburtstag übergeben
-	 *             bzw. gefunden wird
-	 * @throws CurrentDateException
-	 *             wird geworfen, wenn ein noch nicht existentes
-	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
-	 *             CurrentDate nachträglich verändert werden soll
+	 * @param firstName Vorname
+	 * @param lastName Nachname
+	 * @param yearOfBirth Geburtsjahr
+	 * @param monthOfBirth Geburtsmonat
+	 * @param dayOfBirth Geburtstag
+	 * @param street Straße
+	 * @param houseNr Hausnummer
+	 * @param zipCode PLZ
+	 * @param city Stadt
+	 * @param identificationNr Personalausweisnummer
+	 * @param title Anrede
+	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
+	 *             ID für einen neuen Customer vergeben werden soll
+	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
+	 *             gefunden werden
+	 * @throws FalseBirthDateException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers ein offensichtlich falscher
+	 *             Geburtstag übergeben bzw. gefunden wird
+	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
+	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
+	 *             gesetzte CurrentDate nachträglich verändert werden soll
 	 */
 	public Customer(String firstName, String lastName, int yearOfBirth,
 			int monthOfBirth, int dayOfBirth, String street, String houseNr,
@@ -93,44 +78,29 @@ public class Customer
 	/**
 	 * private Konstruktor, der von der recreate-Methode genutzt wird
 	 * 
-	 * @param cID
-	 *            einzigartige und unveränderbare ID des Customers
-	 * @param firstName
-	 *            Vorname
-	 * @param lastName
-	 *            Nachname
-	 * @param yearOfBirth
-	 *            Geburtsjahr
-	 * @param monthOfBirth
-	 *            Geburtsmonat
-	 * @param dayOfBirth
-	 *            Geburtstag
-	 * @param street
-	 *            Straße
-	 * @param houseNr
-	 *            Hausnummer
-	 * @param zipCode
-	 *            PLZ
-	 * @param city
-	 *            Stadt
-	 * @param identificationNr
-	 *            Personalausweisnummer
-	 * @param title
-	 *            Anrede
-	 * @throws FalseIDException
-	 *             wird geworfen, wenn eine offensichtlich falsche ID für einen
-	 *             neuen Customer vergeben werden soll
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers leere Felder übergeben bzw. gefunden werden
-	 * @throws FalseBirthDateException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers ein offensichtlich falscher Geburtstag übergeben
-	 *             bzw. gefunden wird
-	 * @throws CurrentDateException
-	 *             wird geworfen, wenn ein noch nicht existentes
-	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
-	 *             CurrentDate nachträglich verändert werden soll
+	 * @param cID einzigartige und unveränderbare ID des Customers
+	 * @param firstName Vorname
+	 * @param lastName Nachname
+	 * @param yearOfBirth Geburtsjahr
+	 * @param monthOfBirth Geburtsmonat
+	 * @param dayOfBirth Geburtstag
+	 * @param street Straße
+	 * @param houseNr Hausnummer
+	 * @param zipCode PLZ
+	 * @param city Stadt
+	 * @param identificationNr Personalausweisnummer
+	 * @param title Anrede
+	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
+	 *             ID für einen neuen Customer vergeben werden soll
+	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
+	 *             gefunden werden
+	 * @throws FalseBirthDateException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers ein offensichtlich falscher
+	 *             Geburtstag übergeben bzw. gefunden wird
+	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
+	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
+	 *             gesetzte CurrentDate nachträglich verändert werden soll
 	 */
 	private Customer(int cID, String firstName, String lastName,
 			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
@@ -161,46 +131,31 @@ public class Customer
 	}
 
 	/**
-	 * @param cID
-	 *            einzigartige und unveränderbare ID des Customers
-	 * @param firstName
-	 *            Vorname
-	 * @param lastName
-	 *            Nachname
-	 * @param yearOfBirth
-	 *            Geburtsjahr
-	 * @param monthOfBirth
-	 *            Geburtsmonat
-	 * @param dayOfBirth
-	 *            Geburtstag
-	 * @param street
-	 *            Straße
-	 * @param houseNr
-	 *            Hausnummer
-	 * @param zipCode
-	 *            PLZ
-	 * @param city
-	 *            Stadt
-	 * @param identificationNr
-	 *            Personalausweisnummer
-	 * @param title
-	 *            Anrede
+	 * @param cID einzigartige und unveränderbare ID des Customers
+	 * @param firstName Vorname
+	 * @param lastName Nachname
+	 * @param yearOfBirth Geburtsjahr
+	 * @param monthOfBirth Geburtsmonat
+	 * @param dayOfBirth Geburtstag
+	 * @param street Straße
+	 * @param houseNr Hausnummer
+	 * @param zipCode PLZ
+	 * @param city Stadt
+	 * @param identificationNr Personalausweisnummer
+	 * @param title Anrede
 	 * @return liefert einen Customer mit dessen Eigenschaften aus der
 	 *         vorhandenen Kundendatenbank
-	 * @throws FalseIDException
-	 *             wird geworfen, wenn eine offensichtlich falsche ID für einen
-	 *             neuen Customer vergeben werden soll
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers leere Felder übergeben bzw. gefunden werden
-	 * @throws FalseBirthDateException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers ein offensichtlich falscher Geburtstag übergeben
-	 *             bzw. gefunden wird
-	 * @throws CurrentDateException
-	 *             wird geworfen, wenn ein noch nicht existentes
-	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
-	 *             CurrentDate nachträglich verändert werden soll
+	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
+	 *             ID für einen neuen Customer vergeben werden soll
+	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
+	 *             gefunden werden
+	 * @throws FalseBirthDateException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers ein offensichtlich falscher
+	 *             Geburtstag übergeben bzw. gefunden wird
+	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
+	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
+	 *             gesetzte CurrentDate nachträglich verändert werden soll
 	 */
 	public static Customer reCreate(int cID, String firstName, String lastName,
 			int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
@@ -215,13 +170,11 @@ public class Customer
 
 	/**
 	 * 
-	 * @param newcID
-	 *            ID, die einem neuen Customer zugewiesen werden soll
+	 * @param newcID ID, die einem neuen Customer zugewiesen werden soll
 	 * @return true, wenn die übergebene ID offensichtlich falsch ist, true
 	 *         sonst
-	 * @throws FalseIDException
-	 *             wird geworfen, wenn eine offensichtlich falsche ID für einen
-	 *             neuen Customer vergeben werden soll
+	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
+	 *             ID für einen neuen Customer vergeben werden soll
 	 */
 	private boolean correctID(int newcID) throws FalseIDException
 	{
@@ -233,33 +186,22 @@ public class Customer
 
 	/**
 	 * 
-	 * @param firstName
-	 *            Vorname
-	 * @param lastName
-	 *            Nachname
-	 * @param yearOfBirth
-	 *            Geburtsjahr
-	 * @param monthOfBirth
-	 *            Geburtsmonat
-	 * @param dayOfBirth
-	 *            Geburtstag
-	 * @param street
-	 *            Straße
-	 * @param houseNr
-	 *            Hausnummer
-	 * @param zipCode
-	 *            PLZ
-	 * @param city
-	 *            Stadt
-	 * @param identificationNr
-	 *            Personalausweisnummer
-	 * @param title
-	 *            Anrede
+	 * @param firstName Vorname
+	 * @param lastName Nachname
+	 * @param yearOfBirth Geburtsjahr
+	 * @param monthOfBirth Geburtsmonat
+	 * @param dayOfBirth Geburtstag
+	 * @param street Straße
+	 * @param houseNr Hausnummer
+	 * @param zipCode PLZ
+	 * @param city Stadt
+	 * @param identificationNr Personalausweisnummer
+	 * @param title Anrede
 	 * @return true, wenn ein kein leeres oder fehlendes Feld übergeben werden
 	 *         soll
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Anlegen oder Bearbeiten eines
-	 *             Customers leere Felder übergeben bzw. gefunden werden
+	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
+	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
+	 *             gefunden werden
 	 */
 	private boolean noEmptyFields(String firstName, String lastName,
 			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
@@ -281,20 +223,17 @@ public class Customer
 
 	/**
 	 * 
-	 * @param date
-	 *            ist ein Date-Objekt, das Geburtstdatum enthält, das dann auf
+	 * @param date ist ein Date-Objekt, das Geburtstdatum enthält, das dann auf
 	 *            Sinnhaftigkeit überprüft wird, und aus dem das aktuelle Alter
 	 *            entsprechend des CurrentDate berechnet wird. Dieses wird dann
 	 *            in der Instanzvariablen age gespeichert.
 	 * @return true, wenn das Geburtsjahr weder in der Zukunft liegt, noch das
 	 *         Alter < 16 oder > 110 ist.
-	 * @throws FalseBirthDateException,
-	 *             wenn Geburtsjahr in der Zukunft, oder wenn Alter < 16 oder >
-	 *             110
-	 * @throws CurrentDateException
-	 *             wird geworfen, wenn ein noch nicht existentes
-	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
-	 *             CurrentDate nachträglich verändert werden soll
+	 * @throws FalseBirthDateException, wenn Geburtsjahr in der Zukunft, oder
+	 *             wenn Alter < 16 oder > 110
+	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
+	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
+	 *             gesetzte CurrentDate nachträglich verändert werden soll
 	 */
 	private boolean correctBirthDate(Date date) throws FalseBirthDateException,
 			CurrentDateException
@@ -355,11 +294,9 @@ public class Customer
 	/**
 	 * Setzt den Vornamen des Customers
 	 * 
-	 * @param newFirstName
-	 *            neuer Vorname
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Bearbeiten leere Felder übergeben
-	 *             werden sollen
+	 * @param newFirstName neuer Vorname
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
 	 */
 	public void setFirstName(String newFirstName) throws EmptyFieldException
 	{
@@ -380,11 +317,9 @@ public class Customer
 	/**
 	 * setzt den Nachnamen des Customers
 	 * 
-	 * @param newLastName
-	 *            neuer Nachname
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Bearbeiten leere Felder übergeben
-	 *             werden sollen
+	 * @param newLastName neuer Nachname
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
 	 */
 	public void setLastName(String newLastName) throws EmptyFieldException
 	{
@@ -405,18 +340,14 @@ public class Customer
 	/**
 	 * setzt den Geburtstag eines Customers bei Übergabe eines Date-Objektes
 	 * 
-	 * @param newBirthDate
-	 *            neuer Geburtstag als Date
-	 * @throws EmptyFieldException
-	 *             wird geworfen, wenn beim Bearbeiten leere Felder übergeben
-	 *             werden sollen
-	 * @throws FalseBirthDateException,
-	 *             wenn Geburtsjahr in der Zukunft, oder wenn Alter < 16 oder >
-	 *             110
-	 * @throws CurrentDateException
-	 *             wird geworfen, wenn ein noch nicht existentes
-	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
-	 *             CurrentDate nachträglich verändert werden soll
+	 * @param newBirthDate neuer Geburtstag als Date
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
+	 * @throws FalseBirthDateException, wenn Geburtsjahr in der Zukunft, oder
+	 *             wenn Alter < 16 oder > 110
+	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
+	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
+	 *             gesetzte CurrentDate nachträglich verändert werden soll
 	 */
 	public void setBirthDate(Date newBirthDate) throws EmptyFieldException,
 			FalseBirthDateException, CurrentDateException
@@ -468,7 +399,7 @@ public class Customer
 
 	public void setZipCode(int newZipCode) throws FalseFieldException
 	{
-		if (newZipCode < 1)
+		if (newZipCode < 0)
 			this.zipCode = newZipCode;
 		else
 			throw new FalseFieldException("Keine/falsche PLZ eingegeben");
@@ -502,11 +433,18 @@ public class Customer
 					"Keine Personalausweisenummer eingegeben");
 	}
 
-	public static void setMinID(int newMincID)
+	public static void setMinID(int newMincID) throws FalseIDException
 	{
-		mincID = newMincID;
+		if (newMincID > 0)
+		{
+			mincID = newMincID;
+		}
+		else
+		{
+			throw new FalseIDException(
+					"Übergebene MinID für InRent ist kleiner 0!!!");
+		}
 	}
-
 
 	/**
 	 * Gibt die Menge aller Customer-Objekte zurück, die existieren.
@@ -517,7 +455,7 @@ public class Customer
 	{
 		return customerList.values();
 	}
-	
+
 	public static Customer findByID(int customerID)
 			throws RecordNotFoundException
 	{
@@ -556,41 +494,47 @@ public class Customer
 				foundCustomers.add(c);
 			}
 		}
-		
+
 		return foundCustomers;
 	}
 
-	public static Customer findByIdentificationNr(String identificationNr) throws RecordNotFoundException
+	public static Customer findByIdentificationNr(String identificationNr)
+			throws RecordNotFoundException
 	{
-		for(Customer c : customerList.values())
+		for (Customer c : customerList.values())
 		{
-			if(c.identificationNr == identificationNr)
+			if (c.identificationNr == identificationNr)
 			{
 				return c;
 			}
 		}
-		
-		throw new RecordNotFoundException("Kunde", "Ausweisnummer", identificationNr);
+
+		throw new RecordNotFoundException("Kunde", "Ausweisnummer",
+				identificationNr);
 	}
-	
+
 	public static Collection<Customer> findByCity(String city)
 	{
 		Collection<Customer> foundCustomers = new LinkedList<Customer>();
-		for(Customer c : customerList.values())
+		for (Customer c : customerList.values())
 		{
-			if(c.city.startsWith(city))
+			if (c.city.startsWith(city))
 			{
 				foundCustomers.add(c);
 			}
 		}
 		return foundCustomers;
 	}
-	
-	public static void setCustomerList(Map<Integer, Customer> newCustomerList)
+
+	public static void setCustomerList(Map<Integer, Customer> newCustomerList) throws FalseFieldException
 	{
 		if (newCustomerList != null)
 		{
 			customerList = newCustomerList;
+		}
+		else
+		{
+			throw new FalseFieldException("CustomerList is null!");
 		}
 	}
 }

@@ -47,14 +47,14 @@ public class VideoParserTest extends AbstractParserTest
 			
 			assertEquals(1, rambo.getID());
 			assertEquals("Rambo", rambo.getTitle());
-			assertEquals(1970, rambo.getReleaseYear());
+			assertEquals(1982, rambo.getReleaseYear());
 			assertEquals(1, rambo.getPriceCategoryID());
 			assertEquals(18, rambo.getRatedAge());
 			assertEquals(2, rambo.getVideoUnits().size());
 			
 			assertEquals(2, casinoRoyale.getID());
 			assertEquals("Casino Royale", casinoRoyale.getTitle());
-			assertEquals(2005, casinoRoyale.getReleaseYear());
+			assertEquals(2006, casinoRoyale.getReleaseYear());
 			assertEquals(2, casinoRoyale.getPriceCategoryID());
 			assertEquals(16, casinoRoyale.getRatedAge());
 			assertEquals(3, casinoRoyale.getVideoUnits().size());
