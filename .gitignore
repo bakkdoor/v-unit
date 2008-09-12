@@ -4,3 +4,4 @@ bin/*
 *.project
 .settings/*
 management/Thumbs.db
+Videothek.log

@@ -1,35 +1,28 @@
 package model.data.xml.test;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
 import main.error.VideothekException;
-import model.CurrentDate;
-import model.Customer;
-import model.Warning;
-import model.data.*;
-import model.data.xml.CustomerParser;
+import model.*;
+import model.data.xml.*;
 import model.exceptions.CurrentDateException;
-import model.exceptions.EmptyFieldException;
+import junit.framework.TestCase;
 
 /**
- * CustomerParserTest.java
+ * InRentParserTest.java
  * @author Christopher Bertels (chbertel@uos.de)
- * @date 10.09.2008
- * 
- * Testet CustomerParser Klasse.
+ * @date 12.09.2008
  */
-public class CustomerParserTest extends TestCase
+public class InRentParserTest extends TestCase
 {
-	CustomerParser parser = null;
-	Map<Integer, Customer> parsedCustomers = null;
-	
+
+	InRentParser parser = null;
+	Map<Integer, InRent> parsedInRents = null;
 	/**
 	 * @param name
 	 */
-	public CustomerParserTest(String name)
+	public InRentParserTest(String name)
 	{
 		super(name);
 	}
@@ -50,7 +43,6 @@ public class CustomerParserTest extends TestCase
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -61,13 +53,12 @@ public class CustomerParserTest extends TestCase
 		super.tearDown();
 	}
 	
-	public void testParseCustomers() throws EmptyFieldException
+	public void testParseInRents()
 	{
-		
 		try
 		{
-			parser = new CustomerParser();
-			parsedCustomers = parser.parseCustomers("xml-spec/customers.xml");
+			parser = new InRentParser();
+			parsedInRents = parser.parseInRents()("xml-spec/inRents.xml");
 		}
 		catch (VideothekException e1)
 		{
@@ -91,4 +82,5 @@ public class CustomerParserTest extends TestCase
 			e.printStackTrace();
 		}
 	}
+
 }
