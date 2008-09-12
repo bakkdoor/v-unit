@@ -31,7 +31,7 @@ public class CustomerDataDialog  {
 		
 	}
 	
-	public CustomerDataDialog(Frame owner, String dialogName,
+	public CustomerDataDialog(Frame owner, String dialogName, boolean editable,
 					Integer CID, 
 					String title, 
 					String firstName, 
@@ -72,7 +72,7 @@ public class CustomerDataDialog  {
 		JLabel labelLastName = new JLabel("Nachname:");
 		JTextField textFieldLastName = new JTextField();
 		textFieldLastName.setText(Lastname);
-		textFieldLastName.setEditable(false);
+		textFieldLastName.setEditable(editable);
 		
 		// Geburtsdatum erzeugen
 		JLabel labelBirthDay = new JLabel("Geburtsdatum:");
@@ -82,9 +82,12 @@ public class CustomerDataDialog  {
 		
 		// Geburtsdatum setzen
 		Integer[] bDate = this.convertDate(birthDate);
-		comboBoxBirthDay.setSelectedIndex(bDate[0]);
-		comboBoxBirthMonth.setSelectedIndex(bDate[1]);
-		textFieldBirthYear.setText(bDate[2].toString());
+		comboBoxBirthDay.setSelectedIndex(bDate[2]-1);
+		comboBoxBirthDay.setEnabled(editable);
+		comboBoxBirthMonth.setSelectedIndex(bDate[1]-1);
+		comboBoxBirthMonth.setEnabled(editable);
+		textFieldBirthYear.setText(bDate[0].toString());
+		textFieldBirthYear.setEditable(editable);
 		
 		// Anschrift erzeugen
 		JLabel labelAddress = new JLabel("Anschrift:");
@@ -157,7 +160,7 @@ public class CustomerDataDialog  {
 	
 	private String[] createMonthCollection(){
 		
-		return new String[] 	{"Januar", "Februar", "März", "April", "Mai", 
+		return new String[] 	{"Januar", "Februar", "März", "April", "Mai", "Juni", "juli",
 								"August", "September", "Oktober", "November", "Dezember"};
 	}
 
@@ -181,23 +184,23 @@ public class CustomerDataDialog  {
 		gridBagConstContainerDataDialog.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstContainerDataDialog.insets = new Insets(3,3,3,3);
 		customerDataContainer.add(component, gridBagConstContainerDataDialog);
-		
 	}
 	
+	@SuppressWarnings("deprecation")
 	private Integer[] convertDate(Date date) {
 		Integer[] dateArr = new Integer[3];
-		dateArr[0] = date.getDay();
+		dateArr[0] = date.getYear();
 		dateArr[1] = date.getMonth();
-		dateArr[2] = date.getYear();
+		dateArr[2] = date.getDay();
 		return dateArr;
 	}
 	
 	public static void main(String[] argv) {
 
-		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null, "KundenDialog", 
+		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null, "KundenDialog", false,
 				123, 
 				"Frau", "Olga", "Baranouskaya", 
-				new Date(2001,12,23), 
+				new Date(2001,8,45), 
 				"Nirgendstr.", "2a", 
 				12341, "Nieburgen");
 	}
