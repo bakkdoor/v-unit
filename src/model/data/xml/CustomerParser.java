@@ -36,7 +36,6 @@ public class CustomerParser extends AbstractParser
 		super("customers");
 
 		customerMap = new HashMap<Integer, Customer>();
-		// parseCustomers();
 	}
 
 	/**
@@ -86,6 +85,8 @@ public class CustomerParser extends AbstractParser
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
+			
+			Customer.setMinID(minId);
 		}
 		else if (tagname == "customer")
 		{
@@ -137,7 +138,10 @@ public class CustomerParser extends AbstractParser
 				e.printStackTrace();
 			}
 
-			this.customerMap.put(cID, newCustomer);
+			if (newCustomer != null)
+			{
+				this.customerMap.put(cID, newCustomer);
+			}
 		}
 	}
 

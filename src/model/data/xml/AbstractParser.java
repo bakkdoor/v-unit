@@ -74,4 +74,9 @@ public class AbstractParser extends DefaultHandler
 			}
 		}
 	}
+	
+	public int getMinID()
+	{
+		return this.minId;
+	}
 }

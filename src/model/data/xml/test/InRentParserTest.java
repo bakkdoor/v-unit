@@ -19,6 +19,7 @@ public class InRentParserTest extends TestCase
 
 	InRentParser parser = null;
 	Map<Integer, InRent> parsedInRents = null;
+	
 	/**
 	 * @param name
 	 */
@@ -58,7 +59,7 @@ public class InRentParserTest extends TestCase
 		try
 		{
 			parser = new InRentParser();
-			parsedInRents = parser.parseInRents()("xml-spec/inRents.xml");
+			parsedInRents = parser.parseInRents("xml-spec/inRents.xml");
 		}
 		catch (VideothekException e1)
 		{
@@ -66,15 +67,13 @@ public class InRentParserTest extends TestCase
 			e1.printStackTrace();
 		}
 		
-		assertNotNull(parsedCustomers);
-		assertEquals(3, parsedCustomers.size());
+		assertNotNull(parsedInRents);
+		assertEquals(2, parsedInRents.size());
 		
 		try
 		{	
-			assertEquals("Christopher", parsedCustomers.get(1).getFirstName());
-			assertEquals("Bertels", parsedCustomers.get(1).getLastName());
-			assertEquals("Max", parsedCustomers.get(2).getFirstName());
-			assertEquals("Mustermann", parsedCustomers.get(2).getLastName());
+			assertEquals(1, parsedInRents.get(1).getID());
+			assertEquals(2, parsedInRents.get(2).getID());
 		}
 		catch (Exception e)
 		{

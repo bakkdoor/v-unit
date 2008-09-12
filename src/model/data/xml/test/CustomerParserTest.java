@@ -43,7 +43,9 @@ public class CustomerParserTest extends TestCase
 
 		try
 		{
-			CurrentDate.set(new Date());
+			CurrentDate.set(new Date(System.currentTimeMillis()));
+			
+			System.out.println("Aktuelles Jahr: " + CurrentDate.get().getYear());
 		}
 		catch (CurrentDateException e2)
 		{
@@ -77,6 +79,7 @@ public class CustomerParserTest extends TestCase
 		
 		assertNotNull(parsedCustomers);
 		assertEquals(3, parsedCustomers.size());
+		assertEquals(4, parser.getMinID());
 		
 		try
 		{	

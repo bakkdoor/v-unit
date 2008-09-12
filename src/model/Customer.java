@@ -89,8 +89,8 @@ public class Customer
 	{
 		Date newDate = new Date(yearOfBirth, monthOfBirth, dayOfBirth);
 		
-		if( correctID(cID)	&&	noEmptyFields(firstName, lastName, yearOfBirth, monthOfBirth, dayOfBirth, 
-				street, houseNr, zipCode, city,	identificationNr, title)	&&	correctBirthDate(newDate))
+		if( correctID(cID) && noEmptyFields(firstName, lastName, yearOfBirth, monthOfBirth, dayOfBirth, 
+				street, houseNr, zipCode, city,	identificationNr, title) &&	correctBirthDate(newDate))
 		{	
 			this.cID = cID;
 			this.firstName = firstName;
@@ -127,7 +127,7 @@ public class Customer
 	private boolean noEmptyFields( String firstName, String lastName, int yearOfBirth,
 			int monthOfBirth, int dayOfBirth, String street, String houseNr,
 			int zipCode, String city, String identificationNr, String title ) throws EmptyFieldException
-	{
+	{	
 		if ( firstName == null || firstName == ""
 			|| lastName == null || lastName == ""
 			|| yearOfBirth == 0 || monthOfBirth == 0 || dayOfBirth == 0
@@ -136,8 +136,7 @@ public class Customer
 			|| zipCode == 0
 			|| city == null || city == ""
 			|| identificationNr == null	|| identificationNr == "" 
-			|| title == null|| title == "" 
-			|| rentList == null )
+			|| title == null|| title == "")
 			throw new EmptyFieldException();
 		else return true;
 	}
@@ -157,7 +156,8 @@ public class Customer
 		int diffDay = currentDay - birthDay;
 
 		if (diffYear < 0 || diffYear > 110)
-			throw new FalseBirthDateException("Bitte Geburtsjahr überprüfen");
+			throw new FalseBirthDateException(
+					"Bitte Geburtsjahr überprüfen: " + currentYear + "-" + birthYear + "=" + diffYear);
 
 		if (diffMonth < 0)
 			diffYear--;

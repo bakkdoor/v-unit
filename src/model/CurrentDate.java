@@ -19,7 +19,10 @@ public class CurrentDate
 	public static void set(Date newCurrentDate) throws CurrentDateException
 	{
 		if (currentDate == null)
+		{
 			currentDate = newCurrentDate;
+			currentDate.setYear(currentDate.getYear() + 1900); // jahr immer nur ab 1900...
+		}
 		else
 			throw new CurrentDateException("Zeit schon gesetzt");
 	}

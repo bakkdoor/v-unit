@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.jar.Attributes;
 
 import javax.xml.parsers.SAXParser;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import main.error.VideothekException;
 import model.exceptions.*;
 import model.InRent;
 import model.data.exceptions.DataException;
@@ -22,19 +23,21 @@ import model.data.exceptions.DataException;
  */
 public class InRentParser extends AbstractParser
 {
-	private Map<Integer, InRent> inRents = new HashMap<Integer, InRent>();
+	private Map<Integer, InRent> inRents = null;
 
 	public InRentParser()
 	{
 		super("inRents");
+		
+		inRents = new HashMap<Integer, InRent>();
 	}
 
-	public Map<Integer, InRent> parseInRents() throws DataException
+	public Map<Integer, InRent> parseInRents(String inRentsFile) throws DataException
 	{
 		try
 		{
 			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse("inRents.xml", this);
+			parser.parse(inRentsFile, this);
 		}
 		catch (SAXException ex)
 		{
@@ -58,8 +61,7 @@ public class InRentParser extends AbstractParser
 	 * Eventhandler für neue Elemente im XML-Dokument
 	 */
 	public void startElement(String uri, String localName, String qName,
-			Attributes attributes) throws SAXException, FalseIDException,
-			EmptyFieldException, FalseBirthDateException, FalseFieldException, CurrentDateException
+			Attributes attributes) throws SAXException
 	{
 		String tagname = qName.toLowerCase();
 
@@ -86,9 +88,21 @@ public class InRentParser extends AbstractParser
 
 			// TODO: constructor muss angepasst werden!
 
-			InRent newInRent = InRent.reCreate(rID, customerID, videoUnitID, new Date(year, month, day), duration);
-
-			this.inRents.put(rID, newInRent);
+			InRent newInRent = null;
+			try
+			{
+				newInRent = InRent.reCreate(rID, customerID, videoUnitID, new Date(year, month, day), duration);
+			}
+			catch (VideothekException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(newInRent != null)
+			{
+				this.inRents.put(rID, newInRent);
+			}
 		}
 	}
 
