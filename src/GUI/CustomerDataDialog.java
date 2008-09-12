@@ -20,35 +20,66 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 public class CustomerDataDialog  {
 	
+	// Dialogdtanen
 	private Frame owner;
 	private JDialog customerDataDialog;
+	private boolean addCustomer = false;
 	
-	public CustomerDataDialog(Frame owner, String dialogName) {
+	// KundenDaten
+	private Integer CID;
+	private String title;
+	private String firstName;
+	private String Lastname;
+	private Date birthDate;
+	private String street;
+	private String housNr;
+	private Integer zipCode;
+	private String city;
+	
+	
+	public CustomerDataDialog(Frame owner) {
 		
-		
+		this(owner, 0, "", "", "", new Date(2000, 1,1), "", "", new Integer(0), "");
 	}
 	
-	public CustomerDataDialog(Frame owner, String dialogName, boolean editable,
-					Integer CID, 
-					String title, 
-					String firstName, 
-					String Lastname, 
-					Date birthDate, 
-					String street, String housNr, 
-					Integer zipCode, String city) {
+	public CustomerDataDialog(Frame owner,  
+								Integer CID, 
+								String title, 
+								String firstName, 
+								String Lastname, 
+								Date birthDate, 
+								String street, String housNr, 
+								Integer zipCode, String city) {
 		
 		this.owner = owner;
-		this.customerDataDialog = new JDialog(owner, dialogName);
-		customerDataDialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+		this.CID = CID;
+		this.title = title;
+		this.firstName = firstName;
+		this.Lastname = Lastname;
+		this.birthDate = birthDate;
+		this.street = street;
+		this.housNr = housNr;
+		this.zipCode = zipCode;
+		this.city = city;
+		this.addCustomer = this.CID.equals(new Integer(0));
 		
-		Container customerDataContainer = customerDataDialog.getContentPane();
-		customerDataContainer.setLayout(new GridBagLayout());
+		// Dialog erzeugen
+		String dialogName = "Kunde " + (addCustomer ? "anlegen" : "bearbeiten");
+		this.customerDataDialog = new JDialog(owner, dialogName, true);
+		customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
+		// LauoutManager einstellen
+		Container contentPane = customerDataDialog.getContentPane();
+		contentPane.setLayout(new GridBagLayout());
 		
-		// ***************************************************************
+		this.fillDataDialog();
+	} 
+	
+	private void fillDataDialog () {
 		
 		// KundenNr erzeugen
 		JLabel labelID = new JLabel("KundenNr.:");
@@ -60,19 +91,19 @@ public class CustomerDataDialog  {
 		JLabel labelTitle = new JLabel("Anrede:");
 		JTextField textFieldTitle = new JTextField();
 		textFieldTitle.setText(title);
-		textFieldTitle.setEditable(false);
+		textFieldTitle.setEditable(addCustomer);
 		
 		// Vorname erzeugen
 		JLabel labelFirstName = new JLabel("Vorname:");
 		JTextField textFieldFirstName = new JTextField();
 		textFieldFirstName.setText(firstName);
-		textFieldFirstName.setEditable(false);
+		textFieldFirstName.setEditable(addCustomer);
 		
 		// Nachname erzeugen
 		JLabel labelLastName = new JLabel("Nachname:");
 		JTextField textFieldLastName = new JTextField();
 		textFieldLastName.setText(Lastname);
-		textFieldLastName.setEditable(editable);
+		textFieldLastName.setEditable(addCustomer);
 		
 		// Geburtsdatum erzeugen
 		JLabel labelBirthDay = new JLabel("Geburtsdatum:");
@@ -83,11 +114,11 @@ public class CustomerDataDialog  {
 		// Geburtsdatum setzen
 		Integer[] bDate = this.convertDate(birthDate);
 		comboBoxBirthDay.setSelectedIndex(bDate[2]-1);
-		comboBoxBirthDay.setEnabled(editable);
+		comboBoxBirthDay.setEnabled(addCustomer);
 		comboBoxBirthMonth.setSelectedIndex(bDate[1]-1);
-		comboBoxBirthMonth.setEnabled(editable);
+		comboBoxBirthMonth.setEnabled(addCustomer);
 		textFieldBirthYear.setText(bDate[0].toString());
-		textFieldBirthYear.setEditable(editable);
+		textFieldBirthYear.setEditable(addCustomer);
 		
 		// Anschrift erzeugen
 		JLabel labelAddress = new JLabel("Anschrift:");
@@ -104,6 +135,15 @@ public class CustomerDataDialog  {
 		
 		// Übernehmen Button erzeugen
 		JButton buttonCancel = new JButton("Abbrechen");
+		buttonCancel.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				
+			}
+			
+		});
 		JButton buttonAdd = new JButton("Bestätigen");
 		
 		// ***************************************************************
@@ -139,17 +179,11 @@ public class CustomerDataDialog  {
 		this.customerDataDialog.pack();
 		this.customerDataDialog.setResizable(false);
 		this.customerDataDialog.setVisible(true);
-		
 	}
 	
 	private Integer[] createDayCollection() {
 		
 		Integer[] dayCollection = new Integer[31];
-		
-//		for(int day : dayCollection) {
-//			
-//			dayCollection[day] = new Integer(day+1);
-//		}
 		
 		for(int index = 0; index < dayCollection.length; index++) {
 			dayCollection[index] = new Integer(index+1);
@@ -169,7 +203,6 @@ public class CustomerDataDialog  {
 													double widthx, double widthy) {
 		
 		Container customerDataContainer = this.customerDataDialog.getContentPane();
-		GridBagLayout gridBagLayoutContainerDataDialog = (GridBagLayout) customerDataContainer.getLayout();
 		GridBagConstraints gridBagConstContainerDataDialog = new GridBagConstraints();
 		
 		gridBagConstContainerDataDialog.gridx = x;
@@ -185,8 +218,7 @@ public class CustomerDataDialog  {
 		gridBagConstContainerDataDialog.insets = new Insets(3,3,3,3);
 		customerDataContainer.add(component, gridBagConstContainerDataDialog);
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	private Integer[] convertDate(Date date) {
 		Integer[] dateArr = new Integer[3];
 		dateArr[0] = date.getYear();
@@ -197,11 +229,13 @@ public class CustomerDataDialog  {
 	
 	public static void main(String[] argv) {
 
-		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null, "KundenDialog", false,
+		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null,
 				123, 
 				"Frau", "Olga", "Baranouskaya", 
 				new Date(2001,8,45), 
 				"Nirgendstr.", "2a", 
 				12341, "Nieburgen");
+		
+//		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null);
 	}
 }
