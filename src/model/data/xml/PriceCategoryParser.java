@@ -10,6 +10,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import model.data.exceptions.*;
+import model.Data;
 import model.PriceCategory;
 
 /**
@@ -17,17 +18,29 @@ import model.PriceCategory;
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 10.09.2008
+ * 
+ * Parser-Klasse für PriceCategory-Objekte.
  */
 public class PriceCategoryParser extends AbstractParser
 {
-	private Map<Integer,PriceCategory> priceCategoriesMap = new HashMap<Integer,PriceCategory> ();
+	private Map<Integer, PriceCategory> priceCategoriesMap = new HashMap<Integer, PriceCategory>();
 
 	public PriceCategoryParser()
 	{
 		super("priceCategories");
 	}
 
-	public Map<Integer,PriceCategory> parsePriceCategories(String priceCategoriesFile) throws DataException
+	/**
+	 * XML-Dokument für PriceCategories durchlaufen und in die Liste packen.
+	 * 
+	 * @param priceCategoriesFile
+	 *            Dateiname bzw. -pfad der priceCategories.xml
+	 * @return Liste von eingelesenen PriceCategories
+	 * @throws Exception
+	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 */
+	public Map<Integer, PriceCategory> parsePriceCategories(
+			String priceCategoriesFile) throws DataException
 	{
 		try
 		{
@@ -60,30 +73,32 @@ public class PriceCategoryParser extends AbstractParser
 	{
 		String tagname = qName;
 
-		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "priceCategories")
+		if (tagname == "priceCategories") // öffnendes tag <priceCategories>
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
 			PriceCategory.setMinID(minId);
 		}
-		else if (tagname == "priceCategory")
+		else if (tagname == "priceCategory") // öffnendes tag <priceCategory>
 		{
-			int pID = -1; // TODO: anstatt -1 sollte hier konstante aus Klasse
-							// gewählt werden
-			float price = 0.0f;
+			int pID = Data.NOTSET;
+			float price = Data.NOTSET;
 			String name;
 
 			pID = Integer.parseInt(attributes.getValue("pID"));
 			name = attributes.getValue("name");
 			price = Float.parseFloat(attributes.getValue("price"));
 
-			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name, price);
+			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name,
+					price);
 
 			this.priceCategoriesMap.put(pID, newPriceCategory);
 		}
 	}
 
+	/**
+	 * Eventhandler für schließende XML-Elemente
+	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{

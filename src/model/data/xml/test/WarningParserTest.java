@@ -6,7 +6,7 @@ import main.error.VideothekException;
 import model.*;
 import model.data.xml.*;
 
-public class WarningParserTest extends ParserTest
+public class WarningParserTest extends AbstractParserTest
 {
 	WarningParser parser = null;
 	Map<Integer, Warning> parsedWarnings = null;

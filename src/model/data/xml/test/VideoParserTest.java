@@ -6,7 +6,7 @@ import main.error.VideothekException;
 import model.*;
 import model.data.xml.*;
 
-public class VideoParserTest extends ParserTest
+public class VideoParserTest extends AbstractParserTest
 {
 
 	VideoParser parser = null;

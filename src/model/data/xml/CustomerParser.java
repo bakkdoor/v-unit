@@ -5,8 +5,8 @@ import java.util.*;
 
 import javax.xml.parsers.SAXParser;
 
+import main.error.VideothekException;
 import model.Customer;
-import model.exceptions.*;
 import model.data.exceptions.DataException;
 
 import org.xml.sax.Attributes;
@@ -17,12 +17,18 @@ import org.xml.sax.SAXException;
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 09.09.2008
+ * 
+ * Parser-Klasse für Customer-Objekte.
  */
 public class CustomerParser extends AbstractParser
 {
 	private Map<Integer, Customer> customerMap = null;
 
-	public CustomerParser() throws DataException
+	/**
+	 * Konstruktor für CustomerParser.
+	 * @throws DataException
+	 */
+	public CustomerParser()
 	{
 		super("customers");
 
@@ -30,8 +36,8 @@ public class CustomerParser extends AbstractParser
 	}
 
 	/**
-	 * XML-Dokument (customers.xml) durchlaufen und in die Liste packen.
-	 * 
+	 * XML-Dokument für Customers durchlaufen und in die Liste packen.
+	 * @param customersFile Dateiname bzw. -pfad der customers.xml
 	 * @return Liste von eingelesenen Customers
 	 * @throws Exception
 	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
@@ -62,8 +68,8 @@ public class CustomerParser extends AbstractParser
 		return this.customerMap;
 	}
 
-	/*
-	 * Eventhandler für neue Elemente im XML-Dokument
+	/**
+	 * Eventhandler für neue Elemente im XML-Dokument.
 	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException
@@ -76,11 +82,12 @@ public class CustomerParser extends AbstractParser
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
-			
+
 			Customer.setMinID(minId);
 		}
-		else if (tagname == "customer")
+		else if (tagname == "customer") // öffnendes tag <customer>
 		{
+			// daten einlesen aus xml-datei (jeweils attribute, siehe xml-spec)
 			int cID = -1;
 			int zipCode, dayOfBirth, monthOfBirth, yearOfBirth = -1;
 			String firstName, lastName, street, houseNr, city, identificationNr, title;
@@ -93,7 +100,7 @@ public class CustomerParser extends AbstractParser
 			dayOfBirth = Integer.parseInt(birthDate[0]);
 			monthOfBirth = Integer.parseInt(birthDate[1]);
 			yearOfBirth = Integer.parseInt(birthDate[2]);
-			
+
 			street = attributes.getValue("street");
 			houseNr = attributes.getValue("houseNr");
 			zipCode = Integer.parseInt(attributes.getValue("zipCode"));
@@ -109,25 +116,9 @@ public class CustomerParser extends AbstractParser
 						yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
 						zipCode, city, identificationNr, title);
 			}
-			catch (FalseIDException e)
+			catch (VideothekException e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (EmptyFieldException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (FalseBirthDateException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (CurrentDateException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 
 			if (newCustomer != null)
@@ -137,6 +128,9 @@ public class CustomerParser extends AbstractParser
 		}
 	}
 
+	/**
+	 * Eventhandler für schließende XML-Elemente
+	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{

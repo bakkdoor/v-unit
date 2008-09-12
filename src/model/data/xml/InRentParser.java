@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 
 import main.error.VideothekException;
 import model.exceptions.*;
+import model.Data;
 import model.InRent;
 import model.data.exceptions.DataException;
 
@@ -20,19 +21,34 @@ import model.data.exceptions.DataException;
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 10.09.2008
+ * 
+ * Parser-Klasse für InRent-Objekte.
  */
 public class InRentParser extends AbstractParser
 {
 	private Map<Integer, InRent> inRents = null;
 
+	/**
+	 * Konstruktor für InRentParser.
+	 */
 	public InRentParser()
 	{
 		super("inRents");
-		
+
 		inRents = new HashMap<Integer, InRent>();
 	}
 
-	public Map<Integer, InRent> parseInRents(String inRentsFile) throws DataException
+	/**
+	 * XML-Dokument für InRents durchlaufen und in die Liste packen.
+	 * 
+	 * @param inRentsFile
+	 *            Dateiname bzw. -pfad der inRents.xml
+	 * @return Liste von eingelesenen InRents
+	 * @throws Exception
+	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 */
+	public Map<Integer, InRent> parseInRents(String inRentsFile)
+			throws DataException
 	{
 		try
 		{
@@ -65,9 +81,8 @@ public class InRentParser extends AbstractParser
 	{
 		super.startElement(uri, localName, qName, attributes);
 		String tagname = qName;
-		
-		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "inRents")
+
+		if (tagname == "inRents") // öffnendes tag <inRents> (mainTag)
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
@@ -82,11 +97,9 @@ public class InRentParser extends AbstractParser
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 		}
-		else if (tagname == "inRent")
+		else if (tagname == "inRent") // öffnendes tag <inRent>
 		{
-			// TODO: anstatt -1 sollte hier konstante aus Klasse
-			// gewählt werden
-			int rID, customerID, videoUnitID, day, month, year, duration = -1;
+			int rID, customerID, videoUnitID, day, month, year, duration = Data.NOTSET;
 
 			rID = Integer.parseInt(attributes.getValue("rID"));
 			customerID = Integer.parseInt(attributes.getValue("rID"));
@@ -97,26 +110,29 @@ public class InRentParser extends AbstractParser
 			year = Integer.parseInt(date[2]);
 			duration = Integer.parseInt(attributes.getValue("duration"));
 
-			// TODO: constructor muss angepasst werden!
-
+			// Neues InRent objekt erstellen und in liste packen.
 			InRent newInRent = null;
 			try
 			{
-				newInRent = InRent.reCreate(rID, customerID, videoUnitID, new Date(year, month, day), duration);
+				newInRent = InRent.reCreate(rID, customerID, videoUnitID,
+						new Date(year, month, day), duration);
 			}
 			catch (VideothekException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if(newInRent != null)
+
+			if (newInRent != null)
 			{
 				this.inRents.put(rID, newInRent);
 			}
 		}
 	}
 
+	/**
+	 * Eventhandler für schließende XML-Elemente
+	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{

@@ -14,7 +14,7 @@ import model.exceptions.EmptyFieldException;
  * 
  * Testet CustomerParser Klasse.
  */
-public class CustomerParserTest extends ParserTest
+public class CustomerParserTest extends AbstractParserTest
 {
 	CustomerParser parser = null;
 	Map<Integer, Customer> parsedCustomers = null;

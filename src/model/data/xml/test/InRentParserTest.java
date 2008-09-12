@@ -12,7 +12,7 @@ import model.data.xml.*;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 12.09.2008
  */
-public class InRentParserTest extends ParserTest
+public class InRentParserTest extends AbstractParserTest
 {
 
 	InRentParser parser = null;

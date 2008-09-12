@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 
+import model.Data;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.*;
@@ -13,12 +14,13 @@ import model.data.exceptions.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-
 /**
  * VideoParser.java
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 10.09.2008
+ * 
+ * Parser-Klasse für Video-Objekte.
  */
 public class VideoParser extends AbstractParser
 {
@@ -26,9 +28,9 @@ public class VideoParser extends AbstractParser
 
 	private Map<Integer, VideoUnit> videoUnits = new HashMap<Integer, VideoUnit>();
 
-	private int vID, releaseYear, priceCategoryID, ratedAge = -1;
+	private int vID, releaseYear, priceCategoryID, ratedAge = Data.NOTSET;
 	private String title;
-	
+
 	private int minVideoUnitID;
 
 	public VideoParser()
@@ -36,7 +38,17 @@ public class VideoParser extends AbstractParser
 		super("videos");
 	}
 
-	public Map<Integer, Video> parseVideos(String videosFile) throws DataException
+	/**
+	 * XML-Dokument für Videos & VideoUnits durchlaufen und in die Liste packen.
+	 * 
+	 * @param videosFile
+	 *            Dateiname bzw. -pfad der videos.xml
+	 * @return Liste von eingelesenen Videos
+	 * @throws Exception
+	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 */
+	public Map<Integer, Video> parseVideos(String videosFile)
+			throws DataException
 	{
 		try
 		{
@@ -68,16 +80,17 @@ public class VideoParser extends AbstractParser
 			Attributes attributes) throws SAXException
 	{
 		String tagname = qName;
-		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "videos")
+
+		if (tagname == "videos") // öffnendes tag <videos>
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
 			Video.setMinID(minId);
-			minVideoUnitID = Integer.parseInt(attributes.getValue("minVideoUnitID"));
+			minVideoUnitID = Integer.parseInt(attributes
+					.getValue("minVideoUnitID"));
 			VideoUnit.setMinID(minVideoUnitID);
 		}
-		else if (tagname == "video")
+		else if (tagname == "video") // öffnendes tag <video>
 		{
 			vID = Integer.parseInt(attributes.getValue("vID"));
 			releaseYear = Integer.parseInt(attributes.getValue("releaseYear"));
@@ -86,22 +99,25 @@ public class VideoParser extends AbstractParser
 			ratedAge = Integer.parseInt(attributes.getValue("ratedAge"));
 			title = attributes.getValue("title");
 		}
-		else if(tagname == "videoUnit")
+		else if (tagname == "videoUnit") // öffnendes tag <videoUnit>
 		{
 			int uID, videoID = -1;
 			uID = Integer.parseInt(attributes.getValue("uID"));
 			videoID = Integer.parseInt(attributes.getValue("videoID"));
-			// TODO: Es muss noch beziehung zu Video erstellt (Referenz) sowie Konstruktor anpasst werden
+
 			VideoUnit newVideoUnit = VideoUnit.reCreate(uID, videoID);
 			this.videoUnits.put(uID, newVideoUnit);
 		}
 	}
 
+	/**
+	 * Eventhandler für schließende XML-Elemente
+	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{
 		super.endElement(uri, localName, qName);
-		
+
 		String tagname = qName.toLowerCase();
 		if (tagname == "video") // video zuende
 		{
@@ -112,17 +128,24 @@ public class VideoParser extends AbstractParser
 						priceCategoryID, ratedAge, this.videoUnits);
 
 				this.videos.put(vID, newVideo);
-				System.out.println("anzahl: " + newVideo.getVideoUnits().size());
+				System.out
+						.println("anzahl: " + newVideo.getVideoUnits().size());
 				// frei machen für neues video-objekt, das jetzt kommt.
-				this.videoUnits = new HashMap<Integer, VideoUnit>(); 
+				this.videoUnits = new HashMap<Integer, VideoUnit>();
 			}
 			catch (Exception ex)
 			{
-				this.exceptionsToThrow.add(new DataLoadException(ex.getMessage()));
+				this.exceptionsToThrow.add(new DataLoadException(ex
+						.getMessage()));
 			}
 		}
 	}
-	
+
+	/**
+	 * Gibt in XML-Datei gespeicherte MinID für VideoUnits zurück.
+	 * 
+	 * @return Die MinID für VideoUnits.
+	 */
 	public int getMinVideoUnitID()
 	{
 		return this.minVideoUnitID;

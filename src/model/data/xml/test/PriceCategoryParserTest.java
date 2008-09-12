@@ -6,7 +6,7 @@ import main.error.VideothekException;
 import model.PriceCategory;
 import model.data.xml.PriceCategoryParser;
 
-public class PriceCategoryParserTest extends ParserTest
+public class PriceCategoryParserTest extends AbstractParserTest
 {
 	PriceCategoryParser parser = null;
 	Map<Integer, PriceCategory> parsedPriceCategories = null;

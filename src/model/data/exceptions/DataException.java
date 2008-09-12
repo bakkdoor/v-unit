@@ -13,6 +13,12 @@ public class DataException extends VideothekException
 {
 	private static final long serialVersionUID = 9142676993623774244L;
 
+	/**
+	 * Konstruktor für DataException.
+	 * 
+	 * @param msg
+	 *            Fehlernachricht.
+	 */
 	public DataException(String msg)
 	{
 		super(msg);

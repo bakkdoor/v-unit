@@ -26,6 +26,11 @@ public class CurrentDate
 		else
 			throw new CurrentDateException("Zeit schon gesetzt");
 	}
+	
+	public static boolean isSet()
+	{
+		return currentDate != null;
+	}
 
 	/**
 	 * 

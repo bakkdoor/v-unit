@@ -2,7 +2,6 @@ package model.data;
 
 import java.util.Map;
 
-import javax.xml.parsers.*;
 import model.*;
 import model.PriceCategory;
 import model.data.exceptions.*;
