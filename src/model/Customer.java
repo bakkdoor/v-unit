@@ -172,11 +172,6 @@ public class Customer
 		return true;
 	}
 
-	public static void setMinID(int newMincID)
-	{
-		mincID = newMincID;
-	}
-
 	public int getAge() throws FalseBirthDateException, CurrentDateException, EmptyFieldException
 	{
 		if( this.age != NotSet )
@@ -314,6 +309,10 @@ public class Customer
 		else throw new EmptyFieldException("Keine Personalausweisenummer eingegeben");
 	}
 	
+	public static void setMinID(int newMincID)
+	{
+		mincID = newMincID;
+	}
 
 	public static Customer findByID(int customerID)
 			throws RecordNotFoundException

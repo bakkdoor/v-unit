@@ -6,8 +6,6 @@ import java.util.Map;
 import main.error.VideothekException;
 import model.*;
 import model.data.xml.*;
-import model.exceptions.CurrentDateException;
-import junit.framework.TestCase;
 
 /**
  * InRentParserTest.java

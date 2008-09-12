@@ -4,8 +4,6 @@ import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
 
-import quicktime.qd.Pict;
-
 public class PriceCategory
 {
 

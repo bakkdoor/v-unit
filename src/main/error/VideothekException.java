@@ -1,6 +1,5 @@
 package main.error;
 
-import java.io.IOException;
 import logging.Logger;
 
 /**

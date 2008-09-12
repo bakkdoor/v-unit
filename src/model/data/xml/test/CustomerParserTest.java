@@ -1,17 +1,10 @@
 package model.data.xml.test;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
 import main.error.VideothekException;
-import model.CurrentDate;
 import model.Customer;
-import model.Warning;
-import model.data.*;
 import model.data.xml.CustomerParser;
-import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 
 /**

@@ -23,7 +23,7 @@ import java.util.LinkedList;
  */
 public abstract class AbstractParser extends DefaultHandler
 {
-	protected static int minId;
+	protected int minId;
 	protected boolean fileParsed = false;
 	protected String buffer = null;
 	protected SAXParserFactory parserFactory;

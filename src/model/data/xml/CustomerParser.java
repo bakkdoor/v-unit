@@ -2,24 +2,15 @@ package model.data.xml;
 
 import java.io.IOException;
 import java.util.*;
-import java.text.DateFormat;
-import java.text.ParseException;
 
-import javax.swing.JSpinner.DateEditor;
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import model.Customer;
 import model.exceptions.*;
-import model.InRent;
 import model.data.exceptions.DataException;
-import model.data.exceptions.DataLoadException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
 
 /**
  * CustomerParser.java

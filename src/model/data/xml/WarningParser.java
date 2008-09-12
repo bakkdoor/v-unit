@@ -1,4 +1,5 @@
 package model.data.xml;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,6 @@ import javax.xml.parsers.SAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import model.PriceCategory;
 import model.Warning;
 import model.data.exceptions.DataException;
 /**
