@@ -9,7 +9,7 @@ import model.data.xml.*;
 import model.exceptions.CurrentDateException;
 import junit.framework.TestCase;
 
-public class VideoParserTest extends TestCase
+public class VideoParserTest extends ParserTest
 {
 
 	VideoParser parser = null;
@@ -18,16 +18,6 @@ public class VideoParserTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-
-		try
-		{
-			CurrentDate.set(new Date());
-		}
-		catch (CurrentDateException e2)
-		{
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 	}
 
 	protected void tearDown() throws Exception

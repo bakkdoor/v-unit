@@ -55,6 +55,16 @@ public class PriceCategory
 
 		return this.pID;
 	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public float getPrice()
+	{
+		return this.price;
+	}
 
 	public static PriceCategory findByID(int pID)
 			throws RecordNotFoundException

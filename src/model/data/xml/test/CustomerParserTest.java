@@ -21,18 +21,10 @@ import model.exceptions.EmptyFieldException;
  * 
  * Testet CustomerParser Klasse.
  */
-public class CustomerParserTest extends TestCase
+public class CustomerParserTest extends ParserTest
 {
 	CustomerParser parser = null;
 	Map<Integer, Customer> parsedCustomers = null;
-	
-	/**
-	 * @param name
-	 */
-	public CustomerParserTest(String name)
-	{
-		super(name);
-	}
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -40,19 +32,6 @@ public class CustomerParserTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-
-		try
-		{
-			CurrentDate.set(new Date(System.currentTimeMillis()));
-			
-			System.out.println("Aktuelles Jahr: " + CurrentDate.get().getYear());
-		}
-		catch (CurrentDateException e2)
-		{
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
 	}
 
 	/* (non-Javadoc)

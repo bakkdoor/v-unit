@@ -14,36 +14,18 @@ import junit.framework.TestCase;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 12.09.2008
  */
-public class InRentParserTest extends TestCase
+public class InRentParserTest extends ParserTest
 {
 
 	InRentParser parser = null;
 	Map<Integer, InRent> parsedInRents = null;
 	
-	/**
-	 * @param name
-	 */
-	public InRentParserTest(String name)
-	{
-		super(name);
-	}
-
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-
-		try
-		{
-			CurrentDate.set(new Date());
-		}
-		catch (CurrentDateException e2)
-		{
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 	}
 
 	/* (non-Javadoc)
