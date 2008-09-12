@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -86,20 +87,22 @@ public class MainWindow {
 		// Ausleihe
 		gridBagConstCentral.gridx = 0;
 		gridBagConstCentral.gridy = 2;
-		gridBagConstCentral.weightx = 1.0;
-		gridBagConstCentral.weighty = 1.0;
+		gridBagConstCentral.weightx = 0.5;
+		gridBagConstCentral.weighty = 0.4;
 		gridBagConstCentral.gridwidth = 1;
 		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstCentral.anchor = GridBagConstraints.NORTHWEST;
 		mainContainer.add(this.createRentPanel(), gridBagConstCentral);
 		
 		// **************************************************************
 		// Details
 		gridBagConstCentral.gridx = 1;
 		gridBagConstCentral.gridy = 2;
-		gridBagConstCentral.weightx = 1.0;
-		gridBagConstCentral.weighty = 1.0;
+		gridBagConstCentral.weightx = 0.5;
+		gridBagConstCentral.weighty = 0.4;
 		gridBagConstCentral.gridwidth = 1;
 		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstCentral.anchor = GridBagConstraints.NORTHWEST;
 		mainContainer.add(this.createDetailPanel(), gridBagConstCentral);
 		
 //		this.changePanelDetailsCard(this.CUSTOMERDETAILS);
@@ -110,7 +113,7 @@ public class MainWindow {
 		gridBagConstCentral.gridy = 3;
 		gridBagConstCentral.ipady = 300;
 		gridBagConstCentral.weightx = 1.0;
-		gridBagConstCentral.weighty = 1.0;
+		gridBagConstCentral.weighty = 0.6;
 		gridBagConstCentral.gridwidth = 2;
 		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
 		mainContainer.add(this.createTablePanel(), gridBagConstCentral);
@@ -262,6 +265,8 @@ public class MainWindow {
 		JPanel panelRent = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstRent = new GridBagConstraints();
 		
+		panelRent.setBorder(BorderFactory.createTitledBorder("Eingabe"));
+		
 
 		// KundenNr - Label/TextField erstellen
 		JLabel labelRentCustomer = new JLabel("KundenNr.:");
@@ -404,6 +409,7 @@ public class MainWindow {
 		// Panel für Videodetails
 		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
+		
 		
 		// ***************************************************************
 		// Datenelemente erstellen
@@ -593,17 +599,19 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 7;
+		gridBagConstDetailVideo.ipady = 60;
 		gridBagConstDetailVideo.gridheight = 3;
 		gridBagConstDetailVideo.weightx = 0.5;
 		gridBagConstDetailVideo.weighty = 1.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.BOTH;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstDetailVideo.insets = new Insets(3,0,3,3);
-		panelDetailVideo.add(listDetailVUnit, gridBagConstDetailVideo);
+		panelDetailVideo.add(new JScrollPane(listDetailVUnit), gridBagConstDetailVideo);
 		
 		// Übernehmen Button
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 10;
+		gridBagConstDetailVideo.ipady = 0;
 		gridBagConstDetailVideo.gridheight = 1;
 		gridBagConstDetailVideo.weightx = 0.5;
 		gridBagConstDetailVideo.weighty = 0.0;
@@ -808,6 +816,8 @@ public class MainWindow {
 		panelDetails = new JPanel(new CardLayout());
 		panelDetails.add(panelDetailVideo, VIDEODETAILS);
 		panelDetails.add(panelDetailCustomer, CUSTOMERDETAILS);
+		
+		panelDetails.setBorder(BorderFactory.createTitledBorder("Informationen"));
 		
 		return panelDetails;
 	}
