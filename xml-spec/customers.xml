@@ -1,16 +1,13 @@
 <customers minID="4">
-	<customer cID="1" firstName="Christopher" lastName="Bertels" 
-			birthDay="3" birthMonth="2" birthYear="1987"
+	<customer cID="1" firstName="Christopher" lastName="Bertels" birthDate="3:2:1987"
 			street="Woerthstr." houseNr="7" zipCode="49082" city="Osnabrueck"
 			identificationNr="123456789ABCDEFG" title="Herr" />	
 
-	<customer cID="2" firstName="Max" lastName="Mustermann" birthDate="1.1.1970" 
-			birthDay="1" birthMonth="1" birthYear="1970" 
+	<customer cID="2" firstName="Max" lastName="Mustermann" birthDate="1:1:1970" 
 			street="Wasserweg" houseNr="1" zipCode="12345" city="Musterhausen"
 			identificationNr="ABCDEFG123456789" title="Herr" />
 
-	<customer cID="3" firstName="Marianne" lastName="Musterfrau" birthDate="1.1.1960" 
-			birthDay="1" birthMonth="1" birthYear="1960" 
+	<customer cID="3" firstName="Marianne" lastName="Musterfrau" birthDate="1:1:1960" 
 			street="Am Trockenplatz." houseNr="2" zipCode="54321" city="Randomcity"
 			identificationNr="123ABC456DEF789G" title="Frau" />
 </customers>

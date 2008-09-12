@@ -98,10 +98,11 @@ public class CustomerParser extends AbstractParser
 			firstName = attributes.getValue("firstName");
 			lastName = attributes.getValue("lastName");
 
-			dayOfBirth = Integer.parseInt(attributes.getValue("birthDay"));
-			monthOfBirth = Integer.parseInt(attributes.getValue("birthMonth"));
-			yearOfBirth = Integer.parseInt(attributes.getValue("birthYear"));
-
+			String[] birthDate = attributes.getValue("birthDate").split(":");
+			dayOfBirth = Integer.parseInt(birthDate[0]);
+			monthOfBirth = Integer.parseInt(birthDate[1]);
+			yearOfBirth = Integer.parseInt(birthDate[2]);
+			
 			street = attributes.getValue("street");
 			houseNr = attributes.getValue("houseNr");
 			zipCode = Integer.parseInt(attributes.getValue("zipCode"));

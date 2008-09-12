@@ -33,6 +33,7 @@ public class InRent
 		minrID++;
 		this.customer = customer;
 		this.videoUnit = videoUnit;
+		checkRentDate();
 	}
 
 	private InRent(int rID, int customerID, int videoUnitID, Date date,
@@ -45,7 +46,6 @@ public class InRent
 		this.date = date;
 		this.duration = duration;
 		checkIDs();
-		checkRentDate();
 		checkDuration();
 	}
 
@@ -104,6 +104,21 @@ public class InRent
 			// und this.customer darauf verweisen
 		}
 		return this.customer;
+	}
+	
+	public Date getDate()
+	{
+		return this.date;
+	}
+	
+	public int getVideoUnitID()
+	{
+		return this.videoUnitID;
+	}
+	
+	public int getDuration()
+	{
+		return this.duration;
 	}
 
 	public VideoUnit getVideoUnit()

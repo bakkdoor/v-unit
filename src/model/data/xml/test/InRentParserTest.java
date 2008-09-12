@@ -72,8 +72,18 @@ public class InRentParserTest extends TestCase
 		
 		try
 		{	
-			assertEquals(1, parsedInRents.get(1).getID());
-			assertEquals(2, parsedInRents.get(2).getID());
+			InRent first = parsedInRents.get(1);
+			InRent second = parsedInRents.get(2);
+			
+			assertEquals(1, first.getID());
+			assertEquals(new Date(2008, 9, 10), first.getDate());
+			assertEquals(1, first.getVideoUnitID());
+			assertEquals(2, first.getDuration());
+			
+			assertEquals(2, second.getID());
+			assertEquals(new Date(2008, 9, 11), second.getDate());
+			assertEquals(2, second.getVideoUnitID());
+			assertEquals(1, second.getDuration());
 		}
 		catch (Exception e)
 		{

@@ -63,8 +63,9 @@ public class InRentParser extends AbstractParser
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException
 	{
-		String tagname = qName.toLowerCase();
-
+		super.startElement(uri, localName, qName, attributes);
+		String tagname = qName;
+		
 		// customers-tag erreicht: außerstes tag im xml-dokument
 		if (tagname == "inRents")
 		{
@@ -80,7 +81,7 @@ public class InRentParser extends AbstractParser
 			rID = Integer.parseInt(attributes.getValue("rID"));
 			customerID = Integer.parseInt(attributes.getValue("rID"));
 			videoUnitID = Integer.parseInt(attributes.getValue("rID"));
-			String[] date = attributes.getValue("date").split(".");
+			String[] date = attributes.getValue("date").split(":");
 			day = Integer.parseInt(date[0]);
 			month = Integer.parseInt(date[1]);
 			year = Integer.parseInt(date[2]);
