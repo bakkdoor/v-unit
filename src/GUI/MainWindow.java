@@ -93,7 +93,7 @@ public class MainWindow {
 		panelAboveCentral.add(this.createRentPanel());
 		panelAboveCentral.add(this.createDetailPanel());
 		
-		this.changePanelDetailsCard(this.CUSTOMERDETAILS);
+		this.changePanelDetailsCard(this.VIDEODETAILS);
 		
 		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 													 panelAboveCentral, 
@@ -110,19 +110,7 @@ public class MainWindow {
 										
 		
 		// **************************************************************
-		// Tabelle
-//		gridBagConstCentral.gridx = 0;
-//		gridBagConstCentral.gridy = 2;
-//		gridBagConstCentral.ipady = 300;
-//		gridBagConstCentral.weightx = 1.0;
-//		gridBagConstCentral.weighty = 0.6;
-//		gridBagConstCentral.gridwidth = 2;
-//		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
-//		mainContainer.add(this.createTablePanel(), gridBagConstCentral);
 		
-		
-		
-//		mainFrame.setSize(800,600);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 	}
