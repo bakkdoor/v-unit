@@ -1,11 +1,11 @@
-package model.data.xml;
+package model.data.xml.test;
 
 import java.util.Map;
 
 import main.error.VideothekException;
 import model.PriceCategory;
 import model.Video;
-import model.data.xml.test.ParserTest;
+import model.data.xml.PriceCategoryParser;
 
 public class PriceCategoryParserTest extends ParserTest
 {

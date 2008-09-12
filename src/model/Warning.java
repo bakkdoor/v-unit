@@ -2,6 +2,8 @@ package model;
 
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
+
 public class Warning
 {
 
@@ -26,13 +28,29 @@ public class Warning
 		this.wID = wID;
 		this.inRentID = inRentID;
 	}
-
+	
+	public int getID()
+	{
+		return this.wID;
+	}
+	
+	public int getInRentID()
+	{
+		return this.inRentID;
+	}
+	
 	public InRent getInRent()
 	{
 		if (this.inRent == null)
 		{
-			// TODO: hier nach InRent objekt suchen mit der id = inRentID und
-			// this.inRent darauf verweisen
+			try
+			{
+				this.inRent = InRent.findByID(this.inRentID);
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.inRent = null;
+			}
 		}
 		return this.inRent;
 	}
@@ -47,6 +65,14 @@ public class Warning
 		if (newWarningList != null)
 		{
 			warningList = newWarningList;
+		}
+	}
+	
+	public static void setMinID(int newMinwID)
+	{
+		if (newMinwID > 0)
+		{
+			minwID = newMinwID;
 		}
 	}
 }

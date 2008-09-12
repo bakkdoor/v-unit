@@ -21,7 +21,7 @@ import java.util.LinkedList;
  * 
  * Abstrakte Oberklasse aller Parser-Klassen.
  */
-public class AbstractParser extends DefaultHandler
+public abstract class AbstractParser extends DefaultHandler
 {
 	protected static int minId;
 	protected boolean fileParsed = false;

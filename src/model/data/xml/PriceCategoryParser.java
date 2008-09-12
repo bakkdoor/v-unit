@@ -9,8 +9,6 @@ import javax.xml.parsers.SAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-
-import model.exceptions.*;
 import model.data.exceptions.*;
 import model.PriceCategory;
 
