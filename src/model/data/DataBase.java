@@ -2,7 +2,6 @@ package model.data;
 
 import java.util.Map;
 
-import javax.xml.parsers.*;
 import model.*;
 import model.PriceCategory;
 import model.data.exceptions.*;
@@ -33,18 +32,19 @@ public class DataBase
 		CustomerParser costParser = new CustomerParser();
 		VideoParser vidParser = new VideoParser();
 		InRentParser irParser = new InRentParser();
+		WarningParser wParser = new WarningParser();
 		
-		Map<Integer, PriceCategory> priceCategories = pcParser.parsePriceCategories();
-		Map<Integer, Customer> customers = costParser.parseCustomers();
-		Map<Integer, Video> videos = vidParser.parseVideos();
-		Map<Integer, InRent> inRents = irParser.parseInRents();
-//		Map<Integer, Warning> warnings = wParser.parseWarnings();
+		Map<Integer, PriceCategory> priceCategories = pcParser.parsePriceCategories("data/priceCategories.xml");
+		Map<Integer, Customer> customers = costParser.parseCustomers("data/customers.xml");
+		Map<Integer, Video> videos = vidParser.parseVideos("data/videos.xml");
+		Map<Integer, InRent> inRents = irParser.parseInRents("data/inRents.xml");
+		Map<Integer, Warning> warnings = wParser.parseWarnings("data/warnings.xml");
 		
 		PriceCategory.setPriceCategoryList(priceCategories);
 		Customer.setCustomerList(customers);
 		Video.setVideoList(videos);
 		InRent.setInRentList(inRents);
-//		Warning.setWarningList(warnings);
+		Warning.setWarningList(warnings);
 	}
 
 	/**

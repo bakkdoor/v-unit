@@ -2,6 +2,8 @@ package model;
 
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
+
 public class PriceCategory
 {
 
@@ -50,6 +52,29 @@ public class PriceCategory
 	{
 
 		return this.pID;
+	}
+
+	public String getName()
+	{
+		return this.name;
+	}
+
+	public float getPrice()
+	{
+		return this.price;
+	}
+
+	public static PriceCategory findByID(int pID)
+			throws RecordNotFoundException
+	{
+		if (priceCategoryList.containsKey(pID))
+		{
+			return priceCategoryList.get(pID);
+		}
+		else
+		{
+			throw new RecordNotFoundException("PriceKategorie", "Nummer", pID);
+		}
 	}
 
 	public static void setMinID(int newMinpID)
