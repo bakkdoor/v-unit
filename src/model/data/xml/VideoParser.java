@@ -128,8 +128,6 @@ public class VideoParser extends AbstractParser
 						priceCategoryID, ratedAge, this.videoUnits);
 
 				this.videos.put(vID, newVideo);
-				System.out
-						.println("anzahl: " + newVideo.getVideoUnits().size());
 				// frei machen für neues video-objekt, das jetzt kommt.
 				this.videoUnits = new HashMap<Integer, VideoUnit>();
 			}

@@ -104,17 +104,17 @@ public class InRent
 		}
 		return this.customer;
 	}
-	
+
 	public Date getDate()
 	{
 		return this.date;
 	}
-	
+
 	public int getVideoUnitID()
 	{
 		return this.videoUnitID;
 	}
-	
+
 	public int getDuration()
 	{
 		return this.duration;
@@ -139,7 +139,7 @@ public class InRent
 		else
 		{
 			throw new RecordNotFoundException("Ausleihe", "AusleihNummer",
-					Integer.toString(inRentID));
+					inRentID);
 		}
 	}
 
@@ -168,7 +168,7 @@ public class InRent
 		}
 
 		throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.",
-				Integer.toString(videoUnit.getID()));
+				videoUnit.getID());
 	}
 
 	public static List<InRent> findByDate(Date date)

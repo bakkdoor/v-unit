@@ -34,4 +34,23 @@ public class RecordNotFoundException extends VideothekException
 		super("Eintrag konnte nicht gefunden werden: " + recordName
 				+ " (gesucht: " + field + " = '" + fieldValue + "')");
 	}
+
+	/**
+	 * Konstruktor für RecordNotFoundException.
+	 * 
+	 * @param recordName
+	 *            Name/Typ des Eintrags/Objektes (zB. Kunde, Ausleihe, Video
+	 *            etc.)
+	 * @param field
+	 *            Datenfeld/Eigenschaft, welche gesucht bzw. aufgerufen wurde
+	 *            (zB. Kundennummer(ID))
+	 * @param fieldValue
+	 *            Der Wert des Datenfeldes/der Eigenschaft, nach dem gesucht
+	 *            wurde.
+	 */
+	public RecordNotFoundException(String recordName, String field,
+			int fieldValue)
+	{
+		this(recordName, field, Integer.toString(fieldValue));
+	}
 }

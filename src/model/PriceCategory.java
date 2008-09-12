@@ -53,12 +53,12 @@ public class PriceCategory
 
 		return this.pID;
 	}
-	
+
 	public String getName()
 	{
 		return this.name;
 	}
-	
+
 	public float getPrice()
 	{
 		return this.price;
@@ -73,8 +73,7 @@ public class PriceCategory
 		}
 		else
 		{
-			throw new RecordNotFoundException("PriceKategorie", "Nummer",
-					Integer.toString(pID));
+			throw new RecordNotFoundException("PriceKategorie", "Nummer", pID);
 		}
 	}
 

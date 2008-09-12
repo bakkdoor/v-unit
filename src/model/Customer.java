@@ -6,6 +6,7 @@ import java.util.Date;
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -323,8 +324,7 @@ public class Customer
 		}
 		else
 		{
-			throw new RecordNotFoundException("Kunde", "KundenNummer", Integer
-					.toString(customerID));
+			throw new RecordNotFoundException("Kunde", "KundenNummer", customerID);
 		}
 	}
 
@@ -362,6 +362,15 @@ public class Customer
 		{
 			customerList = newCustomerList;
 		}
+	}
+	
+	/**
+	 * Gibt die Menge aller Customer-Objekte zurück, die existieren.
+	 * @return Die Menge aller Customers in der Datenbasis.
+	 */
+	public static Collection<Customer> findAll()
+	{
+		return customerList.values();
 	}
 
 }

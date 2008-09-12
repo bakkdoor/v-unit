@@ -1,0 +1,4 @@
+<priceCategories minID="3">
+	<priceCategory pID="1" name="Billige Filme" price="1.99" />
+	<priceCategory pID="2" name="Teure Filme" price="3.99" />
+</priceCategories>
