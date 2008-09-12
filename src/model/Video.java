@@ -88,20 +88,12 @@ public class Video
 	}
 
 	
-	public PriceCategory getPriceCategory()
+	public PriceCategory getPriceCategory() throws RecordNotFoundException
 	{
 		if(this.priceCategory == null)
 		{
-			try
-			{
-				this.priceCategory = PriceCategory.findByID(this.priceCategoryID);
-			}
-			catch (RecordNotFoundException e)
-			{
-				this.priceCategory = null;
-			}
+			this.priceCategory = PriceCategory.findByID(this.priceCategoryID);
 		}
-		
 		return this.priceCategory;
 	}
 
