@@ -26,12 +26,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SpringLayout.Constraints;
+import javax.swing.plaf.SplitPaneUI;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -76,7 +78,7 @@ public class MainWindow {
 		// **************************************************************
 		// Toolbar mit Buttons
 		gridBagConstCentral.gridx = 0;
-		gridBagConstCentral.gridy = 1;
+		gridBagConstCentral.gridy = 0;
 		gridBagConstCentral.weightx = 1.0;
 		gridBagConstCentral.weighty = 0.0;
 		gridBagConstCentral.gridwidth = 2;
@@ -84,39 +86,39 @@ public class MainWindow {
 		mainContainer.add(this.createToolBar(), gridBagConstCentral);
 		
 		// **************************************************************
-		// Ausleihe
+		
+		JPanel panelAboveCentral = new JPanel(new GridLayout(1,2));
+
+		
+		panelAboveCentral.add(this.createRentPanel());
+		panelAboveCentral.add(this.createDetailPanel());
+		
+		this.changePanelDetailsCard(this.CUSTOMERDETAILS);
+		
+		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+													 panelAboveCentral, 
+													 this.createTablePanel());
+		
 		gridBagConstCentral.gridx = 0;
-		gridBagConstCentral.gridy = 2;
-		gridBagConstCentral.weightx = 0.5;
-		gridBagConstCentral.weighty = 0.4;
+		gridBagConstCentral.gridy = 1;
+		gridBagConstCentral.ipady = 400;
+		gridBagConstCentral.weightx = 1.0;
+		gridBagConstCentral.weighty = 1.0;
 		gridBagConstCentral.gridwidth = 1;
-		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstCentral.anchor = GridBagConstraints.NORTHWEST;
-		mainContainer.add(this.createRentPanel(), gridBagConstCentral);
-		
-		// **************************************************************
-		// Details
-		gridBagConstCentral.gridx = 1;
-		gridBagConstCentral.gridy = 2;
-		gridBagConstCentral.weightx = 0.5;
-		gridBagConstCentral.weighty = 0.4;
-		gridBagConstCentral.gridwidth = 1;
-		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstCentral.anchor = GridBagConstraints.NORTHWEST;
-		mainContainer.add(this.createDetailPanel(), gridBagConstCentral);
-		
-//		this.changePanelDetailsCard(this.CUSTOMERDETAILS);
+		gridBagConstCentral.fill = GridBagConstraints.BOTH;
+		mainContainer.add(splitPaneCentral, gridBagConstCentral);
+										
 		
 		// **************************************************************
 		// Tabelle
-		gridBagConstCentral.gridx = 0;
-		gridBagConstCentral.gridy = 3;
-		gridBagConstCentral.ipady = 300;
-		gridBagConstCentral.weightx = 1.0;
-		gridBagConstCentral.weighty = 0.6;
-		gridBagConstCentral.gridwidth = 2;
-		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
-		mainContainer.add(this.createTablePanel(), gridBagConstCentral);
+//		gridBagConstCentral.gridx = 0;
+//		gridBagConstCentral.gridy = 2;
+//		gridBagConstCentral.ipady = 300;
+//		gridBagConstCentral.weightx = 1.0;
+//		gridBagConstCentral.weighty = 0.6;
+//		gridBagConstCentral.gridwidth = 2;
+//		gridBagConstCentral.fill = GridBagConstraints.HORIZONTAL;
+//		mainContainer.add(this.createTablePanel(), gridBagConstCentral);
 		
 		
 		
@@ -289,7 +291,7 @@ public class MainWindow {
 		
 		// Abbrechen/Akzeptieren Button erstellen
 		JButton buttonRentCancel = new JButton("Abbrechen");
-		JButton buttonRentAccept = new JButton("Abschließen");
+		JButton buttonRentAccept = new JButton("Bestätigen");
 		
 		
 		// Datenfelder in panelRent einfügen
@@ -412,7 +414,7 @@ public class MainWindow {
 		
 		
 		// ***************************************************************
-		// Datenelemente erstellen
+		// Datenelemente für Video erstellen
 		JLabel labelDetailVID = new JLabel("FilmID:");
 		JTextField textFieldDetailVID = new JTextField();
 		textFieldDetailVID.setEditable(false);
@@ -456,7 +458,7 @@ public class MainWindow {
 		// FilmID 
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 0;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -465,7 +467,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 0;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -475,7 +477,7 @@ public class MainWindow {
 		// Titel 
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 1;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -484,7 +486,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 1;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -494,7 +496,7 @@ public class MainWindow {
 		// Erscheinungsdatum 
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 2;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -503,7 +505,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 2;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -513,7 +515,7 @@ public class MainWindow {
 		// Altersbeschränkung 
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 3;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -522,7 +524,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 3;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -532,7 +534,7 @@ public class MainWindow {
 		// Preisklasse 
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 4;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -541,7 +543,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 4;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -551,7 +553,7 @@ public class MainWindow {
 		// Status
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 5;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -560,7 +562,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 5;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -570,7 +572,7 @@ public class MainWindow {
 		// Rückgabefrist
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 6;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.3;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -579,7 +581,7 @@ public class MainWindow {
 		
 		gridBagConstDetailVideo.gridx = 1;
 		gridBagConstDetailVideo.gridy = 6;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -590,8 +592,8 @@ public class MainWindow {
 		// Exemplare
 		gridBagConstDetailVideo.gridx = 0;
 		gridBagConstDetailVideo.gridy = 7;
-		gridBagConstDetailVideo.weightx = 0.5;
-		gridBagConstDetailVideo.weighty = 1.0;
+		gridBagConstDetailVideo.weightx = 0.3;
+		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstDetailVideo.insets = new Insets(3,3,3,3);
@@ -601,7 +603,7 @@ public class MainWindow {
 		gridBagConstDetailVideo.gridy = 7;
 		gridBagConstDetailVideo.ipady = 60;
 		gridBagConstDetailVideo.gridheight = 3;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 1.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.BOTH;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -613,7 +615,7 @@ public class MainWindow {
 		gridBagConstDetailVideo.gridy = 10;
 		gridBagConstDetailVideo.ipady = 0;
 		gridBagConstDetailVideo.gridheight = 1;
-		gridBagConstDetailVideo.weightx = 0.5;
+		gridBagConstDetailVideo.weightx = 0.7;
 		gridBagConstDetailVideo.weighty = 0.0;
 		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -671,7 +673,7 @@ public class MainWindow {
 		// KundenNr.
 		gridBagConstDetailCust.gridx = 0;
 		gridBagConstDetailCust.gridy = 0;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.3;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
@@ -680,7 +682,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 0;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -691,7 +693,7 @@ public class MainWindow {
 		// Anrede
 		gridBagConstDetailCust.gridx = 0;
 		gridBagConstDetailCust.gridy = 1;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.3;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -701,7 +703,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 1;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -712,7 +714,7 @@ public class MainWindow {
 		// Vorname
 		gridBagConstDetailCust.gridx = 0;
 		gridBagConstDetailCust.gridy = 2;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.3;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -722,7 +724,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 2;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -733,7 +735,7 @@ public class MainWindow {
 		// Nachname
 		gridBagConstDetailCust.gridx = 0;
 		gridBagConstDetailCust.gridy = 3;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.3;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -743,7 +745,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 3;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -754,7 +756,7 @@ public class MainWindow {
 		// Geburtsdatum
 		gridBagConstDetailCust.gridx = 0;
 		gridBagConstDetailCust.gridy = 4;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.3;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -764,7 +766,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 4;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -775,7 +777,7 @@ public class MainWindow {
 		// Anschrift
 		gridBagConstDetailCust.gridx = 0;
 		gridBagConstDetailCust.gridy = 5;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.3;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -785,7 +787,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 5;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -795,7 +797,7 @@ public class MainWindow {
 		
 		gridBagConstDetailCust.gridx = 1;
 		gridBagConstDetailCust.gridy = 6;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.ipadx = 150;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
@@ -803,15 +805,28 @@ public class MainWindow {
 		gridBagConstDetailCust.insets = new Insets(0,0,3,3);
 		panelDetailCustomer.add(textFieldDetailCustLastAddress, gridBagConstDetailCust);
 		
+		// Label zur Layoutstabilisierung
+		gridBagConstDetailCust.gridx = 0;
+		gridBagConstDetailCust.gridy = 7;
+		gridBagConstDetailCust.gridwidth = 2;
+		gridBagConstDetailCust.gridheight = GridBagConstraints.RELATIVE;
+		gridBagConstDetailCust.weightx = 1.0;
+		gridBagConstDetailCust.weighty = 1.0;
+		gridBagConstDetailCust.fill = GridBagConstraints.BOTH;
+		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
+		gridBagConstDetailCust.insets = new Insets(0,0,0,0);
+		panelDetailCustomer.add(new JLabel(), gridBagConstDetailCust);
+		
 		// Übernehmen Button hinzufügen
 		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 7;
-		gridBagConstDetailCust.weightx = 0.5;
+		gridBagConstDetailCust.gridy = 8;
+		gridBagConstDetailCust.weightx = 0.7;
 		gridBagConstDetailCust.weighty = 0.0;
 		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstDetailCust.insets = new Insets(0,0,3,3);
 		panelDetailCustomer.add(buttonDetailCustAdd, gridBagConstDetailCust);
+		
 		
 		panelDetails = new JPanel(new CardLayout());
 		panelDetails.add(panelDetailVideo, VIDEODETAILS);
