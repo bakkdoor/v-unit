@@ -69,6 +69,7 @@ public class InRentParserTest extends TestCase
 		
 		assertNotNull(parsedInRents);
 		assertEquals(2, parsedInRents.size());
+		assertEquals(3, parser.getMinID());
 		
 		try
 		{	

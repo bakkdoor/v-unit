@@ -1,8 +1,11 @@
 ﻿package model;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
 
 public class Video
@@ -55,13 +58,57 @@ public class Video
 			Map<Integer, VideoUnit> videoUnits) throws FalseIDException,
 			EmptyFieldException, FalseFieldException, CurrentDateException
 	{
-		Video video = new Video(minvID, title, releaseYear, priceCategoryID,
+		Video video = new Video(vID, title, releaseYear, priceCategoryID,
 				ratedAge);
+		
 		video.videoUnits = videoUnits;
 
 		return video;
 	}
 
+	public String getTitle()
+	{
+		return this.title;
+	}
+
+	public int getReleaseYear()
+	{
+		return this.releaseYear;
+	}
+
+	public int getRatedAge()
+	{
+		return this.ratedAge;
+	}
+	
+	public int getPriceCategoryID()
+	{
+		return this.priceCategoryID;
+	}
+
+	
+	public PriceCategory getPriceCategory()
+	{
+		if(this.priceCategory == null)
+		{
+			try
+			{
+				this.priceCategory = PriceCategory.findByID(this.priceCategoryID);
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.priceCategory = null;
+			}
+		}
+		
+		return this.priceCategory;
+	}
+
+	public Collection<VideoUnit> getVideoUnits()
+	{
+		return this.videoUnits.values();
+	}
+	
 	private void checkIDs() throws FalseIDException
 	{
 		if (this.vID < 1)

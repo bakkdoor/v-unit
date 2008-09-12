@@ -2,6 +2,10 @@ package model;
 
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
+
+import quicktime.qd.Pict;
+
 public class PriceCategory
 {
 
@@ -50,6 +54,20 @@ public class PriceCategory
 	{
 
 		return this.pID;
+	}
+
+	public static PriceCategory findByID(int pID)
+			throws RecordNotFoundException
+	{
+		if (priceCategoryList.containsKey(pID))
+		{
+			return priceCategoryList.get(pID);
+		}
+		else
+		{
+			throw new RecordNotFoundException("PriceKategorie", "Nummer",
+					Integer.toString(pID));
+		}
 	}
 
 	public static void setMinID(int newMinpID)

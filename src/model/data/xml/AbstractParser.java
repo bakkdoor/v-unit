@@ -57,7 +57,7 @@ public class AbstractParser extends DefaultHandler
 	
 	private void checkForEndTag(String currentTagName)
 	{
-		if(currentTagName == this.mainTag)
+		if(currentTagName == this.mainTag.toLowerCase())
 		{
 			if (!this.fileParsed)
 			{

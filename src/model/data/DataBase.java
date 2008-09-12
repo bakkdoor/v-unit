@@ -34,11 +34,11 @@ public class DataBase
 		VideoParser vidParser = new VideoParser();
 		InRentParser irParser = new InRentParser();
 		
-		Map<Integer, PriceCategory> priceCategories = pcParser.parsePriceCategories();
-		Map<Integer, Customer> customers = costParser.parseCustomers();
-		Map<Integer, Video> videos = vidParser.parseVideos();
-		Map<Integer, InRent> inRents = irParser.parseInRents();
-//		Map<Integer, Warning> warnings = wParser.parseWarnings();
+		Map<Integer, PriceCategory> priceCategories = pcParser.parsePriceCategories("data/priceCategories.xml");
+		Map<Integer, Customer> customers = costParser.parseCustomers("data/customers.xml");
+		Map<Integer, Video> videos = vidParser.parseVideos("data/videos.xml");
+		Map<Integer, InRent> inRents = irParser.parseInRents("data/inRents.xml");
+//		Map<Integer, Warning> warnings = wParser.parseWarnings("data/warnings.xml");
 		
 		PriceCategory.setPriceCategoryList(priceCategories);
 		Customer.setCustomerList(customers);

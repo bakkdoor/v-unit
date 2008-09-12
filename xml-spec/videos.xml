@@ -1,6 +1,11 @@
-<videos minID="3">
+<videos minID="3" minVideoUnitID="6">
 	<video vID="1" title="Rambo" releaseYear="1970" priceCategoryID="1" ratedAge="18">
 		<videoUnit uID="1" videoID="1" />
 		<videoUnit uID="2" videoID="1" />
+	</video>
+	<video vID="2" title="Casino Royale" releaseYear="2005" priceCategoryID="2" ratedAge="16">
+		<videoUnit uID="3" videoID="2" />
+		<videoUnit uID="4" videoID="2" />
+		<videoUnit uID="5" videoID="2" />
 	</video>
 </videos>

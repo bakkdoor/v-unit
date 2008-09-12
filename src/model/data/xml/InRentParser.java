@@ -71,6 +71,16 @@ public class InRentParser extends AbstractParser
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
+			try
+			{
+				InRent.setMinID(minId);
+			}
+			catch (FalseIDException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 		}
 		else if (tagname == "inRent")
 		{
