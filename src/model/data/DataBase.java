@@ -2,11 +2,10 @@ package model.data;
 
 import java.util.Map;
 
+import main.error.VideothekException;
 import model.*;
-import model.PriceCategory;
 import model.data.exceptions.*;
 import model.data.xml.*;
-
 
 /**
  * DataBase.java
@@ -24,7 +23,8 @@ public class DataBase
 	 * Lädt Daten aus der Datenquelle und erstellt die entsprechenden
 	 * Business-Logik Objekte (im package 'main').
 	 * 
-	 * @throws DataLoadException Wird geworfen, falls ein Fehler beim Laden auftrat.
+	 * @throws DataLoadException Wird geworfen, falls ein Fehler beim Laden
+	 *             auftrat.
 	 */
 	public static void loadData() throws DataException
 	{
@@ -33,23 +33,36 @@ public class DataBase
 		VideoParser vidParser = new VideoParser();
 		InRentParser irParser = new InRentParser();
 		WarningParser wParser = new WarningParser();
-		
-		Map<Integer, PriceCategory> priceCategories = pcParser.parsePriceCategories("data/priceCategories.xml");
-		Map<Integer, Customer> customers = costParser.parseCustomers("data/customers.xml");
+
+		Map<Integer, PriceCategory> priceCategories = pcParser
+				.parsePriceCategories("data/priceCategories.xml");
+		Map<Integer, Customer> customers = costParser
+				.parseCustomers("data/customers.xml");
 		Map<Integer, Video> videos = vidParser.parseVideos("data/videos.xml");
-		Map<Integer, InRent> inRents = irParser.parseInRents("data/inRents.xml");
-		Map<Integer, Warning> warnings = wParser.parseWarnings("data/warnings.xml");
-		
-		PriceCategory.setPriceCategoryList(priceCategories);
-		Customer.setCustomerList(customers);
-		Video.setVideoList(videos);
-		InRent.setInRentList(inRents);
-		Warning.setWarningList(warnings);
+		Map<Integer, InRent> inRents = irParser
+				.parseInRents("data/inRents.xml");
+		Map<Integer, Warning> warnings = wParser
+				.parseWarnings("data/warnings.xml");
+
+		try
+		{
+			PriceCategory.setPriceCategoryList(priceCategories);
+			Customer.setCustomerList(customers);
+			Video.setVideoList(videos);
+			InRent.setInRentList(inRents);
+			Warning.setWarningList(warnings);
+		}
+		catch (VideothekException ex)
+		{
+			throw new DataException(ex.getMessage());
+		}
 	}
 
 	/**
 	 * Speichert alle Business-Logik Objekte ab in Datenquelle.
-	 * @throws DataSaveException Wird geworfen, falls ein Fehler beim Speichern auftrat.
+	 * 
+	 * @throws DataSaveException Wird geworfen, falls ein Fehler beim Speichern
+	 *             auftrat.
 	 */
 	public static void saveData() throws DataSaveException
 	{

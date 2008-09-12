@@ -185,10 +185,15 @@ public class InRent
 	}
 
 	public static void setInRentList(Map<Integer, InRent> newInRentList)
+			throws FalseFieldException
 	{
 		if (newInRentList != null)
 		{
 			inRentList = newInRentList;
+		}
+		else
+		{
+			throw new FalseFieldException("InRentList is null!");
 		}
 	}
 

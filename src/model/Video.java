@@ -63,10 +63,15 @@ public class Video
 	}
 
 	public static void setVideoList(Map<Integer, Video> newVideoList)
+			throws FalseFieldException
 	{
 		if (newVideoList != null)
 		{
 			videoList = newVideoList;
+		}
+		else
+		{
+			throw new FalseFieldException("VideoList is null!");
 		}
 	}
 
@@ -199,11 +204,10 @@ public class Video
 	/**
 	 * Gibt das Video mit einer bestimmten VideoID zurück.
 	 * 
-	 * @param vID
-	 *            Die ID des Videos.
+	 * @param vID Die ID des Videos.
 	 * @return Das Video mit der angegebenen ID.
-	 * @throws RecordNotFoundException
-	 *             Wird geworfen, falls kein Video mit dieser ID gefunden wurde.
+	 * @throws RecordNotFoundException Wird geworfen, falls kein Video mit
+	 *             dieser ID gefunden wurde.
 	 */
 	public static Video findByID(int vID) throws RecordNotFoundException
 	{
@@ -221,8 +225,7 @@ public class Video
 	 * Gibt eine Menge von Videos zurück, deren Titel mit einem angegebenen
 	 * Titel anfangen.
 	 * 
-	 * @param videoTitle
-	 *            Der Titel, nach dem gesucht wird.
+	 * @param videoTitle Der Titel, nach dem gesucht wird.
 	 * @return Die Menge der Videos, deren Titel mit dem angegebenen anfangen.
 	 */
 	public static Collection<Video> findByTitle(String videoTitle)
@@ -241,9 +244,12 @@ public class Video
 	}
 
 	/**
-	 * Gibt eine Menge von Videos zurück, die ein angegebenes Veröffentlichungsjahr haben.
+	 * Gibt eine Menge von Videos zurück, die ein angegebenes
+	 * Veröffentlichungsjahr haben.
+	 * 
 	 * @param releaseYear Das Veröffentlichungsjahr, nach dem gesucht wird.
-	 * @return Die Menge der Videos, die das gleiche Veröffentlichungsjahr haben.
+	 * @return Die Menge der Videos, die das gleiche Veröffentlichungsjahr
+	 *         haben.
 	 */
 	public static Collection<Video> findByReleaseYear(int releaseYear)
 	{
@@ -261,7 +267,9 @@ public class Video
 	}
 
 	/**
-	 * Gibt eine Menge von Videos zurück, die einer angegebenen Preiskategorie angehören.
+	 * Gibt eine Menge von Videos zurück, die einer angegebenen Preiskategorie
+	 * angehören.
+	 * 
 	 * @param priceCategory Die Preiskategorie, nach der gesucht wird.
 	 * @return Die Menge der Videos, die der gleiche Preiskategorie angehören.
 	 */
@@ -282,7 +290,9 @@ public class Video
 	}
 
 	/**
-	 * Gibt eine Menge von Videos zurück, die die gleiche Altersbeschränkung haben.
+	 * Gibt eine Menge von Videos zurück, die die gleiche Altersbeschränkung
+	 * haben.
+	 * 
 	 * @param ratedAge Die Alterbeschränkung, nach der gesucht wird.
 	 * @return Die Menge der Videos, die die gleiche Altersbeschränkung haben.
 	 */

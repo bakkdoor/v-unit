@@ -3,6 +3,7 @@ package model;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.FalseFieldException;
 
 public class PriceCategory
 {
@@ -92,10 +93,15 @@ public class PriceCategory
 
 	public static void setPriceCategoryList(
 			Map<Integer, PriceCategory> newPriceCategoryList)
+			throws FalseFieldException
 	{
 		if (newPriceCategoryList != null)
 		{
 			priceCategoryList = newPriceCategoryList;
+		}
+		else
+		{
+			throw new FalseFieldException("PriceCategoryList is null!");
 		}
 	}
 

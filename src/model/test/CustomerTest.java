@@ -2,8 +2,6 @@ package model.test;
 
 import java.util.Date;
 
-import org.junit.Test;
-
 import main.error.VideothekException;
 import model.CurrentDate;
 import model.Customer;
@@ -56,7 +54,7 @@ public class CustomerTest extends TestCase
 		{
 			Customer.setMinID(2);
 
-			Customer c = new Customer("", "", 2001, 10, 1, "blaStreet", "9a",
+			new Customer("", "", 2001, 10, 1, "blaStreet", "9a",
 					48455, "osnabrück", "129821210398asdölkj", "Herr");
 		}
 		catch (VideothekException e)

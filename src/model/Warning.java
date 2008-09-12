@@ -3,6 +3,7 @@ package model;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.FalseFieldException;
 
 public class Warning
 {
@@ -28,17 +29,17 @@ public class Warning
 		this.wID = wID;
 		this.inRentID = inRentID;
 	}
-	
+
 	public int getID()
 	{
 		return this.wID;
 	}
-	
+
 	public int getInRentID()
 	{
 		return this.inRentID;
 	}
-	
+
 	public InRent getInRent()
 	{
 		if (this.inRent == null)
@@ -60,14 +61,18 @@ public class Warning
 		return new Warning(wID, inRentID);
 	}
 
-	public static void setWarningList(Map<Integer, Warning> newWarningList)
+	public static void setWarningList(Map<Integer, Warning> newWarningList) throws FalseFieldException
 	{
 		if (newWarningList != null)
 		{
 			warningList = newWarningList;
 		}
+		else
+		{
+			throw new FalseFieldException("WarningsList is null!");
+		}
 	}
-	
+
 	public static void setMinID(int newMinwID)
 	{
 		if (newMinwID > 0)

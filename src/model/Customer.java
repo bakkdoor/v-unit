@@ -526,7 +526,8 @@ public class Customer
 		return foundCustomers;
 	}
 
-	public static void setCustomerList(Map<Integer, Customer> newCustomerList) throws FalseFieldException
+	public static void setCustomerList(Map<Integer, Customer> newCustomerList)
+			throws FalseFieldException
 	{
 		if (newCustomerList != null)
 		{

@@ -8,6 +8,7 @@ import javax.xml.parsers.SAXParser;
 import main.error.VideothekException;
 import model.Customer;
 import model.data.exceptions.DataException;
+import model.exceptions.FalseIDException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -83,7 +84,14 @@ public class CustomerParser extends AbstractParser
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
 
-			Customer.setMinID(minId);
+			try
+			{
+				Customer.setMinID(minId);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 		}
 		else if (tagname == "customer") // öffnendes tag <customer>
 		{
