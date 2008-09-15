@@ -366,11 +366,22 @@ public class Customer
 		}
 	}
 
+	/**
+	 * 
+	 * @return die Straße der Adresse des Customers
+	 */
 	public String getStreet()
 	{
 		return street;
 	}
 
+	/**
+	 * setzt die Straße der Adresse des Customers
+	 * 
+	 * @param newStreet neue Straße
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere 
+	 *         Felder übergeben werden sollen
+	 */
 	public void setStreet(String newStreet) throws EmptyFieldException
 	{
 		if (newStreet != null && newStreet != "")
@@ -407,7 +418,7 @@ public class Customer
 
 	public String getCity()
 	{
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String newCity) throws EmptyFieldException
@@ -475,7 +486,7 @@ public class Customer
 		Collection<Customer> foundCustomers = new LinkedList<Customer>();
 		for (Customer c : customerList.values())
 		{
-			if (c.lastName.equals(lastName))
+			if (c.lastName.startsWith(lastName))
 			{
 				foundCustomers.add(c);
 			}
