@@ -2,6 +2,9 @@ package model;
 
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.FalseFieldException;
+
 public class PriceCategory
 {
 
@@ -37,19 +40,39 @@ public class PriceCategory
 
 	private void checkName()
 	{
-		// TODO Auto-generated method stub
 	}
 
 	private void checkPrice()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	public int getID()
 	{
 
 		return this.pID;
+	}
+
+	public String getName()
+	{
+		return this.name;
+	}
+
+	public float getPrice()
+	{
+		return this.price;
+	}
+
+	public static PriceCategory findByID(int pID)
+			throws RecordNotFoundException
+	{
+		if (priceCategoryList.containsKey(pID))
+		{
+			return priceCategoryList.get(pID);
+		}
+		else
+		{
+			throw new RecordNotFoundException("PriceKategorie", "Nummer", pID);
+		}
 	}
 
 	public static void setMinID(int newMinpID)
@@ -67,10 +90,15 @@ public class PriceCategory
 
 	public static void setPriceCategoryList(
 			Map<Integer, PriceCategory> newPriceCategoryList)
+			throws FalseFieldException
 	{
 		if (newPriceCategoryList != null)
 		{
 			priceCategoryList = newPriceCategoryList;
+		}
+		else
+		{
+			throw new FalseFieldException("PriceCategoryList is null!");
 		}
 	}
 

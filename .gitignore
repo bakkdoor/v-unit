@@ -5,3 +5,4 @@ bin/*
 .settings/*
 management/Thumbs.db
 icons/Thumbs.db
+Videothek.log

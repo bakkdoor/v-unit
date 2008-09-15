@@ -1,0 +1,25 @@
+Protokoll 11.09.2008 (Videothek-Projekt)
+  
+Allgemeine Fragestellungen & Klärungen
+
+  - Kurze Besprechung der aktuellen Fortschritte:
+
+	- GUI: 	Umsetzung des Hauptfenster ist im Gange, wird ca. bis Montag dauern. 
+		Danach dann wenn möglich die Anbindung an die Datenquellen & Model-Klassen.
+	
+	- Model/Business-Logik: 
+		Validierungscode wird ausgebaut. Weitere Parameterprüfungen sind in Planung. 
+		Ausserdem muss noch mehr Dokumentation eingepflegt werden.
+	
+	- Data/XML-Backend:
+		XML-Parser zum Laden im Grunde fertig. UnitTests folgen um dies zu testen. 
+		Ausserdem folgt ein Logging-System und weitere überarbeitungen. 
+		Ab Freitag (evtl. erst Montag) dann die Speicherung ins XML Format der Objekte.
+
+Aktueller Zeitplan:
+
+ - Der angestrebte Termin für den 1. Prototyp muss von Montag, 15.09. auf wahrscheinlich 
+   Mittwoch, 17.09. verschoben werden. Ziel ist derzeit, dass dieser die grundlegenden Funktionen
+   (Kunden & Filme hinzufügen & anzeigen) beherrscht. Detailfeatures und Unterdialoge folgen für den
+   2. Prototyp, welche für Anfang dritter Woche geplant ist. Daran anschließend sollen Tests und Bugfixes
+   folgen sowie die zuletzt dann die Fertigstellung des Projektes.

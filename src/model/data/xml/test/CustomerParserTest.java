@@ -1,17 +1,10 @@
 package model.data.xml.test;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
 import main.error.VideothekException;
-import model.CurrentDate;
 import model.Customer;
-import model.Warning;
-import model.data.*;
 import model.data.xml.CustomerParser;
-import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 
 /**
@@ -21,17 +14,10 @@ import model.exceptions.EmptyFieldException;
  * 
  * Testet CustomerParser Klasse.
  */
-public class CustomerParserTest extends TestCase
+public class CustomerParserTest extends AbstractParserTest
 {
-	/**
-	 * @param name
-	 */
-	public CustomerParserTest(String name)
-	{
-		super(name);
-		
-		
-	}
+	CustomerParser parser = null;
+	Map<Integer, Customer> parsedCustomers = null;
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -51,18 +37,7 @@ public class CustomerParserTest extends TestCase
 	
 	public void testParseCustomers() throws EmptyFieldException
 	{
-		try
-		{
-			CurrentDate.set(new Date());
-		}
-		catch (CurrentDateException e2)
-		{
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 		
-		CustomerParser parser = null;
-		Map<Integer, Customer> parsedCustomers = null;
 		try
 		{
 			parser = new CustomerParser();
@@ -70,12 +45,12 @@ public class CustomerParserTest extends TestCase
 		}
 		catch (VideothekException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		assertNotNull(parsedCustomers);
 		assertEquals(3, parsedCustomers.size());
+		assertEquals(4, parser.getMinID());
 		
 		try
 		{	
@@ -86,7 +61,6 @@ public class CustomerParserTest extends TestCase
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

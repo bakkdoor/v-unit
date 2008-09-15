@@ -3,41 +3,49 @@ package model.data.xml;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.jar.Attributes;
 
 import javax.xml.parsers.SAXParser;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-
-import model.exceptions.*;
 import model.data.exceptions.*;
+import model.Data;
 import model.PriceCategory;
-import model.Video;
-import model.VideoUnit;
-import model.data.exceptions.DataLoadException;
 
 /**
  * PriceCategoryParser.java
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 10.09.2008
+ * 
+ * Parser-Klasse für PriceCategory-Objekte.
  */
 public class PriceCategoryParser extends AbstractParser
 {
-	private Map<Integer,PriceCategory> priceCategoriesMap = new HashMap<Integer,PriceCategory> ();
+	private Map<Integer, PriceCategory> priceCategoriesMap = new HashMap<Integer, PriceCategory>();
 
 	public PriceCategoryParser()
 	{
 		super("priceCategories");
 	}
 
-	public Map<Integer,PriceCategory> parsePriceCategories() throws DataException
+	/**
+	 * XML-Dokument für PriceCategories durchlaufen und in die Liste packen.
+	 * 
+	 * @param priceCategoriesFile
+	 *            Dateiname bzw. -pfad der priceCategories.xml
+	 * @return Liste von eingelesenen PriceCategories
+	 * @throws Exception
+	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 */
+	public Map<Integer, PriceCategory> parsePriceCategories(
+			String priceCategoriesFile) throws DataException
 	{
 		try
 		{
 			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse("priceCategories.xml", this);
+			parser.parse(priceCategoriesFile, this);
 		}
 		catch (SAXException ex)
 		{
@@ -61,35 +69,36 @@ public class PriceCategoryParser extends AbstractParser
 	 * Eventhandler für neue Elemente im XML-Dokument
 	 */
 	public void startElement(String uri, String localName, String qName,
-			Attributes attributes) throws SAXException, FalseIDException,
-			EmptyFieldException, FalseBirthDateException
+			Attributes attributes) throws SAXException
 	{
-		String tagname = qName.toLowerCase();
+		String tagname = qName;
 
-		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "priceCategories")
+		if (tagname == "priceCategories") // öffnendes tag <priceCategories>
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
+			PriceCategory.setMinID(minId);
 		}
-		else if (tagname == "priceCategory")
+		else if (tagname == "priceCategory") // öffnendes tag <priceCategory>
 		{
-			int pID = -1; // TODO: anstatt -1 sollte hier konstante aus Klasse
-							// gewählt werden
-			float price = 0.0f;
+			int pID = Data.NOTSET;
+			float price = Data.NOTSET;
 			String name;
 
 			pID = Integer.parseInt(attributes.getValue("pID"));
 			name = attributes.getValue("name");
 			price = Float.parseFloat(attributes.getValue("price"));
 
-			// TODO: constructor muss angepasst werden!
-			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name, price);
+			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name,
+					price);
 
 			this.priceCategoriesMap.put(pID, newPriceCategory);
 		}
 	}
 
+	/**
+	 * Eventhandler für schließende XML-Elemente
+	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException
 	{

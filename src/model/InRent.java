@@ -1,6 +1,5 @@
 ﻿package model;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +32,7 @@ public class InRent
 		minrID++;
 		this.customer = customer;
 		this.videoUnit = videoUnit;
+		checkRentDate();
 	}
 
 	private InRent(int rID, int customerID, int videoUnitID, Date date,
@@ -45,7 +45,6 @@ public class InRent
 		this.date = date;
 		this.duration = duration;
 		checkIDs();
-		checkRentDate();
 		checkDuration();
 	}
 
@@ -106,6 +105,21 @@ public class InRent
 		return this.customer;
 	}
 
+	public Date getDate()
+	{
+		return this.date;
+	}
+
+	public int getVideoUnitID()
+	{
+		return this.videoUnitID;
+	}
+
+	public int getDuration()
+	{
+		return this.duration;
+	}
+
 	public VideoUnit getVideoUnit()
 	{
 		if (this.videoUnit == null)
@@ -125,7 +139,7 @@ public class InRent
 		else
 		{
 			throw new RecordNotFoundException("Ausleihe", "AusleihNummer",
-					Integer.toString(inRentID));
+					inRentID);
 		}
 	}
 
@@ -154,7 +168,7 @@ public class InRent
 		}
 
 		throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.",
-				Integer.toString(videoUnit.getID()));
+				videoUnit.getID());
 	}
 
 	public static List<InRent> findByDate(Date date)
@@ -171,10 +185,15 @@ public class InRent
 	}
 
 	public static void setInRentList(Map<Integer, InRent> newInRentList)
+			throws FalseFieldException
 	{
 		if (newInRentList != null)
 		{
 			inRentList = newInRentList;
+		}
+		else
+		{
+			throw new FalseFieldException("InRentList is null!");
 		}
 	}
 

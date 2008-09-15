@@ -1,7 +1,20 @@
 package model;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Map;
 
+import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
+
+/**
+ * Warning.java
+ * @author Christopher Bertels (chbertel@uos.de)
+ * @date 15.09.2008
+ * 
+ * Klasse für alle Warnings (Mahnungen).
+ */
 public class Warning
 {
 
@@ -13,40 +26,168 @@ public class Warning
 	private static Map<Integer, Warning> warningList;
 
 	public static final float billFactor = 1.5f;
-
+	
+	/**
+	 * Öffentlicher Konstruktor für Warnings.
+	 * @param inRent Das InRent der Warning.
+	 */
 	public Warning(InRent inRent)
 	{
 		this(minwID, inRent.getID());
 		this.inRent = inRent;
 		minwID++;
+
+		warningList.put(this.wID, this);
 	}
 
+	/**
+	 * Privater Konstruktor. Wird nur innerhalb der Klasse (in der reCreate-Methode) genutzt.
+	 * @param wID
+	 * @param inRentID
+	 */
 	private Warning(int wID, int inRentID)
 	{
 		this.wID = wID;
 		this.inRentID = inRentID;
 	}
-
+	
+	/**
+	 * Gibt die ID (Nummer) dieser Warning zurück.
+	 * @return Die ID dieser Warning (Mahnung).
+	 */
+	public int getID()
+	{
+		return this.wID;
+	}
+	
+	/**
+	 * @return Die InRentID der zugehörigen InRent.
+	 */
+	public int getInRentID()
+	{
+		return this.inRentID;
+	}
+	
+	/**
+	 * Gibt das InRent zu dieser Warning zurück.
+	 * @return Das InRent dieser Warning.
+	 */
 	public InRent getInRent()
 	{
 		if (this.inRent == null)
 		{
-			// TODO: hier nach InRent objekt suchen mit der id = inRentID und
-			// this.inRent darauf verweisen
+			try
+			{
+				this.inRent = InRent.findByID(this.inRentID);
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.inRent = null;
+			}
 		}
 		return this.inRent;
 	}
-
+	
+	/**
+	 * Wird in der DataBase Klasse aufgerufen um die geladenen Warnings global verfügbar zu machen.
+	 * @param wID ID der geladenen Warning.
+	 * @param inRentID InRentID der geladenen Warning.
+	 * @return Das geladene Warning Objekt.
+	 */
 	public static Warning reCreate(int wID, int inRentID)
 	{
 		return new Warning(wID, inRentID);
 	}
 
+	/**
+	 * Gibt eine Warning (Mahnung) zu einer angegebenen ID zurück.
+	 * 
+	 * @param warningID Die WarningID zur zu suchenden Warning.
+	 * @return Die Warning (Mahnung), die gesucht wurde.
+	 * @throws RecordNotFoundException Wird geworfen, falls ID ungültig bzw.
+	 *             keine Warning mit dieser ID existiert.
+	 */
+	public static Warning findByID(int warningID)
+			throws RecordNotFoundException
+	{
+		if (warningList.containsKey(warningID))
+		{
+			return warningList.get(warningID);
+		}
+		else
+		{
+			throw new RecordNotFoundException("Mahnung", "Mahnungsnummer",
+					warningID);
+		}
+	}
+
+	/**
+	 * Gibt eine Menge von Warnings zu einem angegebenen Customer zurück.
+	 * 
+	 * @param customer Der Customer, dessen Warnings gesucht werden.
+	 * @return Die Menge der Warnings des Customers.
+	 */
+	public static Collection<Warning> findByCustomer(Customer customer)
+	{
+		Collection<Warning> foundWarnings = new LinkedList<Warning>();
+
+		for (Warning w : warningList.values())
+		{
+			if (w.inRent.getCustomer() == customer)
+			{
+				foundWarnings.add(w);
+			}
+		}
+
+		return foundWarnings;
+	}
+
+	/**
+	 * Gibt alle Warnings (Mahnungen) in der Datenbasis zurück.
+	 * 
+	 * @return Alle vorhandenen (gespeicherten) Warnings.
+	 */
+	public static Collection<Warning> findAll()
+	{
+		return warningList.values();
+	}
+
+	/**
+	 * 
+	 * @param newWarningList Setzt die neue (globale) Liste von Warnings.
+	 * @throws FalseFieldException Wird geworfen, falls der übergebene Wert
+	 *             ungültig (null) ist.
+	 */
 	public static void setWarningList(Map<Integer, Warning> newWarningList)
+			throws FalseFieldException
 	{
 		if (newWarningList != null)
 		{
 			warningList = newWarningList;
+		}
+		else
+		{
+			throw new FalseFieldException("WarningsList is null!");
+		}
+	}
+
+	/**
+	 * Setzt die MinID für Warnings.
+	 * 
+	 * @param newMinwID Die neue MinID für Warnings.
+	 * @throws FalseIDException Wird geworfen, falls übergebener Wert ungültig
+	 *             ist.
+	 */
+	public static void setMinID(int newMinwID) throws FalseIDException
+	{
+		if (newMinwID > 0)
+		{
+			minwID = newMinwID;
+		}
+		else
+		{
+			throw new FalseIDException(
+					"Übergebene MinID für Warnings ist kleiner 0!");
 		}
 	}
 }
