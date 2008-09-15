@@ -17,7 +17,7 @@ public class Layout {
 									int gridwidth, int gridheight,
 									double widthx, double widthy) {
 	
-		addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, 3, 3, 3, 3);
+		addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
 	}
 	
 	public static void addComponent(Container container, Component component,
@@ -26,8 +26,7 @@ public class Layout {
 									double widthx, double widthy, 
 									int ipadx, int ipady, 
 									int fill, int anchor,
-									int insets1, int insets2, 
-									int insets3, int insets4) {
+									Insets insets) {
 
 		GridBagConstraints gridBagConstMainContainer = new GridBagConstraints();
 
@@ -41,8 +40,7 @@ public class Layout {
 		gridBagConstMainContainer.ipady = ipady;
 		gridBagConstMainContainer.fill = fill;
 		gridBagConstMainContainer.anchor = anchor;
-		gridBagConstMainContainer.insets = new Insets(insets1, insets2,
-				insets3, insets4);
+		gridBagConstMainContainer.insets = insets;
 		container.add(component, gridBagConstMainContainer);
 	}
 }

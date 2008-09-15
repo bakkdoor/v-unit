@@ -4,7 +4,10 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -25,6 +28,7 @@ public class MainWindow {
 
 		mainFrame = new JFrame("Videothek 3.Auge");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
 
 		// Haupt Container Layout setzen
 		Container mainContainer = mainFrame.getContentPane();
@@ -38,7 +42,7 @@ public class MainWindow {
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen
 		ToolBar toolBar = new ToolBar();
-		Layout.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, 0, 0, 0, 0);
+		Layout.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
 
@@ -57,7 +61,7 @@ public class MainWindow {
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		TablePanel tablePanel = new TablePanel();
 		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel());
-		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, 0, 0, 0, 0);
+		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
 

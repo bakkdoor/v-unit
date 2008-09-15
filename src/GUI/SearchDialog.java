@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -46,11 +47,11 @@ public class SearchDialog {
 		
 		// **************************************************************
 		
-		Layout.addComponent(mainContainer, this.createTabbedPanne(), 0, 0, 3, 1, 0.0, 1.0, 200,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, 6, 3, 3, 3);
+		Layout.addComponent(mainContainer, this.createTabbedPanne(), 0, 0, 3, 1, 0.0, 1.0, 200,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(6, 3, 3, 3));
 		
 		Layout.addComponent(mainContainer, new JLabel(), 0, 1, 1, 1, 0.3, 0.0);
-		Layout.addComponent(mainContainer, this.createButtonCancel(), 1, 1, 1, 1, 0.21, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, 10, 3, 3, 3);
-		Layout.addComponent(mainContainer, this.createButtonSearch(), 2, 1, 1, 1, 0.3, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, 10, 3, 3, 3);
+		Layout.addComponent(mainContainer, this.createButtonCancel(), 1, 1, 1, 1, 0.21, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
+		Layout.addComponent(mainContainer, this.createButtonSearch(), 2, 1, 1, 1, 0.3, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
 		
 		dialogSearch.pack();
 		dialogSearch.setVisible(true);

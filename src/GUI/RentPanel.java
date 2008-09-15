@@ -55,6 +55,11 @@ public class RentPanel {
 				stringArrTableModelRentVidCont,
 				stringArrTableModelRentVidCollNames);
 		tableRentVideo = new JTable(tableModelRentVideo);
+		
+		// Gesamtpreis Label erstellen
+		JLabel labelRentVideoCost = new JLabel("Gesammtpreis: ");
+		JLabel labelRentVideoCostPrice = new JLabel("5,90€");
+		
 		// Abbrechen/Akzeptieren Button erstellen
 		JButton buttonRentCancel = new JButton("Abbrechen");
 		JButton buttonRentAccept = new JButton("Bestätigen");
@@ -143,10 +148,14 @@ public class RentPanel {
 		gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstRent.insets = new Insets(3, 3, 3, 3);
 		panelRent.add(new JScrollPane(tableRentVideo), gridBagConstRent);
+		
+		// Gesamtpreislabel hizufügen
+		Layout.addComponent(panelRent, labelRentVideoCost, 0, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, new Insets(3,3,3,3));
+		Layout.addComponent(panelRent, labelRentVideoCostPrice, 2, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHEAST, new Insets(3,3,3,3));
 
 		// Button Abbrechen
 		gridBagConstRent.gridx = 1;
-		gridBagConstRent.gridy = 10;
+		gridBagConstRent.gridy = 11;
 		gridBagConstRent.ipady = 0;
 		gridBagConstRent.gridwidth = 1;
 		gridBagConstRent.gridheight = 1;
@@ -159,7 +168,7 @@ public class RentPanel {
 
 		// Button Akzeptieren
 		gridBagConstRent.gridx = 2;
-		gridBagConstRent.gridy = 10;
+		gridBagConstRent.gridy = 11;
 		gridBagConstRent.weightx = 0.3;
 		gridBagConstRent.weighty = 0.0;
 		gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
