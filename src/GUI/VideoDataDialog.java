@@ -1,5 +1,6 @@
 package GUI;
 
+import model.Data;
 import model.Video;
 import java.awt.Container;
 import java.awt.Frame;
@@ -29,7 +30,7 @@ public class VideoDataDialog {
 	private boolean addVideo;
 	
 	public VideoDataDialog(Frame owner) {
-		this(owner, Data.NOTSET, "", Data.NOTSET, Data.NOTSET, PriceCategory.getFirst(), 1);
+		this(owner, Data.NOTSET, "", Data.NOTSET, Data.NOTSET, new PriceCategory("A", 1.5f), 1);
 	}
 	
 	public VideoDataDialog(Frame owner, 
@@ -41,9 +42,9 @@ public class VideoDataDialog {
 							Integer unitQuantity) {
 		
 		this.owner = owner;
-		this.addVideo = (video == null);
-		this.VID = (video != null ? video.getID() : new Integer(0));
-		this.title = video.getTitle();
+		this.addVideo = (VID == null);
+		this.VID = (VID != null ? VID : new Integer(0));
+		this.title = title;
 		this.releaseYear = releaseYear;
 		this.ratedAge = ratedAge;
 		this.priceCategory = priceCategory;
@@ -83,7 +84,8 @@ public class VideoDataDialog {
 		
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		// mögliche Preisklassen abfragen
-		JComboBox comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
+//		JComboBox comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
+		JComboBox comboBoxPriceCategory = new JComboBox();
 		
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
 		JTextField textFieldUnitQuantity = new JTextField();
