@@ -197,4 +197,9 @@ public class Warning
 					"Übergebene MinID für Warnings ist kleiner 0!");
 		}
 	}
+	
+	public static int getMinID()
+	{
+		return minwID;
+	}
 }

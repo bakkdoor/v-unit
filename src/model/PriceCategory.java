@@ -73,6 +73,11 @@ public class PriceCategory
 			minpID = newMinpID;
 		}
 	}
+	
+	public static int getMinID()
+	{
+		return minpID;
+	}
 
 	public static PriceCategory reCreate(int pID, String name, float price)
 	{

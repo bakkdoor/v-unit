@@ -38,13 +38,11 @@ public class CustomerWriterTest extends AbstractWriterTest
 			}
 			catch (IOException e)
 			{	
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		catch (DataException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

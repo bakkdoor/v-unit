@@ -31,14 +31,12 @@ public class InRentWriterTest extends AbstractWriterTest
 				writer.saveInRents(InRent.findAll());
 			}
 			catch (IOException e)
-			{	
-				// TODO Auto-generated catch block
+			{
 				e.printStackTrace();
 			}
 		}
 		catch (DataException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

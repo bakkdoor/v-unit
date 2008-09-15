@@ -30,11 +30,16 @@ public class VideoParserTest extends AbstractParserTest
 		
 		assertEquals(2, Video.findAll().size());
 		assertEquals(3, Video.getMinID());
-		assertEquals(6, VideoUnit.getMinID());
+		assertEquals(7, VideoUnit.getMinID());
 		
 		for(Video video : Video.findAll())
 		{
 			System.out.println(video.getTitle());
+		}
+
+		for(VideoUnit unit : VideoUnit.findAll())
+		{
+			System.out.println(unit.getID());
 		}
 		
 		try
@@ -47,7 +52,7 @@ public class VideoParserTest extends AbstractParserTest
 			assertEquals(1982, rambo.getReleaseYear());
 			assertEquals(1, rambo.getPriceCategoryID());
 			assertEquals(18, rambo.getRatedAge());
-			assertEquals(2, rambo.getVideoUnits().size());
+			assertEquals(3, rambo.getVideoUnits().size());
 			
 			assertEquals(2, casinoRoyale.getID());
 			assertEquals("Casino Royale", casinoRoyale.getTitle());
