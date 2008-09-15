@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
@@ -13,7 +15,7 @@ public class PriceCategory
 	private String name;
 	private float price;
 
-	private static Map<Integer, PriceCategory> priceCategoryList;
+	private static Map<Integer, PriceCategory> priceCategoryList = new HashMap<Integer, PriceCategory>();
 	private static int minpID;
 
 	private PriceCategory(int pID, String name, float price)
@@ -25,7 +27,8 @@ public class PriceCategory
 		checkpID();
 		checkName();
 		checkPrice();
-
+		
+		priceCategoryList.put(this.pID, this);
 	}
 
 	public PriceCategory(String name, float price)
@@ -63,19 +66,6 @@ public class PriceCategory
 		return this.price;
 	}
 
-	public static PriceCategory findByID(int pID)
-			throws RecordNotFoundException
-	{
-		if (priceCategoryList.containsKey(pID))
-		{
-			return priceCategoryList.get(pID);
-		}
-		else
-		{
-			throw new RecordNotFoundException("PriceKategorie", "Nummer", pID);
-		}
-	}
-
 	public static void setMinID(int newMinpID)
 	{
 		if (newMinpID > 0)
@@ -93,7 +83,20 @@ public class PriceCategory
 	{
 		return priceCategoryList.values();
 	}
-	
+
+	public static PriceCategory findByID(int pID)
+			throws RecordNotFoundException
+	{
+		if (priceCategoryList.containsKey(pID))
+		{
+			return priceCategoryList.get(pID);
+		}
+		else
+		{
+			throw new RecordNotFoundException("PriceKategorie", "Nummer", pID);
+		}
+	}
+
 	public static PriceCategory findFirst() throws RecordNotFoundException
 	{
 		for(PriceCategory pc : priceCategoryList.values())
@@ -103,7 +106,35 @@ public class PriceCategory
 		
 		throw new RecordNotFoundException("Preiskategorie", "", "");
 	}
-
+		
+	public static Collection<PriceCategory> findByName(String categoryName)
+	{
+		Collection<PriceCategory> foundPriceCategories = new LinkedList<PriceCategory>();
+		for(PriceCategory pc : priceCategoryList.values())
+		{
+			if(pc.getName().startsWith(categoryName))
+			{
+				foundPriceCategories.add(pc);
+			}
+		}
+		
+		return foundPriceCategories;
+	}
+	
+	public static Collection<PriceCategory> findByPrice(float price)
+	{
+		Collection<PriceCategory> foundPriceCategories = new LinkedList<PriceCategory>();
+		for(PriceCategory pc : priceCategoryList.values())
+		{
+			if(pc.getPrice() == price)
+			{
+				foundPriceCategories.add(pc);
+			}
+		}
+		
+		return foundPriceCategories;
+	}
+	
 	public static void setPriceCategoryList(
 			Map<Integer, PriceCategory> newPriceCategoryList)
 			throws FalseFieldException

@@ -276,7 +276,7 @@ public class Video
 
 		for (Video vid : videoList.values())
 		{
-			if (vid.priceCategoryID == priceCategory.getID())
+			if (vid.priceCategory == priceCategory)
 			{
 				foundVideos.add(vid);
 			}
