@@ -15,6 +15,8 @@ import model.data.exceptions.RecordNotFoundException;
  * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
+ * 
+ * Testet die Warning-Klasse.
  */
 public class WarningTest  extends TestCase
 {
