@@ -1,7 +1,7 @@
 package GUI;
 
+import model.Video;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -30,21 +29,21 @@ public class VideoDataDialog {
 	private boolean addVideo;
 	
 	public VideoDataDialog(Frame owner) {
-		this(owner, null, "", 2000, 0, new PriceCategory("A", 1.5f), new Integer(1));
+//		this(owner, null, "", 2000, 0, new PriceCategory("A", 1.5f), new Integer(1));
 	}
 	
-	public VideoDataDialog(Frame owner, 
-							Integer VID,
-							String title,
-							Integer releaseYear,
-							Integer ratedAge,
-							model.PriceCategory priceCategory,
-							Integer unitQuantity) {
+	public VideoDataDialog(Frame owner, Video video){
+//							Integer VID,
+//							String title,
+//							Integer releaseYear,
+//							Integer ratedAge,
+//							model.PriceCategory priceCategory,
+//							Integer unitQuantity) {
 		
 		this.owner = owner;
-		this.addVideo = (VID == null);
-		this.VID = (VID != null ? VID : new Integer(0));
-		this.title = title;
+		this.addVideo = (video == null);
+		this.VID = (video != null ? video.getID() : new Integer(0));
+		this.title = video.getTitle();
 		this.releaseYear = releaseYear;
 		this.ratedAge = ratedAge;
 		this.priceCategory = priceCategory;
