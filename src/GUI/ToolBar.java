@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.JPopupMenu.Separator;
 
 public class ToolBar {
 
@@ -27,9 +28,6 @@ public class ToolBar {
 		toolBarButtonSearch.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonSearch.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonSearch.setIconTextGap(2);
-
-		// Seperator
-		JSeparator separatorToolBar1 = new JSeparator(JSeparator.VERTICAL);
 
 		// Button anlegen
 		JButton toolBarButtonNew = new JButton("Anlegen");
@@ -60,16 +58,13 @@ public class ToolBar {
 		toolBarButtonDelete.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonDelete.setIconTextGap(2);
 
-		// Seperator
-		JSeparator separatorToolBar2 = new JSeparator(JSeparator.VERTICAL);
-
 		// Buttons der ToolBar hinzufügen
 		toolBarButtons.add(toolBarButtonSearch);
-		// toolBarButtons.add(separatorToolBar1);
+		toolBarButtons.addSeparator();
 		toolBarButtons.add(toolBarButtonNew);
 		toolBarButtons.add(toolBarButtonEdit);
 		toolBarButtons.add(toolBarButtonDelete);
-		// toolBarButtons.add(separatorToolBar2);
+		toolBarButtons.addSeparator();
 
 		return toolBarButtons;
 	}

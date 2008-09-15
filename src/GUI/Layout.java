@@ -5,8 +5,21 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class LayoutMangment {
+public class Layout {
 
+	public static void addComponent(Container container, Component component, 	
+			int x, int y) {
+		Layout.addComponent(container, component, x, y, 1, 1, 0.0, 0.0);	
+	}
+	
+	public static void addComponent(Container container, Component component, 	
+									int x, int y, 
+									int gridwidth, int gridheight,
+									double widthx, double widthy) {
+	
+		addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, 3, 3, 3, 3);
+	}
+	
 	public static void addComponent(Container container, Component component,
 									int x, int y, 
 									int gridwidth, int gridheight, 

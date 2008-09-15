@@ -38,7 +38,7 @@ public class MainWindow {
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen
 		ToolBar toolBar = new ToolBar();
-		LayoutMangment.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, 0, 0, 0, 0);
+		Layout.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, 0, 0, 0, 0);
 
 		// **************************************************************
 
@@ -57,7 +57,7 @@ public class MainWindow {
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		TablePanel tablePanel = new TablePanel();
 		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel());
-		LayoutMangment.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, 0, 0, 0, 0);
+		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, 0, 0, 0, 0);
 
 		// **************************************************************
 

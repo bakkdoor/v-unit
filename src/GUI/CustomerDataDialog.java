@@ -43,7 +43,7 @@ public class CustomerDataDialog  {
 	
 	public CustomerDataDialog(Frame owner) {
 		
-		this(owner, 0, "", "", "", new Date(2000, 1,1), "", "", new Integer(0), "");
+		this(owner, null, "", "", "", new Date(2000, 1,1), "", "", new Integer(0), "");
 	}
 	
 	public CustomerDataDialog(Frame owner,  
@@ -56,7 +56,8 @@ public class CustomerDataDialog  {
 								Integer zipCode, String city) {
 		
 		this.owner = owner;
-		this.CID = CID;
+		this.addCustomer = (CID == null);
+		this.CID = (CID != null ? CID : new Integer(0));
 		this.title = title;
 		this.firstName = firstName;
 		this.Lastname = Lastname;
@@ -65,7 +66,7 @@ public class CustomerDataDialog  {
 		this.housNr = housNr;
 		this.zipCode = zipCode;
 		this.city = city;
-		this.addCustomer = this.CID.equals(new Integer(0));
+		
 		
 		// Dialog erzeugen
 		String dialogName = "Kunde " + (addCustomer ? "anlegen" : "bearbeiten");
@@ -136,43 +137,43 @@ public class CustomerDataDialog  {
 		// Übernehmen Button erzeugen
 		JButton buttonCancel = new JButton("Abbrechen");
 		buttonCancel.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-				
+				customerDataDialog.dispose();
 			}
-			
 		});
+		
 		JButton buttonAdd = new JButton("Bestätigen");
 		
 		// ***************************************************************
 		
-		this.addComponent(labelID, 				0, 0, 1, 1, 0.3, 0.0);
-		this.addComponent(textFielID, 			1, 0, 3, 1, 0.7, 0.0);
+		Container contentPane = this.customerDataDialog.getContentPane();
 		
-		this.addComponent(labelTitle, 			0, 1, 1, 1, 0.3, 0.0);
-		this.addComponent(textFieldTitle, 		1, 1, 3, 1, 0.7, 0.0);
+		Layout.addComponent(contentPane, labelID, 				0, 0, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFielID, 			1, 0, 3, 1, 0.7, 0.0);
 		
-		this.addComponent(labelFirstName, 		0, 2, 1, 1, 0.3, 0.0);
-		this.addComponent(textFieldFirstName, 	1, 2, 3, 1, 0.7, 0.0);
+		Layout.addComponent(contentPane, labelTitle, 			0, 1, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFieldTitle, 		1, 1, 3, 1, 0.7, 0.0);
 		
-		this.addComponent(labelLastName, 		0, 3, 1, 1, 0.3, 0.0);
-		this.addComponent(textFieldLastName, 	1, 3, 3, 1, 0.7, 0.0);
+		Layout.addComponent(contentPane, labelFirstName, 		0, 2, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFieldFirstName, 	1, 2, 3, 1, 0.7, 0.0);
 		
-		this.addComponent(labelBirthDay, 		0, 4, 1, 1, 0.3, 0.0);
-		this.addComponent(comboBoxBirthDay, 	1, 4, 1, 1, 0.23, 0.0);
-		this.addComponent(comboBoxBirthMonth, 	2, 4, 1, 1, 0.23, 0.0);
-		this.addComponent(textFieldBirthYear, 	3, 4, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, labelLastName, 		0, 3, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFieldLastName, 	1, 3, 3, 1, 0.7, 0.0);
 		
-		this.addComponent(labelAddress, 		0, 5, 1, 1, 0.3, 0.0);
-		this.addComponent(textFieldStreet, 		1, 5, 2, 1, 0.46, 0.0);
-		this.addComponent(textFieldHouseNr, 	3, 5, 1, 1, 0.23, 0.0);
-		this.addComponent(textFieldZipCode, 	1, 6, 1, 1, 0.23, 0.0);
-		this.addComponent(textFieldCity, 		2, 6, 2, 1, 0.46, 0.0);
+		Layout.addComponent(contentPane, labelBirthDay, 		0, 4, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, comboBoxBirthDay, 		1, 4, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, comboBoxBirthMonth, 	2, 4, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, textFieldBirthYear, 	3, 4, 1, 1, 0.23, 0.0);
 		
-		this.addComponent(buttonCancel, 		1, 7, 1, 1, 0.23, 0.0);
-		this.addComponent(buttonAdd, 			2, 7, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, labelAddress, 			0, 5, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFieldStreet, 		1, 5, 2, 1, 0.46, 0.0);
+		Layout.addComponent(contentPane, textFieldHouseNr, 		3, 5, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, textFieldZipCode, 		1, 6, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, textFieldCity, 		2, 6, 2, 1, 0.46, 0.0);
+		
+		Layout.addComponent(contentPane, buttonCancel, 			1, 7, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, buttonAdd, 			2, 7, 1, 1, 0.23, 0.0);
 		
 		// ***************************************************************
 		
@@ -198,27 +199,6 @@ public class CustomerDataDialog  {
 								"August", "September", "Oktober", "November", "Dezember"};
 	}
 
-	private void addComponent(Component component, 	int x, int y, 
-													int gridwidth, int gridheight,
-													double widthx, double widthy) {
-		
-		Container customerDataContainer = this.customerDataDialog.getContentPane();
-		GridBagConstraints gridBagConstContainerDataDialog = new GridBagConstraints();
-		
-		gridBagConstContainerDataDialog.gridx = x;
-		gridBagConstContainerDataDialog.gridy = y;
-		gridBagConstContainerDataDialog.gridwidth = gridwidth;
-		gridBagConstContainerDataDialog.gridheight = gridheight;
-		gridBagConstContainerDataDialog.weightx = widthx;
-		gridBagConstContainerDataDialog.weighty = widthy;
-		gridBagConstContainerDataDialog.ipadx = 0;
-		gridBagConstContainerDataDialog.ipady = 0;
-		gridBagConstContainerDataDialog.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstContainerDataDialog.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstContainerDataDialog.insets = new Insets(3,3,3,3);
-		customerDataContainer.add(component, gridBagConstContainerDataDialog);
-	}
-
 	private Integer[] convertDate(Date date) {
 		Integer[] dateArr = new Integer[3];
 		dateArr[0] = date.getYear();
@@ -229,13 +209,13 @@ public class CustomerDataDialog  {
 	
 	public static void main(String[] argv) {
 
-		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null,
-				123, 
-				"Frau", "Olga", "Baranouskaya", 
-				new Date(2001,8,45), 
-				"Nirgendstr.", "2a", 
-				12341, "Nieburgen");
+//		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null,
+//				123, 
+//				"Frau", "Olga", "Baranouskaya", 
+//				new Date(2001,8,45), 
+//				"Nirgendstr.", "2a", 
+//				12341, "Nieburgen");
 		
-//		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null);
+		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null);
 	}
 }
