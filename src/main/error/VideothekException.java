@@ -18,7 +18,7 @@ public class VideothekException extends Exception
 	 */
 	public VideothekException()
 	{
-		this("Fehler; Keine Nachricht angegeben.");
+		this("Fehler: Keine Nachricht angegeben.");
 	}
 
 	/**
