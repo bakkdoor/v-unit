@@ -29,16 +29,16 @@ public class VideoDataDialog {
 	private boolean addVideo;
 	
 	public VideoDataDialog(Frame owner) {
-		this(owner, new Video(video.));
+		this(owner, Data.NOTSET, "", Data.NOTSET, Data.NOTSET, PriceCategory.getFirst(), 1);
 	}
 	
-	public VideoDataDialog(Frame owner, Video video){
-//							Integer VID,
-//							String title,
-//							Integer releaseYear,
-//							Integer ratedAge,
-//							model.PriceCategory priceCategory,
-//							Integer unitQuantity) {
+	public VideoDataDialog(Frame owner, 
+							Integer VID,
+							String title,
+							Integer releaseYear,
+							Integer ratedAge,
+							model.PriceCategory priceCategory,
+							Integer unitQuantity) {
 		
 		this.owner = owner;
 		this.addVideo = (video == null);
@@ -83,7 +83,7 @@ public class VideoDataDialog {
 		
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		// mögliche Preisklassen abfragen
-		JComboBox comboBoxPriceCategory = new JComboBox();
+		JComboBox comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
 		
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
 		JTextField textFieldUnitQuantity = new JTextField();
