@@ -1,11 +1,9 @@
 package model.data.xml.parsers.test;
 
-import java.util.Map;
 
 import main.error.VideothekException;
 import model.*;
 import model.data.DataBase;
-import model.data.xml.parsers.*;
 
 public class VideoParserTest extends AbstractParserTest
 {	

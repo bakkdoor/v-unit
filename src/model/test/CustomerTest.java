@@ -2,6 +2,7 @@ package model.test;
 
 import main.error.VideothekException;
 import model.Customer;
+import model.Date;
 import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseBirthDateException;
@@ -24,7 +25,7 @@ public class CustomerTest extends ModelTest
 		{
 			Customer.setMinID(2);
 
-			new Customer("", "", 2001, 10, 1, "blaStreet", "9a",
+			new Customer("", "", new Date(1,2,1981) , "blaStreet", "9a",
 					48455, "osnabrück", "129821210398asdölkj", "Herr");
 		}
 		catch (VideothekException e)
@@ -50,7 +51,7 @@ public class CustomerTest extends ModelTest
 	{
 		Customer c = null;
 
-		c = new Customer("John", "Walker", 1937, 2, 6, "MyStreet", "77a",
+		c = new Customer("John", "Walker", new Date(2,6,1937), "MyStreet", "77a",
 				54848, "Sin City", "adslh132", "Herr");
 		assertNotNull(c);
 

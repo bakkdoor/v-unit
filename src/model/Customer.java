@@ -1,7 +1,6 @@
 package model;
 
-import java.text.DateFormat;
-import java.util.Date;
+import model.Date;
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
 
@@ -65,15 +64,13 @@ public class Customer
 	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
-	public Customer(String firstName, String lastName, int yearOfBirth,
-			int monthOfBirth, int dayOfBirth, String street, String houseNr,
+	public Customer(String firstName, String lastName, Date birthDate, String street, String houseNr,
 			int zipCode, String city, String identificationNr, String title)
 			throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
 		
-		this(mincID, firstName, lastName, yearOfBirth, monthOfBirth,
-				dayOfBirth, street, houseNr, zipCode, city, identificationNr,
+		this(mincID, firstName, lastName, birthDate, street, houseNr, zipCode, city, identificationNr,
 				title);
 		
 		mincID++;
@@ -112,24 +109,21 @@ public class Customer
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	private Customer(int cID, String firstName, String lastName,
-			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
+			Date birthDate, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
 			String title) throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
-		Date newDate = new Date(yearOfBirth, monthOfBirth, dayOfBirth);
-
 		if (correctID(cID)
-				&& noEmptyFields(firstName, lastName, yearOfBirth,
-						monthOfBirth, dayOfBirth, street, houseNr, zipCode,
+				&& noEmptyFields(firstName, lastName, birthDate, street, houseNr, zipCode,
 						city, identificationNr, title)
-				&& correctBirthDate(newDate))
+				&& correctBirthDate(birthDate))
 		{
 
 			this.cID = cID;
 			this.firstName = firstName;
 			this.lastName = lastName;
-			this.birthDate = newDate;
+			this.birthDate = birthDate;
 			this.street = street;
 			this.houseNr = houseNr;
 			this.zipCode = zipCode;
@@ -171,13 +165,12 @@ public class Customer
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public static Customer reCreate(int cID, String firstName, String lastName,
-			int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+			Date birthDate, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
 			String title) throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
-		return new Customer(cID, firstName, lastName, yearOfBirth,
-				monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
+		return new Customer(cID, firstName, lastName, birthDate, street, houseNr, zipCode, city,
 				identificationNr, title);
 	}
 
@@ -217,13 +210,13 @@ public class Customer
 	 *             gefunden werden
 	 */
 	private boolean noEmptyFields(String firstName, String lastName,
-			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
+			Date birthDate, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
 			String title) throws EmptyFieldException
 	{
 		if (firstName == null || firstName == "" || lastName == null
-				|| lastName == "" || yearOfBirth == 0 || monthOfBirth == 0
-				|| dayOfBirth == 0 || street == null || street == ""
+				|| lastName == "" || birthDate.getYear() == 0 || birthDate.getMonth() == 0
+				|| birthDate.getDate() == 0 || street == null || street == ""
 				|| houseNr == null || houseNr == "" || zipCode == 0
 				|| city == null || city == "" || identificationNr == null
 				|| identificationNr == "" || title == null || title == "")

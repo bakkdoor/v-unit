@@ -2,14 +2,10 @@ package model.data.xml.writers.test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
 
-import model.Customer;
 import model.InRent;
 import model.data.exceptions.DataException;
 import model.data.exceptions.RecordNotFoundException;
-import model.data.xml.parsers.CustomerParser;
-import model.data.xml.writers.CustomerWriter;
 import model.data.xml.writers.InRentWriter;
 
 /**

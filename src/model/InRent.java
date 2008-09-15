@@ -1,7 +1,7 @@
 ﻿package model;
 
 import java.util.Collection;
-import java.util.Date;
+import model.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;

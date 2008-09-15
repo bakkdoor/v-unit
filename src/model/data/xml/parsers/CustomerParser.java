@@ -1,7 +1,11 @@
 package model.data.xml.parsers;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import model.Data;
+import model.Date;
 
 import javax.xml.parsers.SAXParser;
 
@@ -27,6 +31,7 @@ public class CustomerParser extends AbstractParser
 
 	/**
 	 * Konstruktor für CustomerParser.
+	 * 
 	 * @throws DataException
 	 */
 	public CustomerParser()
@@ -38,10 +43,10 @@ public class CustomerParser extends AbstractParser
 
 	/**
 	 * XML-Dokument für Customers durchlaufen und in die Liste packen.
+	 * 
 	 * @param customersFile Dateiname bzw. -pfad der customers.xml
 	 * @return Liste von eingelesenen Customers
-	 * @throws Exception
-	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
 	public Map<Integer, Customer> parseCustomers(String customersFile)
 			throws DataException
@@ -96,19 +101,14 @@ public class CustomerParser extends AbstractParser
 		else if (tagname == "customer") // öffnendes tag <customer>
 		{
 			// daten einlesen aus xml-datei (jeweils attribute, siehe xml-spec)
-			int cID = -1;
-			int zipCode, dayOfBirth, monthOfBirth, yearOfBirth = -1;
+			int cID = Data.NOTSET;
+			int zipCode = Data.NOTSET;
 			String firstName, lastName, street, houseNr, city, identificationNr, title;
 
 			cID = Integer.parseInt(attributes.getValue("cID"));
 			firstName = attributes.getValue("firstName");
 			lastName = attributes.getValue("lastName");
-
-			String[] birthDate = attributes.getValue("birthDate").split(":");
-			dayOfBirth = Integer.parseInt(birthDate[0]);
-			monthOfBirth = Integer.parseInt(birthDate[1]);
-			yearOfBirth = Integer.parseInt(birthDate[2]);
-
+			Date birthDate = Date.parseString(attributes.getValue("birthDate"));
 			street = attributes.getValue("street");
 			houseNr = attributes.getValue("houseNr");
 			zipCode = Integer.parseInt(attributes.getValue("zipCode"));
@@ -121,8 +121,8 @@ public class CustomerParser extends AbstractParser
 			try
 			{
 				newCustomer = Customer.reCreate(cID, firstName, lastName,
-						yearOfBirth, monthOfBirth, dayOfBirth, street, houseNr,
-						zipCode, city, identificationNr, title);
+						birthDate, street, houseNr, zipCode, city,
+						identificationNr, title);
 			}
 			catch (VideothekException e)
 			{

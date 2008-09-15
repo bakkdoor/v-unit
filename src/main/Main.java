@@ -1,7 +1,7 @@
 package main;
 
 import java.io.IOException;
-import java.util.Date;
+import model.Date;
 
 import logging.Logger;
 import model.*;

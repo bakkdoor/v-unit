@@ -1,6 +1,6 @@
 package model.test;
 
-import java.util.Date;
+import model.Date;
 
 import junit.framework.TestCase;
 
