@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
@@ -86,6 +87,21 @@ public class PriceCategory
 	public static PriceCategory reCreate(int pID, String name, float price)
 	{
 		return new PriceCategory(pID, name, price);
+	}
+	
+	public static Collection<PriceCategory> findAll()
+	{
+		return priceCategoryList.values();
+	}
+	
+	public static PriceCategory findFirst() throws RecordNotFoundException
+	{
+		for(PriceCategory pc : priceCategoryList.values())
+		{
+			return pc;
+		}
+		
+		throw new RecordNotFoundException("Preiskategorie", "", "");
 	}
 
 	public static void setPriceCategoryList(
