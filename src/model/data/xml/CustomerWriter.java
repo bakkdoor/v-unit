@@ -32,8 +32,7 @@ public class CustomerWriter extends AbstractWriter
 	{
 		XMLDocument document = new XMLDocument();
 		XML customersTag = new XML("customers");
-		customersTag.addAttribute("minID", Customer.getMinID());
-		
+		customersTag.addXMLAttribute("minID", Integer.toString(Customer.getMinID()));
 		document.addElement(customersTag);
 		
 		for (Customer c : customersToSave)

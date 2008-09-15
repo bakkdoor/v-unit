@@ -68,7 +68,7 @@ public class InRent
 		}
 	}
 	
-	public static void getMinID()
+	public static int getMinID()
 	{
 		return minrID;
 	}

@@ -28,7 +28,7 @@ public class InRentWriter extends AbstractWriter
 	{
 		XMLDocument document = new XMLDocument();
 		XML customersTag = new XML("inRents");
-		customersTag.addAttribute("minID", InRent.getMinID());
+		customersTag.addXMLAttribute("minID", Integer.toString(InRent.getMinID()));
 		
 		document.addElement(customersTag);
 		
