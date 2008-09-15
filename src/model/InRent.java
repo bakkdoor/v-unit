@@ -67,6 +67,11 @@ public class InRent
 					"Übergebene MinID für InRent ist kleiner 0!!!");
 		}
 	}
+	
+	public static void getMinID()
+	{
+		return minrID;
+	}
 
 	private void checkRentDate() throws FalseFieldException,
 			CurrentDateException

@@ -402,6 +402,19 @@ public class Customer
 		else
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
+	
+	public void setTitle(String newTitle) throws EmptyFieldException
+	{
+		if(newTitle != null && newTitle != "")
+			this.title = newTitle;
+		else
+			throw new EmptyFieldException("Kein Titel eingegeben!");
+	}
+	
+	public String getTitle()
+	{
+		return this.title;
+	}
 
 	/**
 	 * @return die Hausnummer der Adresse des Customers
@@ -530,6 +543,15 @@ public class Customer
 			throw new FalseIDException(
 					"Übergebene MinID für Customer ist kleiner 0!!!");
 		}
+	}
+	
+	/**
+	 * Gibt die aktuelle MinID für Customers zurück.
+	 * @return Die aktuelle MinID für Customers.
+	 */
+	public static int getMinID()
+	{
+		return mincID;
 	}
 
 	/**
