@@ -92,7 +92,6 @@ public class InRentParser extends AbstractParser
 			}
 			catch (FalseIDException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
@@ -119,7 +118,6 @@ public class InRentParser extends AbstractParser
 			}
 			catch (VideothekException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

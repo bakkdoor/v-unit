@@ -46,7 +46,7 @@ public class CustomerTest extends ModelTest
 		}
 	}
 	
-	public void testSetters() throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException
+	public void testSetters() throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
 		Customer c = null;
 

@@ -62,8 +62,8 @@ public class Customer
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
 	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
 	 *             gesetzte CurrentDate nachträglich verändert werden soll
-	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit der neuen
-	 * 			Personalausweisnummer in der Kundenbank existiert.
+	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
+	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public Customer(String firstName, String lastName, int yearOfBirth,
 			int monthOfBirth, int dayOfBirth, String street, String houseNr,
@@ -71,15 +71,19 @@ public class Customer
 			throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
+		
 		this(mincID, firstName, lastName, yearOfBirth, monthOfBirth,
 				dayOfBirth, street, houseNr, zipCode, city, identificationNr,
 				title);
+		
 		mincID++;
+		
+		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben wurde...
 	}
 
 	/**
-	 * private Konstruktor, der vom public-Konstruktor und von der recreate-Methode 
-	 * genutzt wird
+	 * private Konstruktor, der vom public-Konstruktor und von der
+	 * recreate-Methode genutzt wird
 	 * 
 	 * @param cID einzigartige und unveränderbare ID des Customers
 	 * @param firstName Vorname
@@ -104,8 +108,8 @@ public class Customer
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
 	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
 	 *             gesetzte CurrentDate nachträglich verändert werden soll
-	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit der neuen
-	 * 			Personalausweisnummer in der Kundenbank existiert.
+	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
+	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	private Customer(int cID, String firstName, String lastName,
 			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
@@ -121,26 +125,19 @@ public class Customer
 						city, identificationNr, title)
 				&& correctBirthDate(newDate))
 		{
-			try
-			{
-				Customer foundCustomer = findByIdentificationNr(identificationNr);
-				throw new FalseFieldException("Personalausweisnummer bereits vergeben für Kunde:" +
-						                       "\n" + foundCustomer.toString());
-			}
-			catch ( RecordNotFoundException e )
-			{				
-				this.cID = cID;
-				this.firstName = firstName;
-				this.lastName = lastName;
-				this.birthDate = newDate;
-				this.street = street;
-				this.houseNr = houseNr;
-				this.zipCode = zipCode;
-				this.city = city;
-				this.identificationNr = identificationNr;
-				this.title = title;
-				this.rentList = new LinkedList<InRent>();
-			}
+
+			this.cID = cID;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.birthDate = newDate;
+			this.street = street;
+			this.houseNr = houseNr;
+			this.zipCode = zipCode;
+			this.city = city;
+			this.identificationNr = identificationNr;
+			this.title = title;
+			this.rentList = new LinkedList<InRent>();
+
 		}
 	}
 
@@ -170,8 +167,8 @@ public class Customer
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
 	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
 	 *             gesetzte CurrentDate nachträglich verändert werden soll
-	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit der neuen
-	 * 			Personalausweisnummer in der Kundenbank existiert.
+	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
+	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public static Customer reCreate(int cID, String firstName, String lastName,
 			int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
@@ -395,8 +392,8 @@ public class Customer
 	 * setzt die Straße der Adresse des Customers
 	 * 
 	 * @param newStreet neue Straße
-	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere 
-	 *         Felder übergeben werden sollen
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
 	 */
 	public void setStreet(String newStreet) throws EmptyFieldException
 	{
@@ -418,8 +415,8 @@ public class Customer
 	 * setzt die Hausnummer der Adresse des Customers
 	 * 
 	 * @param newHouseNr neue Hausnummer
-	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere 
-	 *         Felder übergeben werden sollen
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
 	 */
 	public void setHouseNr(String newHouseNr) throws EmptyFieldException
 	{
@@ -439,9 +436,10 @@ public class Customer
 
 	/**
 	 * setzt die PLZ der Adresse des Customers
+	 * 
 	 * @param newZipCode neue Postleitzahl
-	 * @throws FalseFieldException wird geworfen, wenn keine oder 
-	 * 			eine PLZ kleiner 0 übergeben wird
+	 * @throws FalseFieldException wird geworfen, wenn keine oder eine PLZ
+	 *             kleiner 0 übergeben wird
 	 */
 	public void setZipCode(int newZipCode) throws FalseFieldException
 	{
@@ -461,9 +459,10 @@ public class Customer
 
 	/**
 	 * setzt die Stadt der Adresse des Customers
+	 * 
 	 * @param newCity neue Stadt
-	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere 
-	 *         Felder übergeben werden sollen
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
 	 */
 	public void setCity(String newCity) throws EmptyFieldException
 	{
@@ -483,9 +482,10 @@ public class Customer
 
 	/**
 	 * setzt die Personalausweisnummer des Customers
+	 * 
 	 * @param newIdentificationNr neue Personalausweisnummer
-	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere 
-	 *         Felder übergeben werden sollen
+	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
+	 *             Felder übergeben werden sollen
 	 */
 	public void setIdentificationNr(String newIdentificationNr)
 			throws EmptyFieldException
@@ -498,20 +498,24 @@ public class Customer
 	}
 
 	/**
-	 * @return einen String, der die Daten eines Customers enthält( Name, Kundennummer, Geburtsdatum,
-	 * 			Adresse und Personalausweisnummer)
+	 * @return einen String, der die Daten eines Customers enthält( Name,
+	 *         Kundennummer, Geburtsdatum, Adresse und Personalausweisnummer)
 	 */
 	public String toString()
 	{
-		return (this.getFirstName() + " " + this.getLastName() + "\n" + "(Kundennummer: " + this.getID() + ")" +
-				this.getBirthDate().getDate() + "." + this.getBirthDate().getMonth() + "." + this.getBirthDate().getYear() + "\n" +
-				this.getZipCode() + " " + this.getCity() + " " + "\n" +
-				this.getStreet() + " " + this.getHouseNr() + "\n" + 
-				"Personalausweisnummer: " + this.getIdentificationNr());
+		return (this.getFirstName() + " " + this.getLastName() + "\n"
+				+ "(Kundennummer: " + this.getID() + ")"
+				+ this.getBirthDate().getDate() + "."
+				+ this.getBirthDate().getMonth() + "."
+				+ this.getBirthDate().getYear() + "\n" + this.getZipCode()
+				+ " " + this.getCity() + " " + "\n" + this.getStreet() + " "
+				+ this.getHouseNr() + "\n" + "Personalausweisnummer: " + this
+				.getIdentificationNr());
 	}
 
 	/**
 	 * setzt das statische Feld mincID
+	 * 
 	 * @param newMincID neue mincID (wird für nächsten Customer vergeben)
 	 * @throws FalseIDExceptionwird geworfen, wenn übergebene MinID kleiner o
 	 */
@@ -539,11 +543,13 @@ public class Customer
 	}
 
 	/**
-	 * Sucht einen Customer in der Liste der Customer nach seiner ID und liefert diesen,
-	 * falls gefunden, dann als Customer-Objekt zurück
+	 * Sucht einen Customer in der Liste der Customer nach seiner ID und liefert
+	 * diesen, falls gefunden, dann als Customer-Objekt zurück
+	 * 
 	 * @param customerID die ID des zu suchenden Customers
 	 * @return den Customer mit der übergebenen ID
-	 * @throws RecordNotFoundException wird geworfen, wenn kein Customer mit der ID existiert
+	 * @throws RecordNotFoundException wird geworfen, wenn kein Customer mit der
+	 *             ID existiert
 	 */
 	public static Customer findByID(int customerID)
 			throws RecordNotFoundException
@@ -560,11 +566,13 @@ public class Customer
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach allen, deren Nachname mit dem übergebenen String
-	 * beginnt, und gibt diese alle als Liste zurück.
-	 * @param lastName ist der komplette Nachname, oder der Anfang des Nachnamens eines
-	 * Customers, der gesucht werden soll
-	 * @return eine Collection aus Customer-Ojekten, deren Nachnamen die Suchkriterien erfüllen
+	 * Sucht in der Liste der Customer nach allen, deren Nachname mit dem
+	 * übergebenen String beginnt, und gibt diese alle als Liste zurück.
+	 * 
+	 * @param lastName ist der komplette Nachname, oder der Anfang des
+	 *            Nachnamens eines Customers, der gesucht werden soll
+	 * @return eine Collection aus Customer-Ojekten, deren Nachnamen die
+	 *         Suchkriterien erfüllen
 	 */
 	public static Collection<Customer> findByLastName(String lastName)
 	{
@@ -580,12 +588,13 @@ public class Customer
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach allen, deren Geburtstdatum mit dem übergebenen
-	 * übereinstimmt, und gibt diese alle als Liste zurück.
-	 * @param birthDate ist das Geburtstdatum als Date-Objekt, mit dem nach Customern
-	 * 			gesucht werden soll
-	 * @return eine Collection aus Customer-Ojekten, deren Geburtsdatum 
-	 * 			mit dem gesuchten übereinstimmen
+	 * Sucht in der Liste der Customer nach allen, deren Geburtstdatum mit dem
+	 * übergebenen übereinstimmt, und gibt diese alle als Liste zurück.
+	 * 
+	 * @param birthDate ist das Geburtstdatum als Date-Objekt, mit dem nach
+	 *            Customern gesucht werden soll
+	 * @return eine Collection aus Customer-Ojekten, deren Geburtsdatum mit dem
+	 *         gesuchten übereinstimmen
 	 */
 	public static Collection<Customer> findByBirthDate(Date birthDate)
 	{
@@ -602,12 +611,13 @@ public class Customer
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach einem mit der übergebenen Personalausweisnummer.
-	 * Falls existent, wird dieser zurückgeliefert.
+	 * Sucht in der Liste der Customer nach einem mit der übergebenen
+	 * Personalausweisnummer. Falls existent, wird dieser zurückgeliefert.
+	 * 
 	 * @param identificationNr die zu suchende Personalausweisnummer
 	 * @return den zu der Personalausweisnummer gehörigen Customer
-	 * @throws RecordNotFoundException wird geworfen, wenn kein Customer mit der gesuchten
-	 * 			Personalausweisnummer existiert
+	 * @throws RecordNotFoundException wird geworfen, wenn kein Customer mit der
+	 *             gesuchten Personalausweisnummer existiert
 	 */
 	public static Customer findByIdentificationNr(String identificationNr)
 			throws RecordNotFoundException
@@ -624,10 +634,12 @@ public class Customer
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach allen mit der übergebenen Stadt als Wohnort
-	 * unf gibr eine Liste dieser Customer zurück.
+	 * Sucht in der Liste der Customer nach allen mit der übergebenen Stadt als
+	 * Wohnort unf gibr eine Liste dieser Customer zurück.
+	 * 
 	 * @param city die zu suchende Stadt
-	 * @return eine Collection aus Customer-Objekten, die das Suchkriterium erfüllen
+	 * @return eine Collection aus Customer-Objekten, die das Suchkriterium
+	 *         erfüllen
 	 */
 	public static Collection<Customer> findByCity(String city)
 	{
@@ -644,8 +656,10 @@ public class Customer
 
 	/**
 	 * Methode zur Erstellung einer neuen Liste, die die Customers enthält
+	 * 
 	 * @param newCustomerList eine neue Customer-Liste
-	 * @throws FalseFieldException wird geworfen, wenn keine Liste übergeben wird
+	 * @throws FalseFieldException wird geworfen, wenn keine Liste übergeben
+	 *             wird
 	 */
 	public static void setCustomerList(Map<Integer, Customer> newCustomerList)
 			throws FalseFieldException

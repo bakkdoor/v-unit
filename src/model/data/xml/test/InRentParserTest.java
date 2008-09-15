@@ -43,7 +43,6 @@ public class InRentParserTest extends AbstractParserTest
 		}
 		catch (VideothekException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -68,7 +67,6 @@ public class InRentParserTest extends AbstractParserTest
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

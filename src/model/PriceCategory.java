@@ -40,13 +40,10 @@ public class PriceCategory
 
 	private void checkName()
 	{
-		// TODO Auto-generated method stub
 	}
 
 	private void checkPrice()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	public int getID()

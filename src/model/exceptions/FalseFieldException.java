@@ -12,7 +12,7 @@ public class FalseFieldException extends VideothekException
 
 	public FalseFieldException()
 	{
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	/**

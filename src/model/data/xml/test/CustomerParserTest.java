@@ -45,7 +45,6 @@ public class CustomerParserTest extends AbstractParserTest
 		}
 		catch (VideothekException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -62,7 +61,6 @@ public class CustomerParserTest extends AbstractParserTest
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

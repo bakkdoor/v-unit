@@ -30,7 +30,6 @@ public class PriceCategoryParserTest extends AbstractParserTest
 		}
 		catch (VideothekException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -53,7 +52,6 @@ public class PriceCategoryParserTest extends AbstractParserTest
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

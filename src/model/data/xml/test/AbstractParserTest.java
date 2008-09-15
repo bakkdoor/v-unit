@@ -33,7 +33,6 @@ public abstract class AbstractParserTest extends TestCase
 		}
 		catch (CurrentDateException e2)
 		{
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 	}
