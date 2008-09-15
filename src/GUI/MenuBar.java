@@ -35,12 +35,12 @@ public class MenuBar {
 
 		// Menu Suchen
 		JMenu menuSearch = new JMenu("Suche");
-		JMenuItem menuItemSearchCustomer = new JMenuItem("nach Kunde", new ImageIcon("icons/magnifier.png"));
-		JMenuItem menuItemSearchVideo = new JMenuItem("nach Video", new ImageIcon("icons/magnifier.png"));
-
-		menuSearch.add(menuItemSearchCustomer);
+		JMenuItem menuItemSearchVideo = new JMenuItem("nach Film", new ImageIcon("icons/magnifier.png"));
+		JMenuItem menuItemSearchCustomer = new JMenuItem("nach Kunden", new ImageIcon("icons/magnifier.png"));
+		
 		menuSearch.add(menuItemSearchVideo);
-
+		menuSearch.add(menuItemSearchCustomer);
+		
 		// Menu Extras
 		JMenu menuTools = new JMenu("Extras");
 		JMenuItem menuItemToolsWarnings = new JMenuItem("Mahnungen erstellen", new ImageIcon("icons/clock.png"));
