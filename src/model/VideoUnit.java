@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.EmptyFieldException;
 
 /**
  * VideoUnit.java
@@ -197,8 +198,9 @@ public class VideoUnit
 	/**
 	 * Setzt die VideoUnit Liste, sodass sie global verfügbar wird.
 	 * @param newVideoUnitList Die Liste der geladenen VideoUnits.
+	 * @throws EmptyFieldException wird geworfen, wenn Paramter null
 	 */
-	public static void setVideoUnitList(Map<Integer, VideoUnit> newVideoUnitList)
+	public static void setVideoUnitList(Map<Integer, VideoUnit> newVideoUnitList) throws EmptyFieldException
 	{
 		if (newVideoUnitList != null)
 		{
@@ -211,6 +213,7 @@ public class VideoUnit
 				addToUnitToVideoMap(unit);
 			}
 		}
+		else throw new EmptyFieldException("VideoUnitList ist null!!");
 	}
 	
 	/**
