@@ -133,9 +133,16 @@ public class Warning
 
 		for (Warning w : warningList.values())
 		{
-			if (w.inRent.getCustomer() == customer)
+			try
 			{
-				foundWarnings.add(w);
+				if (w.inRent.getCustomer() == customer)
+				{
+					foundWarnings.add(w);
+				}
+			}
+			catch (RecordNotFoundException e)
+			{
+				// falls fehler kommt, einfach ignorieren...
 			}
 		}
 
