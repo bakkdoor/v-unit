@@ -29,7 +29,7 @@ public class VideoDataDialog {
 	private boolean addVideo;
 	
 	public VideoDataDialog(Frame owner) {
-//		this(owner, null, "", 2000, 0, new PriceCategory("A", 1.5f), new Integer(1));
+		this(owner, new Video(video.));
 	}
 	
 	public VideoDataDialog(Frame owner, Video video){

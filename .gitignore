@@ -1,5 +1,7 @@
 bin/**/*
+bin/*
 *.classpath
 *.project
 .settings/*
 management/Thumbs.db
+icons/Thumbs.db
