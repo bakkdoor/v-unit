@@ -5,7 +5,8 @@ import java.util.Map;
 import main.error.VideothekException;
 import model.*;
 import model.data.exceptions.*;
-import model.data.xml.*;
+import model.data.xml.parsers.*;
+import model.data.xml.writers.*;
 
 /**
  * DataBase.java

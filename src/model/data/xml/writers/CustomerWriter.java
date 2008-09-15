@@ -1,10 +1,7 @@
-package model.data.xml;
+package model.data.xml.writers;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.apache.ecs.xml.XML;

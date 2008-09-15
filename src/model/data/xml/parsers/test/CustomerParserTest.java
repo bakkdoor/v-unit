@@ -1,10 +1,10 @@
-package model.data.xml.test;
+package model.data.xml.parsers.test;
 
 import java.util.Map;
 
 import main.error.VideothekException;
 import model.Customer;
-import model.data.xml.CustomerParser;
+import model.data.xml.parsers.CustomerParser;
 import model.exceptions.EmptyFieldException;
 
 /**

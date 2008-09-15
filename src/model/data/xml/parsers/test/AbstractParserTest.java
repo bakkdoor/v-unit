@@ -1,4 +1,4 @@
-package model.data.xml.test;
+package model.data.xml.parsers.test;
 
 import java.util.Date;
 

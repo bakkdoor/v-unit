@@ -1,4 +1,4 @@
-package model.data.xml;
+package model.data.xml.writers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import org.apache.ecs.xml.XMLDocument;
 
 import model.InRent;
 import model.data.exceptions.DataSaveException;
+import model.data.exceptions.RecordNotFoundException;
 
 /**
  * InRentWriter.java
@@ -24,7 +25,7 @@ public class InRentWriter extends AbstractWriter
 		super(inRentsFile);
 	}
 	
-	public void saveInRents(Collection<InRent> inRentsToSave) throws IOException
+	public void saveInRents(Collection<InRent> inRentsToSave) throws IOException, RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
 		XML customersTag = new XML("inRents");

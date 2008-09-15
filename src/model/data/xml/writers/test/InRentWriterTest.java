@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.util.*;
 
 import model.Customer;
+import model.InRent;
 import model.data.exceptions.DataException;
+import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.parsers.CustomerParser;
 import model.data.xml.writers.CustomerWriter;
+import model.data.xml.writers.InRentWriter;
 
 /**
  * CustomerWriterTest.java
@@ -15,26 +18,21 @@ import model.data.xml.writers.CustomerWriter;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
  */
-public class CustomerWriterTest extends AbstractWriterTest
+public class InRentWriterTest extends AbstractWriterTest
 {
-	public void testSaveCustomers() throws FileNotFoundException
+	public void testSaveInRents() throws FileNotFoundException, RecordNotFoundException
 	{
-		Map<Integer, Customer> parsedCustomers = null;
-		CustomerParser parser = new CustomerParser();
-
 		try
 		{
-			parsedCustomers = parser.parseCustomers("xml-spec/customers.xml");
+			assertNotNull(InRent.findAll());
+			assertEquals(2, InRent.findAll().size());
 
-			assertNotNull(parsedCustomers);
-			assertEquals(3, parsedCustomers.size());
-
-			CustomerWriter writer = new CustomerWriter(
-					"xml-spec/customers-save.xml");
+			InRentWriter writer = new InRentWriter(
+					"xml-spec/inRents-save.xml");
 
 			try
 			{
-				writer.saveCustomers(parsedCustomers.values());
+				writer.saveInRents(InRent.findAll());
 			}
 			catch (IOException e)
 			{	

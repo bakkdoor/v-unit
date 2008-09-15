@@ -1,5 +1,6 @@
 ﻿package model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -100,12 +101,11 @@ public class InRent
 			throw new FalseIDException();
 	}
 
-	public Customer getCustomer()
+	public Customer getCustomer() throws RecordNotFoundException
 	{
 		if (this.customer == null)
 		{
-			// TODO: hier nach Customer objekt suchen mit der id = customerID
-			// und this.customer darauf verweisen
+			this.customer = Customer.findByID(this.customerID);
 		}
 		return this.customer;
 	}
@@ -125,12 +125,11 @@ public class InRent
 		return this.duration;
 	}
 
-	public VideoUnit getVideoUnit()
+	public VideoUnit getVideoUnit() throws RecordNotFoundException
 	{
 		if (this.videoUnit == null)
 		{
-			// TODO: hier nach VideoUnit objekt suchen mit der id = videoUnitID
-			// und this.videoUnit darauf verweisen
+			this.videoUnit = VideoUnit.findByID(this.videoUnitID);
 		}
 		return this.videoUnit;
 	}
@@ -147,8 +146,13 @@ public class InRent
 					inRentID);
 		}
 	}
+	
+	public static Collection<InRent> findAll()
+	{
+		return inRentList.values();
+	}
 
-	public static List<InRent> findByCustomer(Customer customer)
+	public static Collection<InRent> findByCustomer(Customer customer)
 	{
 		List<InRent> foundInRents = new LinkedList<InRent>();
 		for (InRent ir : inRentList.values())
@@ -176,7 +180,7 @@ public class InRent
 				videoUnit.getID());
 	}
 
-	public static List<InRent> findByDate(Date date)
+	public static Collection<InRent> findByDate(Date date)
 	{
 		List<InRent> foundInRents = new LinkedList<InRent>();
 		for (InRent ir : inRentList.values())

@@ -1,11 +1,11 @@
-package model.data.xml.test;
+package model.data.xml.parsers.test;
 
 import java.util.Date;
 import java.util.Map;
 
 import main.error.VideothekException;
 import model.*;
-import model.data.xml.*;
+import model.data.xml.parsers.*;
 
 /**
  * InRentParserTest.java

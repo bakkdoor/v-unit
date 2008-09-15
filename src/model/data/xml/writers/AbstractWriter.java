@@ -1,4 +1,4 @@
-package model.data.xml;
+package model.data.xml.writers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
