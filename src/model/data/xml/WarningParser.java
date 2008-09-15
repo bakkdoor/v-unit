@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 import model.Data;
 import model.Warning;
 import model.data.exceptions.DataException;
+import model.exceptions.FalseIDException;
 
 /**
  * WarningParser.java
@@ -75,7 +76,14 @@ public class WarningParser extends AbstractParser
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
-			Warning.setMinID(minId);
+			try
+			{
+				Warning.setMinID(minId);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 		}
 		else if (tagname == "warning") // öffnendes tag <warning>
 		{

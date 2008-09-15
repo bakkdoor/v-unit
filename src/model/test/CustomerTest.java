@@ -1,16 +1,12 @@
 package model.test;
 
-import java.util.Date;
-
 import main.error.VideothekException;
-import model.CurrentDate;
 import model.Customer;
 import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseBirthDateException;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
-import junit.framework.TestCase;
 
 /**
  * CustomerTest.java
@@ -20,34 +16,8 @@ import junit.framework.TestCase;
  * 
  * Testet die Customer-Klasse.
  */
-public class CustomerTest extends TestCase
+public class CustomerTest extends ModelTest
 {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-
-		if (!CurrentDate.isSet())
-		{
-			CurrentDate.set(new Date());
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception
-	{
-		super.tearDown();
-	}
-
 	public void testConstructor()
 	{
 		try

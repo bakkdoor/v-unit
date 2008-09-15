@@ -18,7 +18,6 @@ public class Video
 	private PriceCategory priceCategory;
 	private int priceCategoryID = NotSet;
 	private int ratedAge = NotSet;
-	private Map<Integer, VideoUnit> videoUnits;
 
 	private static Map<Integer, Video> videoList;
 	private static int minvID;
@@ -45,19 +44,15 @@ public class Video
 			this.releaseYear = releaseYear;
 			this.priceCategoryID = priceCategoryID;
 			this.ratedAge = ratedAge;
-			this.videoUnits = new HashMap<Integer, VideoUnit>();
 		}
 	}
 
 	public static Video reCreate(int vID, String title, int releaseYear,
-			int priceCategoryID, int ratedAge,
-			Map<Integer, VideoUnit> videoUnits) throws FalseIDException,
+			int priceCategoryID, int ratedAge) throws FalseIDException,
 			EmptyFieldException, FalseFieldException, CurrentDateException
 	{
 		Video video = new Video(vID, title, releaseYear, priceCategoryID,
 				ratedAge);
-
-		video.videoUnits = videoUnits;
 
 		return video;
 	}
@@ -106,7 +101,7 @@ public class Video
 
 	public Collection<VideoUnit> getVideoUnits()
 	{
-		return this.videoUnits.values();
+		return VideoUnit.findByVideo(this);
 	}
 
 	public static void setMinID(int newMinvID)
@@ -190,6 +185,7 @@ public class Video
 		else
 			throw new FalseFieldException("Bitte FSK überprüfen");
 	}
+	
 
 	/**
 	 * Gibt die Menge aller Videos in der Datenbasis zurück.
@@ -309,5 +305,14 @@ public class Video
 		}
 
 		return foundVideos;
+	}
+	
+	/**
+	 * Gibt die derzeitige MinID für Videos zurück.
+	 * @return
+	 */
+	public static int getMinID()
+	{
+		return minvID;
 	}
 }

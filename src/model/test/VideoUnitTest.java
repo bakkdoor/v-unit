@@ -1,27 +1,23 @@
 package model.test;
 
-import model.InRent;
-import model.Warning;
+import model.Video;
+import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
 
 /**
- * WarningTest.java
- * 
+ * VideoUnitTest.java
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
- * 
- * Testet die Warning-Klasse.
  */
-public class WarningTest extends ModelTest
+public class VideoUnitTest extends ModelTest
 {
-
 	public void testConstructor()
 	{
 		try
 		{
-			Warning w = new Warning(InRent.findByID(1));
+			VideoUnit unit = new VideoUnit(Video.findByID(1));
 			
-			assertTrue(Warning.findAll().contains(w));
+			assertTrue(VideoUnit.findAll().contains(unit));
 		}
 		catch (RecordNotFoundException e)
 		{

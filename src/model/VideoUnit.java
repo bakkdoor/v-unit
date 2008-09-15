@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class VideoUnit
 	private Video video;
 
 	private static Map<Integer, VideoUnit> videoUnitList;
+	private static Map<Integer, Collection<VideoUnit>> unitToVideoMap;
 	private static int minuID;
 
 	/**
@@ -35,6 +37,7 @@ public class VideoUnit
 		minuID++;
 
 		videoUnitList.put(this.uID, this);
+		addToUnitToVideoMap(this);
 	}
 
 	/**
@@ -126,6 +129,15 @@ public class VideoUnit
 					"ExemplarNummer", videoUnitID);
 		}
 	}
+	
+	/**
+	 * Gibt die Menge aller VideoUnits in der Datenbasis zurück.
+	 * @return Die Menge aller VideoUnits.
+	 */
+	public static Collection<VideoUnit> findAll()
+	{
+		return videoUnitList.values();
+	}
 
 	/**
 	 * Gibt die Menge der VideoUnits zurück, deren Rented-Wert dem übergebenen
@@ -157,15 +169,15 @@ public class VideoUnit
 	 */
 	public static Collection<VideoUnit> findByVideo(Video video)
 	{
-		Collection<VideoUnit> foundVideoUnits = new LinkedList<VideoUnit>();
-		for (VideoUnit unit : videoUnitList.values())
+		if(unitToVideoMap.containsKey(video.getID()))
 		{
-			if (unit.video == video)
-			{
-				foundVideoUnits.add(unit);
-			}
+			return unitToVideoMap.get(video.getID());
 		}
-		return foundVideoUnits;
+		else
+		{
+			// falls keine VideoUnits vorhanden, leere Liste zurückgeben
+			return new LinkedList<VideoUnit>();
+		}
 	}
 
 	/**
@@ -191,6 +203,42 @@ public class VideoUnit
 		if (newVideoUnitList != null)
 		{
 			videoUnitList = newVideoUnitList;
+			
+			unitToVideoMap = new HashMap<Integer, Collection<VideoUnit>>();
+			
+			for(VideoUnit unit : newVideoUnitList.values())
+			{
+				addToUnitToVideoMap(unit);
+			}
+		}
+	}
+	
+	/**
+	 * Gibt die aktuelle MinID für VideoUnits zurück.
+	 * @return Die aktuelle MinID für VideoUnits.
+	 */
+	public static int getMinID()
+	{
+		return minuID;
+	}
+	
+	/**
+	 * Fügt ein VideoUnit zur unitToVideoMap hinzu.
+	 * @param unit Die VideoUnit, die hinzugefügt werden soll.
+	 */
+	private static void addToUnitToVideoMap(VideoUnit unit)
+	{
+		if(unitToVideoMap == null)
+			unitToVideoMap = new HashMap<Integer, Collection<VideoUnit>>();
+		if(unitToVideoMap.containsKey(unit.videoID))
+		{
+			unitToVideoMap.get(unit.videoID).add(unit);
+		}
+		else
+		{
+			LinkedList<VideoUnit> newList = new LinkedList<VideoUnit>();
+			newList.add(unit);
+			unitToVideoMap.put(unit.videoID, newList);
 		}
 	}
 

@@ -37,6 +37,11 @@ public class VideoParser extends AbstractParser
 	{
 		super("videos");
 	}
+	
+	public Map<Integer, VideoUnit> getVideoUnitList()
+	{
+		return this.videoUnits;
+	}
 
 	/**
 	 * XML-Dokument für Videos & VideoUnits durchlaufen und in die Liste packen.
@@ -125,11 +130,9 @@ public class VideoParser extends AbstractParser
 			{
 				// Video erstellen und hinzufügen zur Liste
 				Video newVideo = Video.reCreate(vID, title, releaseYear,
-						priceCategoryID, ratedAge, this.videoUnits);
+						priceCategoryID, ratedAge);
 
 				this.videos.put(vID, newVideo);
-				// frei machen für neues video-objekt, das jetzt kommt.
-				this.videoUnits = new HashMap<Integer, VideoUnit>();
 			}
 			catch (Exception ex)
 			{

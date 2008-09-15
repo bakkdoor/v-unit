@@ -4,14 +4,11 @@ import java.util.Map;
 
 import main.error.VideothekException;
 import model.*;
+import model.data.DataBase;
 import model.data.xml.*;
 
 public class VideoParserTest extends AbstractParserTest
-{
-
-	VideoParser parser = null;
-	Map<Integer, Video> parsedVideos = null;
-	
+{	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -26,24 +23,26 @@ public class VideoParserTest extends AbstractParserTest
 	{
 		try
 		{
-			parser = new VideoParser();
-			parsedVideos = parser.parseVideos("xml-spec/videos.xml");
+			DataBase.loadTestData();
 		}
 		catch (VideothekException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		assertNotNull(parsedVideos);
-		assertEquals(2, parsedVideos.size());
-		assertEquals(3, parser.getMinID());
-		assertEquals(6, parser.getMinVideoUnitID());
+		assertEquals(2, Video.findAll().size());
+		assertEquals(3, Video.getMinID());
+		assertEquals(6, VideoUnit.getMinID());
+		
+		for(Video video : Video.findAll())
+		{
+			System.out.println(video.getTitle());
+		}
 		
 		try
 		{	
-			Video rambo = parsedVideos.get(1);
-			Video casinoRoyale = parsedVideos.get(2);
+			Video rambo = Video.findByID(1);
+			Video casinoRoyale = Video.findByID(2);
 			
 			assertEquals(1, rambo.getID());
 			assertEquals("Rambo", rambo.getTitle());

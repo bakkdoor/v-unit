@@ -18,6 +18,55 @@ import model.data.xml.*;
  */
 public class DataBase
 {
+	private static PriceCategoryParser pcParser = new PriceCategoryParser();
+	private static CustomerParser costParser = new CustomerParser();
+	private static VideoParser vidParser = new VideoParser();
+	private static InRentParser irParser = new InRentParser();
+	private static WarningParser wParser = new WarningParser();
+
+	private static Map<Integer, PriceCategory> priceCategories;
+	private static Map<Integer, Customer> customers;
+	private static Map<Integer, Video> videos;
+	private static Map<Integer, VideoUnit> videoUnits;
+	private static Map<Integer, InRent> inRents;
+	private static Map<Integer, Warning> warnings;
+
+	private static boolean dataLoaded = false;
+
+	public static void loadTestData() throws DataException
+	{
+		if (!dataLoaded)
+		{
+			priceCategories = pcParser
+					.parsePriceCategories("xml-spec/priceCategories.xml");
+			customers = costParser.parseCustomers("xml-spec/customers.xml");
+			videos = vidParser.parseVideos("xml-spec/videos.xml");
+			videoUnits = vidParser.getVideoUnitList();
+			inRents = irParser.parseInRents("xml-spec/inRents.xml");
+			warnings = wParser.parseWarnings("xml-spec/warnings.xml");
+
+			setGlobalLists();
+		}
+	}
+
+	private static void setGlobalLists() throws DataException
+	{
+		try
+		{
+			PriceCategory.setPriceCategoryList(priceCategories);
+			Customer.setCustomerList(customers);
+			Video.setVideoList(videos);
+			VideoUnit.setVideoUnitList(videoUnits);
+			InRent.setInRentList(inRents);
+			Warning.setWarningList(warnings);
+			
+			dataLoaded = true;
+		}
+		catch (VideothekException ex)
+		{
+			throw new DataException(ex.getMessage());
+		}
+	}
 
 	/**
 	 * Lädt Daten aus der Datenquelle und erstellt die entsprechenden
@@ -28,34 +77,15 @@ public class DataBase
 	 */
 	public static void loadData() throws DataException
 	{
-		PriceCategoryParser pcParser = new PriceCategoryParser();
-		CustomerParser costParser = new CustomerParser();
-		VideoParser vidParser = new VideoParser();
-		InRentParser irParser = new InRentParser();
-		WarningParser wParser = new WarningParser();
-
-		Map<Integer, PriceCategory> priceCategories = pcParser
+		priceCategories = pcParser
 				.parsePriceCategories("data/priceCategories.xml");
-		Map<Integer, Customer> customers = costParser
-				.parseCustomers("data/customers.xml");
-		Map<Integer, Video> videos = vidParser.parseVideos("data/videos.xml");
-		Map<Integer, InRent> inRents = irParser
-				.parseInRents("data/inRents.xml");
-		Map<Integer, Warning> warnings = wParser
-				.parseWarnings("data/warnings.xml");
+		customers = costParser.parseCustomers("data/customers.xml");
+		videos = vidParser.parseVideos("data/videos.xml");
+		videoUnits = vidParser.getVideoUnitList();
+		inRents = irParser.parseInRents("data/inRents.xml");
+		warnings = wParser.parseWarnings("data/warnings.xml");
 
-		try
-		{
-			PriceCategory.setPriceCategoryList(priceCategories);
-			Customer.setCustomerList(customers);
-			Video.setVideoList(videos);
-			InRent.setInRentList(inRents);
-			Warning.setWarningList(warnings);
-		}
-		catch (VideothekException ex)
-		{
-			throw new DataException(ex.getMessage());
-		}
+		setGlobalLists();
 	}
 
 	/**
