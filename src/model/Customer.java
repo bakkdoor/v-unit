@@ -32,6 +32,8 @@ public class Customer
 	private String identificationNr;
 	private String title;
 	private List<InRent> rentList;
+	
+	private boolean deleted = false;
 
 	private static int mincID;
 	private static Map<Integer, Customer> customerList;
@@ -74,6 +76,8 @@ public class Customer
 				title);
 		
 		mincID++;
+		
+		customerList.put(this.cID, this);
 		
 		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben wurde...
 	}
@@ -517,6 +521,25 @@ public class Customer
 				+ " " + this.getCity() + " " + "\n" + this.getStreet() + " "
 				+ this.getHouseNr() + "\n" + "Personalausweisnummer: " + this
 				.getIdentificationNr());
+	}
+	
+	/**
+	 * Entfernt Customer aus globaler Customer-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		customerList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
 	}
 
 	/**

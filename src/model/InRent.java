@@ -22,6 +22,8 @@ public class InRent
 	private Date date;
 	private int duration;
 
+	private boolean deleted = false;
+	
 	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
 
@@ -132,6 +134,25 @@ public class InRent
 			this.videoUnit = VideoUnit.findByID(this.videoUnitID);
 		}
 		return this.videoUnit;
+	}
+	
+	/**
+	 * Entfernt InRent aus globaler InRent-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		inRentList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
 	}
 
 	public static InRent findByID(int inRentID) throws RecordNotFoundException

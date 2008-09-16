@@ -10,6 +10,7 @@ import model.exceptions.*;
 /**
  * 
  * Video.java
+ * 
  * @author Andie Hoffmann (andhoffm@uos.de)
  * @date 15.09.2008
  */
@@ -24,11 +25,14 @@ public class Video
 	private int priceCategoryID = NotSet;
 	private int ratedAge = NotSet;
 
+	private boolean deleted = false;
+	
 	private static Map<Integer, Video> videoList;
 	private static int minvID;
 
 	/**
 	 * public-Konstruktor zum Aufruf durch die GUI
+	 * 
 	 * @param title Filmtitel
 	 * @param releaseYear Erscheinungsjahr
 	 * @param priceCategory Preiskategorie-ID
@@ -36,8 +40,9 @@ public class Video
 	 * @throws FalseIDException , wenn eine falsche ID übergeben wird
 	 * @throws EmptyFieldException , wenn leere Felder übergeben werden
 	 * @throws FalseFieldException , wenn nicht reguläre Daten übergeben werden
-	 * @throws CurrentDateException , wenn ein noch nicht existentes CurrentDate-Objekt
-	 * abgefragt wird, oder das schon gesetzte CurrentDate nachträglich verändert werden soll
+	 * @throws CurrentDateException , wenn ein noch nicht existentes
+	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
+	 *             CurrentDate nachträglich verändert werden soll
 	 */
 	public Video(String title, int releaseYear, PriceCategory priceCategory,
 			int ratedAge) throws FalseIDException, EmptyFieldException,
@@ -46,11 +51,14 @@ public class Video
 		this(minvID, title, releaseYear, priceCategory.getID(), ratedAge);
 		minvID++;
 		this.priceCategory = priceCategory;
+		
+		videoList.put(this.vID, this);
 	}
 
 	/**
-	 * private-Konstruktor, der durch die reCreate-Methode zur Erstellung von {@link Video}-Objekten aus der 
-	 * xml-Datei aufgerufen wird
+	 * private-Konstruktor, der durch die reCreate-Methode zur Erstellung von
+	 * {@link Video}-Objekten aus der xml-Datei aufgerufen wird
+	 * 
 	 * @param vID für jedes {@link Video} einzigartige ID
 	 * @param title Filmtitel
 	 * @param releaseYear Erscheinungsjahr
@@ -59,8 +67,10 @@ public class Video
 	 * @throws FalseIDException , wenn eine falsche ID übergeben wird
 	 * @throws EmptyFieldException , wenn leere Felder übergeben werden
 	 * @throws FalseFieldException , wenn nicht reguläre Daten übergeben werden
-	 * @throws CurrentDateException , wenn ein noch nicht existentes {@link CurrentDate}-Objekt
-	 * abgefragt wird, oder das schon gesetzte {@link CurrentDate} nachträglich verändert werden soll
+	 * @throws CurrentDateException , wenn ein noch nicht existentes
+	 *             {@link CurrentDate}-Objekt abgefragt wird, oder das schon
+	 *             gesetzte {@link CurrentDate} nachträglich verändert werden
+	 *             soll
 	 */
 	private Video(int vID, String title, int releaseYear, int priceCategoryID,
 			int ratedAge) throws FalseIDException, EmptyFieldException,
@@ -79,7 +89,9 @@ public class Video
 	}
 
 	/**
-	 * Erstellt {@link Video}-Objekte mit den Daten, die in der xml-Datei gespeichert wurden.
+	 * Erstellt {@link Video}-Objekte mit den Daten, die in der xml-Datei
+	 * gespeichert wurden.
+	 * 
 	 * @param vID für jedes {@link Video} einzigartige ID
 	 * @param title Filmtitel
 	 * @param releaseYear Erscheinungsjahr
@@ -89,8 +101,10 @@ public class Video
 	 * @throws FalseIDException , wenn eine falsche ID übergeben wird
 	 * @throws EmptyFieldException , wenn leere Felder übergeben werden
 	 * @throws FalseFieldException , wenn nicht reguläre Daten übergeben werden
-	 * @throws CurrentDateException , wenn ein noch nicht existentes {@link CurrentDate}-Objekt
-	 * abgefragt wird, oder das schon gesetzte {@link CurrentDate} nachträglich verändert werden soll
+	 * @throws CurrentDateException , wenn ein noch nicht existentes
+	 *             {@link CurrentDate}-Objekt abgefragt wird, oder das schon
+	 *             gesetzte {@link CurrentDate} nachträglich verändert werden
+	 *             soll
 	 */
 	public static Video reCreate(int vID, String title, int releaseYear,
 			int priceCategoryID, int ratedAge) throws FalseIDException,
@@ -104,6 +118,7 @@ public class Video
 
 	/**
 	 * Setzt die {@link Video} Liste, sodass sie global verfügbar wird.
+	 * 
 	 * @param newVideoList Die Liste der geladenen Videos
 	 * @throws FalseFieldException , wenn Parameter null
 	 */
@@ -154,7 +169,8 @@ public class Video
 
 	/**
 	 * @return das zum {@link Video} gehörende {@link PriceCategory}-Objekt
-	 * @throws RecordNotFoundException , wenn das {@link Video}	keine {@link PriceCategory} enthält
+	 * @throws RecordNotFoundException , wenn das {@link Video} keine
+	 *             {@link PriceCategory} enthält
 	 */
 	public PriceCategory getPriceCategory() throws RecordNotFoundException
 	{
@@ -166,24 +182,54 @@ public class Video
 	}
 
 	/**
-	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem {@link Video} verknüpften
+	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
+	 *         {@link Video} verknüpften
 	 */
 	public Collection<VideoUnit> getVideoUnits()
 	{
 		return VideoUnit.findByVideo(this);
 	}
-
+	
+	/**
+	 * Entfernt Video aus globaler Video-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		videoList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
+	}
 	/**
 	 * setzt den Wert der statischen Variable MinvID
+	 * 
 	 * @param newMinvID die neue MinID der {@link Video}s
+	 * @throws FalseIDException 
 	 */
-	public static void setMinID(int newMinvID)
+	public static void setMinID(int newMinvID) throws FalseIDException
 	{
-		minvID = newMinvID;
+		if (newMinvID > 0)
+		{
+			minvID = newMinvID;
+		}
+		else
+		{
+			throw new FalseIDException(
+					"Übergebene MinID für Video ist kleiner 0!!!");
+		}
 	}
 
 	/**
 	 * überprüft die übergebenen IDs
+	 * 
 	 * @param newvID neue ID des {@link Videos}
 	 * @param newPriceCategoryID neue Preiskategorie-ID das {@link Video}s
 	 * @return true, wenn die beiden IDs größer 0
@@ -202,6 +248,7 @@ public class Video
 
 	/**
 	 * überprüft die übergebenen Parameter auf Inhalt
+	 * 
 	 * @param newTitle Filmtitel
 	 * @param newReleaseYear Erscheinungsjahr
 	 * @param newRatedAge Altersfreigabe
@@ -220,12 +267,15 @@ public class Video
 
 	/**
 	 * überprüft die Parameter auf Sinnhaftigkeit
+	 * 
 	 * @param newRatedAge Altersfreigabe
 	 * @param newReleaseYear Erscheinungsjahr
 	 * @return true, wenn alle Parameter logisch korrekt
-	 * @throws FalseFieldException , wenn FSK falsch, oder wenn Erscheinungsjahr vor 1900 oder in Zukunft
-	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht existentes CurrentDate-Objekt
-	 * 		abgefragt wird, oder das schon gesetzte CurrentDate nachträglich verändert werden soll
+	 * @throws FalseFieldException , wenn FSK falsch, oder wenn Erscheinungsjahr
+	 *             vor 1900 oder in Zukunft
+	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
+	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
+	 *             gesetzte CurrentDate nachträglich verändert werden soll
 	 */
 	private boolean noFalseFields(int newRatedAge, int newReleaseYear)
 			throws FalseFieldException, CurrentDateException
@@ -298,8 +348,8 @@ public class Video
 	 * 
 	 * @param vID Die ID des Videos.
 	 * @return Das Video mit der angegebenen ID.
-	 * @throws RecordNotFoundException , falls kein Video mit
-	 *             dieser ID gefunden wurde.
+	 * @throws RecordNotFoundException , falls kein Video mit dieser ID gefunden
+	 *             wurde.
 	 */
 	public static Video findByID(int vID) throws RecordNotFoundException
 	{
@@ -402,9 +452,10 @@ public class Video
 
 		return foundVideos;
 	}
-	
+
 	/**
 	 * Gibt die derzeitige MinID für Videos zurück.
+	 * 
 	 * @return die derzeitige MinID für Videos
 	 */
 	public static int getMinID()

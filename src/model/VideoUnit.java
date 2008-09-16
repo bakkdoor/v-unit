@@ -7,6 +7,8 @@ import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 
 /**
  * VideoUnit.java
@@ -23,6 +25,8 @@ public class VideoUnit
 	private int videoID;
 	private Video video;
 
+	private boolean deleted = false;
+	
 	private static Map<Integer, VideoUnit> videoUnitList;
 	private static Map<Integer, Collection<VideoUnit>> unitToVideoMap;
 	private static int minuID;
@@ -107,6 +111,25 @@ public class VideoUnit
 	{
 		return this.video;
 	}
+	
+	/**
+	 * Entfernt VideoUnit aus globaler VideoUnit-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		videoUnitList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
+	}
 
 	/**
 	 * Gibt das zur übergebenen VideoUnitID zugehörige VideoUnit zurück, falls
@@ -130,9 +153,10 @@ public class VideoUnit
 					"ExemplarNummer", videoUnitID);
 		}
 	}
-	
+
 	/**
 	 * Gibt die Menge aller VideoUnits in der Datenbasis zurück.
+	 * 
 	 * @return Die Menge aller VideoUnits.
 	 */
 	public static Collection<VideoUnit> findAll()
@@ -170,7 +194,7 @@ public class VideoUnit
 	 */
 	public static Collection<VideoUnit> findByVideo(Video video)
 	{
-		if(unitToVideoMap.containsKey(video.getID()))
+		if (unitToVideoMap.containsKey(video.getID()))
 		{
 			return unitToVideoMap.get(video.getID());
 		}
@@ -183,13 +207,22 @@ public class VideoUnit
 
 	/**
 	 * Setzt die MinID für VideoUnits.
+	 * 
 	 * @param newMinuID Die neue MinID für VideoUnits.
+	 * @throws FalseIDException 
 	 */
-	public static void setMinID(int newMinuID)
+	public static void setMinID(int newMinuID) throws FalseIDException
 	{
-		minuID = newMinuID;
+		if (newMinuID > 0)
+		{
+			minuID = newMinuID;
+		}
+		else
+		{
+			throw new FalseIDException("Übergebene MinID für VideoUnit ist kleiner 0!!!");
+		}
 	}
-	
+
 	public static VideoUnit reCreate(int uID, int videoID)
 	{
 		return new VideoUnit(uID, videoID);
@@ -197,43 +230,48 @@ public class VideoUnit
 
 	/**
 	 * Setzt die VideoUnit Liste, sodass sie global verfügbar wird.
+	 * 
 	 * @param newVideoUnitList Die Liste der geladenen VideoUnits.
 	 * @throws EmptyFieldException wird geworfen, wenn Paramter null
 	 */
-	public static void setVideoUnitList(Map<Integer, VideoUnit> newVideoUnitList) throws EmptyFieldException
+	public static void setVideoUnitList(Map<Integer, VideoUnit> newVideoUnitList)
+			throws EmptyFieldException
 	{
 		if (newVideoUnitList != null)
 		{
 			videoUnitList = newVideoUnitList;
-			
+
 			unitToVideoMap = new HashMap<Integer, Collection<VideoUnit>>();
-			
-			for(VideoUnit unit : newVideoUnitList.values())
+
+			for (VideoUnit unit : newVideoUnitList.values())
 			{
 				addToUnitToVideoMap(unit);
 			}
 		}
-		else throw new EmptyFieldException("VideoUnitList ist null!!");
+		else
+			throw new EmptyFieldException("VideoUnitList ist null!!");
 	}
-	
+
 	/**
 	 * Gibt die aktuelle MinID für VideoUnits zurück.
+	 * 
 	 * @return Die aktuelle MinID für VideoUnits.
 	 */
 	public static int getMinID()
 	{
 		return minuID;
 	}
-	
+
 	/**
 	 * Fügt ein VideoUnit zur unitToVideoMap hinzu.
+	 * 
 	 * @param unit Die VideoUnit, die hinzugefügt werden soll.
 	 */
 	private static void addToUnitToVideoMap(VideoUnit unit)
 	{
-		if(unitToVideoMap == null)
+		if (unitToVideoMap == null)
 			unitToVideoMap = new HashMap<Integer, Collection<VideoUnit>>();
-		if(unitToVideoMap.containsKey(unit.videoID))
+		if (unitToVideoMap.containsKey(unit.videoID))
 		{
 			unitToVideoMap.get(unit.videoID).add(unit);
 		}

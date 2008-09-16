@@ -10,6 +10,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import model.data.exceptions.*;
+import model.exceptions.FalseIDException;
 import model.Data;
 import model.PriceCategory;
 
@@ -77,7 +78,14 @@ public class PriceCategoryParser extends AbstractParser
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
-			PriceCategory.setMinID(minId);
+			try
+			{
+				PriceCategory.setMinID(minId);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 		}
 		else if (tagname == "priceCategory") // öffnendes tag <priceCategory>
 		{

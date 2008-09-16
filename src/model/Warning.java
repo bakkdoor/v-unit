@@ -22,6 +22,8 @@ public class Warning
 	private InRent inRent = null;
 	private int inRentID;
 
+	private boolean deleted = false;
+	
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
 
@@ -86,6 +88,25 @@ public class Warning
 			}
 		}
 		return this.inRent;
+	}
+
+	/**
+	 * Entfernt Warning aus globaler Warning-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		warningList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
 	}
 	
 	/**
@@ -193,8 +214,7 @@ public class Warning
 		}
 		else
 		{
-			throw new FalseIDException(
-					"Übergebene MinID für Warnings ist kleiner 0!");
+			throw new FalseIDException("Übergebene MinID für Warnings ist kleiner 0!");
 		}
 	}
 	

@@ -10,6 +10,7 @@ import model.Data;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.*;
+import model.exceptions.FalseIDException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -89,11 +90,25 @@ public class VideoParser extends AbstractParser
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
 
-			Video.setMinID(minId);
+			try
+			{
+				Video.setMinID(minId);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 			minVideoUnitID = Integer.parseInt(attributes
 					.getValue("minVideoUnitID"));
 
-			VideoUnit.setMinID(minVideoUnitID);
+			try
+			{
+				VideoUnit.setMinID(minVideoUnitID);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 		}
 		else if (tagname == "video") // öffnendes tag <video>
 		{
