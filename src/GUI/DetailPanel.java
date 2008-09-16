@@ -505,6 +505,8 @@ public class DetailPanel {
 		if (selectedVideoUnit.isRented()) {
 			Date durationDate = selectedVideoUnit.getInRent().getReturnDate();
 			this.textFieldDetailVDuration.setText(durationDate.toString());
+		} else {
+			this.textFieldDetailVDuration.setText("");
 		}
 	}
 
