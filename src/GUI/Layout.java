@@ -6,6 +6,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class Layout {
+	
+	// Ausrichtungswerte
+	private final int  HORIZONTAL = GridBagConstraints.HORIZONTAL;
+	private final int  VERTICAL = GridBagConstraints.VERTICAL;
+	private final int  BOTH = GridBagConstraints.BOTH;
+	private final int  BELOW_BASELINE = GridBagConstraints.BELOW_BASELINE;
+	private final int  NORTHWEST = GridBagConstraints.NORTHWEST;
 
 	public static void addComponent(Container container, Component component, 	
 			int x, int y) {

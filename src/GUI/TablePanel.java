@@ -38,8 +38,6 @@ public class TablePanel {
 		TableModel tableModelVideo = this.fillTableVideo();
 		tableVideo = new JTable(tableModelVideo);
 		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelVideo));
-//		tableVideo.addMouseListener(new GUI.MouseListeners.TableVideoMouseListener(mainWindow));
-//		tableVideo.addListSelectionListener(new TableVideoListSelectionHandler(mainWindow));
 		ListSelectionModel tableVideoSelectionModel = tableVideo.getSelectionModel();
 		tableVideoSelectionModel.addListSelectionListener(new TableVideoListSelectionHandler(mainWindow));
 		

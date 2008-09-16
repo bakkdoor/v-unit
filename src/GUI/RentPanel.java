@@ -1,9 +1,14 @@
 package GUI;
 
+import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,23 +20,45 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+import model.Customer;
+import model.VideoUnit;
+import model.data.exceptions.RecordNotFoundException;
 
 public class RentPanel {
-	
 
 	private JComboBox comboBoxRentDuration;
-	private String[] comboBoxRentDurationContent = { "1 Woche", "2 Wochen", "3 Wochen", "4 Wochen", "5 Wochen" };
-	
+	private String[] comboBoxRentDurationContent = { "1 Woche", "2 Wochen",
+			"3 Wochen", "4 Wochen", "5 Wochen" };
+
 	private MainWindow mainWindow;
+	
 	private JTable tableRentVideo;
 	private TableModel tableModelRentVideo;
-	private String[][] stringArrTableModelRentVidCont = {{ "123", "Six Senth", "1 Woche" }, { "", "", "" }, { "", "", "" } };
-	private String[] stringArrTableModelRentVidCollNames = { "ID", "Titel", "Ausleidauer" };
+	private JLabel labelReturnVideoSumWarning;
 	
+	private JPanel panelRent;
+	
+	public static final String RENTVIDEOCARD = "RentCard"; 
+	public static final String RETURNVIDEOCARD = "ReturnCard";
+
 	protected Component createRentPanel(MainWindow mainWindow) {
 
 		this.mainWindow = mainWindow;
 		// Panel erstellen
+		
+		panelRent = new JPanel();
+		panelRent.setLayout(new CardLayout());
+		
+		panelRent.add(this.rentVideoPanel(), RENTVIDEOCARD);
+		panelRent.add(this.returnVideoPanel(), RETURNVIDEOCARD);
+
+		return panelRent;
+	}
+	
+	private Container rentVideoPanel() {
+		
 		JPanel panelRent = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstRent = new GridBagConstraints();
 
@@ -53,15 +80,13 @@ public class RentPanel {
 		JButton buttonRentAdd = new JButton("Hinzufügen");
 
 		// LeihVideo Tabelle erstellen
-		tableModelRentVideo = new DefaultTableModel(
-				stringArrTableModelRentVidCont,
-				stringArrTableModelRentVidCollNames);
-		tableRentVideo = new JTable(tableModelRentVideo);
-		
+		tableRentVideo = new JTable(this.createRentTableModel());
+//		tableRentVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelRentVideo));
+
 		// Gesamtpreis Label erstellen
 		JLabel labelRentVideoCost = new JLabel("Gesammtpreis: ");
 		JLabel labelRentVideoCostPrice = new JLabel("5,90€");
-		
+
 		// Abbrechen/Akzeptieren Button erstellen
 		JButton buttonRentCancel = new JButton("Abbrechen");
 		JButton buttonRentAccept = new JButton("Bestätigen");
@@ -150,10 +175,14 @@ public class RentPanel {
 		gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstRent.insets = new Insets(3, 3, 3, 3);
 		panelRent.add(new JScrollPane(tableRentVideo), gridBagConstRent);
-		
+
 		// Gesamtpreislabel hizufügen
-		Layout.addComponent(panelRent, labelRentVideoCost, 0, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, new Insets(3,3,3,3));
-		Layout.addComponent(panelRent, labelRentVideoCostPrice, 2, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHEAST, new Insets(3,3,3,3));
+		Layout.addComponent(panelRent, labelRentVideoCost, 0, 10, 1, 1, 0.0,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.NORTHWEST, new Insets(3, 3, 3, 3));
+		Layout.addComponent(panelRent, labelRentVideoCostPrice, 2, 10, 1, 1,
+				0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.NORTHEAST, new Insets(3, 3, 3, 3));
 
 		// Button Abbrechen
 		gridBagConstRent.gridx = 1;
@@ -177,7 +206,87 @@ public class RentPanel {
 		gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstRent.insets = new Insets(3, 3, 3, 3);
 		panelRent.add(buttonRentAccept, gridBagConstRent);
-
+		
 		return panelRent;
+	}
+
+	private Container returnVideoPanel() {
+		JPanel returnVideoPanel = new JPanel();
+		returnVideoPanel.setBorder(BorderFactory.createTitledBorder("Rückgabe"));
+		returnVideoPanel.setLayout(new GridBagLayout());
+		
+		JLabel labelReturnVideo = new JLabel("FilmNr.:");
+		JTextField textFieldReturnVideo = new JTextField();
+		
+		JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
+		
+		JTable tableReturnVideo = new JTable(this.createReturnTableModel());
+		
+		JLabel labelReturnVideoSum = new JLabel("Gesammtpreis:");
+		labelReturnVideoSumWarning = new JLabel("0,00 €");
+		
+		JButton buttonReturnVideoCancel = new JButton("Abbrechen");
+		JButton buttonReturnVideoAccept = new JButton("Bestätigen");
+		
+		// **************************************************************
+		Insets insets = new Insets(3,3,3,3); 
+		Layout.addComponent(returnVideoPanel, labelReturnVideo, 		0, 0, 1, 1, 0.33, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, textFieldReturnVideo, 	1, 0, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, buttonReturnVideoAdd, 	1, 1, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, new JScrollPane(tableReturnVideo), 0, 2, 3, 1, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, labelReturnVideoSum, 		0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, labelReturnVideoSumWarning, 2, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, buttonReturnVideoCancel, 	1, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		Layout.addComponent(returnVideoPanel, buttonReturnVideoAccept, 	2, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+		
+		return returnVideoPanel;
+	}
+	public void changeCard(final String VIDEOCARD) {
+		CardLayout layout = (CardLayout) this.panelRent.getLayout();
+		if (VIDEOCARD.equals(RENTVIDEOCARD)) {
+			layout.show(this.panelRent, RENTVIDEOCARD);
+		}else if (VIDEOCARD.equals(RETURNVIDEOCARD)) {
+			layout.show(this.panelRent, RETURNVIDEOCARD);
+		}
+	}
+	
+	private TableModel createReturnTableModel() {
+		
+		Vector<String> columnNames = new Vector<String>(5);
+		columnNames.add("KundenNr");
+		columnNames.add("FilmNr");
+		columnNames.add("Titel");
+		columnNames.add("Rückgabefrist");
+		columnNames.add("Mahnungskosten");
+		
+		TableModel returnTableModel = new NotEditableTableModel(columnNames, 0);
+		return returnTableModel;
+	}
+	
+	private TableModel createRentTableModel() {
+
+		Vector rentColumnNames = new Vector() {
+			{
+				add("FilmNr.");
+				add("Titel.");
+				add("Preisklasse.");
+			}
+		};
+		
+		TableModel rentTableModel = new DefaultTableModel(rentColumnNames, 0);
+		return rentTableModel;
+	}
+	
+	protected void addVideoUnitInRentTable(VideoUnit videoUnit) {
+		Vector rowData = new Vector();
+		rowData.add(Integer.toString(videoUnit.getID()));
+		rowData.add(videoUnit.getVideo().getTitle());
+		try {
+			rowData.add(videoUnit.getVideo().getPriceCategory().getName());
+			
+		} catch (RecordNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

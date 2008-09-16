@@ -1,6 +1,8 @@
 
 package GUI;
 
+import java.util.Vector;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,7 +16,23 @@ public class NotEditableTableModel extends DefaultTableModel {
         return false;
     }
     
-    public NotEditableTableModel(Object[][] objects, Object[] collumnNames) {
-    	super(objects, collumnNames);
+    public NotEditableTableModel(Object[][] contentData, Object[] collumnNames) {
+    	super(contentData, collumnNames);
     }
+
+	public NotEditableTableModel(Vector contentData, Vector collumnNames) {
+		super(contentData, collumnNames);
+	}
+	
+	public NotEditableTableModel(Vector collumnNames, int rowCount) {
+		super(collumnNames, rowCount);
+	}
+	
+	public void fireTableDataChanged() {
+		super.fireTableDataChanged();
+	}
+	
+	public void insertRow(Vector<String> data) {
+		super.insertRow(super.getRowCount(), data);
+	}
 }

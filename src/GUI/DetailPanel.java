@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
@@ -26,7 +28,7 @@ public class DetailPanel {
 
 	private MainWindow mainWindow;
 	private JPanel panelDetails;
-	
+
 	private JTextField textFieldDetailVID;
 	private JTextField textFieldDetailVTitle;
 	private JTextField textFieldDetailVReleaseYear;
@@ -36,7 +38,6 @@ public class DetailPanel {
 	private JTextField textFieldDetailVDuration;
 	private JList listDetailVUnit;
 	private JButton buttonDetailVadd;
-	
 
 	public final String VIDEODETAILS = "Video";
 	public final String CUSTOMERDETAILS = "Customer";
@@ -44,7 +45,7 @@ public class DetailPanel {
 	protected Component createDetailPanel(MainWindow mainWindow) {
 
 		this.mainWindow = mainWindow;
-		
+
 		// Panel für Videodetails
 		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
@@ -80,31 +81,25 @@ public class DetailPanel {
 
 		// Model definieren
 		listDetailVUnit = new JList();
-		listDetailVUnit.addListSelectionListener(new DetailVideoListSelectionHandler(mainWindow));
+		listDetailVUnit
+				.addListSelectionListener(new DetailVideoListSelectionHandler(
+						mainWindow));
 
 		buttonDetailVadd = new JButton("Übernehmen");
+		buttonDetailVadd.addActionListener(new ActionListener() {
 
-		// ***************************************************************
-		// Datenelemente in das Panel hinzufügen
-
-		// FilmID
-//		gridBagConstDetailVideo.gridx = 0;
-//		gridBagConstDetailVideo.gridy = 0;
-//		gridBagConstDetailVideo.weightx = 0.3;
-//		gridBagConstDetailVideo.weighty = 0.0;
-//		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-//		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-//		gridBagConstDetailVideo.insets = new Insets(3, 3, 3, 3);
-//		panelDetailVideo.add(labelDetailVID, gridBagConstDetailVideo);
-//
-//		gridBagConstDetailVideo.gridx = 1;
-//		gridBagConstDetailVideo.gridy = 0;
-//		gridBagConstDetailVideo.weightx = 0.7;
-//		gridBagConstDetailVideo.weighty = 0.0;
-//		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-//		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-//		gridBagConstDetailVideo.insets = new Insets(3, 0, 3, 3);
-//		panelDetailVideo.add(textFieldDetailVID, gridBagConstDetailVideo);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				VideoUnit selectedVideoUnit;
+				try {
+					selectedVideoUnit = VideoUnit.findByID(Integer.parseInt((String) listDetailVUnit.getSelectedValue()));
+					DetailPanel.this.mainWindow.getRentPanel().addVideoUnitInRentTable(selectedVideoUnit);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
+		});
 
 		// Titel
 		gridBagConstDetailVideo.gridx = 0;
@@ -483,42 +478,48 @@ public class DetailPanel {
 
 		CardLayout layout = (CardLayout) panelDetails.getLayout();
 		if (cardName.equals(VIDEODETAILS)) {
-			layout.first(this.panelDetails);
+			layout.show(this.panelDetails, VIDEODETAILS);
 		} else if (cardName.equals(CUSTOMERDETAILS)) {
-			layout.last(this.panelDetails);
+			layout.show(this.panelDetails, CUSTOMERDETAILS);
 		}
 	}
 
 	public void fillPanelDetailVideo(Video video) {
-				
+
 		this.textFieldDetailVTitle.setText(video.getTitle());
-		this.textFieldDetailVReleaseYear.setText(new Integer(video.getReleaseYear()).toString());
-		this.textFieldDetailVRatedAge.setText(new Integer(video.getRatedAge()).toString());
+		this.textFieldDetailVReleaseYear.setText(new Integer(video
+				.getReleaseYear()).toString());
+		this.textFieldDetailVRatedAge.setText(new Integer(video.getRatedAge())
+				.toString());
 		try {
-			this.textFieldDetailVPriceCategory.setText(video.getPriceCategory().getName());
+			this.textFieldDetailVPriceCategory.setText(video.getPriceCategory()
+					.getName());
 		} catch (RecordNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video.getVideoUnits());
+		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
+				.getVideoUnits());
 		Vector<String> videoUnitID = new Vector(videoUnits.size());
-		for (VideoUnit tmpUnit : videoUnits){
+		for (VideoUnit tmpUnit : videoUnits) {
 			videoUnitID.add(Integer.toString(tmpUnit.getID()));
 		}
-		
+
 		this.listDetailVUnit.setListData(videoUnitID);
 		this.listDetailVUnit.setSelectedIndex(0);
 		fillPanelDetailVideoState(videoUnits.get(0));
 	}
-	
+
 	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
 		boolean isRented = videoUnit.isRented();
 		InRent inRent = videoUnit.getInRent();
-		
-		this.textFieldDetailVState.setText(isRented?"Ausgeliehen":"Verfügbar");
-		
+
+		this.textFieldDetailVState.setText(isRented ? "Ausgeliehen"
+				: "Verfügbar");
+
 		if (isRented) {
-			this.textFieldDetailVDuration.setText(inRent.getReturnDate().toString());
+			this.textFieldDetailVDuration.setText(inRent.getReturnDate()
+					.toString());
 		} else {
 			this.textFieldDetailVDuration.setText("");
 		}
