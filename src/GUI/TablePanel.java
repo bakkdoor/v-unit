@@ -9,8 +9,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
+import GUI.SelectionListeners.TableVideoListSelectionHandler;
 
 import model.Customer;
 import model.Video;
@@ -35,7 +38,10 @@ public class TablePanel {
 		TableModel tableModelVideo = this.fillTableVideo();
 		tableVideo = new JTable(tableModelVideo);
 		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelVideo));
-		tableVideo.addMouseListener(new GUI.MouseListeners.TableVideoMouseListener(mainWindow));
+//		tableVideo.addMouseListener(new GUI.MouseListeners.TableVideoMouseListener(mainWindow));
+//		tableVideo.addListSelectionListener(new TableVideoListSelectionHandler(mainWindow));
+		ListSelectionModel tableVideoSelectionModel = tableVideo.getSelectionModel();
+		tableVideoSelectionModel.addListSelectionListener(new TableVideoListSelectionHandler(mainWindow));
 		
 		TableModel tableModelCustomer = this.fillTableCustomer();
 		tableCustomer = new JTable(tableModelCustomer);

@@ -1,9 +1,9 @@
-package GUI.MouseListeners;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+package GUI.SelectionListeners;
 
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.Video;
 import model.data.exceptions.RecordNotFoundException;
@@ -11,22 +11,24 @@ import model.data.exceptions.RecordNotFoundException;
 import GUI.DetailPanel;
 import GUI.MainWindow;
 
-public class TableVideoMouseListener extends MouseAdapter {
+public class TableVideoListSelectionHandler implements ListSelectionListener {
+
 	
 	MainWindow mainWindow;
 	JTable videoTable;
 
-	public TableVideoMouseListener(MainWindow mainWindow) {
+	public TableVideoListSelectionHandler(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
 		this.videoTable = mainWindow.getTablePanel().getTableVideo();
 	}
 	
-	public void mouseClicked(MouseEvent e) {
+	public void valueChanged(ListSelectionEvent e) {
+		ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
 		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
-		int row = videoTable.rowAtPoint(e.getPoint());
-		int vID = Integer.parseInt((String) videoTable.getValueAt(row, 0));
+		int vID = Integer.parseInt((String) videoTable.getValueAt(lsm.getMinSelectionIndex(), 0));
 		
 		try {
 			Video selectedVideo = Video.findByID(vID);
