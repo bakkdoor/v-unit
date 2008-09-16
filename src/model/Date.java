@@ -88,7 +88,7 @@ public class Date implements Comparable<Date>
 
 	public String toString()
 	{
-		return this.year + "." + this.month + "." + this.year;
+		return this.day + "." + this.month + "." + this.year;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class Date implements Comparable<Date>
 	 */
 	public String toXMLOutputString()
 	{
-		return this.year + ":" + this.month + ":" + this.year;
+		return this.day + ":" + this.month + ":" + this.year;
 	}
 
 
