@@ -13,9 +13,11 @@ import model.exceptions.FalseIDException;
  */
 public class InRentTest extends ModelTest
 {
-	public void testConstructor()
+	private InRent inRent = null;
+	public void setUp() throws Exception
 	{
-		InRent inRent = null;
+		super.setUp();
+		
 		try
 		{
 			inRent = new InRent(Customer.findByID(1), VideoUnit.findByID(1),
@@ -27,7 +29,10 @@ public class InRentTest extends ModelTest
 		{
 			e1.printStackTrace();
 		}
-
+		
+	}
+	public void testConstructor()
+	{
 		assertNotNull(inRent);
 
 		try
@@ -54,18 +59,6 @@ public class InRentTest extends ModelTest
 
 	public void testDelete()
 	{
-		InRent inRent = null;
-		try
-		{
-			inRent = new InRent(Customer.findByID(1), VideoUnit.findByID(1),
-					new Date(), 2);
-		}
-		catch (VideothekException e1)
-		{
-			e1.printStackTrace();
-			System.out.println("FEHLER!!!");
-		}
-
 		assertNotNull(inRent);
 		assertTrue(InRent.findAll().contains(inRent));
 
@@ -82,6 +75,11 @@ public class InRentTest extends ModelTest
 		{
 			assertEquals(RecordNotFoundException.class, e.getClass());
 		}
+	}
+	
+	public void testGetReturnDate()
+	{
+		assertNotNull(inRent);
 	}
 
 }
