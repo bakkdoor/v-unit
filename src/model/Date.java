@@ -137,6 +137,15 @@ public class Date implements Comparable<Date>
 		
 		return false;
 	}
+	
+	public Date addWeeks(int amountOfWeeks)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(this.year, this.month, this.day);
+		cal.add(Calendar.DATE, amountOfWeeks * 7);
+		
+		return new Date(cal.get(Calendar.DATE), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+	}
 
 	
 	public static Date parseString(String dateString)

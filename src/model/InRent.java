@@ -118,6 +118,11 @@ public class InRent
 	{
 		return this.date;
 	}
+	
+	public Date getReturnDate()
+	{
+		return this.date.addWeeks(this.duration);
+	}
 
 	public int getVideoUnitID()
 	{
