@@ -36,6 +36,8 @@ public class InRent
 		this.customer = customer;
 		this.videoUnit = videoUnit;
 		checkRentDate();
+		
+		inRentList.put(this.rID, this);
 	}
 
 	private InRent(int rID, int customerID, int videoUnitID, Date date,
