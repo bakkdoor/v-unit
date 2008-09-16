@@ -1,6 +1,7 @@
 ﻿package model;
 
-import java.util.Date;
+import java.util.Collection;
+import model.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ public class InRent
 	private Date date;
 	private int duration;
 
+	private boolean deleted = false;
+	
 	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
 
@@ -67,6 +70,11 @@ public class InRent
 					"Übergebene MinID für InRent ist kleiner 0!!!");
 		}
 	}
+	
+	public static int getMinID()
+	{
+		return minrID;
+	}
 
 	private void checkRentDate() throws FalseFieldException,
 			CurrentDateException
@@ -95,12 +103,11 @@ public class InRent
 			throw new FalseIDException();
 	}
 
-	public Customer getCustomer()
+	public Customer getCustomer() throws RecordNotFoundException
 	{
 		if (this.customer == null)
 		{
-			// TODO: hier nach Customer objekt suchen mit der id = customerID
-			// und this.customer darauf verweisen
+			this.customer = Customer.findByID(this.customerID);
 		}
 		return this.customer;
 	}
@@ -120,14 +127,32 @@ public class InRent
 		return this.duration;
 	}
 
-	public VideoUnit getVideoUnit()
+	public VideoUnit getVideoUnit() throws RecordNotFoundException
 	{
 		if (this.videoUnit == null)
 		{
-			// TODO: hier nach VideoUnit objekt suchen mit der id = videoUnitID
-			// und this.videoUnit darauf verweisen
+			this.videoUnit = VideoUnit.findByID(this.videoUnitID);
 		}
 		return this.videoUnit;
+	}
+	
+	/**
+	 * Entfernt InRent aus globaler InRent-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		inRentList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
 	}
 
 	public static InRent findByID(int inRentID) throws RecordNotFoundException
@@ -142,8 +167,13 @@ public class InRent
 					inRentID);
 		}
 	}
+	
+	public static Collection<InRent> findAll()
+	{
+		return inRentList.values();
+	}
 
-	public static List<InRent> findByCustomer(Customer customer)
+	public static Collection<InRent> findByCustomer(Customer customer)
 	{
 		List<InRent> foundInRents = new LinkedList<InRent>();
 		for (InRent ir : inRentList.values())
@@ -171,7 +201,7 @@ public class InRent
 				videoUnit.getID());
 	}
 
-	public static List<InRent> findByDate(Date date)
+	public static Collection<InRent> findByDate(Date date)
 	{
 		List<InRent> foundInRents = new LinkedList<InRent>();
 		for (InRent ir : inRentList.values())

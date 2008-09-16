@@ -1,11 +1,9 @@
-package model.data.xml.test;
+package model.data.xml.parsers.test;
 
-import java.util.Map;
 
 import main.error.VideothekException;
 import model.*;
 import model.data.DataBase;
-import model.data.xml.*;
 
 public class VideoParserTest extends AbstractParserTest
 {	
@@ -37,6 +35,11 @@ public class VideoParserTest extends AbstractParserTest
 		for(Video video : Video.findAll())
 		{
 			System.out.println(video.getTitle());
+		}
+
+		for(VideoUnit unit : VideoUnit.findAll())
+		{
+			System.out.println(unit.getID());
 		}
 		
 		try

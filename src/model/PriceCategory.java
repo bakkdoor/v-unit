@@ -1,10 +1,14 @@
 package model;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 
 public class PriceCategory
 {
@@ -13,7 +17,9 @@ public class PriceCategory
 	private String name;
 	private float price;
 
-	private static Map<Integer, PriceCategory> priceCategoryList;
+	private boolean deleted = false;
+	
+	private static Map<Integer, PriceCategory> priceCategoryList = new HashMap<Integer, PriceCategory>();
 	private static int minpID;
 
 	private PriceCategory(int pID, String name, float price)
@@ -22,10 +28,8 @@ public class PriceCategory
 		this.name = name;
 		this.price = price;
 
-		checkpID();
-		checkName();
-		checkPrice();
-
+		
+		priceCategoryList.put(this.pID, this);
 	}
 
 	public PriceCategory(String name, float price)
@@ -33,20 +37,7 @@ public class PriceCategory
 		this(minpID, name, price);
 		minpID++;
 	}
-
-	private void checkpID()
-	{
-
-	}
-
-	private void checkName()
-	{
-	}
-
-	private void checkPrice()
-	{
-	}
-
+	
 	public int getID()
 	{
 
@@ -57,10 +48,81 @@ public class PriceCategory
 	{
 		return this.name;
 	}
+	
+	public void setName(String newName) throws EmptyFieldException
+	{
+		if(newName != "" && newName != null)
+		{
+			this.name = newName;
+		}
+		else
+		{
+			throw new EmptyFieldException("Kein Name angegeben!");
+		}
+	}
 
 	public float getPrice()
 	{
 		return this.price;
+	}
+	
+	public void setPrice(float newPrice) throws FalseFieldException
+	{
+		if(newPrice > 0)
+		{
+			this.price = newPrice;
+		}
+		else
+		{
+			throw new FalseFieldException("Angegebener Preis kleiner 0!");
+		}
+	}
+	
+	/**
+	 * Entfernt PriceCategory aus globaler PriceCategory-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		priceCategoryList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
+	}
+
+	public static void setMinID(int newMinpID) throws FalseIDException
+	{
+		if (newMinpID > 0)
+		{
+			minpID = newMinpID;
+		}
+		else
+		{
+			throw new FalseIDException(
+					"Übergebene MinID für PriceCategory ist kleiner 0!");
+		}
+	}
+	
+	public static int getMinID()
+	{
+		return minpID;
+	}
+
+	public static PriceCategory reCreate(int pID, String name, float price)
+	{
+		return new PriceCategory(pID, name, price);
+	}
+	
+	public static Collection<PriceCategory> findAll()
+	{
+		return priceCategoryList.values();
 	}
 
 	public static PriceCategory findByID(int pID)
@@ -76,24 +138,6 @@ public class PriceCategory
 		}
 	}
 
-	public static void setMinID(int newMinpID)
-	{
-		if (newMinpID > 0)
-		{
-			minpID = newMinpID;
-		}
-	}
-
-	public static PriceCategory reCreate(int pID, String name, float price)
-	{
-		return new PriceCategory(pID, name, price);
-	}
-	
-	public static Collection<PriceCategory> findAll()
-	{
-		return priceCategoryList.values();
-	}
-	
 	public static PriceCategory findFirst() throws RecordNotFoundException
 	{
 		for(PriceCategory pc : priceCategoryList.values())
@@ -103,7 +147,35 @@ public class PriceCategory
 		
 		throw new RecordNotFoundException("Preiskategorie", "", "");
 	}
-
+		
+	public static Collection<PriceCategory> findByName(String categoryName)
+	{
+		Collection<PriceCategory> foundPriceCategories = new LinkedList<PriceCategory>();
+		for(PriceCategory pc : priceCategoryList.values())
+		{
+			if(pc.getName().startsWith(categoryName))
+			{
+				foundPriceCategories.add(pc);
+			}
+		}
+		
+		return foundPriceCategories;
+	}
+	
+	public static Collection<PriceCategory> findByPrice(float price)
+	{
+		Collection<PriceCategory> foundPriceCategories = new LinkedList<PriceCategory>();
+		for(PriceCategory pc : priceCategoryList.values())
+		{
+			if(pc.getPrice() == price)
+			{
+				foundPriceCategories.add(pc);
+			}
+		}
+		
+		return foundPriceCategories;
+	}
+	
 	public static void setPriceCategoryList(
 			Map<Integer, PriceCategory> newPriceCategoryList)
 			throws FalseFieldException

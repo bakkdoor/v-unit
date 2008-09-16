@@ -1,7 +1,7 @@
-﻿package model.data.xml;
+﻿package model.data.xml.parsers;
 
 import java.io.IOException;
-import java.util.Date;
+import model.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,23 +98,20 @@ public class InRentParser extends AbstractParser
 		}
 		else if (tagname == "inRent") // öffnendes tag <inRent>
 		{
-			int rID, customerID, videoUnitID, day, month, year, duration = Data.NOTSET;
+			int rID, customerID, videoUnitID, duration = Data.NOTSET;
 
 			rID = Integer.parseInt(attributes.getValue("rID"));
 			customerID = Integer.parseInt(attributes.getValue("rID"));
 			videoUnitID = Integer.parseInt(attributes.getValue("rID"));
-			String[] date = attributes.getValue("date").split(":");
-			day = Integer.parseInt(date[0]);
-			month = Integer.parseInt(date[1]);
-			year = Integer.parseInt(date[2]);
+			Date date = Date.parseString(attributes.getValue("date"));
+			
 			duration = Integer.parseInt(attributes.getValue("duration"));
 
 			// Neues InRent objekt erstellen und in liste packen.
 			InRent newInRent = null;
 			try
 			{
-				newInRent = InRent.reCreate(rID, customerID, videoUnitID,
-						new Date(year, month, day), duration);
+				newInRent = InRent.reCreate(rID, customerID, videoUnitID, date, duration);
 			}
 			catch (VideothekException e)
 			{

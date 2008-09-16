@@ -1,8 +1,10 @@
 package model.test;
 
+import main.error.VideothekException;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.FalseIDException;
 
 /**
  * VideoUnitTest.java
@@ -23,5 +25,63 @@ public class VideoUnitTest extends ModelTest
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void testSetMinID()
+	{
+		try
+		{
+			VideoUnit.setMinID(-4);
+		}
+		catch (VideothekException e)
+		{
+			assertEquals(FalseIDException.class, e.getClass());
+		}
+	}
+	
+	public void testDelete()
+	{
+		VideoUnit unit = null;
+		try
+		{
+			unit = new VideoUnit(Video.findByID(1));
+		}
+		catch (RecordNotFoundException e1)
+		{
+			e1.printStackTrace();
+		}
+		
+		assertNotNull(unit);
+		assertTrue(VideoUnit.findAll().contains(unit));
+		
+		unit.delete();
+		
+		assertFalse(VideoUnit.findAll().contains(unit));
+		assertTrue(unit.isDeleted());
+		
+		try
+		{
+			VideoUnit.findByID(unit.getID());
+		}
+		catch (VideothekException e)
+		{
+			assertEquals(RecordNotFoundException.class, e.getClass());
+		}
+	}
+	
+	public void testSetters()
+	{
+		VideoUnit unit = null;
+		try
+		{
+			unit = new VideoUnit(Video.findByID(1));
+		}
+		catch (RecordNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertNotNull(unit);
 	}
 }

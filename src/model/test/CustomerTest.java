@@ -2,6 +2,8 @@ package model.test;
 
 import main.error.VideothekException;
 import model.Customer;
+import model.Date;
+import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseBirthDateException;
@@ -22,15 +24,14 @@ public class CustomerTest extends ModelTest
 	{
 		try
 		{
-			Customer.setMinID(2);
-
-			new Customer("", "", 2001, 10, 1, "blaStreet", "9a",
+			Customer c = new Customer("chris", "bertels", new Date(1, 2, 1981), "blaStreet", "9a",
 					48455, "osnabrück", "129821210398asdölkj", "Herr");
+
+			assertTrue(Customer.findAll().contains(c));
 		}
 		catch (VideothekException e)
 		{
-			assertEquals("Gleiche Klasse!", EmptyFieldException.class, e
-					.getClass());
+			e.printStackTrace();
 		}
 	}
 
@@ -45,13 +46,45 @@ public class CustomerTest extends ModelTest
 			assertEquals(FalseIDException.class, e.getClass());
 		}
 	}
-	
-	public void testSetters() throws FalseIDException, EmptyFieldException, FalseBirthDateException, CurrentDateException, FalseFieldException
+
+	public void testDelete()
+	{
+		Customer c = null;
+		try
+		{
+			c = new Customer("chris", "bertels", new Date(1, 2, 1981), "blaStreet", "9a",
+					48455, "osnabrück", "129821210398asdölkj", "Herr");
+		}
+		catch (VideothekException e)
+		{
+			e.printStackTrace();
+		}
+
+		assertNotNull(c);
+		assertTrue(Customer.findAll().contains(c));
+		
+		c.delete();
+
+		assertFalse(Customer.findAll().contains(c));
+		assertTrue(c.isDeleted());
+		
+		try
+		{
+			Customer.findByID(c.getID());
+		}
+		catch (VideothekException e)
+		{
+			assertEquals(RecordNotFoundException.class, e.getClass());
+		}
+	}
+
+	public void testSetters() throws FalseIDException, EmptyFieldException,
+			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
 		Customer c = null;
 
-		c = new Customer("John", "Walker", 1937, 2, 6, "MyStreet", "77a",
-				54848, "Sin City", "adslh132", "Herr");
+		c = new Customer("John", "Walker", new Date(2, 6, 1937), "MyStreet",
+				"77a", 54848, "Sin City", "adslh132", "Herr");
 		assertNotNull(c);
 
 		try
@@ -126,6 +159,5 @@ public class CustomerTest extends ModelTest
 		{
 		}
 	}
-	
-	
+
 }

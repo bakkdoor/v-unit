@@ -1,6 +1,6 @@
-package model.data.xml.test;
+package model.data.xml.parsers.test;
 
-import java.util.Date;
+import model.Date;
 
 import model.CurrentDate;
 import model.exceptions.CurrentDateException;

@@ -22,6 +22,8 @@ public class Warning
 	private InRent inRent = null;
 	private int inRentID;
 
+	private boolean deleted = false;
+	
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
 
@@ -87,6 +89,25 @@ public class Warning
 		}
 		return this.inRent;
 	}
+
+	/**
+	 * Entfernt Warning aus globaler Warning-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		warningList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
+	}
 	
 	/**
 	 * Wird in der DataBase Klasse aufgerufen um die geladenen Warnings global verfügbar zu machen.
@@ -133,9 +154,16 @@ public class Warning
 
 		for (Warning w : warningList.values())
 		{
-			if (w.inRent.getCustomer() == customer)
+			try
 			{
-				foundWarnings.add(w);
+				if (w.inRent.getCustomer() == customer)
+				{
+					foundWarnings.add(w);
+				}
+			}
+			catch (RecordNotFoundException e)
+			{
+				// falls fehler kommt, einfach ignorieren...
 			}
 		}
 
@@ -186,8 +214,12 @@ public class Warning
 		}
 		else
 		{
-			throw new FalseIDException(
-					"Übergebene MinID für Warnings ist kleiner 0!");
+			throw new FalseIDException("Übergebene MinID für Warnings ist kleiner 0!");
 		}
+	}
+	
+	public static int getMinID()
+	{
+		return minwID;
 	}
 }

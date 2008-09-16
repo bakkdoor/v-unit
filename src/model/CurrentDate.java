@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import model.Date;
 import model.exceptions.*;
 
 /**
@@ -41,7 +41,7 @@ public class CurrentDate
 		if (currentDate == null)
 		{
 			currentDate = newCurrentDate;
-			currentDate.setYear(currentDate.getYear() + 1900); // jahr immer nur ab 1900...
+			currentDate.setYear(currentDate.getYear());
 		}
 		else
 			throw new CurrentDateException("Zeit schon gesetzt");

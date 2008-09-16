@@ -1,11 +1,11 @@
-package model.data.xml.test;
+package model.data.xml.parsers.test;
 
-import java.util.Date;
+import model.Date;
 import java.util.Map;
 
 import main.error.VideothekException;
 import model.*;
-import model.data.xml.*;
+import model.data.xml.parsers.*;
 
 /**
  * InRentParserTest.java
@@ -56,12 +56,12 @@ public class InRentParserTest extends AbstractParserTest
 			InRent second = parsedInRents.get(2);
 			
 			assertEquals(1, first.getID());
-			assertEquals(new Date(2008, 9, 10), first.getDate());
+			assertEquals(new Date(10, 9, 2008), first.getDate());
 			assertEquals(1, first.getVideoUnitID());
 			assertEquals(2, first.getDuration());
 			
 			assertEquals(2, second.getID());
-			assertEquals(new Date(2008, 9, 11), second.getDate());
+			assertEquals(new Date(11, 9, 2008), second.getDate());
 			assertEquals(2, second.getVideoUnitID());
 			assertEquals(1, second.getDuration());
 		}

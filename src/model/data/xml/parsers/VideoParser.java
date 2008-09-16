@@ -1,4 +1,4 @@
-package model.data.xml;
+package model.data.xml.parsers;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import model.Data;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.*;
+import model.exceptions.FalseIDException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -37,7 +38,7 @@ public class VideoParser extends AbstractParser
 	{
 		super("videos");
 	}
-	
+
 	public Map<Integer, VideoUnit> getVideoUnitList()
 	{
 		return this.videoUnits;
@@ -46,11 +47,9 @@ public class VideoParser extends AbstractParser
 	/**
 	 * XML-Dokument für Videos & VideoUnits durchlaufen und in die Liste packen.
 	 * 
-	 * @param videosFile
-	 *            Dateiname bzw. -pfad der videos.xml
+	 * @param videosFile Dateiname bzw. -pfad der videos.xml
 	 * @return Liste von eingelesenen Videos
-	 * @throws Exception
-	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
 	public Map<Integer, Video> parseVideos(String videosFile)
 			throws DataException
@@ -90,10 +89,26 @@ public class VideoParser extends AbstractParser
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
-			Video.setMinID(minId);
+
+			try
+			{
+				Video.setMinID(minId);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 			minVideoUnitID = Integer.parseInt(attributes
 					.getValue("minVideoUnitID"));
-			VideoUnit.setMinID(minVideoUnitID);
+
+			try
+			{
+				VideoUnit.setMinID(minVideoUnitID);
+			}
+			catch (FalseIDException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 		}
 		else if (tagname == "video") // öffnendes tag <video>
 		{

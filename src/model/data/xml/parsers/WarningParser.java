@@ -1,4 +1,4 @@
-package model.data.xml;
+package model.data.xml.parsers;
 
 import java.io.IOException;
 import java.util.HashMap;

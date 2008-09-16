@@ -1,7 +1,6 @@
 package model;
 
-import java.text.DateFormat;
-import java.util.Date;
+import model.Date;
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.*;
 
@@ -33,6 +32,8 @@ public class Customer
 	private String identificationNr;
 	private String title;
 	private List<InRent> rentList;
+	
+	private boolean deleted = false;
 
 	private static int mincID;
 	private static Map<Integer, Customer> customerList;
@@ -65,18 +66,18 @@ public class Customer
 	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
-	public Customer(String firstName, String lastName, int yearOfBirth,
-			int monthOfBirth, int dayOfBirth, String street, String houseNr,
+	public Customer(String firstName, String lastName, Date birthDate, String street, String houseNr,
 			int zipCode, String city, String identificationNr, String title)
 			throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
 		
-		this(mincID, firstName, lastName, yearOfBirth, monthOfBirth,
-				dayOfBirth, street, houseNr, zipCode, city, identificationNr,
+		this(mincID, firstName, lastName, birthDate, street, houseNr, zipCode, city, identificationNr,
 				title);
 		
 		mincID++;
+		
+		customerList.put(this.cID, this);
 		
 		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben wurde...
 	}
@@ -112,24 +113,21 @@ public class Customer
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	private Customer(int cID, String firstName, String lastName,
-			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
+			Date birthDate, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
 			String title) throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
-		Date newDate = new Date(yearOfBirth, monthOfBirth, dayOfBirth);
-
 		if (correctID(cID)
-				&& noEmptyFields(firstName, lastName, yearOfBirth,
-						monthOfBirth, dayOfBirth, street, houseNr, zipCode,
+				&& noEmptyFields(firstName, lastName, birthDate, street, houseNr, zipCode,
 						city, identificationNr, title)
-				&& correctBirthDate(newDate))
+				&& correctBirthDate(birthDate))
 		{
 
 			this.cID = cID;
 			this.firstName = firstName;
 			this.lastName = lastName;
-			this.birthDate = newDate;
+			this.birthDate = birthDate;
 			this.street = street;
 			this.houseNr = houseNr;
 			this.zipCode = zipCode;
@@ -171,13 +169,12 @@ public class Customer
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public static Customer reCreate(int cID, String firstName, String lastName,
-			int yearOfBirth, int monthOfBirth, int dateOfBirth, String street,
+			Date birthDate, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
 			String title) throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
-		return new Customer(cID, firstName, lastName, yearOfBirth,
-				monthOfBirth, dateOfBirth, street, houseNr, zipCode, city,
+		return new Customer(cID, firstName, lastName, birthDate, street, houseNr, zipCode, city,
 				identificationNr, title);
 	}
 
@@ -217,13 +214,13 @@ public class Customer
 	 *             gefunden werden
 	 */
 	private boolean noEmptyFields(String firstName, String lastName,
-			int yearOfBirth, int monthOfBirth, int dayOfBirth, String street,
+			Date birthDate, String street,
 			String houseNr, int zipCode, String city, String identificationNr,
 			String title) throws EmptyFieldException
 	{
 		if (firstName == null || firstName == "" || lastName == null
-				|| lastName == "" || yearOfBirth == 0 || monthOfBirth == 0
-				|| dayOfBirth == 0 || street == null || street == ""
+				|| lastName == "" || birthDate.getYear() == 0 || birthDate.getMonth() == 0
+				|| birthDate.getDate() == 0 || street == null || street == ""
 				|| houseNr == null || houseNr == "" || zipCode == 0
 				|| city == null || city == "" || identificationNr == null
 				|| identificationNr == "" || title == null || title == "")
@@ -402,6 +399,19 @@ public class Customer
 		else
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
+	
+	public void setTitle(String newTitle) throws EmptyFieldException
+	{
+		if(newTitle != null && newTitle != "")
+			this.title = newTitle;
+		else
+			throw new EmptyFieldException("Kein Titel eingegeben!");
+	}
+	
+	public String getTitle()
+	{
+		return this.title;
+	}
 
 	/**
 	 * @return die Hausnummer der Adresse des Customers
@@ -512,6 +522,25 @@ public class Customer
 				+ this.getHouseNr() + "\n" + "Personalausweisnummer: " + this
 				.getIdentificationNr());
 	}
+	
+	/**
+	 * Entfernt Customer aus globaler Customer-Liste.
+	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 */
+	public void delete()
+	{
+		customerList.remove(this.getID());
+		this.deleted = true;
+	}
+	
+	/**
+	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * @return True, falls gelöscht, False sonst.
+	 */
+	public boolean isDeleted()
+	{
+		return this.deleted;
+	}
 
 	/**
 	 * setzt das statische Feld mincID
@@ -530,6 +559,15 @@ public class Customer
 			throw new FalseIDException(
 					"Übergebene MinID für Customer ist kleiner 0!!!");
 		}
+	}
+	
+	/**
+	 * Gibt die aktuelle MinID für Customers zurück.
+	 * @return Die aktuelle MinID für Customers.
+	 */
+	public static int getMinID()
+	{
+		return mincID;
 	}
 
 	/**

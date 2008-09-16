@@ -1,7 +1,9 @@
 package main;
 
 import java.io.IOException;
-import java.util.Date;
+
+import GUI.MainWindow;
+import model.Date;
 
 import logging.Logger;
 import model.*;
@@ -46,7 +48,8 @@ public class Main{
 			Logger.get().write("Es gab einen Fehler beim Laden!");
 		}
 		
-		outputData();
+		// GUI starten...
+		MainWindow videoProgramm = new MainWindow();
 		
 		
 		Logger.get().write("Programm wird beendet!");
@@ -58,32 +61,5 @@ public class Main{
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	private static void outputData() throws EmptyFieldException, RecordNotFoundException
-	{
-		System.out.println("Customer-Daten:\n");
-		
-		for(Customer c : Customer.findAll())
-		{
-			System.out.println("ID: " + c.getID());
-			System.out.println("Name: " + c.getFirstName() + " " + c.getLastName());
-			c.getBirthDate().setYear(c.getBirthDate().getYear() - 1900);
-			System.out.println("Birthdate: " + c.getBirthDate());
-			System.out.println("City" + c.getCity());
-		}
-		
-		System.out.println("Video-Daten:\n");
-		
-		for(Video v : Video.findAll())
-		{
-			System.out.println("ID: " + v.getID());
-			System.out.println("Title: " + v.getTitle());
-			System.out.println("ReleaseYear: " + v.getReleaseYear());
-			System.out.println("PriceCategoryName: " + v.getPriceCategory().getName());
-			System.out.println("RatedAge" + v.getRatedAge());
-			System.out.println("Preis: " + v.getPriceCategory().getPrice() + " €/Woche");
-		}
-		
 	}
 }

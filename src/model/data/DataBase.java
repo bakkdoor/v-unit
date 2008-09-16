@@ -1,11 +1,13 @@
 package model.data;
 
+import java.io.IOException;
 import java.util.Map;
 
 import main.error.VideothekException;
 import model.*;
 import model.data.exceptions.*;
-import model.data.xml.*;
+import model.data.xml.parsers.*;
+import model.data.xml.writers.*;
 
 /**
  * DataBase.java
@@ -23,6 +25,12 @@ public class DataBase
 	private static VideoParser vidParser = new VideoParser();
 	private static InRentParser irParser = new InRentParser();
 	private static WarningParser wParser = new WarningParser();
+
+	private static PriceCategoryWriter pcWriter;
+	private static CustomerWriter costWriter;
+	private static VideoWriter vidWriter;
+	private static InRentWriter irWriter;
+	private static WarningWriter wWriter;
 
 	private static Map<Integer, PriceCategory> priceCategories;
 	private static Map<Integer, Customer> customers;
@@ -59,7 +67,7 @@ public class DataBase
 			VideoUnit.setVideoUnitList(videoUnits);
 			InRent.setInRentList(inRents);
 			Warning.setWarningList(warnings);
-			
+
 			dataLoaded = true;
 		}
 		catch (VideothekException ex)
@@ -93,9 +101,57 @@ public class DataBase
 	 * 
 	 * @throws DataSaveException Wird geworfen, falls ein Fehler beim Speichern
 	 *             auftrat.
+	 * @throws IOException
+	 * @throws RecordNotFoundException
 	 */
 	public static void saveData() throws DataSaveException
 	{
+		try
+		{
+			pcWriter = new PriceCategoryWriter("data/priceCategories.xml");
+			pcWriter.savePriceCategories(PriceCategory.findAll());
+		}
+		catch (Exception ex)
+		{
+			throw new DataSaveException(ex.getMessage(),
+					"data/priceCategories.xml");
+		}
+		try
+		{
+			costWriter = new CustomerWriter("data/customers.xml");
+			costWriter.saveCustomers(Customer.findAll());
+		}
+		catch (Exception ex)
+		{
+			throw new DataSaveException(ex.getMessage(), "data/customers.xml");
+		}
+		try
+		{
+			vidWriter = new VideoWriter("data/videos.xml");
+			vidWriter.saveVideos(Video.findAll());
+		}
+		catch (Exception ex)
+		{
+			throw new DataSaveException(ex.getMessage(), "data/videos.xml");
+		}
+		try
+		{
+			irWriter = new InRentWriter("data/inRents.xml");
+			irWriter.saveInRents(InRent.findAll());
+		}
+		catch (Exception ex)
+		{
+			throw new DataSaveException(ex.getMessage(), "data/inRents.xml");
+		}
+		try
+		{
+			wWriter = new WarningWriter("data/warnings.xml");
+			wWriter.saveWarnings(Warning.findAll());
+		}
+		catch (Exception ex)
+		{
+			throw new DataSaveException(ex.getMessage(), "data/warnings.xml");
+		}
 	}
 
 }
