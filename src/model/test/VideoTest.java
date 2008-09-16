@@ -3,11 +3,7 @@ package model.test;
 import main.error.VideothekException;
 import model.PriceCategory;
 import model.Video;
-import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
-import model.exceptions.CurrentDateException;
-import model.exceptions.EmptyFieldException;
-import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
 /**

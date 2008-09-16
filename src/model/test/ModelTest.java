@@ -1,14 +1,11 @@
 package model.test;
 
-import main.error.VideothekException;
-import model.Customer;
 import model.Date;
 
 import junit.framework.TestCase;
 
 import model.CurrentDate;
 import model.data.DataBase;
-import model.exceptions.FalseIDException;
 
 /**
  * ModelTest.java

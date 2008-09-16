@@ -7,7 +7,6 @@ import java.util.Collection;
 import model.*;
 import model.data.exceptions.DataException;
 import model.data.exceptions.RecordNotFoundException;
-import model.data.xml.parsers.VideoParser;
 import model.data.xml.writers.VideoWriter;
 
 /**
