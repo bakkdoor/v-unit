@@ -31,6 +31,9 @@ public class Logger implements Closeable
 		try
 		{
 			fw = new FileWriter(logFile, true);
+			fw.append("=====================\n");
+			fw.append("     New Sesstion    \n");
+			fw.append("=====================\n");
 		}
 		catch (IOException e)
 		{
