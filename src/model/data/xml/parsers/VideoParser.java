@@ -33,16 +33,9 @@ public class VideoParser extends AbstractParser
 
 	private int minVideoUnitID;
 
-	private boolean setMinIDs = true;
-
 	public VideoParser()
 	{
 		super("videos");
-	}
-
-	public void setMinIDs(boolean setMinIDs)
-	{
-		this.setMinIDs = setMinIDs;
 	}
 
 	public Map<Integer, VideoUnit> getVideoUnitList()
@@ -93,17 +86,14 @@ public class VideoParser extends AbstractParser
 
 		if (tagname == "videos") // öffnendes tag <videos>
 		{
-			if (this.setMinIDs)
-			{
-				// min ID wert auslesen
-				minId = Integer.parseInt(attributes.getValue("minID"));
+			// min ID wert auslesen
+			minId = Integer.parseInt(attributes.getValue("minID"));
 
-				Video.setMinID(minId);
-				minVideoUnitID = Integer.parseInt(attributes
-						.getValue("minVideoUnitID"));
+			Video.setMinID(minId);
+			minVideoUnitID = Integer.parseInt(attributes
+					.getValue("minVideoUnitID"));
 
-				VideoUnit.setMinID(minVideoUnitID);
-			}
+			VideoUnit.setMinID(minVideoUnitID);
 		}
 		else if (tagname == "video") // öffnendes tag <video>
 		{

@@ -36,12 +36,10 @@ public class VideoWriterTest extends AbstractWriterTest
 			{	
 				e.printStackTrace();
 			}
-			VideoParser parser = new VideoParser();
-			parser.setMinIDs(false);
 			
 			// gespeicherte Videos & VideoUnits einlesen und Anzahl vergleichen
-			Collection<Video> parsedVideos = parser.parseVideos("xml-spec/videos-save.xml").values();
-			Collection<VideoUnit> parsedVideoUnits = parser.getVideoUnitList().values();
+			Collection<Video> parsedVideos = Video.findAll();
+			Collection<VideoUnit> parsedVideoUnits = VideoUnit.findAll();
 			
 			
 			assertEquals(Video.findAll().size(), parsedVideos.size());
