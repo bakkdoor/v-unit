@@ -2,22 +2,15 @@ package GUI;
 
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.LayoutManager;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.TabExpander;
 
 import model.Customer;
 import model.Video;
@@ -29,7 +22,6 @@ public class TablePanel {
 	public static final String SEARCHVIDEOCARD = "Video";
 
 	private MainWindow mainWindow;
-	private JTable Customer;
 	private JTable tableVideo;
 	private JTable tableCustomer;
 	private JTable tableRent;
@@ -43,7 +35,7 @@ public class TablePanel {
 		TableModel tableModelVideo = this.fillTableVideo();
 		tableVideo = new JTable(tableModelVideo);
 		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelVideo));
-		tableVideo.addMouseListener();
+		tableVideo.addMouseListener(new GUI.MouseListeners.TableVideoMouseListener(mainWindow));
 		
 		TableModel tableModelCustomer = this.fillTableCustomer();
 		tableCustomer = new JTable(tableModelCustomer);
@@ -135,14 +127,15 @@ public class TablePanel {
 
 	private TableModel fillTableVideo() {
 
-		String[] videoColumnNames = { "Titel", "Erscheinungsdatum",
+		String[] videoColumnNames = { "FilmNr.", "Titel", "Erscheinungsdatum",
 				"Altersbeschränkung", "Preisklasse" };
 
 		ArrayList<Video> videoList = new ArrayList<Video>(Video.findAll());
-		Object[][] videoDataArr = new Object[videoList.size()][videoColumnNames.length];
+		Object[][] videoDataArr = new Object[videoList.size()][videoColumnNames.length+1];
 
 		for (int indexVideo = 0; indexVideo < videoList.size(); indexVideo++) {
 			int indexValue = 0;
+			videoDataArr[indexVideo][indexValue++] = Integer.toString(videoList.get(indexVideo).getID());
 			videoDataArr[indexVideo][indexValue++] = videoList.get(indexVideo)
 					.getTitle();
 			videoDataArr[indexVideo][indexValue++] = videoList.get(indexVideo)
@@ -162,5 +155,25 @@ public class TablePanel {
 		TableModel videoTableModel = new NotEditableTableModel(videoDataArr, videoColumnNames);
 
 		return videoTableModel;
+	}
+
+	public JTable getTableVideo() {
+		return tableVideo;
+	}
+
+	public JTable getTableCustomer() {
+		return tableCustomer;
+	}
+
+	public JTable getTableRent() {
+		return tableRent;
+	}
+
+	public JTable getTableSearchVideo() {
+		return tableSearchVideo;
+	}
+
+	public JTable getTableSearchCustomer() {
+		return tableSearchCustomer;
 	}
 }

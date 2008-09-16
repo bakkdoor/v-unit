@@ -36,8 +36,8 @@ public class DetailPanel {
 	private JButton buttonDetailVadd;
 	
 
-	protected final String VIDEODETAILS = "Video";
-	protected final String CUSTOMERDETAILS = "Customer";
+	public final String VIDEODETAILS = "Video";
+	public final String CUSTOMERDETAILS = "Customer";
 
 	protected Component createDetailPanel(MainWindow mainWindow) {
 
@@ -476,40 +476,34 @@ public class DetailPanel {
 		return panelDetails;
 	}
 
-	protected void changePanelDetailsCard(String cardName) {
+	public void changePanelDetailsCard(String cardName) {
 
 		CardLayout layout = (CardLayout) panelDetails.getLayout();
-		if (cardName.equals(this.VIDEODETAILS)) {
+		if (cardName.equals(VIDEODETAILS)) {
 			layout.first(this.panelDetails);
-		} else if (cardName.equals(this.CUSTOMERDETAILS)) {
+		} else if (cardName.equals(CUSTOMERDETAILS)) {
 			layout.last(this.panelDetails);
 		}
 	}
 
-	protected void fillPanelDetailVideo(Collection<Video> videoList) {
-		
-		if (videoList.size() != 1 ) {
-			// Hier Exception werfen wenn List mehrere Elemente enthällt
-		}
-		
-		Video currentVideo = new ArrayList<Video>(videoList).get(0);
-		
-		this.textFieldDetailVTitle.setText(currentVideo.getTitle());
-		this.textFieldDetailVReleaseYear.setText(new Integer(currentVideo.getReleaseYear()).toString());
-		this.textFieldDetailVRatedAge.setText(new Integer(currentVideo.getRatedAge()).toString());
+	public void fillPanelDetailVideo(Video video) {
+				
+		this.textFieldDetailVTitle.setText(video.getTitle());
+		this.textFieldDetailVReleaseYear.setText(new Integer(video.getReleaseYear()).toString());
+		this.textFieldDetailVRatedAge.setText(new Integer(video.getRatedAge()).toString());
 		try {
-			this.textFieldDetailVPriceCategory.setText(currentVideo.getPriceCategory().getName());
+			this.textFieldDetailVPriceCategory.setText(video.getPriceCategory().getName());
 		} catch (RecordNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(currentVideo.getVideoUnits());
+		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video.getVideoUnits());
 		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
 		VideoUnit selectedVideoUnit = videoUnits.get(listDetailVUnit.getSelectedIndex());
 		this.textFieldDetailVState.setText(selectedVideoUnit.isRented()?"ausgeliehen":"verfügbar");
 		if (selectedVideoUnit.isRented()) {
-			Date durationDate = new Date(selectedVideoUnit.getInRent().getReturnDate());
+			Date durationDate = selectedVideoUnit.getInRent().getReturnDate();
 			this.textFieldDetailVDuration.setText(durationDate.toString());
 		}
 	}

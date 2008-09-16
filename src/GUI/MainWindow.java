@@ -74,15 +74,15 @@ public class MainWindow {
 		mainFrame.setVisible(true);
 	}
 
-	protected RentPanel getRentPanel() {
+	public RentPanel getRentPanel() {
 		return rentPanel;
 	}
 
-	protected DetailPanel getDetailPanel() {
+	public DetailPanel getDetailPanel() {
 		return detailPanel;
 	}
 	
-	protected TablePanel getTablePanel() {
+	public TablePanel getTablePanel() {
 		return tablePanel;
 	}
 }
