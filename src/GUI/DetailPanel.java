@@ -501,17 +501,21 @@ public class DetailPanel {
 			e.printStackTrace();
 		}
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video.getVideoUnits());
-		this.listDetailVUnit.setListData(videoUnits);
+		Vector<String> videoUnitID = new Vector(videoUnits.size());
+		for (VideoUnit tmpUnit : videoUnits){
+			videoUnitID.add(Integer.toString(tmpUnit.getID()));
+		}
+		
+		this.listDetailVUnit.setListData(videoUnitID);
 		this.listDetailVUnit.setSelectedIndex(0);
-		VideoUnit selectedVideoUnit = videoUnits.get(listDetailVUnit.getSelectedIndex());
-//		fillPanelDetailVideoState(selectedVideoUnit);
+		fillPanelDetailVideoState(videoUnits.get(0));
 	}
 	
 	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
 		boolean isRented = videoUnit.isRented();
 		InRent inRent = videoUnit.getInRent();
 		
-		this.textFieldDetailVState.setText(isRented?"Ausgeliehen":"verfügbar");
+		this.textFieldDetailVState.setText(isRented?"Ausgeliehen":"Verfügbar");
 		
 		if (isRented) {
 			this.textFieldDetailVDuration.setText(inRent.getReturnDate().toString());
