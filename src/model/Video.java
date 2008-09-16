@@ -230,7 +230,7 @@ public class Video
 	/**
 	 * überprüft die übergebenen IDs
 	 * 
-	 * @param newvID neue ID des {@link Videos}
+	 * @param newvID neue ID des {@link Video}
 	 * @param newPriceCategoryID neue Preiskategorie-ID das {@link Video}s
 	 * @return true, wenn die beiden IDs größer 0
 	 * @throws FalseIDException , wenn eine der beiden IDs kleiner 1
