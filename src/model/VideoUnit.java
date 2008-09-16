@@ -91,6 +91,25 @@ public class VideoUnit
 
 		return false;
 	}
+	
+	/**
+	 * Gibt das InRent Objekt zu diesem VideoUnit zurück, falls ausgeliehen.
+	 * @return Das InRent Objekt (falls vorhanden/VideoUnit ausgeliehen) oder null (sonst) zurück.
+	 */
+	public InRent getInRent()
+	{
+		InRent ir;
+		try
+		{
+			ir = InRent.findByVideoUnit(this);
+		}
+		catch (RecordNotFoundException e)
+		{
+			return null;
+		}
+		
+		return ir;
+	}
 
 	/**
 	 * Gibt die VideoID des Videos des VideoUnits zurück.
