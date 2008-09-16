@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import GUI.SelectionListeners.DetailVideoListSelectionHandler;
+
 import model.*;
 import model.data.exceptions.RecordNotFoundException;
 
@@ -78,6 +80,7 @@ public class DetailPanel {
 
 		// Model definieren
 		listDetailVUnit = new JList();
+		listDetailVUnit.addListSelectionListener(new DetailVideoListSelectionHandler(mainWindow));
 
 		buttonDetailVadd = new JButton("Übernehmen");
 
@@ -501,10 +504,17 @@ public class DetailPanel {
 		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
 		VideoUnit selectedVideoUnit = videoUnits.get(listDetailVUnit.getSelectedIndex());
-		this.textFieldDetailVState.setText(selectedVideoUnit.isRented()?"ausgeliehen":"verfügbar");
-		if (selectedVideoUnit.isRented()) {
-			Date durationDate = selectedVideoUnit.getInRent().getReturnDate();
-			this.textFieldDetailVDuration.setText(durationDate.toString());
+//		fillPanelDetailVideoState(selectedVideoUnit);
+	}
+	
+	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
+		boolean isRented = videoUnit.isRented();
+		InRent inRent = videoUnit.getInRent();
+		
+		this.textFieldDetailVState.setText(isRented?"Ausgeliehen":"verfügbar");
+		
+		if (isRented) {
+			this.textFieldDetailVDuration.setText(inRent.getReturnDate().toString());
 		} else {
 			this.textFieldDetailVDuration.setText("");
 		}
@@ -512,5 +522,37 @@ public class DetailPanel {
 
 	protected void fillPanelDetailCustomer() {
 
+	}
+
+	public JTextField getTextFieldDetailVID() {
+		return textFieldDetailVID;
+	}
+
+	public JTextField getTextFieldDetailVTitle() {
+		return textFieldDetailVTitle;
+	}
+
+	public JTextField getTextFieldDetailVReleaseYear() {
+		return textFieldDetailVReleaseYear;
+	}
+
+	public JTextField getTextFieldDetailVRatedAge() {
+		return textFieldDetailVRatedAge;
+	}
+
+	public JTextField getTextFieldDetailVPriceCategory() {
+		return textFieldDetailVPriceCategory;
+	}
+
+	public JTextField getTextFieldDetailVState() {
+		return textFieldDetailVState;
+	}
+
+	public JTextField getTextFieldDetailVDuration() {
+		return textFieldDetailVDuration;
+	}
+
+	public JList getListDetailVUnit() {
+		return listDetailVUnit;
 	}
 }
