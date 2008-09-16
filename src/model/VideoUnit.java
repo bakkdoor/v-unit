@@ -7,7 +7,6 @@ import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.EmptyFieldException;
-import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
 /**
