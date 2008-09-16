@@ -30,7 +30,11 @@ public class VideoDataDialog {
 	private boolean addVideo;
 	
 	public VideoDataDialog(Frame owner) {
+<<<<<<< HEAD:src/GUI/VideoDataDialog.java
 		this(owner, Data.NOTSET, "", Data.NOTSET, Data.NOTSET, new PriceCategory("A", 1.5f), 1);
+=======
+//		this(owner, new Video(video.));
+>>>>>>> origin/chris:src/GUI/VideoDataDialog.java
 	}
 	
 	public VideoDataDialog(Frame owner, 

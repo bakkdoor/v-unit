@@ -8,8 +8,8 @@ import java.util.Calendar;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
  * 
- * Eigene Date-Klasse. Wird genutzt für korrekte Verwaltung von Zeitpunkten
- * java.util.Date f^^unktioniert nicht korrekt/ist deprecated.
+ * Eigene {@link Date} Klasse. Wird genutzt für korrekte Verwaltung von Zeitpunkten
+ * {@link java.util.Date} funktioniert nicht korrekt/ist deprecated.
  */
 public class Date implements Comparable<Date>
 {
@@ -17,6 +17,12 @@ public class Date implements Comparable<Date>
 	private int month = Data.NOTSET;
 	private int year = Data.NOTSET;
 
+	/**
+	 * Erstellt {@link Date} Objekt mit übergebenen Tag/Monat/Jahr Werten.
+	 * @param day Der Tag im Monat.
+	 * @param month Der Monat (1 bis 12).
+	 * @param year Das Jahr.
+	 */
 	public Date(int day, int month, int year)
 	{
 		if (day > 0 && month > 0 && day <= 31 && month <= 12)
@@ -32,7 +38,7 @@ public class Date implements Comparable<Date>
 	}
 
 	/**
-	 * Erstellt Date-Objekt mit aktuellem Datum.
+	 * Erstellt {@link Date} Objekt mit aktuellem Datum.
 	 */
 	public Date()
 	{	
@@ -42,24 +48,40 @@ public class Date implements Comparable<Date>
 		this.year = cal.get(Calendar.YEAR);
 	}
 
+	/**
+	 * Gibt den Tag im Monat (zB 10 für 10.3.2008) zurück.
+	 * @return Der Tag im Monat.
+	 */
 	public int getDate() // aus Kompatibilitätsgründen zu java.util.Date
 	{
 		return this.date;
 	}
 
-	public void setDate(int day)
+	/**
+	 * Setzt den Tag im Monat.
+	 * @param date Der neue tag im Monat.
+	 */
+	public void setDate(int date)
 	{
-		if (day >= 0)
+		if (date >= 0)
 		{
-			this.date = day;
+			this.date = date;
 		}
 	}
 
+	/**
+	 * Gibt den Monat zurück.
+	 * @return Der Monat.
+	 */
 	public int getMonth()
 	{
 		return this.month;
 	}
 	
+	/**
+	 * Setzt den Monat.
+	 * @param month Der neue Monat (1 bis 12).
+	 */
 	public void setMonth(int month)
 	{
 		if (month >= 0)
@@ -68,11 +90,19 @@ public class Date implements Comparable<Date>
 		}
 	}
 
+	/**
+	 * Gibt das Jahr zurück.
+	 * @return Das Jahr des Datums.
+	 */
 	public int getYear()
 	{
 		return this.year;
 	}
 	
+	/**
+	 * Setzt das Jahr.
+	 * @param year Das neue Jahr des Datums.
+	 */
 	public void setYear(int year)
 	{
 		if (year >= 0)
@@ -81,13 +111,17 @@ public class Date implements Comparable<Date>
 		}
 	}
 
+	/**
+	 * Gibt das Datum als {@link String} zurück.
+	 * Bsp: 10.12.2007
+	 */
 	public String toString()
 	{
 		return this.date + "." + this.month + "." + this.year;
 	}
 
 	/**
-	 * Wird beim Speichern von Date-objekten ins XML-Format genutzt.
+	 * Wird beim Speichern von {@link Date} Objekten ins XML-Format genutzt.
 	 * 
 	 * @return Datum in XML-Speicherbarer Form (tag:monat:jahr).
 	 */
@@ -96,7 +130,10 @@ public class Date implements Comparable<Date>
 		return this.date + ":" + this.month + ":" + this.year;
 	}
 
-
+	/**
+	 * Vergleicht dieses {@link Date} Objekt mit einem übergebenen
+	 * Siehe {@link Comparable}.compareTo().
+	 */
 	@Override
 	public int compareTo(Date other)
 	{
@@ -121,6 +158,10 @@ public class Date implements Comparable<Date>
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj)
 	{
 		if(obj instanceof Date)
@@ -133,6 +174,11 @@ public class Date implements Comparable<Date>
 		return false;
 	}
 	
+	/**
+	 * Gibt ein Datum zurück bei dem zu diesem Datum amountOfWeeks Wochen hinzugefügt wurden.
+	 * @param amountOfWeeks Die Anzahl Wochen nach diesem Datum.
+	 * @return Das {@link Date} Objekt, das dem Datum amountOfWeeks Wochen nach diesem entspricht.
+	 */
 	public Date addWeeks(int amountOfWeeks)
 	{
 		Calendar cal = getCalForDate(this);
@@ -141,6 +187,11 @@ public class Date implements Comparable<Date>
 		return fromStdDate(cal.getTime());
 	}
 	
+	/**
+	 * Gibt ein Datum zurück bei dem zu diesem Datum amounOfDays Tage hinzugefügt wurden.
+	 * @param amountOfDays Die Anzahl Tage nach diesem Datum.
+	 * @return Das {@link Date} Objekt, das dem Datum amountOfDays Tage nach diesem entspricht.
+	 */
 	public Date addDays(int amountOfDays)
 	{
 		Calendar cal = getCalForDate(this);
@@ -149,11 +200,21 @@ public class Date implements Comparable<Date>
 		return fromStdDate(cal.getTime());
 	}
 	
+	/**
+	 * Gibt das Datum in Millisekunden zurück.
+	 * (Siehe Calendar.getTimeInMillis()
+	 * @return Millisekunden des Datums.
+	 */
 	public long getTimeInMillis()
 	{
 		return getCalForDate(this).getTimeInMillis();
 	}
 	
+	/**
+	 * Gibt ein {@link model.Date} Objekt basierend auf einem {@link java.util.Date} Objekt zurück.
+	 * @param stdDate Das java.util.Date Objekt.
+	 * @return Das model.Date Objekt, basierend auf dem übergebenen java.util.Date Objekt.
+	 */
 	public static Date fromStdDate(java.util.Date stdDate)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -161,7 +222,12 @@ public class Date implements Comparable<Date>
 		return new Date(cal.get(Calendar.DATE), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
 	}
 
-	
+	/**
+	 * Parsed einen {@link String} als {@link Date} Objekt und gibt dieses zurück.
+	 * @param dateString Der String, welcher ein Date wiederspiegelt (getrennt durch ':')
+	 * Bsp: 10:10:2008
+	 * @return Das aus dem String geparsete Date Objekt.
+	 */
 	public static Date parseString(String dateString)
 	{
 		if (dateString != null && dateString != "")
@@ -184,6 +250,12 @@ public class Date implements Comparable<Date>
 		throw new NumberFormatException("DateString ist ungültig!");
 	}
 	
+	/**
+	 * Gibt ein {@link Calendar} Objekt für ein übergebenes {@link Date} Objekt zurück.
+	 * Wird derzeit nur klassenintern gebraucht.
+	 * @param date Das Date Objekt, für das ein {@link Calendar} Objekt erstellt werden soll.
+	 * @return Das {@link Calendar} Objekt.
+	 */
 	private static Calendar getCalForDate(Date date)
 	{
 		Calendar cal = Calendar.getInstance();

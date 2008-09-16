@@ -6,7 +6,6 @@ import model.exceptions.*;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,8 +30,7 @@ public class Customer
 	private String city;
 	private String identificationNr;
 	private String title;
-	private List<InRent> rentList;
-	
+
 	private boolean deleted = false;
 
 	private static int mincID;
@@ -66,20 +64,22 @@ public class Customer
 	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
-	public Customer(String firstName, String lastName, Date birthDate, String street, String houseNr,
-			int zipCode, String city, String identificationNr, String title)
-			throws FalseIDException, EmptyFieldException,
-			FalseBirthDateException, CurrentDateException, FalseFieldException
+	public Customer(String firstName, String lastName, Date birthDate,
+			String street, String houseNr, int zipCode, String city,
+			String identificationNr, String title) throws FalseIDException,
+			EmptyFieldException, FalseBirthDateException, CurrentDateException,
+			FalseFieldException
 	{
-		
-		this(mincID, firstName, lastName, birthDate, street, houseNr, zipCode, city, identificationNr,
-				title);
-		
+
+		this(mincID, firstName, lastName, birthDate, street, houseNr, zipCode,
+				city, identificationNr, title);
+
 		mincID++;
-		
+
 		customerList.put(this.cID, this);
-		
-		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben wurde...
+
+		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben
+		// wurde...
 	}
 
 	/**
@@ -113,14 +113,14 @@ public class Customer
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	private Customer(int cID, String firstName, String lastName,
-			Date birthDate, String street,
-			String houseNr, int zipCode, String city, String identificationNr,
-			String title) throws FalseIDException, EmptyFieldException,
+			Date birthDate, String street, String houseNr, int zipCode,
+			String city, String identificationNr, String title)
+			throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
 		if (correctID(cID)
-				&& noEmptyFields(firstName, lastName, birthDate, street, houseNr, zipCode,
-						city, identificationNr, title)
+				&& noEmptyFields(firstName, lastName, birthDate, street,
+						houseNr, zipCode, city, identificationNr, title)
 				&& correctBirthDate(birthDate))
 		{
 
@@ -134,7 +134,6 @@ public class Customer
 			this.city = city;
 			this.identificationNr = identificationNr;
 			this.title = title;
-			this.rentList = new LinkedList<InRent>();
 
 		}
 	}
@@ -169,13 +168,13 @@ public class Customer
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public static Customer reCreate(int cID, String firstName, String lastName,
-			Date birthDate, String street,
-			String houseNr, int zipCode, String city, String identificationNr,
-			String title) throws FalseIDException, EmptyFieldException,
+			Date birthDate, String street, String houseNr, int zipCode,
+			String city, String identificationNr, String title)
+			throws FalseIDException, EmptyFieldException,
 			FalseBirthDateException, CurrentDateException, FalseFieldException
 	{
-		return new Customer(cID, firstName, lastName, birthDate, street, houseNr, zipCode, city,
-				identificationNr, title);
+		return new Customer(cID, firstName, lastName, birthDate, street,
+				houseNr, zipCode, city, identificationNr, title);
 	}
 
 	/**
@@ -214,16 +213,17 @@ public class Customer
 	 *             gefunden werden
 	 */
 	private boolean noEmptyFields(String firstName, String lastName,
-			Date birthDate, String street,
-			String houseNr, int zipCode, String city, String identificationNr,
-			String title) throws EmptyFieldException
+			Date birthDate, String street, String houseNr, int zipCode,
+			String city, String identificationNr, String title)
+			throws EmptyFieldException
 	{
 		if (firstName == null || firstName == "" || lastName == null
-				|| lastName == "" || birthDate.getYear() == 0 || birthDate.getMonth() == 0
-				|| birthDate.getDate() == 0 || street == null || street == ""
-				|| houseNr == null || houseNr == "" || zipCode == 0
-				|| city == null || city == "" || identificationNr == null
-				|| identificationNr == "" || title == null || title == "")
+				|| lastName == "" || birthDate.getYear() == 0
+				|| birthDate.getMonth() == 0 || birthDate.getDate() == 0
+				|| street == null || street == "" || houseNr == null
+				|| houseNr == "" || zipCode == 0 || city == null || city == ""
+				|| identificationNr == null || identificationNr == ""
+				|| title == null || title == "")
 		{
 			throw new EmptyFieldException();
 		}
@@ -399,15 +399,15 @@ public class Customer
 		else
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
-	
+
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
-		if(newTitle != null && newTitle != "")
+		if (newTitle != null && newTitle != "")
 			this.title = newTitle;
 		else
 			throw new EmptyFieldException("Kein Titel eingegeben!");
 	}
-	
+
 	public String getTitle()
 	{
 		return this.title;
@@ -508,6 +508,29 @@ public class Customer
 	}
 
 	/**
+	 * Gibt an, ob der Kunde zur Zeit Filme ausgeliehen hat.
+	 * 
+	 * @return True, falls ja, False sonst.
+	 */
+	public boolean hasInRents()
+	{
+		Collection<InRent> inRents = InRent.findByCustomer(this);
+		return inRents.size() > 0;
+	}
+
+	/**
+	 * Gibt die Menge aller InRent Objekte (Ausleihungen) dieses Customers
+	 * zurück (falls vorhanden).
+	 * 
+	 * @return Die Menge aller InRent Objekte dieses Customers (falls keine
+	 *         vorhanden, ist die Menge leer).
+	 */
+	public Collection<InRent> getInRents()
+	{
+		return InRent.findByCustomer(this);
+	}
+
+	/**
 	 * @return einen String, der die Daten eines Customers enthält( Name,
 	 *         Kundennummer, Geburtsdatum, Adresse und Personalausweisnummer)
 	 */
@@ -522,19 +545,20 @@ public class Customer
 				+ this.getHouseNr() + "\n" + "Personalausweisnummer: " + this
 				.getIdentificationNr());
 	}
-	
+
 	/**
-	 * Entfernt Customer aus globaler Customer-Liste.
-	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Entfernt Customer aus globaler Customer-Liste. Wird beim nächsten
+	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
 	 */
 	public void delete()
 	{
 		customerList.remove(this.getID());
 		this.deleted = true;
 	}
-	
+
 	/**
 	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
 	public boolean isDeleted()
@@ -560,9 +584,10 @@ public class Customer
 					"Übergebene MinID für Customer ist kleiner 0!!!");
 		}
 	}
-	
+
 	/**
 	 * Gibt die aktuelle MinID für Customers zurück.
+	 * 
 	 * @return Die aktuelle MinID für Customers.
 	 */
 	public static int getMinID()
