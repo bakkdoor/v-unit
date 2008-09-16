@@ -22,6 +22,7 @@ import model.data.exceptions.RecordNotFoundException;
 
 public class DetailPanel {
 
+	private MainWindow mainWindow;
 	private JPanel panelDetails;
 	
 	private JTextField textFieldDetailVID;
@@ -38,17 +39,16 @@ public class DetailPanel {
 	protected final String VIDEODETAILS = "Video";
 	protected final String CUSTOMERDETAILS = "Customer";
 
-	protected Component createDetailPanel() {
+	protected Component createDetailPanel(MainWindow mainWindow) {
 
+		this.mainWindow = mainWindow;
+		
 		// Panel für Videodetails
 		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
 
 		// ***************************************************************
 		// Datenelemente für Video erstellen
-//		JLabel labelDetailVID = new JLabel("FilmID:");
-//		textFieldDetailVID = new JTextField();
-//		textFieldDetailVID.setEditable(false);
 
 		JLabel labelDetailVTitle = new JLabel("Titel:");
 		textFieldDetailVTitle = new JTextField();
@@ -508,7 +508,7 @@ public class DetailPanel {
 		this.listDetailVUnit.setSelectedIndex(0);
 		VideoUnit selectedVideoUnit = videoUnits.get(listDetailVUnit.getSelectedIndex());
 		this.textFieldDetailVState.setText(selectedVideoUnit.isRented()?"ausgeliehen":"verfügbar");
-		if (isVideoUnitRented) {
+		if (selectedVideoUnit.isRented()) {
 			Date durationDate = new Date(selectedVideoUnit.getInRent().getReturnDate());
 			this.textFieldDetailVDuration.setText(durationDate.toString());
 		}

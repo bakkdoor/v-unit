@@ -22,13 +22,15 @@ public class RentPanel {
 	private JComboBox comboBoxRentDuration;
 	private String[] comboBoxRentDurationContent = { "1 Woche", "2 Wochen", "3 Wochen", "4 Wochen", "5 Wochen" };
 	
+	private MainWindow mainWindow;
 	private JTable tableRentVideo;
 	private TableModel tableModelRentVideo;
 	private String[][] stringArrTableModelRentVidCont = {{ "123", "Six Senth", "1 Woche" }, { "", "", "" }, { "", "", "" } };
 	private String[] stringArrTableModelRentVidCollNames = { "ID", "Titel", "Ausleidauer" };
 	
-	protected Component createRentPanel() {
+	protected Component createRentPanel(MainWindow mainWindow) {
 
+		this.mainWindow = mainWindow;
 		// Panel erstellen
 		JPanel panelRent = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstRent = new GridBagConstraints();

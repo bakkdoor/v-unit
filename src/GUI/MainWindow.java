@@ -16,6 +16,10 @@ public class MainWindow {
 
 	private JFrame mainFrame;
 	
+	private RentPanel rentPanel;
+	private DetailPanel detailPanel;
+	private TablePanel tablePanel;
+	
 	// Ausrichtungswerte
 	private final int  HORIZONTAL = GridBagConstraints.HORIZONTAL;
 	private final int  VERTICAL = GridBagConstraints.VERTICAL;
@@ -50,17 +54,17 @@ public class MainWindow {
 		JPanel panelAboveCentral = new JPanel(new GridLayout(1, 2));
 
 		// rentPanel und detailPanel erstellen und in Panel hinzufügen
-		RentPanel rentPanel = new RentPanel();
-		DetailPanel detailPanel = new DetailPanel();
-		panelAboveCentral.add(rentPanel.createRentPanel());
-		panelAboveCentral.add(detailPanel.createDetailPanel());
+		rentPanel = new RentPanel();
+		detailPanel = new DetailPanel();
+		panelAboveCentral.add(rentPanel.createRentPanel(this));
+		panelAboveCentral.add(detailPanel.createDetailPanel(this));
 
 		// detailPanel - Cards umschalten zu Testzwecken
 		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
-		TablePanel tablePanel = new TablePanel();
-		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel());
+		tablePanel = new TablePanel();
+		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel(this));
 		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
@@ -70,7 +74,15 @@ public class MainWindow {
 		mainFrame.setVisible(true);
 	}
 
-	
+	protected RentPanel getRentPanel() {
+		return rentPanel;
+	}
 
+	protected DetailPanel getDetailPanel() {
+		return detailPanel;
+	}
 	
+	protected TablePanel getTablePanel() {
+		return tablePanel;
+	}
 }

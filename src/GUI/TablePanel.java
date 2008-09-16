@@ -3,6 +3,9 @@ package GUI;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.LayoutManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -11,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.TabExpander;
@@ -24,6 +28,7 @@ public class TablePanel {
 	public static final String SEARCHCUSTOMERCARD = "Customer";
 	public static final String SEARCHVIDEOCARD = "Video";
 
+	private MainWindow mainWindow;
 	private JTable Customer;
 	private JTable tableVideo;
 	private JTable tableCustomer;
@@ -32,12 +37,13 @@ public class TablePanel {
 	private JTable tableSearchVideo;
 	private JTable tableSearchCustomer;
 
-	protected Component createTablePanel() {
+	protected Component createTablePanel(MainWindow mainWindow) {
 
+		this.mainWindow = mainWindow;
 		TableModel tableModelVideo = this.fillTableVideo();
 		tableVideo = new JTable(tableModelVideo);
 		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelVideo));
-		
+		tableVideo.addMouseListener();
 		
 		TableModel tableModelCustomer = this.fillTableCustomer();
 		tableCustomer = new JTable(tableModelCustomer);
