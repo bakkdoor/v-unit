@@ -127,7 +127,11 @@ public class VideoUnit
 	 */
 	public Video getVideo()
 	{
-		return Video.findByID(this.videoID);
+		try {
+			return Video.findByID(this.videoID);
+		} catch (RecordNotFoundException e) {
+			return null;
+		}
 //		return this.video;
 	}
 	
