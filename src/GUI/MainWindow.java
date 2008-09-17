@@ -76,7 +76,6 @@ public class MainWindow {
 
 		// mainFrame.pack();
 		mainFrame.setSize(1024, 768);
-		mainFrame.setVisible(true);
 	}
 
 	public RentPanel getRentPanel() {

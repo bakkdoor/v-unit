@@ -1,10 +1,15 @@
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+
+import main.Programm;
 
 public class MenuBar {
 
@@ -13,6 +18,19 @@ public class MenuBar {
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();
 
+		// Menu Kunde
+		JMenu menuProgramm = new JMenu("Programm");
+		JMenuItem menuItemProgrammExit = new JMenuItem("Beenden", new ImageIcon("icons/door_out.png"));
+		menuItemProgrammExit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Programm.shutdown();
+			}
+			
+		});
+		menuProgramm.add(menuItemProgrammExit);
+		
 		// Menu Kunde
 		JMenu menuCustomer = new JMenu("Kunde");
 		JMenuItem menuItemCustomerNew = new JMenuItem("Aufnehmen", new ImageIcon("icons/user_add.png"));
@@ -61,6 +79,7 @@ public class MenuBar {
 		menuHelp.add(menuItemHelpAbout);
 
 		// Menus in dei MenuBar hinzufügen
+		menuBarMain.add(menuProgramm);
 		menuBarMain.add(menuCustomer);
 		menuBarMain.add(menuVideo);
 		menuBarMain.add(menuSearch);

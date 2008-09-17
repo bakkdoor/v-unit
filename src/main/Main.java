@@ -47,19 +47,8 @@ public class Main{
 		{
 			Logger.get().write("Es gab einen Fehler beim Laden!");
 		}
+
+		Programm.start(new MainWindow());
 		
-		// GUI starten...
-		MainWindow videoProgramm = new MainWindow();
-		
-		
-		Logger.get().write("Programm wird beendet!");
-		try
-		{
-			Logger.get().close();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 }

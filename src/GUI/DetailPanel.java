@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,12 +13,14 @@ import java.util.Collection;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
 
@@ -515,7 +518,21 @@ public class DetailPanel {
 			e.printStackTrace();
 		}
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
-				.getVideoUnits());
+				.getSortedVideoUnits());
+		
+		
+		class ColoredListCellRenderer extends DefaultListCellRenderer {
+
+			public void setValue(Object value) {
+            	if (value instanceof VideoUnit) {
+            		if (((VideoUnit) value).isRented()) {
+            			setBackground(Color.RED);
+            		} else setBackground(Color.GREEN);
+            	}
+            }
+        }
+		
+		listDetailVUnit.setCellRenderer(new ColoredListCellRenderer());
 		
 		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
