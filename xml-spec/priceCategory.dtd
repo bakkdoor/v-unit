@@ -1,6 +1,7 @@
 <!ELEMENT priceCategories (priceCategory*)>
-<!ELEMENT priceCategory(pID, name, price)>
+<!ELEMENT priceCategory EMPTY>
 
-<!ELEMENT pID(#PCDATA)>
-<!ELEMENT name(#PCDATA)>
-<!ELEMENT price(#PCDATA)>
+<!ATTLIST priceCategories 	minID NMTOKEN #REQUIRED>
+<!ATTLIST priceCategory 	pID NMTOKEN #REQUIRED
+							name CDATA #REQUIRED
+							price NMTOKEN #REQUIRED>

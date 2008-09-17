@@ -1,14 +1,12 @@
 <!ELEMENT videos (video*)>
-<!ELEMENT video(vID, title, releaseYear, priceCategoryID, ratedAge, videoUnit*)>
-					
-<!ELEMENT vID(#PCDATA)>
-<!ELEMENT title(#PCDATA)>
-<!ELEMENT releaseYear(#PCDATA)>
-<!ELEMENT priceCategoryID(#PCDATA)>
-<!ELEMENT ratedAge(#PCDATA)>
+<!ELEMENT video (videoUnit*)>
+<!ELEMENT videoUnit EMPTY>
 
-
-<!ELEMENT videoUnit(uID, videoID)>
-
-<!ELEMENT uID(#PCDATA)>
-<!ELEMENT videoID(#PCDATA)>
+<!ATTLIST videos 	minID NMTOKEN #REQUIRED>
+<!ATTLIST video 	vID NMTOKEN #REQUIRED
+					title CDATA #REQUIRED
+					releaseYear NMTOKEN #REQUIRED
+					priceCategoryID NMTOKEN #REQUIRED
+					ratedAge NMTOKEN #REQUIRED>
+<!ATTLIST videoUnit	uID NMTOKEN #REQUIRED
+					videoID NMTOKEN #REQUIRED>
