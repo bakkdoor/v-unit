@@ -400,12 +400,12 @@ public class Customer
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
 	
-	public String getFirstAdressRow()
+	public String getFirstAddressRow()
 	{
 		return this.street + " " + this.houseNr;
 	}
 	
-	public String getLastAdressRow()
+	public String getLastAddressRow()
 	{
 		return this.zipCode + " " + this.city;
 	}
