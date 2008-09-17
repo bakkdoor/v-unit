@@ -28,9 +28,10 @@ public class TableCustomerListSelectionHandler implements ListSelectionListener 
 		
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
 		detailPanel.changePanelDetailsCard(detailPanel.CUSTOMERDETAILS);
-		int cID = Integer.parseInt((String) customerTable.getValueAt(lsm.getMinSelectionIndex(), 0));
+		
 		
 		try {
+			int cID = (Integer) customerTable.getValueAt(lsm.getMinSelectionIndex(), 0);
 			Customer selectedCustomer = Customer.findByID(cID);
 			mainWindow.getDetailPanel().fillPanelDetailCustomer(selectedCustomer);
 		} catch (RecordNotFoundException e1) {
