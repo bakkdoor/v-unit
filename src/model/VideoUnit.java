@@ -160,7 +160,8 @@ public class VideoUnit
 	 */
 	public String toString()
 	{
-		return this.uID + " - VideoUnit";
+		String rented = isRented() ? "ausgeliehen" : "verfügbar";
+		return this.uID + " (" + rented + ")";
 	}
 	
 	/**
