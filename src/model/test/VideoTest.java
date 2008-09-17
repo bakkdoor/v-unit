@@ -10,8 +10,6 @@ import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
-import model.exceptions.CurrentDateException;
-import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
 /**
@@ -98,14 +96,14 @@ public class VideoTest extends ModelTest
 		assertTrue(v.getVideoUnits().size() > 1);
 
 		// ein paar ausleihungen erstellen
-		LinkedList<VideoUnit> unitsToRent = new LinkedList(v.getVideoUnits());
+		LinkedList<VideoUnit> unitsToRent = new LinkedList<VideoUnit>(v.getVideoUnits());
 		unitsToRent.removeLast();
 
 		for (VideoUnit unit : unitsToRent)
 		{
 			try
 			{
-				InRent newInRent = new InRent(Customer.findByID(1), unit,
+				new InRent(Customer.findByID(1), unit,
 						new Date(), 2);
 			}
 			catch (VideothekException e)
@@ -113,6 +111,8 @@ public class VideoTest extends ModelTest
 				e.printStackTrace();
 			}
 		}
+		
+		assertEquals(v.getVideoUnits().size() - 1, unitsToRent.size());
 
 		for (VideoUnit unit : v.getSortedVideoUnits())
 		{
