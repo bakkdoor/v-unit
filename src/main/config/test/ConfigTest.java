@@ -27,7 +27,7 @@ public class ConfigTest extends TestCase
 		assertNotNull(conf);
 
 		assertEquals("false", conf
-				.getSetting(Config.Settings.setCurrentDateOnStartUp));
+				.getSetting(Config.Settings.SETDATEONSTARTUP));
 	}
 
 	public void testSaveConfig()
@@ -45,8 +45,8 @@ public class ConfigTest extends TestCase
 
 		Config savedConf = Config.get("data/config-save.xml");
 
-		assertEquals(conf.getSetting(Config.Settings.setCurrentDateOnStartUp),
-				savedConf.getSetting(Config.Settings.setCurrentDateOnStartUp));
+		assertEquals(conf.getSetting(Config.Settings.SETDATEONSTARTUP),
+				savedConf.getSetting(Config.Settings.SETDATEONSTARTUP));
 
 	}
 }

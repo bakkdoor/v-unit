@@ -16,7 +16,7 @@ public class Config
 
 	public class Settings
 	{
-		public static final String setCurrentDateOnStartUp = "setCurrentDateOnStartUp";
+		public static final String SETDATEONSTARTUP = "setCurrentDateOnStartUp";
 	}
 
 	/**
