@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 public class MainWindow {
 
 	private JFrame mainFrame;
@@ -27,7 +29,6 @@ public class MainWindow {
 	private final int  BELOW_BASELINE = GridBagConstraints.BELOW_BASELINE;
 	private final int  NORTHWEST = GridBagConstraints.NORTHWEST;
 	
-
 	public MainWindow() {
 
 		mainFrame = new JFrame("Videothek 3.Auge");
@@ -59,7 +60,9 @@ public class MainWindow {
 		panelAboveCentral.add(rentPanel.createRentPanel(this));
 		panelAboveCentral.add(detailPanel.createDetailPanel(this));
 
-		// detailPanel - Cards umschalten zu Testzwecken
+		// RentPanel - Cards zu Testzwecken umschalten
+		rentPanel.changeCard(RentPanel.RETURNVIDEOCARD);
+		// detailPanel - Cards zu Testzwecken umschalten
 		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen

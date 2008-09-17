@@ -26,14 +26,15 @@ public class DetailVideoListSelectionHandler implements ListSelectionListener {
 	
 	public void valueChanged(ListSelectionEvent e) {
 //		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
-		ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		int index = lsm.getMinSelectionIndex();	
+		String selectedVideoUnitID = (String) detailPanel.getListDetailVUnit().getSelectedValue();
 		
-//		VideoUnit selV = (VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue();
-		
-		detailPanel.fillPanelDetailVideoState((VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue());
+		try {
+			detailPanel.fillPanelDetailVideoState(VideoUnit.findByID(Integer.parseInt(selectedVideoUnitID)));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 				
 	}
 }

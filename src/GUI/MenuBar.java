@@ -15,9 +15,9 @@ public class MenuBar {
 
 		// Menu Kunde
 		JMenu menuCustomer = new JMenu("Kunde");
-		JMenuItem menuItemCustomerNew = new JMenuItem("aufnehmen", new ImageIcon("icons/user_add.png"));
-		JMenuItem menuItemCustomerEdit = new JMenuItem("ändern", new ImageIcon("icons/user_edit.png"));
-		JMenuItem menuItemCustomerDelete = new JMenuItem("löschen", new ImageIcon("icons/user_delete.png"));
+		JMenuItem menuItemCustomerNew = new JMenuItem("Aufnehmen", new ImageIcon("icons/user_add.png"));
+		JMenuItem menuItemCustomerEdit = new JMenuItem("Ändern", new ImageIcon("icons/user_edit.png"));
+		JMenuItem menuItemCustomerDelete = new JMenuItem("Löschen", new ImageIcon("icons/user_delete.png"));
 
 		menuCustomer.add(menuItemCustomerNew);
 		menuCustomer.add(menuItemCustomerEdit);
@@ -25,9 +25,9 @@ public class MenuBar {
 
 		// Menu Video
 		JMenu menuVideo = new JMenu("Video");
-		JMenuItem menuItemVideoNew = new JMenuItem("aufnehmen", new ImageIcon("icons/film_add.png"));
-		JMenuItem menuItemVideoEdit = new JMenuItem("ändern", new ImageIcon("icons/film_edit.png"));
-		JMenuItem menuItemVideoDelete = new JMenuItem("löschen", new ImageIcon("icons/film_delete.png"));
+		JMenuItem menuItemVideoNew = new JMenuItem("Aufnehmen", new ImageIcon("icons/film_add.png"));
+		JMenuItem menuItemVideoEdit = new JMenuItem("Ändern", new ImageIcon("icons/film_edit.png"));
+		JMenuItem menuItemVideoDelete = new JMenuItem("Löschen", new ImageIcon("icons/film_delete.png"));
 
 		menuVideo.add(menuItemVideoNew);
 		menuVideo.add(menuItemVideoEdit);
@@ -35,8 +35,8 @@ public class MenuBar {
 
 		// Menu Suchen
 		JMenu menuSearch = new JMenu("Suche");
-		JMenuItem menuItemSearchVideo = new JMenuItem("nach Film", new ImageIcon("icons/magnifier.png"));
-		JMenuItem menuItemSearchCustomer = new JMenuItem("nach Kunden", new ImageIcon("icons/magnifier.png"));
+		JMenuItem menuItemSearchVideo = new JMenuItem("Nach Film", new ImageIcon("icons/magnifier.png"));
+		JMenuItem menuItemSearchCustomer = new JMenuItem("Nach Kunden", new ImageIcon("icons/magnifier.png"));
 		
 		menuSearch.add(menuItemSearchVideo);
 		menuSearch.add(menuItemSearchCustomer);
