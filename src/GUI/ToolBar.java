@@ -68,6 +68,7 @@ public class ToolBar {
 		// toolBarButtonEdit.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonEdit.setFocusable(false);
 		toolBarButtonEdit.setDefaultCapable(false);
+		toolBarButtonEdit.setEnabled(false);
 		toolBarButtonEdit.setIcon(new ImageIcon("icons/pencil.png"));
 		toolBarButtonEdit.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonEdit.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -108,6 +109,7 @@ public class ToolBar {
 		// toolBarButtonDelete.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonDelete.setFocusable(false);
 		toolBarButtonDelete.setDefaultCapable(false);
+		toolBarButtonDelete.setEnabled(false);
 		toolBarButtonDelete.setIcon(new ImageIcon("icons/delete.png"));
 		toolBarButtonDelete.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonDelete.setVerticalTextPosition(SwingConstants.BOTTOM);

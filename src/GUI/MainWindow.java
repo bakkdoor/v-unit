@@ -48,7 +48,7 @@ public class MainWindow {
 		// **************************************************************
 		// MenuBar
 		MenuBar menuBar = new MenuBar();
-		mainFrame.setJMenuBar(menuBar.createMenuBar());
+		mainFrame.setJMenuBar(menuBar.createMenuBar(this));
 
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen

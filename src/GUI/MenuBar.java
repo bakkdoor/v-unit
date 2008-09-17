@@ -13,12 +13,13 @@ import main.Programm;
 
 public class MenuBar {
 
-	protected JMenuBar createMenuBar() {
+	protected JMenuBar createMenuBar(MainWindow owner) {
 
+		final MainWindow mainWindow = owner;
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();
 
-		// Menu Kunde
+		// Menu Programm
 		JMenu menuProgramm = new JMenu("Programm");
 		JMenuItem menuItemProgrammExit = new JMenuItem("Beenden", new ImageIcon("icons/door_out.png"));
 		menuItemProgrammExit.addActionListener(new ActionListener(){
@@ -33,9 +34,19 @@ public class MenuBar {
 		
 		// Menu Kunde
 		JMenu menuCustomer = new JMenu("Kunde");
-		JMenuItem menuItemCustomerNew = new JMenuItem("Aufnehmen", new ImageIcon("icons/user_add.png"));
+		JMenuItem menuItemCustomerNew = new JMenuItem("Anlegen", new ImageIcon("icons/user_add.png"));
+		menuItemCustomerNew.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new CustomerDataDialog (mainWindow.getMainFrame());
+			}
+		});
+		
 		JMenuItem menuItemCustomerEdit = new JMenuItem("Ändern", new ImageIcon("icons/user_edit.png"));
+		menuItemCustomerEdit.setEnabled(false);
 		JMenuItem menuItemCustomerDelete = new JMenuItem("Löschen", new ImageIcon("icons/user_delete.png"));
+		menuItemCustomerDelete.setEnabled(false);
 
 		menuCustomer.add(menuItemCustomerNew);
 		menuCustomer.add(menuItemCustomerEdit);
@@ -43,9 +54,18 @@ public class MenuBar {
 
 		// Menu Video
 		JMenu menuVideo = new JMenu("Video");
-		JMenuItem menuItemVideoNew = new JMenuItem("Aufnehmen", new ImageIcon("icons/film_add.png"));
+		JMenuItem menuItemVideoNew = new JMenuItem("Anlegen", new ImageIcon("icons/film_add.png"));
+		menuItemVideoNew.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VideoDataDialog (mainWindow.getMainFrame());
+			}
+		});
 		JMenuItem menuItemVideoEdit = new JMenuItem("Ändern", new ImageIcon("icons/film_edit.png"));
+		menuItemVideoEdit.setEnabled(false);
 		JMenuItem menuItemVideoDelete = new JMenuItem("Löschen", new ImageIcon("icons/film_delete.png"));
+		menuItemVideoDelete.setEnabled(false);
 
 		menuVideo.add(menuItemVideoNew);
 		menuVideo.add(menuItemVideoEdit);
