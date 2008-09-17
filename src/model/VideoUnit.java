@@ -127,7 +127,8 @@ public class VideoUnit
 	 */
 	public Video getVideo()
 	{
-		return this.video;
+		return Video.findByID(this.videoID);
+//		return this.video;
 	}
 	
 	/**

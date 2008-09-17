@@ -71,4 +71,9 @@ public class VideoTest extends ModelTest
 			assertEquals(RecordNotFoundException.class, e.getClass());
 		}
 	}
+	
+	public void testGetSortedVideoUnits()
+	{
+		boolean passedAvailable = false;
+	}
 }
