@@ -2,6 +2,9 @@ package model;
 
 import model.Date;
 import model.data.exceptions.RecordNotFoundException;
+import model.events.CustomerCreatedEvent;
+import model.events.CustomerDeletedEvent;
+import model.events.EventManager;
 import model.exceptions.*;
 
 import java.util.Collection;
@@ -133,6 +136,8 @@ public class Customer
 			this.identificationNr = identificationNr;
 			this.title = title;
 
+			// Event feuern
+			EventManager.fireEvent(new CustomerCreatedEvent(this));
 		}
 	}
 
@@ -570,6 +575,9 @@ public class Customer
 	{
 		customerList.remove(this.getID());
 		this.deleted = true;
+		
+		// Event feuern
+		EventManager.fireEvent(new CustomerDeletedEvent(this));
 	}
 
 	/**

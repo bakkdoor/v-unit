@@ -2,17 +2,17 @@ package model.events;
 
 import model.Customer;
 
-public class CustomerCreatedEvent extends VideothekEvent
-{
-	private Customer customer = null;
-	
+/**
+ * CustomerCreatedEvent.java
+ * @author Christopher Bertels (chbertel@uos.de)
+ * 18.09.2008
+ *
+ * Event für den Fall, dass ein Customer erstellt wurde.
+ */
+public class CustomerCreatedEvent extends CustomerEvent
+{	
 	public CustomerCreatedEvent(Customer newCustomer)
 	{
-		this.customer = newCustomer;
-	}
-	
-	public Customer getCustomer()
-	{
-		return this.customer;
+		super(newCustomer);
 	}
 }
