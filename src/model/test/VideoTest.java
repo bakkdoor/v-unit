@@ -1,9 +1,17 @@
 package model.test;
 
+import java.util.LinkedList;
+
 import main.error.VideothekException;
+import model.Customer;
+import model.Date;
+import model.InRent;
 import model.PriceCategory;
 import model.Video;
+import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.CurrentDateException;
+import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
 /**
@@ -18,10 +26,10 @@ public class VideoTest extends ModelTest
 	{
 		try
 		{
-			Video v = new Video("test", 1960, PriceCategory.findByID(1), 18); 
-			
+			Video v = new Video("test", 1960, PriceCategory.findByID(1), 18);
+
 			assertTrue(Video.findAll().contains(v));
-			
+
 			v.delete();
 		}
 		catch (VideothekException e)
@@ -56,12 +64,12 @@ public class VideoTest extends ModelTest
 
 		assertNotNull(v);
 		assertTrue(Video.findAll().contains(v));
-		
+
 		v.delete();
 
 		assertFalse(Video.findAll().contains(v));
 		assertTrue(v.isDeleted());
-		
+
 		try
 		{
 			Video.findByID(v.getID());
@@ -71,9 +79,56 @@ public class VideoTest extends ModelTest
 			assertEquals(RecordNotFoundException.class, e.getClass());
 		}
 	}
-	
+
 	public void testGetSortedVideoUnits()
 	{
 		boolean passedAvailable = false;
+
+		Video v = null;
+		try
+		{
+			v = Video.findByID(2);
+		}
+		catch (RecordNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+
+		assertNotNull(v);
+		assertTrue(v.getVideoUnits().size() > 1);
+
+		// ein paar ausleihungen erstellen
+		LinkedList<VideoUnit> unitsToRent = new LinkedList(v.getVideoUnits());
+		unitsToRent.removeLast();
+
+		for (VideoUnit unit : unitsToRent)
+		{
+			try
+			{
+				InRent newInRent = new InRent(Customer.findByID(1), unit,
+						new Date(), 2);
+			}
+			catch (VideothekException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		for (VideoUnit unit : v.getSortedVideoUnits())
+		{
+			// wenn unit nicht ausgeliehen und wir noch nicht bei einem
+			// ausgeliehenen waren
+			// merken; es sollten jetzt nur noch ausgeliehene kommen..
+			if (unit.isRented() && !passedAvailable)
+			{
+				passedAvailable = true;
+			}
+
+			if (!unit.isRented() && passedAvailable)
+			{
+				// hier sollte er nie hinkommen!
+				assertTrue(false);
+			}
+		}
 	}
 }

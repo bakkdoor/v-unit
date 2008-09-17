@@ -22,7 +22,6 @@ public class VideoUnit
 
 	private int uID;
 	private int videoID;
-	private Video video;
 
 	private boolean deleted = false;
 	
@@ -127,12 +126,14 @@ public class VideoUnit
 	 */
 	public Video getVideo()
 	{
-		try {
+		try 
+		{
 			return Video.findByID(this.videoID);
-		} catch (RecordNotFoundException e) {
+		} 
+		catch (RecordNotFoundException e) 
+		{
 			return null;
 		}
-//		return this.video;
 	}
 	
 	/**
