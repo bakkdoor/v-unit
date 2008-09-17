@@ -96,6 +96,15 @@ public class PriceCategory
 	{
 		return this.deleted;
 	}
+	
+	/**
+	 * Gibt alle Videos dieser Preiskategorie zurück.
+	 * @return Alle Videos dieser Preiskategorie
+	 */
+	public Collection<Video> getVideos()
+	{
+		return Video.findByPriceCategory(this);
+	}
 
 	public static void setMinID(int newMinpID) throws FalseIDException
 	{

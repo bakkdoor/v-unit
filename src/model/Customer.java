@@ -400,11 +400,19 @@ public class Customer
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
 	
+	/**
+	 * Gibt Strasse/Hausnummer Adresszeile zurück
+	 * @return Strasse/Hausnummer Adresszeile
+	 */
 	public String getFirstAddressRow()
 	{
 		return this.street + " " + this.houseNr;
 	}
 	
+	/**
+	 * Gibt PLZ/Stadt Adresszeile zurück
+	 * @return PLZ/Stadt Adresszeile
+	 */
 	public String getLastAddressRow()
 	{
 		return this.zipCode + " " + this.city;
