@@ -399,6 +399,16 @@ public class Customer
 		else
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
+	
+	public String getFirstAdressRow()
+	{
+		return this.street + " " + this.houseNr;
+	}
+	
+	public String getLastAdressRow()
+	{
+		return this.zipCode + " " + this.city;
+	}
 
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
