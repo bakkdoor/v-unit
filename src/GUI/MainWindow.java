@@ -4,17 +4,16 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+import main.Programm;
 
 public class MainWindow {
 
@@ -34,7 +33,12 @@ public class MainWindow {
 	public MainWindow() {
 
 		mainFrame = new JFrame("Videothek 3.Auge");
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Programm.shutdown();
+			}
+		});
 //		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
 
 		// Haupt Container Layout setzen
