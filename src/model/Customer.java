@@ -41,9 +41,7 @@ public class Customer
 	 * 
 	 * @param firstName Vorname
 	 * @param lastName Nachname
-	 * @param yearOfBirth Geburtsjahr
-	 * @param monthOfBirth Geburtsmonat
-	 * @param dayOfBirth Geburtstag
+	 * @param birthDate Geburtsdatum
 	 * @param street Straße
 	 * @param houseNr Hausnummer
 	 * @param zipCode PLZ
