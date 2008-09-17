@@ -500,12 +500,13 @@ public class DetailPanel {
 		}
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getVideoUnits());
-		Vector<String> videoUnitID = new Vector(videoUnits.size());
-		for (VideoUnit tmpUnit : videoUnits) {
-			videoUnitID.add(Integer.toString(tmpUnit.getID()));
-		}
+		//Vector<String> videoUnitID = new Vector(videoUnits.size());
+		/*for (VideoUnit tmpUnit : videoUnits) {
+			//videoUnitID.add(Integer.toString(tmpUnit.getID()));
+			videoUnitID.add
+		}*/
 
-		this.listDetailVUnit.setListData(videoUnitID);
+		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
 		fillPanelDetailVideoState(videoUnits.get(0));
 	}

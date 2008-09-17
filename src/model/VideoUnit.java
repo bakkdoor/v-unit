@@ -300,5 +300,10 @@ public class VideoUnit
 			unitToVideoMap.put(unit.videoID, newList);
 		}
 	}
+	
+	public String toString()
+	{
+		return this.uID + " - VideoUnit";
+	}
 
 }
