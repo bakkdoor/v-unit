@@ -42,7 +42,7 @@ public class VideoDataDialog {
 							Integer unitQuantity) {
 		
 		this.owner = owner;
-		this.addVideo = (VID == null);
+		this.addVideo = (VID == -1);
 		this.VID = (VID != null ? VID : new Integer(0));
 		this.title = title;
 		this.releaseYear = releaseYear;

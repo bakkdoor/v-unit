@@ -1,15 +1,9 @@
 package GUI.SelectionListeners;
 
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.Video;
 import model.VideoUnit;
-import model.data.exceptions.RecordNotFoundException;
-
 import GUI.DetailPanel;
 import GUI.MainWindow;
 
@@ -32,6 +26,5 @@ public class DetailVideoListSelectionHandler implements ListSelectionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-				
 	}
 }

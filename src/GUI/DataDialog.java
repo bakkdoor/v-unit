@@ -4,7 +4,7 @@ import java.awt.Frame;
 
 import javax.swing.JFrame;
 
-public abstract class DataDialog {
+public class DataDialog {
 
 	public static final String CUSTOMERDIALOG = "customerDialog";
 	public static final String VIDEODIALOG = "videoDialog";

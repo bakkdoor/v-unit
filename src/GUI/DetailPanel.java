@@ -39,8 +39,9 @@ public class DetailPanel {
 	private JList listDetailVUnit;
 	private JButton buttonDetailVadd;
 
-	public final String VIDEODETAILS = "Video";
-	public final String CUSTOMERDETAILS = "Customer";
+	public String currentCard;
+	public static final String VIDEODETAILS = "Video";
+	public static final String CUSTOMERDETAILS = "Customer";
 
 	protected Component createDetailPanel(MainWindow mainWindow) {
 
@@ -467,6 +468,8 @@ public class DetailPanel {
 		panelDetails = new JPanel(new CardLayout());
 		panelDetails.add(panelDetailVideo, VIDEODETAILS);
 		panelDetails.add(panelDetailCustomer, CUSTOMERDETAILS);
+		
+		this.changePanelDetailsCard(VIDEODETAILS);
 
 		panelDetails.setBorder(BorderFactory
 				.createTitledBorder("Informationen"));
@@ -478,8 +481,10 @@ public class DetailPanel {
 
 		CardLayout layout = (CardLayout) panelDetails.getLayout();
 		if (cardName.equals(VIDEODETAILS)) {
+			this.currentCard = VIDEODETAILS;
 			layout.show(this.panelDetails, VIDEODETAILS);
 		} else if (cardName.equals(CUSTOMERDETAILS)) {
+			this.currentCard = CUSTOMERDETAILS;
 			layout.show(this.panelDetails, CUSTOMERDETAILS);
 		}
 	}
@@ -500,12 +505,7 @@ public class DetailPanel {
 		}
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getVideoUnits());
-		//Vector<String> videoUnitID = new Vector(videoUnits.size());
-		/*for (VideoUnit tmpUnit : videoUnits) {
-			//videoUnitID.add(Integer.toString(tmpUnit.getID()));
-			videoUnitID.add
-		}*/
-
+		
 		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
 		fillPanelDetailVideoState(videoUnits.get(0));
@@ -528,10 +528,6 @@ public class DetailPanel {
 
 	protected void fillPanelDetailCustomer() {
 
-	}
-
-	public JTextField getTextFieldDetailVID() {
-		return textFieldDetailVID;
 	}
 
 	public JTextField getTextFieldDetailVTitle() {

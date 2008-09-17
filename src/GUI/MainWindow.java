@@ -7,8 +7,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
@@ -47,7 +49,7 @@ public class MainWindow {
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen
 		ToolBar toolBar = new ToolBar();
-		Layout.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
+		Layout.addComponent(mainContainer, toolBar.createToolBar(this), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
 
@@ -87,5 +89,33 @@ public class MainWindow {
 	
 	public TablePanel getTablePanel() {
 		return tablePanel;
+	}
+	
+	public void showSearchDialog() {
+		SearchDialog searchDialog = new SearchDialog(mainFrame);
+	}
+	
+	public void showCreateDialog() {
+//		JOptionPane optionDialog = new JOptionPane("Möchten Sie einen Film oder einen Kunden erstellen?", JOptionPane.QUESTION_MESSAGE,
+//													JOptionPane.OK_CANCEL_OPTION, null);
+//		
+//		optionDialog.setVisible(true);
+//		
+		String[] options = {"Film", "Kunde"};
+		int section = JOptionPane.showOptionDialog(mainFrame, "Möchten Sie Film oder Kunden anlegen?", "Anlegen Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
+				options , null);
+			
+		if (section == 0) {
+			DataDialog createCustomerDialog = new DataDialog(mainFrame, DataDialog.VIDEODIALOG);
+		}else if (section == 1) {
+			DataDialog createVideoDialog = new DataDialog(mainFrame, DataDialog.CUSTOMERDIALOG);
+			
+		}
+		
+		
+	}
+
+	public JFrame getMainFrame() {
+		return mainFrame;
 	}
 }

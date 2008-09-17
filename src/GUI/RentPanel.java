@@ -62,7 +62,7 @@ public class RentPanel {
 		JPanel panelRent = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstRent = new GridBagConstraints();
 
-		panelRent.setBorder(BorderFactory.createTitledBorder("Eingabe"));
+		panelRent.setBorder(BorderFactory.createTitledBorder("Ausleihe"));
 
 		// KundenNr - Label/TextField erstellen
 		JLabel labelRentCustomer = new JLabel("KundenNr.:");
