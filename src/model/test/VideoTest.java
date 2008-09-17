@@ -21,6 +21,8 @@ public class VideoTest extends ModelTest
 			Video v = new Video("test", 1960, PriceCategory.findByID(1), 18); 
 			
 			assertTrue(Video.findAll().contains(v));
+			
+			v.delete();
 		}
 		catch (VideothekException e)
 		{

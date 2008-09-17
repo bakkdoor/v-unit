@@ -7,6 +7,7 @@ import java.util.Collection;
 import model.*;
 import model.data.exceptions.DataException;
 import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.parsers.VideoParser;
 import model.data.xml.writers.VideoWriter;
 
 /**
@@ -22,8 +23,6 @@ public class VideoWriterTest extends AbstractWriterTest
 		try
 		{
 			assertNotNull(Video.findAll());
-			assertEquals(2, Video.findAll().size());
-
 			VideoWriter writer = new VideoWriter(
 					"xml-spec/videos-save.xml");
 			
@@ -37,9 +36,9 @@ public class VideoWriterTest extends AbstractWriterTest
 			}
 			
 			// gespeicherte Videos & VideoUnits einlesen und Anzahl vergleichen
-			Collection<Video> parsedVideos = Video.findAll();
-			Collection<VideoUnit> parsedVideoUnits = VideoUnit.findAll();
-			
+			VideoParser parser = new VideoParser();
+			Collection<Video> parsedVideos = parser.parseVideos("xml-spec/videos-save.xml").values();
+			Collection<VideoUnit> parsedVideoUnits = parser.getVideoUnitList().values();
 			
 			assertEquals(Video.findAll().size(), parsedVideos.size());
 			assertEquals(VideoUnit.findAll().size(), parsedVideoUnits.size());
