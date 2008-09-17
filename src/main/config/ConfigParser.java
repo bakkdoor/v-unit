@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 
-import model.data.exceptions.DataException;
 import model.data.xml.parsers.AbstractParser;
 
 import org.xml.sax.Attributes;

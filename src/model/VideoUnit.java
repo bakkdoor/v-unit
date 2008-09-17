@@ -148,7 +148,15 @@ public class VideoUnit
 	{
 		return this.deleted;
 	}
-
+	
+	/**
+	 * Gibt eine String-Repräsentation des VideoUnits zurück.
+	 */
+	public String toString()
+	{
+		return this.uID + " - VideoUnit";
+	}
+	
 	/**
 	 * Gibt das zur übergebenen VideoUnitID zugehörige VideoUnit zurück, falls
 	 * vorhanden.
@@ -300,10 +308,4 @@ public class VideoUnit
 			unitToVideoMap.put(unit.videoID, newList);
 		}
 	}
-	
-	public String toString()
-	{
-		return this.uID + " - VideoUnit";
-	}
-
 }

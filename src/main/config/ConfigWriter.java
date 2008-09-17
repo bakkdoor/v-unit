@@ -2,17 +2,14 @@ package main.config;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ecs.xml.XML;
-import org.apache.ecs.xml.XMLDocument;
-
-import model.PriceCategory;
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.AbstractWriter;
+
+import org.apache.ecs.xml.XML;
+import org.apache.ecs.xml.XMLDocument;
 
 /**
  * ConfigWriter.java
