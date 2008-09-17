@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
 
 import model.Customer;
@@ -44,7 +45,9 @@ public class TablePanel {
 		TableModel tableModelCustomer = this.fillTableCustomer();
 		tableCustomer = new JTable(tableModelCustomer);
 		tableCustomer.setRowSorter(new TableRowSorter<TableModel>(tableModelCustomer));
-
+		ListSelectionModel tableCustomerSelectionModel = tableCustomer.getSelectionModel();
+		tableCustomerSelectionModel.addListSelectionListener(new TableCustomerListSelectionHandler(mainWindow));
+		
 		String[][] rentContent = { { "", "", "", "", "" } };
 		String[] rentCollName = { "ID", "KundenNr.", "FilmNr.",
 				"Rückgabefrist", "Mahnung" };

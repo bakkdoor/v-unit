@@ -63,7 +63,7 @@ public class MainWindow {
 		panelAboveCentral.add(detailPanel.createDetailPanel(this));
 
 		// RentPanel - Cards zu Testzwecken umschalten
-		rentPanel.changeCard(RentPanel.RETURNVIDEOCARD);
+		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);
 		// detailPanel - Cards zu Testzwecken umschalten
 		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
 

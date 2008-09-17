@@ -5,21 +5,21 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.Video;
+import model.Customer;
 import model.data.exceptions.RecordNotFoundException;
 
 import GUI.DetailPanel;
 import GUI.MainWindow;
 
-public class TableVideoListSelectionHandler implements ListSelectionListener {
+public class TableCustomerListSelectionHandler implements ListSelectionListener {
 
 	
 	private MainWindow mainWindow;
-	private JTable videoTable;
+	private JTable customerTable;
 
-	public TableVideoListSelectionHandler(MainWindow mainWindow) {
+	public TableCustomerListSelectionHandler(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
-		this.videoTable = mainWindow.getTablePanel().getTableVideo();
+		this.customerTable = mainWindow.getTablePanel().getTableCustomer();
 	}
 	
 	public void valueChanged(ListSelectionEvent e) {
@@ -27,12 +27,12 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
-		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
-		int vID = Integer.parseInt((String) videoTable.getValueAt(lsm.getMinSelectionIndex(), 0));
+		detailPanel.changePanelDetailsCard(detailPanel.CUSTOMERDETAILS);
+		int cID = Integer.parseInt((String) customerTable.getValueAt(lsm.getMinSelectionIndex(), 0));
 		
 		try {
-			Video selectedVideo = Video.findByID(vID);
-			mainWindow.getDetailPanel().fillPanelDetailVideo(selectedVideo);
+			Customer selectedCustomer = Customer.findByID(cID);
+			mainWindow.getDetailPanel().fillPanelDetailCustomer(selectedCustomer);
 		} catch (RecordNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

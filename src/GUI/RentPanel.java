@@ -53,7 +53,7 @@ public class RentPanel {
 		
 		panelRent.add(this.rentVideoPanel(), RENTVIDEOCARD);
 		panelRent.add(this.returnVideoPanel(), RETURNVIDEOCARD);
-
+				
 		return panelRent;
 	}
 	

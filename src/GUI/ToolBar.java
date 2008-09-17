@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -80,10 +81,6 @@ public class ToolBar {
 				if (dialogCard.equals(DetailPanel.VIDEODETAILS)) {
 					try {
 						DetailPanel detailPanel = mainWindow.getDetailPanel();
-//						String selectedVideoUnitID = (String) detailPanel.getListDetailVUnit().getSelectedValue();
-//						selectedVideoUnitID = selectedVideoUnitID.split(" - ")[0];
-//						VideoUnit selectedVideoUnit = VideoUnit.findByID(Integer.parseInt(selectedVideoUnitID));
-						
 						VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue();
 						Integer uID = new Integer(selectedVideoUnit.getID());
 						String title = selectedVideoUnit.getVideo().getTitle();
@@ -93,12 +90,13 @@ public class ToolBar {
 						
 						VideoDataDialog videoEditDialog = new VideoDataDialog(mainWindow.getMainFrame(), uID, title, releaseYear, ratedAge, priceCategory, 1);
 					} catch (RecordNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						// TODO evl Exception werfen
+						JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Fehler beim Einlesen der Daten", "Fehler", JOptionPane.ERROR_MESSAGE);
 					}
 					
 				} else if (dialogCard.equals(DetailPanel.CUSTOMERDETAILS)) {
 					
+					JOptionPane.showConfirmDialog(mainWindow.getMainFrame(), "Fehler beim Einlesen der Daten");
 				}
 			}
 			
