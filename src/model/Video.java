@@ -191,6 +191,35 @@ public class Video
 	}
 	
 	/**
+	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
+	 *         {@link Video} verknüpften, sortiert nach Ausgeliehen-Status
+	 *         (Zuerst nicht ausgeliehene, danach ausgeliehene)
+	 */
+	public Collection<VideoUnit> getSortedVideoUnits()
+	{
+		Collection<VideoUnit> availableVideoUnits = new LinkedList<VideoUnit>();
+		Collection<VideoUnit> rentedVideoUnits = new LinkedList<VideoUnit>();
+		Collection<VideoUnit> sortedVideoUnits = new LinkedList<VideoUnit>();
+		
+		for(VideoUnit unit : getVideoUnits())
+		{
+			if(unit.isRented())
+			{
+				rentedVideoUnits.add(unit);
+			}
+			else
+			{
+				availableVideoUnits.add(unit);
+			}
+		}
+		
+		sortedVideoUnits.addAll(availableVideoUnits);
+		sortedVideoUnits.addAll(rentedVideoUnits);
+		
+		return sortedVideoUnits;
+	}
+	
+	/**
 	 * Entfernt Video aus globaler Video-Liste.
 	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
 	 */
