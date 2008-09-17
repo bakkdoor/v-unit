@@ -29,6 +29,7 @@ public class DetailPanel {
 	private MainWindow mainWindow;
 	private JPanel panelDetails;
 
+	// Videocard Felder
 	private JTextField textFieldDetailVID;
 	private JTextField textFieldDetailVTitle;
 	private JTextField textFieldDetailVReleaseYear;
@@ -39,6 +40,16 @@ public class DetailPanel {
 	private JList listDetailVUnit;
 	private JButton buttonDetailVadd;
 
+	
+	// Customercard Felder 
+	private JTextField textFieldDetailCustID;
+	private JTextField textFieldDetailCustTitle;
+	private JTextField textFieldDetailCustFirstName;
+	private JTextField textFieldDetailCustLastName;
+	private JTextField textFieldDetailCustBirthDay;
+	private JTextField textFieldDetailCustFirstAddress;
+	private JTextField textFieldDetailCustLastAddress;
+	
 	public String currentCard;
 	public static final String VIDEODETAILS = "Video";
 	public static final String CUSTOMERDETAILS = "Customer";
@@ -263,34 +274,34 @@ public class DetailPanel {
 
 		// KundenNr erzeugen
 		JLabel labelDetailCustID = new JLabel("KundenNr.:");
-		JTextField textFieldDetailCustID = new JTextField();
+		textFieldDetailCustID = new JTextField();
 		textFieldDetailCustID.setEditable(false);
 
 		// Anrede erzeugen
 		JLabel labelDetailCustTitle = new JLabel("Anrede:");
-		JTextField textFieldDetailCustTitle = new JTextField();
+		textFieldDetailCustTitle = new JTextField();
 		textFieldDetailCustTitle.setEditable(false);
 
 		// Vorname erzeugen
 		JLabel labelDetailCustFirstName = new JLabel("Vorname:");
-		JTextField textFieldDetailCustFirstName = new JTextField();
+		textFieldDetailCustFirstName = new JTextField();
 		textFieldDetailCustFirstName.setEditable(false);
 
 		// Nachname erzeugen
 		JLabel labelDetailCustLastName = new JLabel("Nachname:");
-		JTextField textFieldDetailCustLastName = new JTextField();
+		textFieldDetailCustLastName = new JTextField();
 		textFieldDetailCustLastName.setEditable(false);
 
 		// Geburtsdatum erzeugen
 		JLabel labelDetailCustBirthDay = new JLabel("Geburtsdatum:");
-		JTextField textFieldDetailCustBirthDay = new JTextField();
+		textFieldDetailCustBirthDay = new JTextField();
 		textFieldDetailCustBirthDay.setEditable(false);
 
 		// Anschrift erzeugen
 		JLabel labelDetailCustAddress = new JLabel("Anschrift:");
-		JTextField textFieldDetailCustFirstAddress = new JTextField();
+		textFieldDetailCustFirstAddress = new JTextField();
 		textFieldDetailCustFirstAddress.setEditable(false);
-		JTextField textFieldDetailCustLastAddress = new JTextField();
+		textFieldDetailCustLastAddress = new JTextField();
 		textFieldDetailCustLastAddress.setEditable(false);
 
 		// Übernehmen Button erzeugen
@@ -526,8 +537,14 @@ public class DetailPanel {
 		}
 	}
 
-	protected void fillPanelDetailCustomer() {
-
+	public void fillPanelDetailCustomer(Customer customer) {
+		textFieldDetailCustID.setText(Integer.toString(customer.getID()));
+		textFieldDetailCustTitle.setText(customer.getTitle());
+		textFieldDetailCustFirstName.setText(customer.getFirstName());
+		textFieldDetailCustLastName.setText(customer.getLastName());
+		textFieldDetailCustBirthDay.setText(customer.getBirthDate().toString());
+		textFieldDetailCustFirstAddress.setText(customer.getFirstAddressRow());
+		textFieldDetailCustLastAddress.setText(customer.getLastAddressRow());
 	}
 
 	public JTextField getTextFieldDetailVTitle() {
@@ -556,5 +573,33 @@ public class DetailPanel {
 
 	public JList getListDetailVUnit() {
 		return listDetailVUnit;
+	}
+
+	public JTextField getTextFieldDetailCustID() {
+		return textFieldDetailCustID;
+	}
+
+	public JTextField getTextFieldDetailCustTitle() {
+		return textFieldDetailCustTitle;
+	}
+
+	public JTextField getTextFieldDetailCustFirstName() {
+		return textFieldDetailCustFirstName;
+	}
+
+	public JTextField getTextFieldDetailCustLastName() {
+		return textFieldDetailCustLastName;
+	}
+
+	public JTextField getTextFieldDetailCustBirthDay() {
+		return textFieldDetailCustBirthDay;
+	}
+
+	public JTextField getTextFieldDetailCustFirstAddress() {
+		return textFieldDetailCustFirstAddress;
+	}
+
+	public JTextField getTextFieldDetailCustLastAddress() {
+		return textFieldDetailCustLastAddress;
 	}
 }
