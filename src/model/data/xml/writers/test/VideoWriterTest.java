@@ -18,17 +18,25 @@ import model.data.xml.writers.VideoWriter;
  */
 public class VideoWriterTest extends AbstractWriterTest
 {
+	private VideoParser parser = new VideoParser();
+	private Collection<Video> parsedVideos = null;
+	private Collection<VideoUnit> parsedVideoUnits = null;
 	public void testSaveVideos() throws FileNotFoundException, RecordNotFoundException
 	{
 		try
 		{
-			assertNotNull(Video.findAll());
+			parsedVideos =  parser.parseVideos("xml-spec/videos.xml").values();
+			parsedVideoUnits = parser.getVideoUnitList().values();
+
+			assertNotNull(parsedVideos);
+			assertNotNull(parsedVideoUnits);
+			
 			VideoWriter writer = new VideoWriter(
 					"xml-spec/videos-save.xml");
 			
 			try
 			{
-				writer.saveVideos(Video.findAll());
+				writer.saveVideos(parsedVideos);
 			}
 			catch (IOException e)
 			{	
@@ -36,12 +44,12 @@ public class VideoWriterTest extends AbstractWriterTest
 			}
 			
 			// gespeicherte Videos & VideoUnits einlesen und Anzahl vergleichen
-			VideoParser parser = new VideoParser();
-			Collection<Video> parsedVideos = parser.parseVideos("xml-spec/videos-save.xml").values();
-			Collection<VideoUnit> parsedVideoUnits = parser.getVideoUnitList().values();
+			VideoParser parser2 = new VideoParser();
+			Collection<Video> parsedVideos2 =  parser2.parseVideos("xml-spec/videos-save.xml").values();
+			Collection<VideoUnit> parsedVideoUnits2 = parser2.getVideoUnitList().values();
 			
-			assertEquals(Video.findAll().size(), parsedVideos.size());
-			assertEquals(VideoUnit.findAll().size(), parsedVideoUnits.size());
+			assertEquals(parsedVideos.size(), parsedVideos2.size());
+			assertEquals(parsedVideoUnits.size(), parsedVideoUnits2.size());
 		}
 		catch (DataException e)
 		{

@@ -21,28 +21,29 @@ public class CustomerWriterTest extends AbstractWriterTest
 	public void testSaveCustomers() throws FileNotFoundException
 	{
 		CustomerParser parser = new CustomerParser();
-
+		Map<Integer, Customer> parsedCustomers = null;
 		try
 		{
-
-			assertNotNull(Customer.findAll());
-			assertEquals(3, Customer.findAll().size());
+			parsedCustomers = parser.parseCustomers("xml-spec/customers.xml");
+			assertNotNull(parsedCustomers);
+			assertEquals(3, parsedCustomers.size());
 
 			CustomerWriter writer = new CustomerWriter(
 					"xml-spec/customers-save.xml");
-
 			try
 			{
-				writer.saveCustomers(Customer.findAll());
+				writer.saveCustomers(parsedCustomers.values());
 			}
 			catch (IOException e)
 			{	
 				e.printStackTrace();
 			}
 			
-			Collection<Customer> parsedCustomers2 = parser.parseCustomers("xml-spec/customers-save.xml").values();
+			CustomerParser parser2 = new CustomerParser();
+			
+			Collection<Customer> parsedCustomers2 = parser2.parseCustomers("xml-spec/customers-save.xml").values();
 
-			assertEquals(Customer.findAll().size(), parsedCustomers2.size());
+			assertEquals(parsedCustomers.size(), parsedCustomers2.size());
 		}
 		catch (DataException e)
 		{
