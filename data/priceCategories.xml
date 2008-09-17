@@ -1,3 +1,5 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE priceCategories PUBLIC 'priceCategoryList' 'priceCategories.dtd'>
 <priceCategories minID="3">
 	<priceCategory pID="1" name="Billige Filme" price="1.99" />
 	<priceCategory pID="2" name="Teure Filme" price="3.99" />

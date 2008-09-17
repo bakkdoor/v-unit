@@ -8,6 +8,7 @@ import model.*;
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 
+import org.apache.ecs.Doctype;
 import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
 
@@ -29,6 +30,8 @@ public class VideoWriter extends AbstractWriter
 			RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
+		document.addToProlog(new Doctype("videos", "'videoList'", "'videos.dtd'"));
+		
 		XML videosTag = new XML("videos");
 		videosTag.addXMLAttribute("minID", Integer.toString(PriceCategory
 				.getMinID()));

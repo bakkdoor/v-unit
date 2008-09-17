@@ -1,3 +1,4 @@
+<?xml version="1.0" standalone="yes"?>
 <config>
 	<setting key="setCurrentDateOnStartUp" value="false" />
 </config>

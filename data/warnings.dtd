@@ -1,0 +1,6 @@
+<!ELEMENT warnings (warning*)>
+<!ELEMENT warning EMPTY>
+
+<!ATTLIST warnings 	minID NMTOKEN #REQUIRED>
+<!ATTLIST warning	wID NMTOKEN #REQUIRED
+					inRentID NMTOKEN #REQUIRED>

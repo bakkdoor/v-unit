@@ -1,0 +1,12 @@
+<!ELEMENT videos (video*)>
+<!ELEMENT video (videoUnit*)>
+<!ELEMENT videoUnit EMPTY>
+
+<!ATTLIST videos 	minID NMTOKEN #REQUIRED>
+<!ATTLIST video 	vID NMTOKEN #REQUIRED
+					title CDATA #REQUIRED
+					releaseYear NMTOKEN #REQUIRED
+					priceCategoryID NMTOKEN #REQUIRED
+					ratedAge NMTOKEN #REQUIRED>
+<!ATTLIST videoUnit	uID NMTOKEN #REQUIRED
+					videoID NMTOKEN #REQUIRED>

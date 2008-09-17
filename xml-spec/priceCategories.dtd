@@ -1,0 +1,7 @@
+<!ELEMENT priceCategories (priceCategory*)>
+<!ELEMENT priceCategory EMPTY>
+
+<!ATTLIST priceCategories 	minID NMTOKEN #REQUIRED>
+<!ATTLIST priceCategory 	pID NMTOKEN #REQUIRED
+							name CDATA #REQUIRED
+							price NMTOKEN #REQUIRED>

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.apache.ecs.Doctype;
 import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
 
@@ -28,6 +29,8 @@ public class InRentWriter extends AbstractWriter
 	public void saveInRents(Collection<InRent> inRentsToSave) throws IOException, RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
+		document.addToProlog(new Doctype("inRents", "'inRentList'", "'inRents.dtd'"));
+		
 		XML inRentsTag = new XML("inRents");
 		inRentsTag.addXMLAttribute("minID", Integer.toString(InRent.getMinID()));
 		

@@ -4,11 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
 
+import model.Customer;
+import model.data.exceptions.DataSaveException;
+
+import org.apache.ecs.Doctype;
 import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
-
-import model.*;
-import model.data.exceptions.DataSaveException;
 
 /**
  * CustomerWriter.java
@@ -28,6 +29,9 @@ public class CustomerWriter extends AbstractWriter
 	public void saveCustomers(Collection<Customer> customersToSave) throws IOException
 	{
 		XMLDocument document = new XMLDocument();
+		document.addToProlog(new Doctype("customers", "'customerList'",
+				"'customers.dtd'"));
+		
 		XML customersTag = new XML("customers");
 		customersTag.addXMLAttribute("minID", Integer.toString(Customer.getMinID()));
 		document.addElement(customersTag);

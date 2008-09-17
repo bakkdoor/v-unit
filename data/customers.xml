@@ -1,3 +1,5 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE customers PUBLIC 'customerList' 'customers.dtd'>
 <customers minID="4">
 	<customer cID="1" firstName="Christopher" lastName="Bertels" birthDate="3:2:1987"
 			street="Woerthstr." houseNr="7" zipCode="49082" city="Osnabrueck"

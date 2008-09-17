@@ -8,6 +8,7 @@ import model.PriceCategory;
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 
+import org.apache.ecs.Doctype;
 import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
 
@@ -29,6 +30,9 @@ public class PriceCategoryWriter extends AbstractWriter
 			throws IOException, RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
+		document.addToProlog(new Doctype("priceCategories", "'priceCategoryList'",
+				"'priceCategories.dtd'"));
+		
 		XML priceCategoriesTag = new XML("priceCategories");
 		priceCategoriesTag.addXMLAttribute("minID", Integer.toString(PriceCategory.getMinID()));
 

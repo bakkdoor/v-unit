@@ -8,6 +8,7 @@ import model.*;
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 
+import org.apache.ecs.Doctype;
 import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
 
@@ -29,6 +30,8 @@ public class WarningWriter extends AbstractWriter
 			RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
+		document.addToProlog(new Doctype("warnings", "'warningList'", "'warnings.dtd'"));
+		
 		XML warningsTag = new XML("warnings");
 		warningsTag.addXMLAttribute("minID", Integer.toString(Warning.getMinID()));
 

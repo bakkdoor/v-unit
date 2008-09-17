@@ -1,3 +1,5 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE videos PUBLIC 'videoList' 'videos.dtd'>
 <videos minID="3" minVideoUnitID="8">
 	<video vID="1" title="Rambo" releaseYear="1982" priceCategoryID="1" ratedAge="18">
 		<videoUnit uID="1" videoID="1" />

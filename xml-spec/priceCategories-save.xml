@@ -1,1 +1,2 @@
-<?xml version="1.0" standalone="yes"?><priceCategories minID='3'><priceCategory name='Billige Filme' pID='1' price='1.99'></priceCategory><priceCategory name='Teure Filme' pID='2' price='3.99'></priceCategory></priceCategories>
+<?xml version="1.0" standalone="yes"?><!DOCTYPE priceCategories PUBLIC 'priceCategoryList' 'priceCategories.dtd'>
+<priceCategories minID='3'><priceCategory name='Billige Filme' pID='1' price='1.99'></priceCategory><priceCategory name='Teure Filme' pID='2' price='3.99'></priceCategory></priceCategories>

@@ -2,7 +2,8 @@ package model.data.xml.writers.test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 
 import model.Customer;
 import model.data.exceptions.DataException;
@@ -19,27 +20,29 @@ public class CustomerWriterTest extends AbstractWriterTest
 {
 	public void testSaveCustomers() throws FileNotFoundException
 	{
-		Map<Integer, Customer> parsedCustomers = null;
 		CustomerParser parser = new CustomerParser();
 
 		try
 		{
-			parsedCustomers = parser.parseCustomers("xml-spec/customers.xml");
 
-			assertNotNull(parsedCustomers);
-			assertEquals(3, parsedCustomers.size());
+			assertNotNull(Customer.findAll());
+			assertEquals(3, Customer.findAll().size());
 
 			CustomerWriter writer = new CustomerWriter(
 					"xml-spec/customers-save.xml");
 
 			try
 			{
-				writer.saveCustomers(parsedCustomers.values());
+				writer.saveCustomers(Customer.findAll());
 			}
 			catch (IOException e)
 			{	
 				e.printStackTrace();
 			}
+			
+			Collection<Customer> parsedCustomers2 = parser.parseCustomers("xml-spec/customers-save.xml").values();
+
+			assertEquals(Customer.findAll().size(), parsedCustomers2.size());
 		}
 		catch (DataException e)
 		{
