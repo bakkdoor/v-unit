@@ -29,10 +29,10 @@ public class WarningWriter extends AbstractWriter
 			RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
-		XML customersTag = new XML("warnings");
-		customersTag.addXMLAttribute("minID", Integer.toString(Warning.getMinID()));
+		XML warningsTag = new XML("warnings");
+		warningsTag.addXMLAttribute("minID", Integer.toString(Warning.getMinID()));
 
-		document.addElement(customersTag);
+		document.addElement(warningsTag);
 
 		for (Warning w : warningsToSave)
 		{

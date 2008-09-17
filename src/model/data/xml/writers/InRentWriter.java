@@ -28,10 +28,10 @@ public class InRentWriter extends AbstractWriter
 	public void saveInRents(Collection<InRent> inRentsToSave) throws IOException, RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
-		XML customersTag = new XML("inRents");
-		customersTag.addXMLAttribute("minID", Integer.toString(InRent.getMinID()));
+		XML inRentsTag = new XML("inRents");
+		inRentsTag.addXMLAttribute("minID", Integer.toString(InRent.getMinID()));
 		
-		document.addElement(customersTag);
+		document.addElement(inRentsTag);
 		
 		for (InRent ir : inRentsToSave)
 		{

@@ -29,10 +29,10 @@ public class PriceCategoryWriter extends AbstractWriter
 			throws IOException, RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
-		XML customersTag = new XML("priceCategories");
-		customersTag.addXMLAttribute("minID", Integer.toString(PriceCategory.getMinID()));
+		XML priceCategoriesTag = new XML("priceCategories");
+		priceCategoriesTag.addXMLAttribute("minID", Integer.toString(PriceCategory.getMinID()));
 
-		document.addElement(customersTag);
+		document.addElement(priceCategoriesTag);
 
 		for (PriceCategory pc : priceCategoriesToSave)
 		{
