@@ -29,31 +29,31 @@ public class VideoWriter extends AbstractWriter
 			RecordNotFoundException
 	{
 		XMLDocument document = new XMLDocument();
-		XML customersTag = new XML("videos");
-		customersTag.addXMLAttribute("minID", Integer.toString(PriceCategory
+		XML videosTag = new XML("videos");
+		videosTag.addXMLAttribute("minID", Integer.toString(PriceCategory
 				.getMinID()));
-		customersTag.addXMLAttribute("minVideoUnitID", Integer.toString(VideoUnit.getMinID()));
+		videosTag.addXMLAttribute("minVideoUnitID", Integer.toString(VideoUnit.getMinID()));
 
-		document.addElement(customersTag);
+		document.addElement(videosTag);
 
 		for (Video vid : videosToSave)
 		{
-			document.addElement(new XML("video")
+			XML videoTag = new XML("video")
 				.addXMLAttribute("vID", Integer.toString(vid.getID()))
 				.addXMLAttribute("title", vid.getTitle())
 				.addXMLAttribute("releaseYear", Integer.toString(vid.getReleaseYear()))
 				.addXMLAttribute("priceCategoryID", Integer.toString(vid.getPriceCategory().getID()))
-				.addXMLAttribute("ratedAge", Integer.toString(vid.getRatedAge()))
-			);
+				.addXMLAttribute("ratedAge", Integer.toString(vid.getRatedAge()));
 			
 			for(VideoUnit unit : vid.getVideoUnits())
 			{
-				document.addElement(new XML("videoUnit")
+				videoTag.addElement(new XML("videoUnit")
 					.addXMLAttribute("uID", Integer.toString(unit.getID()))
 					.addXMLAttribute("videoID", Integer.toString(vid.getID()))
-				);
+				);				
 			}
 			
+			document.addElement(videoTag);
 		}
 
 		writeToFile(document);
