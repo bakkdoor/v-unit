@@ -148,7 +148,9 @@ public class CustomerDataDialog
 		});
 
 		JButton buttonAdd = new JButton("Bestätigen");
-		buttonAdd.addActionListener(new ActionListener()
+		
+		/* folgendes war nur ein test...
+		  buttonAdd.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -173,6 +175,7 @@ public class CustomerDataDialog
 				EventManager.fireEvent(new CustomerCreatedEvent(newCustomer));
 			}
 		});
+		*/
 
 		// ***************************************************************
 
