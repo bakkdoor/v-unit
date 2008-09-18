@@ -1,0 +1,12 @@
+Quittung fuer AusleihNr.: 1           Datum: 18.9.2008
+======================================================
+
+KundenNr.: 			1
+Kundenname: 		Christopher Bertels
+Ausleihdatum: 		10.9.2008
+Rueckgabetermin: 	24.9.2008
+Ausleihpreis: 		3.98 Euro
+
+
+======================================================
+Unterschrift Kunde:

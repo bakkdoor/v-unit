@@ -31,16 +31,18 @@ public class InvoiceWriter
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("Quittung für Ausleihnr. " + inRent.getID() + "\n");
-			sb.append("================================\n");
+			sb.append("Quittung fuer AusleihNr.: " + formatInt(inRent.getID(), 10));
+			sb.append(" Datum: " + CurrentDate.get() + "\n");
+			sb.append("======================================================\n");
 			sb.append("\n");
-			sb.append("KundenNr.: \t" + inRent.getCustomer().getID() + "\n");
-			sb.append("Kundenname: \t" + inRent.getCustomer().getName() + "\n");
-			sb.append("Rückgabetermin: \t" + inRent.getReturnDate() + "\n");
-			sb.append("Ausleihpreis: \t" + inRent.getPrice() +  "€" + "\n");
+			sb.append("KundenNr.: \t\t\t" + inRent.getCustomer().getID() + "\n");
+			sb.append("Kundenname: \t\t" + inRent.getCustomer().getName() + "\n");
+			sb.append("Ausleihdatum: \t\t" + inRent.getDate() + "\n");
+			sb.append("Rueckgabetermin: \t" + inRent.getReturnDate() + "\n");
+			sb.append("Ausleihpreis: \t\t" + inRent.getPrice() +  " Euro" + "\n");
 			sb.append("\n\n");
-			sb.append("Unterschrift Kunde: \t");
-			sb.append("\t\t Datum: " + CurrentDate.get());
+			sb.append("======================================================\n");
+			sb.append("Unterschrift Kunde:");
 			
 			fWriter.append(sb.toString());
 			fWriter.flush();
@@ -49,6 +51,25 @@ public class InvoiceWriter
 		catch (IOException e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	private static String formatInt(int number, int maxWidth)
+	{
+		String numString = Integer.toString(number);
+		
+		if(numString.length() > maxWidth)
+		{
+			return numString.substring(0, maxWidth - 1);
+		}
+		else
+		{
+			for(int i = numString.length() - 1; i < maxWidth; i++)
+			{
+				numString += " ";
+			}
+			
+			return numString;
 		}
 	}
 }

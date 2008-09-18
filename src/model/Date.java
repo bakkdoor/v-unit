@@ -44,7 +44,7 @@ public class Date implements Comparable<Date>
 	{	
 		Calendar cal = Calendar.getInstance();
 		this.date = cal.get(Calendar.DAY_OF_MONTH);
-		this.month = cal.get(Calendar.MONTH);
+		this.month = cal.get(Calendar.MONTH) + 1; // keine ahnung, warum das so ist...
 		this.year = cal.get(Calendar.YEAR);
 	}
 

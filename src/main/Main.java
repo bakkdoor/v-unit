@@ -14,5 +14,11 @@ import model.exceptions.EmptyFieldException;
 public class Main{
 	public static void main(String[] args) throws InterruptedException, EmptyFieldException, RecordNotFoundException{
 		Programm.start();
+		
+		// ein paar quittungen erstellen und so ;)
+		
+		model.InRent ir = model.InRent.findByID(1);
+		
+		ir.createInvoice();
 	}
 }
