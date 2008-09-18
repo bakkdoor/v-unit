@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,16 +17,21 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import model.Customer;
 import model.Data;
+import model.Date;
+import model.data.exceptions.RecordNotFoundException;
 
 public class CustomerDataDialog  {
 	
 	// Dialogdtanen
-	private Frame owner;
+	private MainWindow mainWindow;
+	private Frame mainWindowFrame;
 	private JDialog customerDataDialog;
 	private boolean addCustomer = false;
 	
@@ -41,25 +45,28 @@ public class CustomerDataDialog  {
 	private String housNr;
 	private Integer zipCode;
 	private String city;
+	private String identificationID;
 	
 	
-	public CustomerDataDialog(Frame owner) {
+	public CustomerDataDialog(MainWindow mainWindow) {
 		
-		this(owner, Data.NOTSET, "", "", "", new Date(2000, 1,1), "", "", 0, "");
+		this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 2000), "", "", 0, "");
 	}
 	
-	public CustomerDataDialog(Frame owner,  
+	public CustomerDataDialog(MainWindow mainWindow,  
 								int CID, 
 								String title, 
 								String firstName, 
-								String Lastname, 
+								String Lastname,
+								String identificationID,
 								Date birthDate, 
 								String street, String housNr, 
 								int zipCode, String city) {
 		
-		this.owner = owner;
+		this.mainWindow = mainWindow;
+		this.mainWindowFrame = mainWindow.getMainFrame();
 		this.addCustomer = (CID == Data.NOTSET);
-		this.CID = (addCustomer ? CID : new Integer(0));
+		this.CID = (addCustomer? Data.NOTSET : CID);
 		this.title = title;
 		this.firstName = firstName;
 		this.Lastname = Lastname;
@@ -68,11 +75,12 @@ public class CustomerDataDialog  {
 		this.housNr = housNr;
 		this.zipCode = zipCode;
 		this.city = city;
+		this.identificationID = identificationID;
 		
 		
 		// Dialog erzeugen
 		String dialogName = "Kunde " + (addCustomer ? "anlegen" : "bearbeiten");
-		this.customerDataDialog = new JDialog(owner, dialogName, true);
+		this.customerDataDialog = new JDialog(mainWindowFrame, dialogName, true);
 		customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		// LauoutManager einstellen
@@ -108,6 +116,11 @@ public class CustomerDataDialog  {
 		textFieldLastName.setText(Lastname);
 		textFieldLastName.setEditable(addCustomer);
 		
+		// PersonalNr erzeugen
+		JLabel labelIdentificationID = new JLabel("AusweisNr.:");
+		JTextField textFieldIdentificationID = new JTextField(identificationID);
+		textFieldIdentificationID.setEditable(addCustomer);
+		
 		// Geburtsdatum erzeugen
 		JLabel labelBirthDay = new JLabel("Geburtsdatum:");
 		JComboBox comboBoxBirthDay = new JComboBox(this.createDayCollection());
@@ -134,7 +147,6 @@ public class CustomerDataDialog  {
 		textFieldHouseNr.setText(housNr);
 		textFieldZipCode.setText(zipCode.toString());
 		textFieldCity.setText(city);
-		
 		
 		// Übernehmen Button erzeugen
 		JButton buttonCancel = new JButton("Abbrechen");
@@ -163,19 +175,22 @@ public class CustomerDataDialog  {
 		Layout.addComponent(contentPane, labelLastName, 		0, 3, 1, 1, 0.3, 0.0);
 		Layout.addComponent(contentPane, textFieldLastName, 	1, 3, 3, 1, 0.7, 0.0);
 		
-		Layout.addComponent(contentPane, labelBirthDay, 		0, 4, 1, 1, 0.3, 0.0);
-		Layout.addComponent(contentPane, comboBoxBirthDay, 		1, 4, 1, 1, 0.23, 0.0);
-		Layout.addComponent(contentPane, comboBoxBirthMonth, 	2, 4, 1, 1, 0.23, 0.0);
-		Layout.addComponent(contentPane, textFieldBirthYear, 	3, 4, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, labelIdentificationID, 	0, 4, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFieldIdentificationID, 1, 4, 3, 1, 0.7, 0.0);
 		
-		Layout.addComponent(contentPane, labelAddress, 			0, 5, 1, 1, 0.3, 0.0);
-		Layout.addComponent(contentPane, textFieldStreet, 		1, 5, 2, 1, 0.46, 0.0);
-		Layout.addComponent(contentPane, textFieldHouseNr, 		3, 5, 1, 1, 0.23, 0.0);
-		Layout.addComponent(contentPane, textFieldZipCode, 		1, 6, 1, 1, 0.23, 0.0);
-		Layout.addComponent(contentPane, textFieldCity, 		2, 6, 2, 1, 0.46, 0.0);
+		Layout.addComponent(contentPane, labelBirthDay, 		0, 5, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, comboBoxBirthDay, 		1, 5, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, comboBoxBirthMonth, 	2, 5, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, textFieldBirthYear, 	3, 5, 1, 1, 0.23, 0.0);
 		
-		Layout.addComponent(contentPane, buttonCancel, 			1, 7, 1, 1, 0.23, 0.0);
-		Layout.addComponent(contentPane, buttonAdd, 			2, 7, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, labelAddress, 			0, 6, 1, 1, 0.3, 0.0);
+		Layout.addComponent(contentPane, textFieldStreet, 		1, 6, 2, 1, 0.46, 0.0);
+		Layout.addComponent(contentPane, textFieldHouseNr, 		3, 6, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, textFieldZipCode, 		1, 7, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, textFieldCity, 		2, 7, 2, 1, 0.46, 0.0);
+		
+		Layout.addComponent(contentPane, buttonCancel, 			1, 8, 1, 1, 0.23, 0.0);
+		Layout.addComponent(contentPane, buttonAdd, 			2, 8, 1, 1, 0.23, 0.0);
 		
 		// ***************************************************************
 		
@@ -205,19 +220,35 @@ public class CustomerDataDialog  {
 		Integer[] dateArr = new Integer[3];
 		dateArr[0] = date.getYear();
 		dateArr[1] = date.getMonth();
-		dateArr[2] = date.getDay();
+		dateArr[2] = date.getDate();
 		return dateArr;
 	}
 	
-	public static void main(String[] argv) {
-
-//		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null,
-//				123, 
-//				"Frau", "Olga", "Baranouskaya", 
-//				new Date(2001,8,45), 
-//				"Nirgendstr.", "2a", 
-//				12341, "Nieburgen");
+	public static void createFilledCustomerDataDialog(MainWindow mainWindow) {
+		DetailPanel detailPanel = mainWindow.getDetailPanel();
+		try {
+			int cID = Integer.parseInt(detailPanel.getTextFieldDetailCustID().getText());
+			Customer currentCustomer = Customer.findByID(cID);
+			String title = currentCustomer.getTitle();
+			String firstName = currentCustomer.getFirstName();
+			String lastName = currentCustomer.getLastName();
+			String identificationNr = currentCustomer.getIdentificationNr();
+			Date birthDate = currentCustomer.getBirthDate();
+			String street = currentCustomer.getStreet();
+			String houseNr = currentCustomer.getHouseNr();
+			int zipCode = currentCustomer.getZipCode();
+			String city = currentCustomer.getCity();
+			new CustomerDataDialog(mainWindow, cID, title, firstName, lastName, identificationNr, birthDate, street, houseNr, zipCode, city);
+			
+		} catch (RecordNotFoundException e) {
+			// TODO Dialog wird als MassegeDialog dargestellt und nicht als
+			// Errordialog! ändern
+			
+			// Exception abfangen und Dialog erstellen
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+					"Konnte Kundendaten nicht einlesen", "Fehler",
+					JOptionPane.ERROR_MESSAGE);
+		}
 		
-		CustomerDataDialog  customerDataDialog = new CustomerDataDialog(null);
 	}
 }

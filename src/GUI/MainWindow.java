@@ -110,9 +110,9 @@ public class MainWindow {
 				options , null);
 			
 		if (section == 0) {
-			DataDialog createCustomerDialog = new DataDialog(mainFrame, DataDialog.VIDEODIALOG);
+			DataDialog createCustomerDialog = new DataDialog(this, DataDialog.VIDEODIALOG);
 		}else if (section == 1) {
-			DataDialog createVideoDialog = new DataDialog(mainFrame, DataDialog.CUSTOMERDIALOG);
+			DataDialog createVideoDialog = new DataDialog(this, DataDialog.CUSTOMERDIALOG);
 			
 		}
 		

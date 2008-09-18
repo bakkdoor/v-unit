@@ -46,16 +46,30 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CustomerDataDialog(mainWindow.getMainFrame());
+				new CustomerDataDialog(mainWindow);
 			}
 		});
 
-		menuItemCustomerEdit = new JMenuItem("Ändern", new ImageIcon(
+		menuItemCustomerEdit = new JMenuItem("Bearbeiten", new ImageIcon(
 				"icons/user_edit.png"));
 		menuItemCustomerEdit.setEnabled(false);
+		menuItemCustomerEdit.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CustomerDataDialog.createFilledCustomerDataDialog(mainWindow);
+			}
+		});
+		
 		menuItemCustomerDelete = new JMenuItem("Löschen", new ImageIcon(
 				"icons/user_delete.png"));
 		menuItemCustomerDelete.setEnabled(false);
+		menuItemCustomerDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainWindow.getDetailPanel().deleteCustomer();
+			}
+		});
 
 		menuCustomer.add(menuItemCustomerNew);
 		menuCustomer.add(menuItemCustomerEdit);
@@ -69,15 +83,30 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VideoDataDialog(mainWindow.getMainFrame());
+				new VideoDataDialog(mainWindow);
 			}
 		});
-		menuItemVideoEdit = new JMenuItem("Ändern", new ImageIcon(
+		menuItemVideoEdit = new JMenuItem("bearbeiten", new ImageIcon(
 				"icons/film_edit.png"));
 		menuItemVideoEdit.setEnabled(false);
+		menuItemVideoEdit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VideoDataDialog.createFilledVideoDataDialog(mainWindow);
+			}
+		});
+		
 		menuItemVideoDelete = new JMenuItem("Löschen", new ImageIcon(
 				"icons/film_delete.png"));
 		menuItemVideoDelete.setEnabled(false);
+		menuItemVideoDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainWindow.getDetailPanel().deleteVideoUnit();
+			}
+		});
 
 		menuVideo.add(menuItemVideoNew);
 		menuVideo.add(menuItemVideoEdit);

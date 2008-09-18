@@ -17,6 +17,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -43,8 +44,7 @@ public class DetailPanel {
 	private JList listDetailVUnit;
 	private JButton buttonDetailVadd;
 
-	
-	// Customercard Felder 
+	// Customercard Felder
 	private JTextField textFieldDetailCustID;
 	private JTextField textFieldDetailCustTitle;
 	private JTextField textFieldDetailCustFirstName;
@@ -52,7 +52,7 @@ public class DetailPanel {
 	private JTextField textFieldDetailCustBirthDay;
 	private JTextField textFieldDetailCustFirstAddress;
 	private JTextField textFieldDetailCustLastAddress;
-	
+
 	public String currentCard;
 	public static final String VIDEODETAILS = "Video";
 	public static final String CUSTOMERDETAILS = "Customer";
@@ -107,12 +107,15 @@ public class DetailPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				VideoUnit selectedVideoUnit;
 				try {
-					selectedVideoUnit = VideoUnit.findByID(Integer.parseInt((String) listDetailVUnit.getSelectedValue()));
-					DetailPanel.this.mainWindow.getRentPanel().addVideoUnitInRentTable(selectedVideoUnit);
+					selectedVideoUnit = VideoUnit.findByID(Integer
+							.parseInt((String) listDetailVUnit
+									.getSelectedValue()));
+					DetailPanel.this.mainWindow.getRentPanel()
+							.addVideoUnitInRentTable(selectedVideoUnit);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} 
+				}
 			}
 		});
 
@@ -482,7 +485,7 @@ public class DetailPanel {
 		panelDetails = new JPanel(new CardLayout());
 		panelDetails.add(panelDetailVideo, VIDEODETAILS);
 		panelDetails.add(panelDetailCustomer, CUSTOMERDETAILS);
-		
+
 		this.changePanelDetailsCard(VIDEODETAILS);
 
 		panelDetails.setBorder(BorderFactory
@@ -504,11 +507,11 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailVideo(Video video) {
-		
+
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
-		
+
 		this.textFieldDetailVTitle.setText(video.getTitle());
 		this.textFieldDetailVReleaseYear.setText(new Integer(video
 				.getReleaseYear()).toString());
@@ -523,21 +526,21 @@ public class DetailPanel {
 		}
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getSortedVideoUnits());
-		
-		
+
 		class ColoredListCellRenderer extends DefaultListCellRenderer {
 
 			public void setValue(Object value) {
-            	if (value instanceof VideoUnit) {
-            		if (((VideoUnit) value).isRented()) {
-            			setBackground(Color.RED);
-            		} else setBackground(Color.GREEN);
-            	}
-            }
-        }
-		
+				if (value instanceof VideoUnit) {
+					if (((VideoUnit) value).isRented()) {
+						setBackground(Color.RED);
+					} else
+						setBackground(Color.GREEN);
+				}
+			}
+		}
+
 		listDetailVUnit.setCellRenderer(new ColoredListCellRenderer());
-		
+
 		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
 		fillPanelDetailVideoState(videoUnits.get(0));
@@ -559,11 +562,11 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailCustomer(Customer customer) {
-		
+
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setCustomerButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
-		
+
 		textFieldDetailCustID.setText(Integer.toString(customer.getID()));
 		textFieldDetailCustTitle.setText(customer.getTitle());
 		textFieldDetailCustFirstName.setText(customer.getFirstName());
@@ -571,6 +574,48 @@ public class DetailPanel {
 		textFieldDetailCustBirthDay.setText(customer.getBirthDate().toString());
 		textFieldDetailCustFirstAddress.setText(customer.getFirstAddressRow());
 		textFieldDetailCustLastAddress.setText(customer.getLastAddressRow());
+	}
+
+	public void deleteCustomer() {
+		try {
+			Integer cusrrentCustomerID = Integer.parseInt(this
+					.getTextFieldDetailCustID().getText());
+			Customer currentCusomer = Customer.findByID(cusrrentCustomerID);
+			
+			int selectedOption = JOptionPane.showConfirmDialog(mainWindow.getMainFrame(),
+					"Möchten Sie den Kunden mit der Nummer " + cusrrentCustomerID + " wirklich löschen?",
+					"Kunden Löschen", JOptionPane.YES_NO_OPTION);
+			
+			if (selectedOption == JOptionPane.YES_OPTION) {
+				currentCusomer.delete();
+			}
+		} catch (Exception e) {
+			if (e instanceof RecordNotFoundException) {
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+						e.getMessage(),
+						"Fehler", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	public void deleteVideoUnit() {
+		try {
+			VideoUnit currentVideoUnit = (VideoUnit) this.getListDetailVUnit().getSelectedValue();
+			
+			int selectedOption = JOptionPane.showConfirmDialog(mainWindow.getMainFrame(),
+					"Möchten Sie den Film mit der Nummer " + currentVideoUnit.getID() + " wirklich löschen?",
+					"Film Löschen", JOptionPane.YES_NO_OPTION);
+			
+			if (selectedOption == JOptionPane.YES_OPTION) {
+				currentVideoUnit.delete();
+			}
+		} catch (Exception e) {
+			if (e instanceof RecordNotFoundException) {
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+						e.getMessage(),
+						"Fehler", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	public JTextField getTextFieldDetailVTitle() {
