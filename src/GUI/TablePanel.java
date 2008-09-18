@@ -15,6 +15,7 @@ import javax.swing.table.TableRowSorter;
 
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
+import GUI.TableModels.NotEditableTableModel;
 
 import model.Customer;
 import model.Video;

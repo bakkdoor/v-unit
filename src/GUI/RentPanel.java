@@ -22,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import GUI.TableModels.NotEditableTableModel;
+
 import model.Customer;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
