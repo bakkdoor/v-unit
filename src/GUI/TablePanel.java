@@ -15,6 +15,7 @@ import javax.swing.table.TableRowSorter;
 
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
+import GUI.TableModels.CustomerTableModel;
 import GUI.TableModels.NotEditableTableModel;
 
 import model.Customer;
@@ -127,7 +128,7 @@ public class TablePanel {
 			indexValue = 0;
 		}
 
-		TableModel customerTableModel = new NotEditableTableModel(customerDataArr,
+		TableModel customerTableModel = new CustomerTableModel(customerDataArr,
 				customerColumnNames);
 
 		return customerTableModel;
