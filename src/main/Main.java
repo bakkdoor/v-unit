@@ -1,16 +1,6 @@
 package main;
 
-import java.io.IOException;
-
-import GUI.MainWindow;
-import model.Date;
-
-import logging.Logger;
-import model.*;
-import model.data.DataBase;
-import model.data.exceptions.DataException;
 import model.data.exceptions.RecordNotFoundException;
-import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 
 /**

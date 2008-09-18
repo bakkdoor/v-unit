@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.events.EventManager;
+import model.events.VideoCreatedEvent;
+import model.events.VideoDeletedEvent;
 import model.exceptions.*;
 
 /**
@@ -85,6 +88,9 @@ public class Video
 			this.releaseYear = releaseYear;
 			this.priceCategoryID = priceCategoryID;
 			this.ratedAge = ratedAge;
+
+			// Event feuern
+			EventManager.fireEvent(new VideoCreatedEvent(this));
 		}
 	}
 
@@ -227,6 +233,9 @@ public class Video
 	{
 		videoList.remove(this.getID());
 		this.deleted = true;
+		
+		// Event feuern
+		EventManager.fireEvent(new VideoDeletedEvent(this));
 	}
 	
 	/**
