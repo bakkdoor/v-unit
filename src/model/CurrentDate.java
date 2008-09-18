@@ -20,15 +20,15 @@ public class CurrentDate
 
 	/**
 	 * @return liefert das Datum als Date-Objekt
-	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht existentes CurrentDate-Objekt
-	 * abgefragt wird, oder das schon gesetzte CurrentDate nachträglich verändert werden soll
 	 */
-	public static Date get() throws CurrentDateException
+	public static Date get()
 	{
-		if (currentDate != null)
-			return currentDate;
-		else
-			throw new CurrentDateException("Keine Zeit gesetzt");
+		if (currentDate == null)
+		{
+			currentDate = new Date(); // falls nicht gesetzt, automatisch aktuelles Datum.
+		}
+			
+		return currentDate;
 	}
 
 	/**

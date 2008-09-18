@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.writers.InvoiceWriter;
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
@@ -105,11 +106,18 @@ public class InRent
 			throw new FalseIDException();
 	}
 
-	public Customer getCustomer() throws RecordNotFoundException
+	public Customer getCustomer()
 	{
 		if (this.customer == null)
 		{
-			this.customer = Customer.findByID(this.customerID);
+			try
+			{
+				this.customer = Customer.findByID(this.customerID);
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.customer = null; // sollte hoffentlich nie eintreten!
+			}
 		}
 		return this.customer;
 	}
@@ -134,13 +142,39 @@ public class InRent
 		return this.duration;
 	}
 
-	public VideoUnit getVideoUnit() throws RecordNotFoundException
+	public VideoUnit getVideoUnit()
 	{
 		if (this.videoUnit == null)
 		{
-			this.videoUnit = VideoUnit.findByID(this.videoUnitID);
+			try
+			{
+				this.videoUnit = VideoUnit.findByID(this.videoUnitID);
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.videoUnit = null;
+			}
 		}
 		return this.videoUnit;
+	}
+	
+	/**
+	 * Gibt den Preis dieser Ausleihe zurück, berechnet aus Ausleihdauer (duration) mal Preis des Films.
+	 * @return Der Preis der Ausleihe.
+	 */
+	public float getPrice()
+	{
+		try
+		{
+			return this.getVideoUnit().getVideo().getPriceCategory().getPrice() * this.duration;
+		}
+		catch (RecordNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0.0f; // sollte hoffentlich nie passieren...
 	}
 	
 	/**
@@ -160,6 +194,16 @@ public class InRent
 	public boolean isDeleted()
 	{
 		return this.deleted;
+	}
+	
+	/**
+	 * Erstellt eine Quittung für diese Ausleihe im quittungen/ Ordner.
+	 * Name der Quittings-Datei ist die ID dieses InRent Objektes + '.txt'
+	 */
+	public void createInvoice()
+	{
+		InvoiceWriter writer = new InvoiceWriter();
+		writer.writeInvoiceFor(this);
 	}
 
 	public static InRent findByID(int inRentID) throws RecordNotFoundException

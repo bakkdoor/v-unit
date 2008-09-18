@@ -341,6 +341,15 @@ public class Customer
 		else
 			throw new EmptyFieldException("Kein Nachname eingegeben");
 	}
+	
+	/**
+	 * Gibt den kompletten Namen (Vorname & Nachname) zurück.
+	 * @return Der komplette Name.
+	 */
+	public String getName()
+	{
+		return this.firstName + " " + this.lastName;
+	}
 
 	/**
 	 * @return das Geburtsdatum als Date-Objekt

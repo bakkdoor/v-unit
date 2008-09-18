@@ -218,8 +218,17 @@ public class Warning
 		}
 	}
 	
+	/**
+	 * Gibt die MinID für Warnings zurück.
+	 * @return Die MinID für Warnings.
+	 */
 	public static int getMinID()
 	{
 		return minwID;
+	}
+
+	public static void createPendingInvoices()
+	{
+		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen drucken lassen
 	}
 }
