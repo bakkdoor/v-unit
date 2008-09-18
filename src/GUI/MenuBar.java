@@ -13,6 +13,11 @@ import main.Programm;
 
 public class MenuBar {
 
+	private JMenuItem menuItemCustomerEdit;
+	private JMenuItem menuItemCustomerDelete;
+	private JMenuItem menuItemVideoEdit;
+	private JMenuItem menuItemVideoDelete;
+
 	protected JMenuBar createMenuBar(MainWindow owner) {
 
 		final MainWindow mainWindow = owner;
@@ -21,31 +26,35 @@ public class MenuBar {
 
 		// Menu Programm
 		JMenu menuProgramm = new JMenu("Programm");
-		JMenuItem menuItemProgrammExit = new JMenuItem("Beenden", new ImageIcon("icons/door_out.png"));
-		menuItemProgrammExit.addActionListener(new ActionListener(){
+		JMenuItem menuItemProgrammExit = new JMenuItem("Beenden",
+				new ImageIcon("icons/door_out.png"));
+		menuItemProgrammExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Programm.shutdown();
 			}
-			
+
 		});
 		menuProgramm.add(menuItemProgrammExit);
-		
+
 		// Menu Kunde
 		JMenu menuCustomer = new JMenu("Kunde");
-		JMenuItem menuItemCustomerNew = new JMenuItem("Anlegen", new ImageIcon("icons/user_add.png"));
-		menuItemCustomerNew.addActionListener(new ActionListener(){
+		JMenuItem menuItemCustomerNew = new JMenuItem("Anlegen", new ImageIcon(
+				"icons/user_add.png"));
+		menuItemCustomerNew.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CustomerDataDialog (mainWindow.getMainFrame());
+				new CustomerDataDialog(mainWindow.getMainFrame());
 			}
 		});
-		
-		JMenuItem menuItemCustomerEdit = new JMenuItem("Ändern", new ImageIcon("icons/user_edit.png"));
+
+		menuItemCustomerEdit = new JMenuItem("Ändern", new ImageIcon(
+				"icons/user_edit.png"));
 		menuItemCustomerEdit.setEnabled(false);
-		JMenuItem menuItemCustomerDelete = new JMenuItem("Löschen", new ImageIcon("icons/user_delete.png"));
+		menuItemCustomerDelete = new JMenuItem("Löschen", new ImageIcon(
+				"icons/user_delete.png"));
 		menuItemCustomerDelete.setEnabled(false);
 
 		menuCustomer.add(menuItemCustomerNew);
@@ -54,17 +63,20 @@ public class MenuBar {
 
 		// Menu Video
 		JMenu menuVideo = new JMenu("Video");
-		JMenuItem menuItemVideoNew = new JMenuItem("Anlegen", new ImageIcon("icons/film_add.png"));
-		menuItemVideoNew.addActionListener(new ActionListener(){
+		JMenuItem menuItemVideoNew = new JMenuItem("Anlegen", new ImageIcon(
+				"icons/film_add.png"));
+		menuItemVideoNew.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VideoDataDialog (mainWindow.getMainFrame());
+				new VideoDataDialog(mainWindow.getMainFrame());
 			}
 		});
-		JMenuItem menuItemVideoEdit = new JMenuItem("Ändern", new ImageIcon("icons/film_edit.png"));
+		menuItemVideoEdit = new JMenuItem("Ändern", new ImageIcon(
+				"icons/film_edit.png"));
 		menuItemVideoEdit.setEnabled(false);
-		JMenuItem menuItemVideoDelete = new JMenuItem("Löschen", new ImageIcon("icons/film_delete.png"));
+		menuItemVideoDelete = new JMenuItem("Löschen", new ImageIcon(
+				"icons/film_delete.png"));
 		menuItemVideoDelete.setEnabled(false);
 
 		menuVideo.add(menuItemVideoNew);
@@ -73,18 +85,22 @@ public class MenuBar {
 
 		// Menu Suchen
 		JMenu menuSearch = new JMenu("Suche");
-		JMenuItem menuItemSearchVideo = new JMenuItem("Nach Film", new ImageIcon("icons/magnifier.png"));
-		JMenuItem menuItemSearchCustomer = new JMenuItem("Nach Kunden", new ImageIcon("icons/magnifier.png"));
-		
+		JMenuItem menuItemSearchVideo = new JMenuItem("Nach Film",
+				new ImageIcon("icons/magnifier.png"));
+		JMenuItem menuItemSearchCustomer = new JMenuItem("Nach Kunden",
+				new ImageIcon("icons/magnifier.png"));
+
 		menuSearch.add(menuItemSearchVideo);
 		menuSearch.add(menuItemSearchCustomer);
-		
+
 		// Menu Extras
 		JMenu menuTools = new JMenu("Extras");
-		JMenuItem menuItemToolsWarnings = new JMenuItem("Mahnungen erstellen", new ImageIcon("icons/clock.png"));
+		JMenuItem menuItemToolsWarnings = new JMenuItem("Mahnungen erstellen",
+				new ImageIcon("icons/clock.png"));
 		JSeparator separatorToolsSeparator = new JSeparator(
 				JSeparator.HORIZONTAL);
-		JMenuItem menuItemToolsOptions = new JMenuItem("Einstellungen", new ImageIcon("icons/cog.png"));
+		JMenuItem menuItemToolsOptions = new JMenuItem("Einstellungen",
+				new ImageIcon("icons/cog.png"));
 
 		menuTools.add(menuItemToolsWarnings);
 		menuTools.add(separatorToolsSeparator);
@@ -92,8 +108,10 @@ public class MenuBar {
 
 		// Menu Hilfe
 		JMenu menuHelp = new JMenu("Hilfe");
-		JMenuItem menuItemHelpGetHelp = new JMenuItem("Hilfetext", new ImageIcon("icons/help.png"));
-		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon("icons/tag_blue.png"));
+		JMenuItem menuItemHelpGetHelp = new JMenuItem("Hilfetext",
+				new ImageIcon("icons/help.png"));
+		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon(
+				"icons/tag_blue.png"));
 
 		menuHelp.add(menuItemHelpGetHelp);
 		menuHelp.add(menuItemHelpAbout);
@@ -107,5 +125,21 @@ public class MenuBar {
 		menuBarMain.add(menuHelp);
 
 		return menuBarMain;
+	}
+
+	public void setCustomerButtonsEnabled() {
+
+		this.menuItemCustomerEdit.setEnabled(true);
+		this.menuItemCustomerDelete.setEnabled(true);
+		this.menuItemVideoEdit.setEnabled(false);
+		this.menuItemVideoDelete.setEnabled(false);
+	}
+
+	public void setVideoButtonsEnabled() {
+		this.menuItemCustomerEdit.setEnabled(false);
+		this.menuItemCustomerDelete.setEnabled(false);
+		this.menuItemVideoEdit.setEnabled(true);
+		this.menuItemVideoDelete.setEnabled(true);
+
 	}
 }

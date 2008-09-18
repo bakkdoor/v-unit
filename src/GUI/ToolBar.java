@@ -20,8 +20,11 @@ import GUI.DetailPanel;
 
 public class ToolBar {
 
+	private JButton toolBarButtonEdit;
+	private JButton toolBarButtonDelete;
+
 	protected Component createToolBar(MainWindow owner) {
-		
+
 		final MainWindow mainWindow = owner;
 
 		// ToolBar erzeugen
@@ -39,7 +42,7 @@ public class ToolBar {
 		toolBarButtonSearch.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonSearch.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonSearch.setIconTextGap(2);
-		toolBarButtonSearch.addActionListener(new ActionListener(){
+		toolBarButtonSearch.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -55,7 +58,7 @@ public class ToolBar {
 		toolBarButtonNew.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonNew.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonNew.setIconTextGap(2);
-		toolBarButtonNew.addActionListener(new ActionListener(){
+		toolBarButtonNew.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -64,7 +67,7 @@ public class ToolBar {
 		});
 
 		// Button bearbeiten
-		JButton toolBarButtonEdit = new JButton("Bearbeiten");
+		toolBarButtonEdit = new JButton("Bearbeiten");
 		// toolBarButtonEdit.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonEdit.setFocusable(false);
 		toolBarButtonEdit.setDefaultCapable(false);
@@ -78,34 +81,43 @@ public class ToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String dialogCard = mainWindow.getDetailPanel().currentCard;
-				
+
 				if (dialogCard.equals(DetailPanel.VIDEODETAILS)) {
 					try {
 						DetailPanel detailPanel = mainWindow.getDetailPanel();
-						VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue();
+						VideoUnit selectedVideoUnit = (VideoUnit) detailPanel
+								.getListDetailVUnit().getSelectedValue();
 						Integer uID = new Integer(selectedVideoUnit.getID());
 						String title = selectedVideoUnit.getVideo().getTitle();
-						Integer releaseYear = selectedVideoUnit.getVideo().getReleaseYear();
-						Integer ratedAge = selectedVideoUnit.getVideo().getRatedAge();
-						PriceCategory priceCategory = selectedVideoUnit.getVideo().getPriceCategory();
-						
-						VideoDataDialog videoEditDialog = new VideoDataDialog(mainWindow.getMainFrame(), uID, title, releaseYear, ratedAge, priceCategory, 1);
+						Integer releaseYear = selectedVideoUnit.getVideo()
+								.getReleaseYear();
+						Integer ratedAge = selectedVideoUnit.getVideo()
+								.getRatedAge();
+						PriceCategory priceCategory = selectedVideoUnit
+								.getVideo().getPriceCategory();
+
+						VideoDataDialog videoEditDialog = new VideoDataDialog(
+								mainWindow.getMainFrame(), uID, title,
+								releaseYear, ratedAge, priceCategory, 1);
 					} catch (RecordNotFoundException e1) {
 						// TODO evl Exception werfen
-						JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Fehler beim Einlesen der Daten", "Fehler", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(
+								mainWindow.getMainFrame(),
+								"Fehler beim Einlesen der Daten", "Fehler",
+								JOptionPane.ERROR_MESSAGE);
 					}
-					
+
 				} else if (dialogCard.equals(DetailPanel.CUSTOMERDETAILS)) {
-					
-					JOptionPane.showConfirmDialog(mainWindow.getMainFrame(), "Fehler beim Einlesen der Daten");
+
+					JOptionPane.showConfirmDialog(mainWindow.getMainFrame(),
+							"Fehler beim Einlesen der Daten");
 				}
 			}
-			
+
 		});
-		
 
 		// Button löschen
-		JButton toolBarButtonDelete = new JButton("Löschen");
+		toolBarButtonDelete = new JButton("Löschen");
 		// toolBarButtonDelete.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonDelete.setFocusable(false);
 		toolBarButtonDelete.setDefaultCapable(false);
@@ -114,43 +126,50 @@ public class ToolBar {
 		toolBarButtonDelete.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonDelete.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonDelete.setIconTextGap(2);
-		
+
 		// Buttons zum Umschalten des RentPanels
 		JButton toolBarButtonPanelRentCard = new JButton("Ausleihe");
 		// toolBarButtonDelete.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonPanelRentCard.setFocusable(false);
 		toolBarButtonPanelRentCard.setDefaultCapable(false);
-		toolBarButtonPanelRentCard.setIcon(new ImageIcon("icons/basket_put.png"));
-		toolBarButtonPanelRentCard.setHorizontalTextPosition(SwingConstants.CENTER);
-		toolBarButtonPanelRentCard.setVerticalTextPosition(SwingConstants.BOTTOM);
+		toolBarButtonPanelRentCard
+				.setIcon(new ImageIcon("icons/basket_put.png"));
+		toolBarButtonPanelRentCard
+				.setHorizontalTextPosition(SwingConstants.CENTER);
+		toolBarButtonPanelRentCard
+				.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonPanelRentCard.setIconTextGap(2);
-		toolBarButtonPanelRentCard.addActionListener(new ActionListener(){
+		toolBarButtonPanelRentCard.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainWindow.getRentPanel().changeCard(RentPanel.RENTVIDEOCARD);				
+				mainWindow.getRentPanel().changeCard(RentPanel.RENTVIDEOCARD);
 			}
-			
+
 		});
-		
+
 		JButton toolBarButtonRentPanelReturnCard = new JButton("Rückgabe");
 		// toolBarButtonDelete.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonRentPanelReturnCard.setFocusable(false);
 		toolBarButtonRentPanelReturnCard.setDefaultCapable(false);
-		toolBarButtonRentPanelReturnCard.setIcon(new ImageIcon("icons/basket_remove.png"));
-		toolBarButtonRentPanelReturnCard.setHorizontalTextPosition(SwingConstants.CENTER);
-		toolBarButtonRentPanelReturnCard.setVerticalTextPosition(SwingConstants.BOTTOM);
+		toolBarButtonRentPanelReturnCard.setIcon(new ImageIcon(
+				"icons/basket_remove.png"));
+		toolBarButtonRentPanelReturnCard
+				.setHorizontalTextPosition(SwingConstants.CENTER);
+		toolBarButtonRentPanelReturnCard
+				.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonRentPanelReturnCard.setIconTextGap(2);
-		toolBarButtonRentPanelReturnCard.addActionListener(new ActionListener(){
+		toolBarButtonRentPanelReturnCard
+				.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				mainWindow.getRentPanel().changeCard(RentPanel.RETURNVIDEOCARD);				
-			}
-			
-		});
-		
-		
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						mainWindow.getRentPanel().changeCard(
+								RentPanel.RETURNVIDEOCARD);
+					}
+
+				});
+
 		// Buttons der ToolBar hinzufügen
 		toolBarButtons.add(toolBarButtonSearch);
 		toolBarButtons.addSeparator();
@@ -160,8 +179,12 @@ public class ToolBar {
 		toolBarButtons.addSeparator();
 		toolBarButtons.add(toolBarButtonPanelRentCard);
 		toolBarButtons.add(toolBarButtonRentPanelReturnCard);
-		
 
 		return toolBarButtons;
+	}
+	
+	public void setButtonsEnabled() {
+		this.toolBarButtonEdit.setEnabled(true);
+		this.toolBarButtonDelete.setEnabled(true);
 	}
 }

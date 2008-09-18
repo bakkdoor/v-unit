@@ -18,7 +18,8 @@ import main.Programm;
 public class MainWindow {
 
 	private JFrame mainFrame;
-	
+	private MenuBar menuBar;
+	private ToolBar toolBar;
 	private RentPanel rentPanel;
 	private DetailPanel detailPanel;
 	private TablePanel tablePanel;
@@ -47,12 +48,12 @@ public class MainWindow {
 		
 		// **************************************************************
 		// MenuBar
-		MenuBar menuBar = new MenuBar();
+		menuBar = new MenuBar();
 		mainFrame.setJMenuBar(menuBar.createMenuBar(this));
 
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen
-		ToolBar toolBar = new ToolBar();
+		toolBar = new ToolBar();
 		Layout.addComponent(mainContainer, toolBar.createToolBar(this), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
@@ -120,5 +121,13 @@ public class MainWindow {
 
 	public JFrame getMainFrame() {
 		return mainFrame;
+	}
+
+	public MenuBar getMenuBar() {
+		return menuBar;
+	}
+
+	public ToolBar getToolBar() {
+		return toolBar;
 	}
 }

@@ -504,7 +504,11 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailVideo(Video video) {
-
+		
+		// Buttons aktivieren
+		mainWindow.getMenuBar().setVideoButtonsEnabled();
+		mainWindow.getToolBar().setButtonsEnabled();
+		
 		this.textFieldDetailVTitle.setText(video.getTitle());
 		this.textFieldDetailVReleaseYear.setText(new Integer(video
 				.getReleaseYear()).toString());
@@ -555,6 +559,11 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailCustomer(Customer customer) {
+		
+		// Buttons aktivieren
+		mainWindow.getMenuBar().setCustomerButtonsEnabled();
+		mainWindow.getToolBar().setButtonsEnabled();
+		
 		textFieldDetailCustID.setText(Integer.toString(customer.getID()));
 		textFieldDetailCustTitle.setText(customer.getTitle());
 		textFieldDetailCustFirstName.setText(customer.getFirstName());
