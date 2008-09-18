@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import model.Data;
+
 public class CustomerDataDialog  {
 	
 	// Dialogdtanen
@@ -43,21 +45,21 @@ public class CustomerDataDialog  {
 	
 	public CustomerDataDialog(Frame owner) {
 		
-		this(owner, null, "", "", "", new Date(2000, 1,1), "", "", new Integer(0), "");
+		this(owner, Data.NOTSET, "", "", "", new Date(2000, 1,1), "", "", 0, "");
 	}
 	
 	public CustomerDataDialog(Frame owner,  
-								Integer CID, 
+								int CID, 
 								String title, 
 								String firstName, 
 								String Lastname, 
 								Date birthDate, 
 								String street, String housNr, 
-								Integer zipCode, String city) {
+								int zipCode, String city) {
 		
 		this.owner = owner;
-		this.addCustomer = (CID == null);
-		this.CID = (CID != null ? CID : new Integer(0));
+		this.addCustomer = (CID == Data.NOTSET);
+		this.CID = (addCustomer ? CID : new Integer(0));
 		this.title = title;
 		this.firstName = firstName;
 		this.Lastname = Lastname;
