@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import model.CurrentDate;
 import model.InRent;
+import model.VideoUnit;
 import model.exceptions.CurrentDateException;
 
 /**
@@ -37,7 +38,16 @@ public class InvoiceWriter
 			sb.append("\n");
 			sb.append("KundenNr.: \t\t\t" + inRent.getCustomer().getID() + "\n");
 			sb.append("Kundenname: \t\t" + inRent.getCustomer().getName() + "\n");
-			sb.append("Ausleihdatum: \t\t" + inRent.getDate() + "\n");
+			sb.append("\n");
+			
+			sb.append("Filme:\n");
+			
+			for(VideoUnit unit : inRent.getVideoUnits())
+			{
+				sb.append(formatInt(unit.getID(), 10) + unit.getVideo().getTitle() + "\n");
+			}
+			
+			sb.append("\n");
 			sb.append("Rueckgabetermin: \t" + inRent.getReturnDate() + "\n");
 			sb.append("Ausleihpreis: \t\t" + inRent.getPrice() +  " Euro" + "\n");
 			sb.append("\n\n");

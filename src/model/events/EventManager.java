@@ -13,8 +13,8 @@ import java.util.Map;
  * 
  * @author Christopher Bertels (chbertel@uos.de) 17.09.2008
  * 
- *         {@link EventManager} - Verwaltet alle {@link VideothekEventListener}
- *         und leitet {@link VideothekEvent}s an diese weiter.
+ * {@link EventManager} - Verwaltet alle {@link VideothekEventListener} und
+ * leitet {@link VideothekEvent}s an diese weiter.
  */
 public class EventManager
 {
@@ -78,10 +78,16 @@ public class EventManager
 	 */
 	public static void fireEvent(VideothekEvent event)
 	{
-		for (VideothekEventListener listener : listenerMap
-				.get(event.getClass()))
+		if (listenerMap.containsKey(event.getClass()))
 		{
-			listener.handleEvent(event);
+			for (VideothekEventListener listener : listenerMap.get(event
+					.getClass()))
+			{
+				if (listener != null)
+				{
+					listener.handleEvent(event);
+				}
+			}
 		}
 	}
 

@@ -2,7 +2,10 @@
 
 import java.io.IOException;
 import model.Date;
+
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -28,6 +31,9 @@ public class InRentParser extends AbstractParser
 {
 	private Map<Integer, InRent> inRents = null;
 
+	private Collection<Integer> videoUnitIDs = null;
+	private int rID, customerID, duration = Data.NOTSET;
+	private Date date = null;
 	/**
 	 * Konstruktor für InRentParser.
 	 */
@@ -36,6 +42,7 @@ public class InRentParser extends AbstractParser
 		super("inRents");
 
 		inRents = new HashMap<Integer, InRent>();
+		videoUnitIDs = new LinkedList<Integer>();
 	}
 
 	/**
@@ -98,30 +105,18 @@ public class InRentParser extends AbstractParser
 		}
 		else if (tagname == "inRent") // öffnendes tag <inRent>
 		{
-			int rID, customerID, videoUnitID, duration = Data.NOTSET;
-
-			rID = Integer.parseInt(attributes.getValue("rID"));
-			customerID = Integer.parseInt(attributes.getValue("rID"));
-			videoUnitID = Integer.parseInt(attributes.getValue("rID"));
-			Date date = Date.parseString(attributes.getValue("date"));
+			this.rID = Integer.parseInt(attributes.getValue("rID"));
+			this.customerID = Integer.parseInt(attributes.getValue("customerID"));
+			this.date = Date.parseString(attributes.getValue("date"));
+			this.duration = Integer.parseInt(attributes.getValue("duration"));
+		}
+		else if(tagname == "videoUnit")
+		{
+			int uID = Data.NOTSET;
 			
-			duration = Integer.parseInt(attributes.getValue("duration"));
-
-			// Neues InRent objekt erstellen und in liste packen.
-			InRent newInRent = null;
-			try
-			{
-				newInRent = InRent.reCreate(rID, customerID, videoUnitID, date, duration);
-			}
-			catch (VideothekException e)
-			{
-				e.printStackTrace();
-			}
-
-			if (newInRent != null)
-			{
-				this.inRents.put(rID, newInRent);
-			}
+			uID = Integer.parseInt(attributes.getValue("uID"));
+			
+			this.videoUnitIDs.add(uID);
 		}
 	}
 
@@ -132,6 +127,38 @@ public class InRentParser extends AbstractParser
 			throws SAXException
 	{
 		super.endElement(uri, localName, qName);
+		
+		String tagname = qName;
+		
+		if(tagname == "inRent") // schließendes tag </inRent>
+		{
+			// Neues InRent objekt erstellen und in liste packen.
+			InRent newInRent = null;
+			try
+			{
+				newInRent = InRent.reCreate(this.rID, this.customerID, this.videoUnitIDs, this.date, this.duration);
+			}
+			catch (VideothekException e)
+			{
+				e.printStackTrace();
+			}
+
+			if (newInRent != null)
+			{
+				this.inRents.put(rID, newInRent);
+
+				// alle tmp-variablen löschen/zurücksetzen
+				this.rID =Data.NOTSET;
+				this.customerID = Data.NOTSET;
+				this.duration = Data.NOTSET;
+				this.date = null;
+				this.videoUnitIDs = new LinkedList<Integer>(); 
+			}
+			else
+			{
+				throw new SAXException("Fehler beim Parsen von InRents. newInRent war null und konnte nicht korrekt erstellt werden!");
+			}
+		}
 	}
 
 }

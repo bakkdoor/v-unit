@@ -1,7 +1,11 @@
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE inRents PUBLIC 'inRentList' 'inRents.dtd'>
 <inRents minID="3">
-	<inRent rID="1" customerID="1" videoUnitID="1" date="10:09:2008" duration="2" />
-	<inRent rID="2" customerID="2" videoUnitID="2" date="11:09:2008" duration="1" />
-	<inRent rID="3" customerID="1" videoUnitID="4" date="07:09:2008" duration="1" />
+	<inRent rID="1" customerID="2" date="10:09:2008" duration="2">
+		<videoUnit uID="1" />
+	</inRent>
+	<inRent rID="2" customerID="1" date="11:09:2008" duration="1">
+		<videoUnit uID="2" />
+		<videoUnit uID="3" />
+	</inRent>
 </inRents>

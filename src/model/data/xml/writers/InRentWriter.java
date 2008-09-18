@@ -9,6 +9,7 @@ import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
 
 import model.InRent;
+import model.VideoUnit;
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 
@@ -38,15 +39,22 @@ public class InRentWriter extends AbstractWriter
 		
 		for (InRent ir : inRentsToSave)
 		{
-			document.addElement(new XML("inRent")
+			XML inRentTag = new XML("inRent")
 				.addXMLAttribute("rID", Integer.toString(ir.getID()))
 				.addXMLAttribute("customerID", Integer.toString(ir.getCustomer().getID()))
-				.addXMLAttribute("videoUnitID", Integer.toString(ir.getVideoUnit().getID()))
 				.addXMLAttribute("date",ir.getDate().getDate() + ":"
 											+ ir.getDate().getMonth() + ":"
 											+ ir.getDate().getYear())
-				.addXMLAttribute("duration", Integer.toString(ir.getDuration()))
-			);
+				.addXMLAttribute("duration", Integer.toString(ir.getDuration()));
+			
+			for(VideoUnit unit : ir.getVideoUnits())
+			{
+				inRentTag.addElement(new XML("videoUnit")
+					.addXMLAttribute("uID", Integer.toString(unit.getID()))
+				);
+			}
+			
+			document.addElement(inRentTag);
 		}
 		
 		writeToFile(document);
