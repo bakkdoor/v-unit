@@ -27,6 +27,10 @@ public class CustomerTableModel extends NotEditableTableModel
 		EventManager.registerEventListener(CustomerEvent.class, this);
 	}
 	
+	public CustomerTableModel(Vector<String> columnNames, int rowCount) {
+		 super(columnNames, rowCount);
+	}
+
 	/* (non-Javadoc)
 	 * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
 	 */
@@ -39,11 +43,27 @@ public class CustomerTableModel extends NotEditableTableModel
 		}
 		else if(event instanceof CustomerEditedEvent)
 		{
-			
+			Customer customer = ((CustomerCreatedEvent)event).getCustomer();
+			for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
+				if (getValueAt(rowIndex, 0).equals(customer.getID())) {
+					for (int colIndex = 0; colIndex < getColumnCount(); colIndex++) {
+						if (getValueAt(rowIndex, colIndex).equals("Anschrift")) {
+							String newAddress = customer.getFirstAddressRow() + ", " + customer.getLastAddressRow();
+							setValueAt(newAddress, rowIndex, colIndex);
+						}
+					}
+				}
+			}
 		}
+		
 		else if(event instanceof CustomerDeletedEvent)
 		{
-			
+			Customer customer = ((CustomerCreatedEvent)event).getCustomer();
+			for (int index = 0; index < getRowCount(); index++) {
+				if (getValueAt(index, 0).equals(customer.getID())) {
+					removeRow(index);
+				}
+			}
 		}
 	}
 	
