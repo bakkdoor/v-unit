@@ -79,6 +79,9 @@ public class Customer
 
 		customerList.put(this.cID, this);
 
+		// Event feuern
+		EventManager.fireEvent(new CustomerCreatedEvent(this));
+
 		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben
 		// wurde...
 	}
@@ -135,9 +138,6 @@ public class Customer
 			this.city = city;
 			this.identificationNr = identificationNr;
 			this.title = title;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerCreatedEvent(this));
 		}
 	}
 
