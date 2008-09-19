@@ -48,14 +48,7 @@ public class RentTableModel extends NotEditableTableModel
 		{
 			InRent inRent = ((InRentCreatedEvent)event).getInRent();
 			for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
-				if (getValueAt(rowIndex, 0).equals(customer.getID())) {
-					for (int colIndex = 0; colIndex < getColumnCount(); colIndex++) {
-						if (getValueAt(rowIndex, colIndex).equals("Anschrift")) {
-							String newAddress = customer.getFirstAddressRow() + ", " + customer.getLastAddressRow();
-							setValueAt(newAddress, rowIndex, colIndex);
-						}
-					}
-				}
+				// TODO änderungen übernehmen
 			}
 		}
 		
@@ -75,12 +68,7 @@ public class RentTableModel extends NotEditableTableModel
 		Vector rowData = new Vector();
 		
 		rowData.add(inRent.getID());
-		rowData.add(inRent.getTitle());
-		rowData.add(inRent.getFirstName());
-		rowData.add(inRent.getLastName());
-		rowData.add(inRent.getBirthDate());
-		rowData.add(inRent.getFirstAddressRow() + ", " + inRent.getLastAddressRow());
-		rowData.add(inRent.getIdentificationNr());
+		
 				
 		super.getDataVector().add(rowData);
 	}
