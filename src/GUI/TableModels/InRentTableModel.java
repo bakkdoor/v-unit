@@ -50,19 +50,16 @@ public class InRentTableModel extends NotEditableTableModel
 		{
 			insertRow(((InRentCreatedEvent)event).getInRent());
 		}
-<<<<<<< HEAD:src/GUI/TableModels/InRentTableModel.java
-		
-=======
->>>>>>> origin/andie:src/GUI/TableModels/InRentTableModel.java
+
 		else if(event instanceof InRentEditedStateEvent)
 		{
-			InRent inRent = ((InRentEditedEvent)event).getInRent();
+			InRent inRent = ((InRentEditedStateEvent)event).getInRent();
 			editRow(inRent);
 		}
 		
-		else if(event instanceof InRentEditedUnitsEvent)
+		else if(event instanceof InRentEditedStateEvent)
 		{
-			InRent inRent = ((InRentEditedEvent)event).getInRent();
+			InRent inRent = ((model.events.InRentEditedUnitsEvent)event).getInRent();
 			editRow(inRent);
 		}
 		
@@ -82,12 +79,22 @@ public class InRentTableModel extends NotEditableTableModel
 			rowData.add(inRent.getCustomer().getID());
 			rowData.add(videoUnit.getVideoID());
 			rowData.add(inRent.getReturnDate());
-			rowData.add(inRent.isWarned());
+			rowData.add(inRent.isWarned()?"Ja":"Nein");
 			super.getDataVector().add(rowData);
 		}
 	}
 	
-	public void editRow(InRent inrent) {
+	public void editState(InRent inRent) {
+		Vector dataVector = getDataVector();
+		for (int rowIndex = 0; rowIndex < dataVector.size(); rowIndex++) {
+			Vector inRentVector = (Vector)dataVector.elementAt(rowIndex);
+			if (inRentVector.elementAt(0).equals(inRent.getID())) {
+				setValueAt((inRent.isWarned()?"Ja":"Nein"), rowIndex, 0);
+			}
+		}
+	}
+	
+	public void deleteUnit(VideoUnit videoUnit) {
 		
 	}
 
@@ -100,8 +107,9 @@ public class InRentTableModel extends NotEditableTableModel
 	public void deleteRow(VideoUnit videoUnit) {
 		
 		Vector dataVector = getDataVector();
-		for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
-			if (dataVector.elementAt(2).equals(videoUnit.getID())) {
+		for (int rowIndex = 0; rowIndex < dataVector.size(); rowIndex++) {
+			Vector rentValue = (Vector)dataVector.elementAt(rowIndex);
+			if (rentValue.elementAt(2).equals(videoUnit.getID())) {
 				removeRow(rowIndex);
 			}
 		}
