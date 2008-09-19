@@ -9,8 +9,12 @@ import model.events.CustomerEditedEvent;
 import model.events.CustomerEvent;
 import model.events.EventManager;
 import model.events.InRentCreatedEvent;
+<<<<<<< HEAD:src/GUI/TableModels/InRentTableModel.java
 import model.events.InRentDeletedEvent;
 import model.events.InRentEditedEvent;
+=======
+import model.events.InRentEditedStateEvent;
+>>>>>>> origin/andie:src/GUI/TableModels/InRentTableModel.java
 import model.events.VideothekEvent;
 import model.Customer;
 import model.InRent;
@@ -46,7 +50,10 @@ public class InRentTableModel extends NotEditableTableModel
 		{
 			insertRow(((InRentCreatedEvent)event).getInRent());
 		}
+<<<<<<< HEAD:src/GUI/TableModels/InRentTableModel.java
 		
+=======
+>>>>>>> origin/andie:src/GUI/TableModels/InRentTableModel.java
 		else if(event instanceof InRentEditedStateEvent)
 		{
 			InRent inRent = ((InRentEditedEvent)event).getInRent();
