@@ -9,6 +9,7 @@ import model.events.CustomerEditedEvent;
 import model.events.CustomerEvent;
 import model.events.EventManager;
 import model.events.InRentCreatedEvent;
+import model.events.InRentDeletedEvent;
 import model.events.InRentEditedEvent;
 import model.events.VideothekEvent;
 import model.Customer;
@@ -45,22 +46,23 @@ public class InRentTableModel extends NotEditableTableModel
 		{
 			insertRow(((InRentCreatedEvent)event).getInRent());
 		}
-		else if(event instanceof InRentEditedEvent)
+		
+		else if(event instanceof InRentEditedStateEvent)
 		{
-			InRent inRent = ((InRentCreatedEvent)event).getInRent();
-			for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
-				// TODO änderungen übernehmen
-			}
+			InRent inRent = ((InRentEditedEvent)event).getInRent();
+			editRow(inRent);
 		}
 		
-		else if(event instanceof CustomerDeletedEvent)
+		else if(event instanceof InRentEditedUnitsEvent)
 		{
-			Customer customer = ((CustomerCreatedEvent)event).getCustomer();
-			for (int index = 0; index < getRowCount(); index++) {
-				if (getValueAt(index, 0).equals(customer.getID())) {
-					removeRow(index);
-				}
-			}
+			InRent inRent = ((InRentEditedEvent)event).getInRent();
+			editRow(inRent);
+		}
+		
+		else if(event instanceof InRentDeletedEvent)
+		{
+			InRent inRent = ((InRentDeletedEvent)event).getInRent();
+			deleteRow(inRent);
 		}
 	}
 	
@@ -77,5 +79,24 @@ public class InRentTableModel extends NotEditableTableModel
 			super.getDataVector().add(rowData);
 		}
 	}
+	
+	public void editRow(InRent inrent) {
+		
+	}
 
+	public void deleteRow(InRent inRent) {
+		for(VideoUnit videoUnit : inRent.getVideoUnits()){
+			deleteRow(videoUnit);
+		}
+	}
+	
+	public void deleteRow(VideoUnit videoUnit) {
+		
+		Vector dataVector = getDataVector();
+		for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
+			if (dataVector.elementAt(2).equals(videoUnit.getID())) {
+				removeRow(rowIndex);
+			}
+		}
+	}
 }

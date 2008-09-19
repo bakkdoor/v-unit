@@ -111,7 +111,7 @@ public class TablePanel {
 	private JTable createTableCustomer() {
 
 		Vector<String> customerColumnNames = new Vector(7);
-		customerColumnNames.add("ID");
+		customerColumnNames.add("KundenNr.");
 		customerColumnNames.add("Anrede");
 		customerColumnNames.add("Vorname");
 		customerColumnNames.add("Nachname");
@@ -146,9 +146,9 @@ public class TablePanel {
 		Vector<String> videeoColumnNames = new Vector(5);
 		videeoColumnNames.add("FilmNr.");
 		videeoColumnNames.add("Titel");
-		videeoColumnNames.add("Erscheinungsjahr");
-		videeoColumnNames.add("FSK");
 		videeoColumnNames.add("Preisklasse");
+		videeoColumnNames.add("FSK");
+		videeoColumnNames.add("Erscheinungsjahr");
 
 		VideoTableModel tableModel = new VideoTableModel(videeoColumnNames, 0);
 		Vector<Video> videoVector = new Vector(Video.findAll());
