@@ -1,6 +1,7 @@
 package model.events;
 
 import model.InRent;
+import model.VideoUnit;
 
 /**
  * 
@@ -10,10 +11,10 @@ import model.InRent;
  *
  * Event für den Fall, dass die VideoUnits-Liste eines InRent bearbeitete wurde
  */
-public class InRentEditedUnitsEvent extends InRentEvent
+public class InRentDeletedUnitEvent extends InRentEvent
 {
-	public InRentEditedUnitsEvent(InRent editedInRentUnits)
+	public InRentDeletedUnitEvent(InRent inRent,  VideoUnit deletedUnit)
 	{
-		super(editedInRentUnits);
+		super(inRent, deletedUnit);
 	}
 }
