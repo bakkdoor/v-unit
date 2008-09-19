@@ -70,7 +70,7 @@ public class MainWindow {
 		// RentPanel - Cards zu Testzwecken umschalten
 		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);
 		// detailPanel - Cards zu Testzwecken umschalten
-		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
+		detailPanel.changePanelDetailsCard(detailPanel.RENTDETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		tablePanel = new TablePanel();
