@@ -7,7 +7,7 @@ import model.Video;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.CustomerEvent;
 import model.events.EventManager;
-import model.events.RentEvent;
+import model.events.InRentEvent;
 import model.events.VideoCreatedEvent;
 import model.events.VideoDeletedEvent;
 import model.events.VideoEditedEvent;
@@ -26,7 +26,6 @@ public class ReturnTableModel extends NotEditableTableModel
 	{
 		super(rowData, columnNames);
 		
-		EventManager.registerEventListener(RentEvent.class, this);
 	}
 	
 	public ReturnTableModel(Vector<String> videeoColumnNames, int rowCount) {
