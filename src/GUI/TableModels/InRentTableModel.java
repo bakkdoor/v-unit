@@ -9,7 +9,7 @@ import model.events.CustomerEditedEvent;
 import model.events.CustomerEvent;
 import model.events.EventManager;
 import model.events.InRentCreatedEvent;
-import model.events.InRentEditedEvent;
+import model.events.InRentEditedStateEvent;
 import model.events.VideothekEvent;
 import model.Customer;
 import model.InRent;
@@ -45,7 +45,7 @@ public class InRentTableModel extends NotEditableTableModel
 		{
 			insertRow(((InRentCreatedEvent)event).getInRent());
 		}
-		else if(event instanceof InRentEditedEvent)
+		else if(event instanceof InRentEditedStateEvent)
 		{
 			InRent inRent = ((InRentCreatedEvent)event).getInRent();
 			for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
