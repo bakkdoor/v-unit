@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -125,8 +127,18 @@ public class TablePanel {
 			Customer newCustomer = customerVector.get(indexCustomer);
 			tableModel.insertRow(newCustomer);
 		}
-
-		return new JTable(tableModel);
+		JTable custTable = new JTable(tableModel);
+		
+		TableColumnModel colModel = custTable.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(70);
+		colModel.getColumn(1).setPreferredWidth(60);
+		colModel.getColumn(2).setPreferredWidth(180);
+		colModel.getColumn(3).setPreferredWidth(180);
+		colModel.getColumn(4).setPreferredWidth(90);
+		colModel.getColumn(5).setPreferredWidth(334);
+		colModel.getColumn(6).setPreferredWidth(110);
+		
+		return custTable;
 	}
 
 	private JTable createTableVideo() {
@@ -135,7 +147,7 @@ public class TablePanel {
 		videeoColumnNames.add("FilmNr.");
 		videeoColumnNames.add("Titel");
 		videeoColumnNames.add("Erscheinungsjahr");
-		videeoColumnNames.add("Altersbeschränkung");
+		videeoColumnNames.add("FSK");
 		videeoColumnNames.add("Preisklasse");
 
 		VideoTableModel tableModel = new VideoTableModel(videeoColumnNames, 0);
@@ -145,8 +157,16 @@ public class TablePanel {
 			Video newVideo = videoVector.get(indexVideo);
 			tableModel.insertRow(newVideo);
 		}
+		
+		JTable videoTable = new JTable(tableModel);
+		TableColumnModel colModel = videoTable.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(100);
+		colModel.getColumn(1).setPreferredWidth(604);
+		colModel.getColumn(2).setPreferredWidth(120);
+		colModel.getColumn(3).setPreferredWidth(45);
+		colModel.getColumn(4).setPreferredWidth(155);
 
-		return new JTable(tableModel);
+		return videoTable;
 	}
 
 	public JTable getTableVideo() {
