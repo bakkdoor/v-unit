@@ -3,6 +3,7 @@ package GUI;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -10,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -17,6 +20,7 @@ import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
 import GUI.TableModels.CustomerTableModel;
 import GUI.TableModels.NotEditableTableModel;
+import GUI.TableModels.VideoTableModel;
 
 import model.Customer;
 import model.Video;
@@ -38,25 +42,31 @@ public class TablePanel {
 	protected Component createTablePanel(MainWindow mainWindow) {
 
 		this.mainWindow = mainWindow;
-		TableModel tableModelVideo = this.fillTableVideo();
-		tableVideo = new JTable(tableModelVideo);
-		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelVideo));
-		ListSelectionModel tableVideoSelectionModel = tableVideo.getSelectionModel();
-		tableVideoSelectionModel.addListSelectionListener(new TableVideoListSelectionHandler(mainWindow));
-		
-		TableModel tableModelCustomer = this.fillTableCustomer();
-		tableCustomer = new JTable(tableModelCustomer);
-		tableCustomer.setRowSorter(new TableRowSorter<TableModel>(tableModelCustomer));
-		ListSelectionModel tableCustomerSelectionModel = tableCustomer.getSelectionModel();
-		tableCustomerSelectionModel.addListSelectionListener(new TableCustomerListSelectionHandler(mainWindow));
-		
+		tableVideo = this.createTableVideo();
+		tableVideo
+				.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
+		ListSelectionModel tableVideoSelectionModel = tableVideo
+				.getSelectionModel();
+		tableVideoSelectionModel
+				.addListSelectionListener(new TableVideoListSelectionHandler(
+						mainWindow));
+
+		tableCustomer = this.createTableCustomer();
+		tableCustomer.setRowSorter(new TableRowSorter<TableModel>(tableCustomer
+				.getModel()));
+		ListSelectionModel tableCustomerSelectionModel = tableCustomer
+				.getSelectionModel();
+		tableCustomerSelectionModel
+				.addListSelectionListener(new TableCustomerListSelectionHandler(
+						mainWindow));
+
 		String[][] rentContent = { { "", "", "", "", "" } };
 		String[] rentCollName = { "ID", "KundenNr.", "FilmNr.",
 				"Rückgabefrist", "Mahnung" };
 		tableRent = new JTable(rentContent, rentCollName);
 
 		String[][] searchVideo = { { "", "", "", "" } };
-		String[] searchVideoName = { "Titel", "Erscheinungsdatum",
+		String[] searchVideoName = { "Titel", "Erscheinungsjahr",
 				"Preisklasse", "Altersbeschr." };
 		tableSearchVideo = new JTable(searchVideo, searchVideoName);
 
@@ -98,72 +108,65 @@ public class TablePanel {
 		}
 	}
 
-	private TableModel fillTableCustomer() {
+	private JTable createTableCustomer() {
 
-		String[] customerColumnNames = { "ID", "Anrede", "Nachname", "Vorname",
-				"Geburtsdatum", "Anschrift", "PersonalNummer" };
+		Vector<String> customerColumnNames = new Vector(7);
+		customerColumnNames.add("ID");
+		customerColumnNames.add("Anrede");
+		customerColumnNames.add("Nachname");
+		customerColumnNames.add("Vorname");
+		customerColumnNames.add("Geburtsdatum");
+		customerColumnNames.add("Anschrift");
+		customerColumnNames.add("PersonalNummer");
 
-		ArrayList<Customer> customerList = new ArrayList<Customer>(model.Customer.findAll());
-		Object[][] customerDataArr = new Object[customerList.size()][customerColumnNames.length];
+		CustomerTableModel tableModel = new CustomerTableModel(
+				customerColumnNames, 0);
+		Vector<Customer> customerVector = new Vector(Customer.findAll());
 
-		for (int indexCustomer = 0; indexCustomer < customerList.size(); indexCustomer++) {
-			int indexValue = 0;
-			customerDataArr[indexCustomer][indexValue++] = customerList.get(
-					indexCustomer).getID();
-			customerDataArr[indexCustomer][indexValue++] = customerList.get(
-					indexCustomer).getTitle();
-			customerDataArr[indexCustomer][indexValue++] = customerList.get(
-					indexCustomer).getLastName();
-			customerDataArr[indexCustomer][indexValue++] = customerList.get(
-					indexCustomer).getFirstName();
-			customerDataArr[indexCustomer][indexValue++] = customerList.get(
-					indexCustomer).getBirthDate();
-			String address = customerList.get(indexCustomer).getStreet() + " "
-					+ customerList.get(indexCustomer).getHouseNr() + ", "
-					+ customerList.get(indexCustomer).getZipCode() + " "
-					+ customerList.get(indexCustomer).getCity();
-			customerDataArr[indexCustomer][indexValue++] = address;
-			customerDataArr[indexCustomer][indexValue++] = customerList.get(
-					indexCustomer).getIdentificationNr();
-			indexValue = 0;
+		for (int indexCustomer = 0; indexCustomer < customerVector.size(); indexCustomer++) {
+			Customer newCustomer = customerVector.get(indexCustomer);
+			tableModel.insertRow(newCustomer);
 		}
-
-		TableModel customerTableModel = new CustomerTableModel(customerDataArr,
-				customerColumnNames);
-
-		return customerTableModel;
+		JTable custTable = new JTable(tableModel);
+		
+		TableColumnModel colModel = custTable.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(70);
+		colModel.getColumn(1).setPreferredWidth(60);
+		colModel.getColumn(2).setPreferredWidth(180);
+		colModel.getColumn(3).setPreferredWidth(180);
+		colModel.getColumn(4).setPreferredWidth(90);
+		colModel.getColumn(5).setPreferredWidth(334);
+		colModel.getColumn(6).setPreferredWidth(110);
+		
+		return custTable;
 	}
 
-	private TableModel fillTableVideo() {
+	private JTable createTableVideo() {
 
-		String[] videoColumnNames = { "FilmNr.", "Titel", "Erscheinungsdatum",
-				"Altersbeschränkung", "Preisklasse" };
+		Vector<String> videeoColumnNames = new Vector(5);
+		videeoColumnNames.add("FilmNr.");
+		videeoColumnNames.add("Titel");
+		videeoColumnNames.add("Erscheinungsjahr");
+		videeoColumnNames.add("FSK");
+		videeoColumnNames.add("Preisklasse");
 
-		ArrayList<Video> videoList = new ArrayList<Video>(Video.findAll());
-		Object[][] videoDataArr = new Object[videoList.size()][videoColumnNames.length+1];
+		VideoTableModel tableModel = new VideoTableModel(videeoColumnNames, 0);
+		Vector<Video> videoVector = new Vector(Video.findAll());
 
-		for (int indexVideo = 0; indexVideo < videoList.size(); indexVideo++) {
-			int indexValue = 0;
-			videoDataArr[indexVideo][indexValue++] = Integer.toString(videoList.get(indexVideo).getID());
-			videoDataArr[indexVideo][indexValue++] = videoList.get(indexVideo)
-					.getTitle();
-			videoDataArr[indexVideo][indexValue++] = videoList.get(indexVideo)
-					.getReleaseYear();
-			videoDataArr[indexVideo][indexValue++] = videoList.get(indexVideo)
-					.getRatedAge();
-			try {
-				videoDataArr[indexVideo][indexValue++] = videoList.get(indexVideo)
-						.getPriceCategory().getName();
-			} catch (RecordNotFoundException e) {
-				e.printStackTrace();
-			}
-			indexValue = 0;
-
+		for (int indexVideo = 0; indexVideo < videoVector.size(); indexVideo++) {
+			Video newVideo = videoVector.get(indexVideo);
+			tableModel.insertRow(newVideo);
 		}
+		
+		JTable videoTable = new JTable(tableModel);
+		TableColumnModel colModel = videoTable.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(100);
+		colModel.getColumn(1).setPreferredWidth(604);
+		colModel.getColumn(2).setPreferredWidth(120);
+		colModel.getColumn(3).setPreferredWidth(45);
+		colModel.getColumn(4).setPreferredWidth(155);
 
-		TableModel videoTableModel = new NotEditableTableModel(videoDataArr, videoColumnNames);
-
-		return videoTableModel;
+		return videoTable;
 	}
 
 	public JTable getTableVideo() {

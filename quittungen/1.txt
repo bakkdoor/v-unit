@@ -6,6 +6,8 @@ Kundenname: 		Max Mustermann
 
 Filme:
 1          Rambo  (1.99 Euro/Woche)
+=======
+
 
 Rueckgabetermin: 	1.10.2008
 Ausleihdauer: 		2Wochen 

@@ -83,37 +83,12 @@ public class ToolBar {
 				String dialogCard = mainWindow.getDetailPanel().currentCard;
 
 				if (dialogCard.equals(DetailPanel.VIDEODETAILS)) {
-					try {
-						DetailPanel detailPanel = mainWindow.getDetailPanel();
-						VideoUnit selectedVideoUnit = (VideoUnit) detailPanel
-								.getListDetailVUnit().getSelectedValue();
-						Integer uID = new Integer(selectedVideoUnit.getID());
-						String title = selectedVideoUnit.getVideo().getTitle();
-						Integer releaseYear = selectedVideoUnit.getVideo()
-								.getReleaseYear();
-						Integer ratedAge = selectedVideoUnit.getVideo()
-								.getRatedAge();
-						PriceCategory priceCategory = selectedVideoUnit
-								.getVideo().getPriceCategory();
-
-						VideoDataDialog videoEditDialog = new VideoDataDialog(
-								mainWindow.getMainFrame(), uID, title,
-								releaseYear, ratedAge, priceCategory, 1);
-					} catch (RecordNotFoundException e1) {
-						// TODO evl Exception werfen
-						JOptionPane.showMessageDialog(
-								mainWindow.getMainFrame(),
-								"Fehler beim Einlesen der Daten", "Fehler",
-								JOptionPane.ERROR_MESSAGE);
-					}
-
+					VideoDataDialog.createFilledVideoDataDialog(mainWindow);
 				} else if (dialogCard.equals(DetailPanel.CUSTOMERDETAILS)) {
 
-					JOptionPane.showConfirmDialog(mainWindow.getMainFrame(),
-							"Fehler beim Einlesen der Daten");
+					CustomerDataDialog.createFilledCustomerDataDialog(mainWindow);
 				}
 			}
-
 		});
 
 		// Button löschen
@@ -126,6 +101,21 @@ public class ToolBar {
 		toolBarButtonDelete.setHorizontalTextPosition(SwingConstants.CENTER);
 		toolBarButtonDelete.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toolBarButtonDelete.setIconTextGap(2);
+		toolBarButtonDelete.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String dialogCard = mainWindow.getDetailPanel().currentCard;
+
+				if (dialogCard.equals(DetailPanel.VIDEODETAILS)) {
+					mainWindow.getDetailPanel().deleteVideoUnit();
+				} else if (dialogCard.equals(DetailPanel.CUSTOMERDETAILS)) {
+					mainWindow.getDetailPanel().deleteCustomer();
+				}
+			}
+			
+		});
+		
 
 		// Buttons zum Umschalten des RentPanels
 		JButton toolBarButtonPanelRentCard = new JButton("Ausleihe");

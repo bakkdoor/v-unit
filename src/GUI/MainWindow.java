@@ -70,7 +70,7 @@ public class MainWindow {
 		// RentPanel - Cards zu Testzwecken umschalten
 		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);
 		// detailPanel - Cards zu Testzwecken umschalten
-		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
+		detailPanel.changePanelDetailsCard(detailPanel.RENTDETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		tablePanel = new TablePanel();
@@ -110,9 +110,9 @@ public class MainWindow {
 				options , null);
 			
 		if (section == 0) {
-			DataDialog createCustomerDialog = new DataDialog(mainFrame, DataDialog.VIDEODIALOG);
+			DataDialog createCustomerDialog = new DataDialog(this, DataDialog.VIDEODIALOG);
 		}else if (section == 1) {
-			DataDialog createVideoDialog = new DataDialog(mainFrame, DataDialog.CUSTOMERDIALOG);
+			DataDialog createVideoDialog = new DataDialog(this, DataDialog.CUSTOMERDIALOG);
 			
 		}
 		

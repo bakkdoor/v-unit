@@ -3,6 +3,7 @@ package GUI;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,8 +18,10 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -43,8 +46,7 @@ public class DetailPanel {
 	private JList listDetailVUnit;
 	private JButton buttonDetailVadd;
 
-	
-	// Customercard Felder 
+	// Customercard Felder
 	private JTextField textFieldDetailCustID;
 	private JTextField textFieldDetailCustTitle;
 	private JTextField textFieldDetailCustFirstName;
@@ -52,222 +54,38 @@ public class DetailPanel {
 	private JTextField textFieldDetailCustBirthDay;
 	private JTextField textFieldDetailCustFirstAddress;
 	private JTextField textFieldDetailCustLastAddress;
-	
+
+	// Rentcard Datenfelder
+	private JTextField textFieldRentID;
+	private JTextField textFieldRentCustomerID;
+	private JTextField textFieldRentVideoID;
+	private JTextField textFieldRentVideoTitle;
+	private JTextField textFieldRentReturnDate;
+	private JTextField textFieldRentWarning;
+
 	public String currentCard;
 	public static final String VIDEODETAILS = "Video";
 	public static final String CUSTOMERDETAILS = "Customer";
+	public static final String RENTDETAILS = "Rent";
 
 	protected Component createDetailPanel(MainWindow mainWindow) {
 
 		this.mainWindow = mainWindow;
 
-		// Panel für Videodetails
-		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
-		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
+		panelDetails = new JPanel(new CardLayout());
+		panelDetails.add(this.createVideoDetails(), VIDEODETAILS);
+		panelDetails.add(this.createCustomerDetails(), CUSTOMERDETAILS);
+		panelDetails.add(this.createRentDetails(), RENTDETAILS);
 
-		// ***************************************************************
-		// Datenelemente für Video erstellen
+		// this.changePanelDetailsCard(RENTDETAILS);
 
-		JLabel labelDetailVTitle = new JLabel("Titel:");
-		textFieldDetailVTitle = new JTextField();
-		textFieldDetailVTitle.setEditable(false);
+		panelDetails.setBorder(BorderFactory
+				.createTitledBorder("Informationen"));
 
-		JLabel labelDetailVReliaseDate = new JLabel("Erscheinungsdatum:");
-		textFieldDetailVReleaseYear = new JTextField();
-		textFieldDetailVReleaseYear.setEditable(false);
+		return panelDetails;
+	}
 
-		JLabel labelDetailVRatedAge = new JLabel("Altersbeschränkung:");
-		textFieldDetailVRatedAge = new JTextField();
-		textFieldDetailVRatedAge.setEditable(false);
-
-		JLabel labelDetailVPriceCategory = new JLabel("Preisklasse:");
-		textFieldDetailVPriceCategory = new JTextField();
-		textFieldDetailVPriceCategory.setEditable(false);
-
-		JLabel labelDetailVState = new JLabel("Status:");
-		textFieldDetailVState = new JTextField();
-		textFieldDetailVState.setEditable(false);
-
-		JLabel labelDetailVDuration = new JLabel("Rückgabefrist:");
-		textFieldDetailVDuration = new JTextField();
-		textFieldDetailVDuration.setEditable(false);
-
-		JLabel labelDetailVUnit = new JLabel("Exemplare:");
-
-		// Model definieren
-		listDetailVUnit = new JList();
-		listDetailVUnit
-				.addListSelectionListener(new DetailVideoListSelectionHandler(
-						mainWindow));
-
-		buttonDetailVadd = new JButton("Übernehmen");
-		buttonDetailVadd.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				VideoUnit selectedVideoUnit;
-				try {
-					selectedVideoUnit = VideoUnit.findByID(Integer.parseInt((String) listDetailVUnit.getSelectedValue()));
-					DetailPanel.this.mainWindow.getRentPanel().addVideoUnitInRentTable(selectedVideoUnit);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}
-		});
-
-		// Titel
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 1;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVTitle, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 1;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVTitle, gridBagConstDetailVideo);
-
-		// Erscheinungsdatum
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 2;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVReliaseDate, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 2;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVReleaseYear,
-				gridBagConstDetailVideo);
-
-		// Altersbeschränkung
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 3;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVRatedAge, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 3;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVRatedAge, gridBagConstDetailVideo);
-
-		// Preisklasse
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 4;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo
-				.add(labelDetailVPriceCategory, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 4;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVPriceCategory,
-				gridBagConstDetailVideo);
-
-		// Status
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 5;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVState, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 5;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVState, gridBagConstDetailVideo);
-
-		// Rückgabefrist
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 6;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVDuration, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 6;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVDuration, gridBagConstDetailVideo);
-
-		// Exemplare
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 7;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(3, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVUnit, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 7;
-		gridBagConstDetailVideo.ipady = 60;
-		gridBagConstDetailVideo.gridheight = 3;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 1.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.BOTH;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(3, 0, 3, 3);
-		panelDetailVideo.add(new JScrollPane(listDetailVUnit),
-				gridBagConstDetailVideo);
-
-		// Übernehmen Button
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 10;
-		gridBagConstDetailVideo.ipady = 0;
-		gridBagConstDetailVideo.gridheight = 1;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(3, 0, 3, 3);
-		panelDetailVideo.add(buttonDetailVadd, gridBagConstDetailVideo);
-
-		// ***************************************************************
+	private Container createCustomerDetails() {
 
 		// KundenPanel generieren
 		JPanel panelDetailCustomer = new JPanel(new GridBagLayout());
@@ -311,184 +129,251 @@ public class DetailPanel {
 		JButton buttonDetailCustAdd = new JButton("Übernehmen");
 
 		// ***************************************************************
-
 		// Datenelemente in deas Kunden Panel einfügen
-		// KundenNr.
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 0;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(3, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustID, gridBagConstDetailCust);
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 0;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(3, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustID, gridBagConstDetailCust);
+		// Layout.addComponent(container, component, x, y, gridwidth,
+		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets);
+		Layout.addComponent(panelDetailCustomer, labelDetailCustID, 0, 0, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustID, 1, 0,
+				1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustTitle, 0, 1, 1,
+				1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustTitle, 1,
+				1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustFirstName, 0,
+				2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustFirstName,
+				1, 2, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustLastName, 0, 3,
+				1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustLastName,
+				1, 3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustBirthDay, 0, 4,
+				1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustBirthDay,
+				1, 4, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustAddress, 0, 5,
+				1, 1, 0.3, 0.0, 00, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer,
+				textFieldDetailCustFirstAddress, 1, 5, 1, 1, 0.7, 0.0, 150, 0,
+				GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer,
+				textFieldDetailCustLastAddress, 1, 6, 1, 1, 0.7, 0.0, 150, 0,
+				GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		// Lablel zur Layout Stabilisierung
+		Layout.addComponent(panelDetailCustomer, new JLabel(), 0, 7, 2,
+				GridBagConstraints.RELATIVE, 1.0, 1.0, 0, 0,
+				GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE,
+				new Insets(0, 0, 0, 0));
+		Layout.addComponent(panelDetailCustomer, buttonDetailCustAdd, 1, 8, 1,
+				1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
 
-		// Anrede
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 1;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustTitle, gridBagConstDetailCust);
+		return panelDetailCustomer;
+	}
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 1;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustTitle,
-				gridBagConstDetailCust);
+	private Container createVideoDetails() {
 
-		// Vorname
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 2;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustFirstName,
-				gridBagConstDetailCust);
+		// Panel für Videodetails
+		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
+		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 2;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustFirstName,
-				gridBagConstDetailCust);
+		// ***************************************************************
+		// Datenelemente für Video erstellen
 
-		// Nachname
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 3;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer
-				.add(labelDetailCustLastName, gridBagConstDetailCust);
+		JLabel labelDetailVTitle = new JLabel("Titel:");
+		textFieldDetailVTitle = new JTextField();
+		textFieldDetailVTitle.setEditable(false);
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 3;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustLastName,
-				gridBagConstDetailCust);
+		JLabel labelDetailVReliaseYear = new JLabel("Erscheinungsdatum:");
+		textFieldDetailVReleaseYear = new JTextField();
+		textFieldDetailVReleaseYear.setEditable(false);
 
-		// Geburtsdatum
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 4;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer
-				.add(labelDetailCustBirthDay, gridBagConstDetailCust);
+		JLabel labelDetailVRatedAge = new JLabel("Altersbeschränkung:");
+		textFieldDetailVRatedAge = new JTextField();
+		textFieldDetailVRatedAge.setEditable(false);
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 4;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustBirthDay,
-				gridBagConstDetailCust);
+		JLabel labelDetailVPriceCategory = new JLabel("Preisklasse:");
+		textFieldDetailVPriceCategory = new JTextField();
+		textFieldDetailVPriceCategory.setEditable(false);
 
-		// Anschrift
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 5;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustAddress, gridBagConstDetailCust);
+		JLabel labelDetailVState = new JLabel("Status:");
+		textFieldDetailVState = new JTextField();
+		textFieldDetailVState.setEditable(false);
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 5;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustFirstAddress,
-				gridBagConstDetailCust);
+		JLabel labelDetailVDuration = new JLabel("Rückgabefrist:");
+		textFieldDetailVDuration = new JTextField();
+		textFieldDetailVDuration.setEditable(false);
 
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 6;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustLastAddress,
-				gridBagConstDetailCust);
+		JLabel labelDetailVUnit = new JLabel("Exemplare:");
 
-		// Label zur Layoutstabilisierung
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 7;
-		gridBagConstDetailCust.gridwidth = 2;
-		gridBagConstDetailCust.gridheight = GridBagConstraints.RELATIVE;
-		gridBagConstDetailCust.weightx = 1.0;
-		gridBagConstDetailCust.weighty = 1.0;
-		gridBagConstDetailCust.fill = GridBagConstraints.BOTH;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 0, 0);
-		panelDetailCustomer.add(new JLabel(), gridBagConstDetailCust);
+		// Model definieren
+		listDetailVUnit = new JList();
+		listDetailVUnit
+				.addListSelectionListener(new DetailVideoListSelectionHandler(
+						mainWindow));
 
-		// Übernehmen Button hinzufügen
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 8;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(buttonDetailCustAdd, gridBagConstDetailCust);
+		buttonDetailVadd = new JButton("Übernehmen");
+		buttonDetailVadd.addActionListener(new ActionListener() {
 
-		panelDetails = new JPanel(new CardLayout());
-		panelDetails.add(panelDetailVideo, VIDEODETAILS);
-		panelDetails.add(panelDetailCustomer, CUSTOMERDETAILS);
-		
-		this.changePanelDetailsCard(VIDEODETAILS);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				VideoUnit selectedVideoUnit;
+				try {
+					selectedVideoUnit = VideoUnit.findByID(Integer
+							.parseInt((String) listDetailVUnit
+									.getSelectedValue()));
+					DetailPanel.this.mainWindow.getRentPanel()
+							.addVideoUnitInRentTable(selectedVideoUnit);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
-		panelDetails.setBorder(BorderFactory
-				.createTitledBorder("Informationen"));
+		// ***************************************************************
+		// Datenelemente in das Videopanel einfügen
 
-		return panelDetails;
+		// Layout.addComponent(container, component, x, y, gridwidth,
+		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
+		Layout.addComponent(panelDetailVideo, labelDetailVTitle, 0, 0, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVTitle, 1, 0, 1,
+				1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVReliaseYear, 0, 1, 1,
+				1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVReleaseYear, 1,
+				1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVRatedAge, 0, 2, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVRatedAge, 1, 2,
+				1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVPriceCategory, 0, 3,
+				1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVPriceCategory, 1,
+				3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVState, 0, 4, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVState, 1, 4, 1,
+				1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVDuration, 0, 5, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVDuration, 1, 5,
+				1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVUnit, 0, 6, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, new JScrollPane(listDetailVUnit),
+				1, 6, 1, 3, 0.7, 1.0, 0, 60, GridBagConstraints.BOTH,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, buttonDetailVadd, 1, 9, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+
+		return panelDetailVideo;
+	}
+
+	private Container createRentDetails() {
+
+		JPanel rentPanel = new JPanel();
+		rentPanel.setLayout(new GridBagLayout());
+
+		JLabel labelRentID = new JLabel("AusleihNr.:");
+		textFieldRentID = new JTextField();
+		textFieldRentID.setEnabled(false);
+
+		JLabel labelRentCustomerID = new JLabel("KundenNr.:");
+		textFieldRentCustomerID = new JTextField();
+		textFieldRentCustomerID.setEnabled(false);
+
+		JLabel labelRentVideoID = new JLabel("FilmNr.:");
+		textFieldRentVideoID = new JTextField();
+		textFieldRentVideoID.setEnabled(false);
+
+		JLabel labelRentVideoTitle = new JLabel("Titel:");
+		textFieldRentVideoTitle = new JTextField();
+		textFieldRentVideoTitle.setEnabled(false);
+
+		JLabel labelRentReturnDate = new JLabel("Rückgabefrist:");
+		textFieldRentReturnDate = new JTextField();
+		textFieldRentReturnDate.setEnabled(false);
+
+		JLabel labelRentWarning = new JLabel("Mahnung:");
+		textFieldRentWarning = new JTextField();
+		textFieldRentWarning.setEnabled(false);
+
+		// ***************************************************************
+		// in Rentpanel hinzufügen
+		// Layout.addComponent(container, component, x, y, gridwidth,
+		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
+		Layout.addComponent(rentPanel, labelRentID, 0, 0, 1, 1, 0.3, 0.0, 0, 0,
+				GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentID, 1, 0, 1, 1, 0.7, 0.0,
+				150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentCustomerID, 0, 1, 1, 1, 0.3,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentCustomerID, 1, 1, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentVideoID, 0, 2, 1, 1, 0.3, 0.0,
+				0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentVideoID, 1, 2, 1, 1, 0.7,
+				0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentVideoTitle, 0, 3, 1, 1, 0.3,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentVideoTitle, 1, 3, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentReturnDate, 0, 4, 1, 1, 0.3,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentReturnDate, 1, 4, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentWarning, 0, 5, 1, 1, 0.3, 0.0,
+				0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentWarning, 1, 5, 1, 1, 0.7,
+				0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, new JLabel(), 0, 6, 2,
+				GridBagConstraints.REMAINDER, 1.0, 1.0, 0, 0,
+				GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE,
+				new Insets(3, 3, 0, 3));
+		return rentPanel;
 	}
 
 	public void changePanelDetailsCard(String cardName) {
@@ -500,15 +385,18 @@ public class DetailPanel {
 		} else if (cardName.equals(CUSTOMERDETAILS)) {
 			this.currentCard = CUSTOMERDETAILS;
 			layout.show(this.panelDetails, CUSTOMERDETAILS);
+		} else if (cardName.equals(RENTDETAILS)) {
+			this.currentCard = RENTDETAILS;
+			layout.show(this.panelDetails, RENTDETAILS);
 		}
 	}
 
 	public void fillPanelDetailVideo(Video video) {
-		
+
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
-		
+
 		this.textFieldDetailVTitle.setText(video.getTitle());
 		this.textFieldDetailVReleaseYear.setText(new Integer(video
 				.getReleaseYear()).toString());
@@ -523,21 +411,21 @@ public class DetailPanel {
 		}
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getSortedVideoUnits());
-		
-		
+
 		class ColoredListCellRenderer extends DefaultListCellRenderer {
 
 			public void setValue(Object value) {
-            	if (value instanceof VideoUnit) {
-            		if (((VideoUnit) value).isRented()) {
-            			setBackground(Color.RED);
-            		} else setBackground(Color.GREEN);
-            	}
-            }
-        }
-		
+				if (value instanceof VideoUnit) {
+					if (((VideoUnit) value).isRented()) {
+						setBackground(Color.RED);
+					} else
+						setBackground(Color.GREEN);
+				}
+			}
+		}
+
 		listDetailVUnit.setCellRenderer(new ColoredListCellRenderer());
-		
+
 		this.listDetailVUnit.setListData(videoUnits);
 		this.listDetailVUnit.setSelectedIndex(0);
 		fillPanelDetailVideoState(videoUnits.get(0));
@@ -559,11 +447,11 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailCustomer(Customer customer) {
-		
+
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setCustomerButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
-		
+
 		textFieldDetailCustID.setText(Integer.toString(customer.getID()));
 		textFieldDetailCustTitle.setText(customer.getTitle());
 		textFieldDetailCustFirstName.setText(customer.getFirstName());
@@ -571,6 +459,62 @@ public class DetailPanel {
 		textFieldDetailCustBirthDay.setText(customer.getBirthDate().toString());
 		textFieldDetailCustFirstAddress.setText(customer.getFirstAddressRow());
 		textFieldDetailCustLastAddress.setText(customer.getLastAddressRow());
+	}
+
+	public void fillPanelDetailInRent(InRent inRent, VideoUnit selectedVideoUnit) {
+
+		if (inRent.getVideoUnitIDs().contains(selectedVideoUnit.getID())) {
+			this.textFieldRentID.setText(Integer.toString(inRent.getID()));
+			this.textFieldRentCustomerID.setText(Integer.toString(inRent
+					.getCustomer().getID()));
+			this.textFieldRentVideoID.setText(Integer.toString(selectedVideoUnit.getVideoID()));
+			this.textFieldRentVideoTitle.setText(selectedVideoUnit.getVideo().getTitle());
+			this.textFieldRentReturnDate.setText(inRent.getReturnDate().toString());
+//			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
+		}
+	}
+
+	public void deleteCustomer() {
+		try {
+			Integer cusrrentCustomerID = Integer.parseInt(this
+					.getTextFieldDetailCustID().getText());
+			Customer currentCusomer = Customer.findByID(cusrrentCustomerID);
+
+			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
+					.getMainFrame(), "Möchten Sie den Kunden mit der Nummer "
+					+ cusrrentCustomerID + " wirklich löschen?",
+					"Kunden Löschen", JOptionPane.YES_NO_OPTION);
+
+			if (selectedOption == JOptionPane.YES_OPTION) {
+				currentCusomer.delete();
+			}
+		} catch (Exception e) {
+			if (e instanceof RecordNotFoundException) {
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	public void deleteVideoUnit() {
+		try {
+			VideoUnit currentVideoUnit = (VideoUnit) this.getListDetailVUnit()
+					.getSelectedValue();
+
+			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
+					.getMainFrame(), "Möchten Sie den Film mit der Nummer "
+					+ currentVideoUnit.getID() + " wirklich löschen?",
+					"Film Löschen", JOptionPane.YES_NO_OPTION);
+
+			if (selectedOption == JOptionPane.YES_OPTION) {
+				currentVideoUnit.delete();
+			}
+		} catch (Exception e) {
+			if (e instanceof RecordNotFoundException) {
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	public JTextField getTextFieldDetailVTitle() {

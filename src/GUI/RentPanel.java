@@ -23,6 +23,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import GUI.TableModels.NotEditableTableModel;
+import GUI.TableModels.ReturnTableModel;
 
 import model.Customer;
 import model.VideoUnit;
@@ -261,7 +262,8 @@ public class RentPanel {
 		columnNames.add("Rückgabefrist");
 		columnNames.add("Mahnungskosten");
 		
-		TableModel returnTableModel = new NotEditableTableModel(columnNames, 0);
+		// TODO RentTablePanel eintragen
+		TableModel returnTableModel = new DefaultTableModel(columnNames, 0);
 		return returnTableModel;
 	}
 	

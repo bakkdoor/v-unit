@@ -15,7 +15,7 @@ import model.events.VideothekEventListener;
  */
 public abstract class NotEditableTableModel extends DefaultTableModel implements VideothekEventListener {
     
-	public NotEditableTableModel(Object[] columnNames, int rowCount)
+	public NotEditableTableModel(Vector<String> columnNames, int rowCount)
 	{
 		super(columnNames, rowCount);
 	}

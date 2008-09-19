@@ -3,6 +3,7 @@ bin/*
 *.classpath
 *.project
 .settings/*
+.quittungen/*.txt
 management/Thumbs.db
 icons/Thumbs.db
 Videothek.log

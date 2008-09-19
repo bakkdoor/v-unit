@@ -10,7 +10,7 @@ public class DataDialog {
 	public static final String VIDEODIALOG = "videoDialog";
 	
 	
-	public DataDialog(Frame owner, final String dialogView){
+	public DataDialog(MainWindow owner, final String dialogView){
 
 		if (dialogView.equals(CUSTOMERDIALOG)) {
 			new GUI.CustomerDataDialog(owner);
