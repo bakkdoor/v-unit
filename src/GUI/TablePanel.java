@@ -12,6 +12,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -19,10 +20,12 @@ import javax.swing.table.TableRowSorter;
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
 import GUI.TableModels.CustomerTableModel;
+import GUI.TableModels.InRentTableModel;
 import GUI.TableModels.NotEditableTableModel;
 import GUI.TableModels.VideoTableModel;
 
 import model.Customer;
+import model.InRent;
 import model.Video;
 import model.data.exceptions.RecordNotFoundException;
 
@@ -43,8 +46,7 @@ public class TablePanel {
 
 		this.mainWindow = mainWindow;
 		tableVideo = this.createTableVideo();
-		tableVideo
-				.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
+		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
 		ListSelectionModel tableVideoSelectionModel = tableVideo
 				.getSelectionModel();
 		tableVideoSelectionModel
@@ -60,10 +62,10 @@ public class TablePanel {
 				.addListSelectionListener(new TableCustomerListSelectionHandler(
 						mainWindow));
 
-		String[][] rentContent = { { "", "", "", "", "" } };
-		String[] rentCollName = { "ID", "KundenNr.", "FilmNr.",
-				"Rückgabefrist", "Mahnung" };
-		tableRent = new JTable(rentContent, rentCollName);
+		tableRent = this.createTableRent();
+		tableRent.setRowSorter(new TableRowSorter<TableModel>(tableRent
+				.getModel()));
+//		tableRent.addListSelectionListener(new TableRentListSelectionHandler(mainWindow));
 
 		String[][] searchVideo = { { "", "", "", "" } };
 		String[] searchVideoName = { "Titel", "Erscheinungsjahr",
@@ -110,7 +112,7 @@ public class TablePanel {
 
 	private JTable createTableCustomer() {
 
-		Vector<String> customerColumnNames = new Vector(7);
+		Vector<String> customerColumnNames = new Vector<String>(7);
 		customerColumnNames.add("KundenNr.");
 		customerColumnNames.add("Anrede");
 		customerColumnNames.add("Vorname");
@@ -153,6 +155,7 @@ public class TablePanel {
 		VideoTableModel tableModel = new VideoTableModel(videeoColumnNames, 0);
 		Vector<Video> videoVector = new Vector(Video.findAll());
 
+		// initiales Füllen
 		for (int indexVideo = 0; indexVideo < videoVector.size(); indexVideo++) {
 			Video newVideo = videoVector.get(indexVideo);
 			tableModel.insertRow(newVideo);
@@ -167,6 +170,35 @@ public class TablePanel {
 		colModel.getColumn(4).setPreferredWidth(155);
 
 		return videoTable;
+	}
+	
+	private JTable createTableRent() {
+		
+		Vector<String> colNames = new Vector<String>(6);
+		colNames.add("AusleihNr.");
+		colNames.add("KundeNr.");
+		colNames.add("ExemplarNr.");
+		colNames.add("Titel");
+		colNames.add("Rückgabefrist.");
+		colNames.add("Mahnung.");
+		
+		InRentTableModel tableModel = new InRentTableModel(colNames, 0);
+		Vector<InRent> inRentVector = new Vector(InRent.findAll());
+		
+		for (InRent inRent : inRentVector) {
+			tableModel.insertRow(inRent);
+		}
+		
+		JTable rentTable = new JTable(tableModel);
+		TableColumnModel colModel = rentTable.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(100);
+		colModel.getColumn(1).setPreferredWidth(100);
+		colModel.getColumn(2).setPreferredWidth(100);
+		colModel.getColumn(3).setPreferredWidth(350);
+		colModel.getColumn(4).setPreferredWidth(100);
+		colModel.getColumn(5).setPreferredWidth(100);
+		
+		return rentTable;
 	}
 
 	public JTable getTableVideo() {
