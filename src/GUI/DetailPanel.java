@@ -54,15 +54,15 @@ public class DetailPanel {
 	private JTextField textFieldDetailCustBirthDay;
 	private JTextField textFieldDetailCustFirstAddress;
 	private JTextField textFieldDetailCustLastAddress;
-	
+
 	// Rentcard Datenfelder
 	private JTextField textFieldRentID;
 	private JTextField textFieldRentCustomerID;
 	private JTextField textFieldRentVideoID;
 	private JTextField textFieldRentVideoTitle;
 	private JTextField textFieldRentReturnDate;
-	private JTextField textFieldRentWarning ;
-	
+	private JTextField textFieldRentWarning;
+
 	public String currentCard;
 	public static final String VIDEODETAILS = "Video";
 	public static final String CUSTOMERDETAILS = "Customer";
@@ -77,16 +77,16 @@ public class DetailPanel {
 		panelDetails.add(this.createCustomerDetails(), CUSTOMERDETAILS);
 		panelDetails.add(this.createRentDetails(), RENTDETAILS);
 
-//		this.changePanelDetailsCard(RENTDETAILS);
+		// this.changePanelDetailsCard(RENTDETAILS);
 
 		panelDetails.setBorder(BorderFactory
 				.createTitledBorder("Informationen"));
 
 		return panelDetails;
 	}
-	
+
 	private Container createCustomerDetails() {
-		
+
 		// KundenPanel generieren
 		JPanel panelDetailCustomer = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstDetailCust = new GridBagConstraints();
@@ -130,30 +130,64 @@ public class DetailPanel {
 
 		// ***************************************************************
 		// Datenelemente in deas Kunden Panel einfügen
-		
-//		Layout.addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets);
-		Layout.addComponent(panelDetailCustomer, labelDetailCustID, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustID, 1, 0, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,0,3,3));
-		Layout.addComponent(panelDetailCustomer, labelDetailCustTitle, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustTitle, 1, 1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailCustomer, labelDetailCustFirstName, 0, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustFirstName, 1, 2, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailCustomer, labelDetailCustLastName, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustLastName, 1, 3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailCustomer, labelDetailCustBirthDay, 0, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustBirthDay, 1, 4, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailCustomer, labelDetailCustAddress, 0, 5, 1, 1, 0.3, 0.0, 00, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustFirstAddress, 1, 5, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailCustomer, textFieldDetailCustLastAddress, 1, 6, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+
+		// Layout.addComponent(container, component, x, y, gridwidth,
+		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets);
+		Layout.addComponent(panelDetailCustomer, labelDetailCustID, 0, 0, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustID, 1, 0,
+				1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustTitle, 0, 1, 1,
+				1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustTitle, 1,
+				1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustFirstName, 0,
+				2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustFirstName,
+				1, 2, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustLastName, 0, 3,
+				1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustLastName,
+				1, 3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustBirthDay, 0, 4,
+				1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustBirthDay,
+				1, 4, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustAddress, 0, 5,
+				1, 1, 0.3, 0.0, 00, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailCustomer,
+				textFieldDetailCustFirstAddress, 1, 5, 1, 1, 0.7, 0.0, 150, 0,
+				GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailCustomer,
+				textFieldDetailCustLastAddress, 1, 6, 1, 1, 0.7, 0.0, 150, 0,
+				GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
 		// Lablel zur Layout Stabilisierung
-		Layout.addComponent(panelDetailCustomer, new JLabel(), 0, 7, 2, GridBagConstraints.RELATIVE, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,0,0));
-		Layout.addComponent(panelDetailCustomer, buttonDetailCustAdd, 1, 8, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailCustomer, new JLabel(), 0, 7, 2,
+				GridBagConstraints.RELATIVE, 1.0, 1.0, 0, 0,
+				GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE,
+				new Insets(0, 0, 0, 0));
+		Layout.addComponent(panelDetailCustomer, buttonDetailCustAdd, 1, 8, 1,
+				1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
 
 		return panelDetailCustomer;
 	}
-	
+
 	private Container createVideoDetails() {
-		
+
 		// Panel für Videodetails
 		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
@@ -212,75 +246,133 @@ public class DetailPanel {
 			}
 		});
 
-		
 		// ***************************************************************
 		// Datenelemente in das Videopanel einfügen
 
-//		Layout.addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
-		Layout.addComponent(panelDetailVideo, labelDetailVTitle, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, textFieldDetailVTitle, 1, 0, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailVideo, labelDetailVReliaseYear, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, textFieldDetailVReleaseYear, 1, 1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailVideo, labelDetailVRatedAge, 0, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, textFieldDetailVRatedAge, 1, 2, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailVideo, labelDetailVPriceCategory, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, textFieldDetailVPriceCategory, 1, 3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailVideo, labelDetailVState, 0, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, textFieldDetailVState, 1, 4, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailVideo, labelDetailVDuration, 0, 5, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, textFieldDetailVDuration, 1, 5, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
-		Layout.addComponent(panelDetailVideo, labelDetailVUnit, 0, 6, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
-		Layout.addComponent(panelDetailVideo, new JScrollPane(listDetailVUnit), 1, 6, 1, 3, 0.7, 1.0, 0, 60, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(3,0,3,3));
-		Layout.addComponent(panelDetailVideo, buttonDetailVadd, 1, 9, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,0,3,3));
+		// Layout.addComponent(container, component, x, y, gridwidth,
+		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
+		Layout.addComponent(panelDetailVideo, labelDetailVTitle, 0, 0, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVTitle, 1, 0, 1,
+				1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVReliaseYear, 0, 1, 1,
+				1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVReleaseYear, 1,
+				1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVRatedAge, 0, 2, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVRatedAge, 1, 2,
+				1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVPriceCategory, 0, 3,
+				1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVPriceCategory, 1,
+				3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVState, 0, 4, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVState, 1, 4, 1,
+				1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVDuration, 0, 5, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVDuration, 1, 5,
+				1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, labelDetailVUnit, 0, 6, 1, 1,
+				0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 3));
+		Layout.addComponent(panelDetailVideo, new JScrollPane(listDetailVUnit),
+				1, 6, 1, 3, 0.7, 1.0, 0, 60, GridBagConstraints.BOTH,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+		Layout.addComponent(panelDetailVideo, buttonDetailVadd, 1, 9, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
 
 		return panelDetailVideo;
 	}
-	
+
 	private Container createRentDetails() {
-		
+
 		JPanel rentPanel = new JPanel();
 		rentPanel.setLayout(new GridBagLayout());
-		
+
 		JLabel labelRentID = new JLabel("AusleihNr.:");
 		textFieldRentID = new JTextField();
 		textFieldRentID.setEnabled(false);
-		
+
 		JLabel labelRentCustomerID = new JLabel("KundenNr.:");
 		textFieldRentCustomerID = new JTextField();
 		textFieldRentCustomerID.setEnabled(false);
-		
+
 		JLabel labelRentVideoID = new JLabel("FilmNr.:");
 		textFieldRentVideoID = new JTextField();
 		textFieldRentVideoID.setEnabled(false);
-		
+
 		JLabel labelRentVideoTitle = new JLabel("Titel:");
 		textFieldRentVideoTitle = new JTextField();
 		textFieldRentVideoTitle.setEnabled(false);
-		
+
 		JLabel labelRentReturnDate = new JLabel("Rückgabefrist:");
 		textFieldRentReturnDate = new JTextField();
 		textFieldRentReturnDate.setEnabled(false);
-		
+
 		JLabel labelRentWarning = new JLabel("Mahnung:");
-		textFieldRentWarning  = new JTextField();
-		textFieldRentWarning .setEnabled(false);
+		textFieldRentWarning = new JTextField();
+		textFieldRentWarning.setEnabled(false);
 
 		// ***************************************************************
 		// in Rentpanel hinzufügen
-//		Layout.addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
-		Layout.addComponent(rentPanel, labelRentID, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, textFieldRentID, 1, 0, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, labelRentCustomerID, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, textFieldRentCustomerID, 1, 1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, labelRentVideoID, 0, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, textFieldRentVideoID, 1, 2, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, labelRentVideoTitle, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, textFieldRentVideoTitle, 1, 3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, labelRentReturnDate, 0, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, textFieldRentReturnDate, 1, 4, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, labelRentWarning, 0, 5, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, textFieldRentWarning, 1, 5, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
-		Layout.addComponent(rentPanel, new JLabel(), 0, 6, 2, GridBagConstraints.REMAINDER, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,0,3));
+		// Layout.addComponent(container, component, x, y, gridwidth,
+		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
+		Layout.addComponent(rentPanel, labelRentID, 0, 0, 1, 1, 0.3, 0.0, 0, 0,
+				GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentID, 1, 0, 1, 1, 0.7, 0.0,
+				150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentCustomerID, 0, 1, 1, 1, 0.3,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentCustomerID, 1, 1, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentVideoID, 0, 2, 1, 1, 0.3, 0.0,
+				0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentVideoID, 1, 2, 1, 1, 0.7,
+				0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentVideoTitle, 0, 3, 1, 1, 0.3,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentVideoTitle, 1, 3, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentReturnDate, 0, 4, 1, 1, 0.3,
+				0.0, 0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentReturnDate, 1, 4, 1, 1,
+				0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, labelRentWarning, 0, 5, 1, 1, 0.3, 0.0,
+				0, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, textFieldRentWarning, 1, 5, 1, 1, 0.7,
+				0.0, 150, 0, GridBagConstraints.HORIZONTAL,
+				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
+		Layout.addComponent(rentPanel, new JLabel(), 0, 6, 2,
+				GridBagConstraints.REMAINDER, 1.0, 1.0, 0, 0,
+				GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE,
+				new Insets(3, 3, 0, 3));
 		return rentPanel;
 	}
 
@@ -369,56 +461,58 @@ public class DetailPanel {
 		textFieldDetailCustLastAddress.setText(customer.getLastAddressRow());
 	}
 
-	public void fillPanelDetailInRent (InRent inRent, VideoUnit selectedVideoUnit) {
-		try {
-//			if (inRent.get)
+	public void fillPanelDetailInRent(InRent inRent, VideoUnit selectedVideoUnit) {
+
+		if (inRent.getVideoUnitIDs().contains(selectedVideoUnit.getID())) {
 			this.textFieldRentID.setText(Integer.toString(inRent.getID()));
-			this.textFieldRentCustomerID.setText(Integer.toString(inRent.getCustomer().getID()));
-			this.textFieldRentVideoID.setText();
-		} catch (RecordNotFoundException e) {
-			// TODO Customer nicht gefunden
-			e.printStackTrace();
+			this.textFieldRentCustomerID.setText(Integer.toString(inRent
+					.getCustomer().getID()));
+			this.textFieldRentVideoID.setText(Integer.toString(selectedVideoUnit.getVideoID()));
+			this.textFieldRentVideoTitle.setText(selectedVideoUnit.getVideo().getTitle());
+			this.textFieldRentReturnDate.setText(inRent.getReturnDate().toString());
+//			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
 		}
 	}
-	
+
 	public void deleteCustomer() {
 		try {
 			Integer cusrrentCustomerID = Integer.parseInt(this
 					.getTextFieldDetailCustID().getText());
 			Customer currentCusomer = Customer.findByID(cusrrentCustomerID);
-			
-			int selectedOption = JOptionPane.showConfirmDialog(mainWindow.getMainFrame(),
-					"Möchten Sie den Kunden mit der Nummer " + cusrrentCustomerID + " wirklich löschen?",
+
+			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
+					.getMainFrame(), "Möchten Sie den Kunden mit der Nummer "
+					+ cusrrentCustomerID + " wirklich löschen?",
 					"Kunden Löschen", JOptionPane.YES_NO_OPTION);
-			
+
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentCusomer.delete();
 			}
 		} catch (Exception e) {
 			if (e instanceof RecordNotFoundException) {
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
-						e.getMessage(),
-						"Fehler", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
 	public void deleteVideoUnit() {
 		try {
-			VideoUnit currentVideoUnit = (VideoUnit) this.getListDetailVUnit().getSelectedValue();
-			
-			int selectedOption = JOptionPane.showConfirmDialog(mainWindow.getMainFrame(),
-					"Möchten Sie den Film mit der Nummer " + currentVideoUnit.getID() + " wirklich löschen?",
+			VideoUnit currentVideoUnit = (VideoUnit) this.getListDetailVUnit()
+					.getSelectedValue();
+
+			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
+					.getMainFrame(), "Möchten Sie den Film mit der Nummer "
+					+ currentVideoUnit.getID() + " wirklich löschen?",
 					"Film Löschen", JOptionPane.YES_NO_OPTION);
-			
+
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentVideoUnit.delete();
 			}
 		} catch (Exception e) {
 			if (e instanceof RecordNotFoundException) {
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
-						e.getMessage(),
-						"Fehler", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

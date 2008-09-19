@@ -47,8 +47,8 @@ public class Programm
 			Logger.get().write("Es gab einen Fehler beim Laden!");
 		}
 
-//		mainWindow = new MainWindow();
-//		mainWindow.getMainFrame().setVisible(true);
+		mainWindow = new MainWindow();
+		mainWindow.getMainFrame().setVisible(true);
 	}
 
 	public static void shutdown()
