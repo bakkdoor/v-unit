@@ -1,0 +1,16 @@
+Quittung fuer AusleihNr.: 1           Datum: 19.9.2008
+======================================================
+
+KundenNr.: 			2
+Kundenname: 		Max Mustermann
+
+Filme:
+1          Rambo  (1.99 Euro/Woche)
+
+Rueckgabetermin: 	1.10.2008
+Ausleihdauer: 		2Wochen 
+Ausleihpreis: 		3.98 Euro
+
+
+======================================================
+Unterschrift Kunde:
