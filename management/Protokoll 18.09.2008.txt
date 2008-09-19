@@ -1,0 +1,31 @@
+
+Videothekgruppe: Christopher Bertels, Waldemar Smirnow, Andie Hoffmann, Volha Baranouskaya.
+
+
+Protokoll von Teamversammlung am 18.09:
+**************************************
+
+Allgemeine Fragestellungen & Klärungen:
+
+	allgemein: - ab Fr.19.09 treffen wir uns um 10:00.
+	
+
+	GUI: - genau Funktionalität/Realisierung von Buttons "Bearbeiten", "Löschen" im Menübar/ Tollbar.
+	     - genau Funktionalität und Entwurf von der Realisierung der Auslehfenster und 
+	       Verbindung mit den Tabellen und DetailPanel.
+
+	- Model/Business-Logik: Andie ist krank. Christopher hat es teilweise übernommen.
+
+	- Data/XML-Backend: Quittungen für Auslehe/ Mahnung
+
+Plan für den Tag:
+
+	GUI: - Bearbeitung von Buttons "Bearbeitung", "Löschen".
+	     - ActionListener für Buttons "Bearbeitung", "Löschen".
+	     - Klasse "TabelModels" realisiert.
+
+	Model/Business-Logik/Data/XML-Backend: 
+	     - Umstellung der Ausleihungen, sodass jede Ausleihe mehrere  Filmexemplare besitzen kann
+             - Eventsystem grundsätzlich fertiggestellt, was noch fehlt sind  jeweils die Eventklassen 
+	       für spezielle Events (Customer- & Videoevents  sind schon hinzugefügt)
+               Fehlt noch  das Erstellen von Quittungen für Mahnungen (folgt morgen)

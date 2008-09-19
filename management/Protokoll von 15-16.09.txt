@@ -1,0 +1,23 @@
+﻿
+Protokoll 15-16.09.2008 (Videothek-Projekt)
+  
+Allgemeine Fragestellungen & Klärungen
+
+  - Fragestellungen:
+
+ GUI:   - erlauben suche nach dem Nachnamen vom Kunden. 
+	- bei dem Kunde darf man nur Adresse bearbeiten.
+	- Ausleihdauer pro Film vorlegen.
+	- die Quittung für Auslehliste erlauben.
+
+- Model/Business-Logik: 
+
+- Data/XML-Backend:
+
+Aktueller Zeitplan:
+ Am Montag wurde die Dialogfenster fertig gemacht. Am Dienstag wurde es mit Funktionalitätsimplimentation angefangen.
+ XML-Dateien werden konfiguriert.
+
+
+
+	
