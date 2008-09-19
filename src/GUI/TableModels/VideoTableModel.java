@@ -52,7 +52,7 @@ public class VideoTableModel extends NotEditableTableModel
 						if (getValueAt(rowIndex, colIndex).equals("Preisklasse")) {
 							try {
 								PriceCategory priceCategory = video.getPriceCategory();
-								setValueAt(priceCategory, rowIndex, colIndex);
+								setValueAt(priceCategory.getName(), rowIndex, colIndex);
 							} catch (RecordNotFoundException e) {
 								// TODO konnte keine preiscategory aus den neuen video auslesen
 								e.printStackTrace();
@@ -78,12 +78,16 @@ public class VideoTableModel extends NotEditableTableModel
 	{
 		Vector rowData = new Vector();
 		
+		try {
 		rowData.add(newVideo.getID());
 		rowData.add(newVideo.getTitle());
 		rowData.add(newVideo.getReleaseYear());
 		rowData.add(newVideo.getRatedAge());
-		rowData.add(newVideo.getPriceCategoryID());
-				
+		rowData.add(newVideo.getPriceCategory().getName());
 		super.getDataVector().add(rowData);
+		} catch (RecordNotFoundException e) {
+			// TODO Fehlerbehandlung bei falscher Preiskategorie
+			e.printStackTrace();
+		}
 	}
 }

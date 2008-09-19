@@ -78,6 +78,7 @@ public class EventManager
 	 */
 	public static void fireEvent(VideothekEvent event)
 	{
+		if(!listenerMap.isEmpty())
 		for (VideothekEventListener listener : listenerMap
 				.get(event.getClass()))
 		{

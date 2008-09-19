@@ -28,7 +28,7 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 		
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
 		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
-		int vID = Integer.parseInt((String) videoTable.getValueAt(lsm.getMinSelectionIndex(), 0));
+		int vID = (Integer) videoTable.getValueAt(lsm.getMinSelectionIndex(), 0);
 		
 		try {
 			Video selectedVideo = Video.findByID(vID);

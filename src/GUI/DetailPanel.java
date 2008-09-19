@@ -3,6 +3,7 @@ package GUI;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -56,11 +57,95 @@ public class DetailPanel {
 	public String currentCard;
 	public static final String VIDEODETAILS = "Video";
 	public static final String CUSTOMERDETAILS = "Customer";
+	public static final String RENTDETAILS = "Rent";
 
 	protected Component createDetailPanel(MainWindow mainWindow) {
 
 		this.mainWindow = mainWindow;
 
+		panelDetails = new JPanel(new CardLayout());
+		panelDetails.add(this.createVideoDetails(), VIDEODETAILS);
+		panelDetails.add(this.createCustomerDetails(), CUSTOMERDETAILS);
+		panelDetails.add(this.createCustomerDetails(), CUSTOMERDETAILS);
+//		panelDetails.add(this.createRentDetails(), RENTDETAILS);
+
+		this.changePanelDetailsCard(VIDEODETAILS);
+
+		panelDetails.setBorder(BorderFactory
+				.createTitledBorder("Informationen"));
+
+		return panelDetails;
+	}
+	
+	private Container createCustomerDetails() {
+		
+		// KundenPanel generieren
+		JPanel panelDetailCustomer = new JPanel(new GridBagLayout());
+		GridBagConstraints gridBagConstDetailCust = new GridBagConstraints();
+
+		// ***************************************************************
+
+		// KundenNr erzeugen
+		JLabel labelDetailCustID = new JLabel("KundenNr.:");
+		textFieldDetailCustID = new JTextField();
+		textFieldDetailCustID.setEditable(false);
+
+		// Anrede erzeugen
+		JLabel labelDetailCustTitle = new JLabel("Anrede:");
+		textFieldDetailCustTitle = new JTextField();
+		textFieldDetailCustTitle.setEditable(false);
+
+		// Vorname erzeugen
+		JLabel labelDetailCustFirstName = new JLabel("Vorname:");
+		textFieldDetailCustFirstName = new JTextField();
+		textFieldDetailCustFirstName.setEditable(false);
+
+		// Nachname erzeugen
+		JLabel labelDetailCustLastName = new JLabel("Nachname:");
+		textFieldDetailCustLastName = new JTextField();
+		textFieldDetailCustLastName.setEditable(false);
+
+		// Geburtsdatum erzeugen
+		JLabel labelDetailCustBirthDay = new JLabel("Geburtsdatum:");
+		textFieldDetailCustBirthDay = new JTextField();
+		textFieldDetailCustBirthDay.setEditable(false);
+
+		// Anschrift erzeugen
+		JLabel labelDetailCustAddress = new JLabel("Anschrift:");
+		textFieldDetailCustFirstAddress = new JTextField();
+		textFieldDetailCustFirstAddress.setEditable(false);
+		textFieldDetailCustLastAddress = new JTextField();
+		textFieldDetailCustLastAddress.setEditable(false);
+
+		// Übernehmen Button erzeugen
+		JButton buttonDetailCustAdd = new JButton("Übernehmen");
+
+		// ***************************************************************
+		// Datenelemente in deas Kunden Panel einfügen
+		
+//		Layout.addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets);
+		Layout.addComponent(panelDetailCustomer, labelDetailCustID, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustID, 1, 0, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,0,3,3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustTitle, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustTitle, 1, 1, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustFirstName, 0, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustFirstName, 1, 2, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustLastName, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustLastName, 1, 3, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustBirthDay, 0, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustBirthDay, 1, 4, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailCustomer, labelDetailCustAddress, 0, 5, 1, 1, 0.3, 0.0, 00, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustFirstAddress, 1, 5, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailCustomer, textFieldDetailCustLastAddress, 1, 6, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		// Lablel zur Layout Stabilisierung
+		Layout.addComponent(panelDetailCustomer, new JLabel(), 0, 7, 2, GridBagConstraints.RELATIVE, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,0,0));
+		Layout.addComponent(panelDetailCustomer, buttonDetailCustAdd, 1, 8, 1, 1, 0.7, 0.0, 150, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+
+		return panelDetailCustomer;
+	}
+	
+	private Container createVideoDetails() {
+		
 		// Panel für Videodetails
 		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
@@ -72,7 +157,7 @@ public class DetailPanel {
 		textFieldDetailVTitle = new JTextField();
 		textFieldDetailVTitle.setEditable(false);
 
-		JLabel labelDetailVReliaseDate = new JLabel("Erscheinungsdatum:");
+		JLabel labelDetailVReliaseYear = new JLabel("Erscheinungsdatum:");
 		textFieldDetailVReleaseYear = new JTextField();
 		textFieldDetailVReleaseYear.setEditable(false);
 
@@ -119,379 +204,32 @@ public class DetailPanel {
 			}
 		});
 
-		// Titel
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 1;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVTitle, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 1;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVTitle, gridBagConstDetailVideo);
-
-		// Erscheinungsdatum
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 2;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVReliaseDate, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 2;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVReleaseYear,
-				gridBagConstDetailVideo);
-
-		// Altersbeschränkung
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 3;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVRatedAge, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 3;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVRatedAge, gridBagConstDetailVideo);
-
-		// Preisklasse
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 4;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo
-				.add(labelDetailVPriceCategory, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 4;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVPriceCategory,
-				gridBagConstDetailVideo);
-
-		// Status
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 5;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVState, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 5;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVState, gridBagConstDetailVideo);
-
-		// Rückgabefrist
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 6;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVDuration, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 6;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(0, 0, 3, 3);
-		panelDetailVideo.add(textFieldDetailVDuration, gridBagConstDetailVideo);
-
-		// Exemplare
-		gridBagConstDetailVideo.gridx = 0;
-		gridBagConstDetailVideo.gridy = 7;
-		gridBagConstDetailVideo.weightx = 0.3;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(3, 3, 3, 3);
-		panelDetailVideo.add(labelDetailVUnit, gridBagConstDetailVideo);
-
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 7;
-		gridBagConstDetailVideo.ipady = 60;
-		gridBagConstDetailVideo.gridheight = 3;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 1.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.BOTH;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(3, 0, 3, 3);
-		panelDetailVideo.add(new JScrollPane(listDetailVUnit),
-				gridBagConstDetailVideo);
-
-		// Übernehmen Button
-		gridBagConstDetailVideo.gridx = 1;
-		gridBagConstDetailVideo.gridy = 10;
-		gridBagConstDetailVideo.ipady = 0;
-		gridBagConstDetailVideo.gridheight = 1;
-		gridBagConstDetailVideo.weightx = 0.7;
-		gridBagConstDetailVideo.weighty = 0.0;
-		gridBagConstDetailVideo.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailVideo.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailVideo.insets = new Insets(3, 0, 3, 3);
-		panelDetailVideo.add(buttonDetailVadd, gridBagConstDetailVideo);
-
+		
 		// ***************************************************************
+		// Datenelemente in das Videopanel einfügen
 
-		// KundenPanel generieren
-		JPanel panelDetailCustomer = new JPanel(new GridBagLayout());
-		GridBagConstraints gridBagConstDetailCust = new GridBagConstraints();
+//		Layout.addComponent(container, component, x, y, gridwidth, gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
+		Layout.addComponent(panelDetailVideo, labelDetailVTitle, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVTitle, 1, 0, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailVideo, labelDetailVReliaseYear, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVReleaseYear, 1, 1, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailVideo, labelDetailVRatedAge, 0, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVRatedAge, 1, 2, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailVideo, labelDetailVPriceCategory, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVPriceCategory, 1, 3, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailVideo, labelDetailVState, 0, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVState, 1, 4, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailVideo, labelDetailVDuration, 0, 5, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, textFieldDetailVDuration, 1, 5, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,0,3,3));
+		Layout.addComponent(panelDetailVideo, labelDetailVUnit, 0, 6, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0,3,3,3));
+		Layout.addComponent(panelDetailVideo, new JScrollPane(listDetailVUnit), 1, 6, 1, 3, 0.7, 1.0, 0, 60, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(3,0,3,3));
+		Layout.addComponent(panelDetailVideo, buttonDetailVadd, 1, 9, 1, 1, 0.7, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,0,3,3));
 
-		// ***************************************************************
-
-		// KundenNr erzeugen
-		JLabel labelDetailCustID = new JLabel("KundenNr.:");
-		textFieldDetailCustID = new JTextField();
-		textFieldDetailCustID.setEditable(false);
-
-		// Anrede erzeugen
-		JLabel labelDetailCustTitle = new JLabel("Anrede:");
-		textFieldDetailCustTitle = new JTextField();
-		textFieldDetailCustTitle.setEditable(false);
-
-		// Vorname erzeugen
-		JLabel labelDetailCustFirstName = new JLabel("Vorname:");
-		textFieldDetailCustFirstName = new JTextField();
-		textFieldDetailCustFirstName.setEditable(false);
-
-		// Nachname erzeugen
-		JLabel labelDetailCustLastName = new JLabel("Nachname:");
-		textFieldDetailCustLastName = new JTextField();
-		textFieldDetailCustLastName.setEditable(false);
-
-		// Geburtsdatum erzeugen
-		JLabel labelDetailCustBirthDay = new JLabel("Geburtsdatum:");
-		textFieldDetailCustBirthDay = new JTextField();
-		textFieldDetailCustBirthDay.setEditable(false);
-
-		// Anschrift erzeugen
-		JLabel labelDetailCustAddress = new JLabel("Anschrift:");
-		textFieldDetailCustFirstAddress = new JTextField();
-		textFieldDetailCustFirstAddress.setEditable(false);
-		textFieldDetailCustLastAddress = new JTextField();
-		textFieldDetailCustLastAddress.setEditable(false);
-
-		// Übernehmen Button erzeugen
-		JButton buttonDetailCustAdd = new JButton("Übernehmen");
-
-		// ***************************************************************
-
-		// Datenelemente in deas Kunden Panel einfügen
-		// KundenNr.
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 0;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(3, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustID, gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 0;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(3, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustID, gridBagConstDetailCust);
-
-		// Anrede
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 1;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustTitle, gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 1;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustTitle,
-				gridBagConstDetailCust);
-
-		// Vorname
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 2;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustFirstName,
-				gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 2;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustFirstName,
-				gridBagConstDetailCust);
-
-		// Nachname
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 3;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer
-				.add(labelDetailCustLastName, gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 3;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustLastName,
-				gridBagConstDetailCust);
-
-		// Geburtsdatum
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 4;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer
-				.add(labelDetailCustBirthDay, gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 4;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustBirthDay,
-				gridBagConstDetailCust);
-
-		// Anschrift
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 5;
-		gridBagConstDetailCust.weightx = 0.3;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 3, 3, 3);
-		panelDetailCustomer.add(labelDetailCustAddress, gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 5;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustFirstAddress,
-				gridBagConstDetailCust);
-
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 6;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.ipadx = 150;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(textFieldDetailCustLastAddress,
-				gridBagConstDetailCust);
-
-		// Label zur Layoutstabilisierung
-		gridBagConstDetailCust.gridx = 0;
-		gridBagConstDetailCust.gridy = 7;
-		gridBagConstDetailCust.gridwidth = 2;
-		gridBagConstDetailCust.gridheight = GridBagConstraints.RELATIVE;
-		gridBagConstDetailCust.weightx = 1.0;
-		gridBagConstDetailCust.weighty = 1.0;
-		gridBagConstDetailCust.fill = GridBagConstraints.BOTH;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 0, 0);
-		panelDetailCustomer.add(new JLabel(), gridBagConstDetailCust);
-
-		// Übernehmen Button hinzufügen
-		gridBagConstDetailCust.gridx = 1;
-		gridBagConstDetailCust.gridy = 8;
-		gridBagConstDetailCust.weightx = 0.7;
-		gridBagConstDetailCust.weighty = 0.0;
-		gridBagConstDetailCust.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstDetailCust.anchor = GridBagConstraints.BELOW_BASELINE;
-		gridBagConstDetailCust.insets = new Insets(0, 0, 3, 3);
-		panelDetailCustomer.add(buttonDetailCustAdd, gridBagConstDetailCust);
-
-		panelDetails = new JPanel(new CardLayout());
-		panelDetails.add(panelDetailVideo, VIDEODETAILS);
-		panelDetails.add(panelDetailCustomer, CUSTOMERDETAILS);
-
-		this.changePanelDetailsCard(VIDEODETAILS);
-
-		panelDetails.setBorder(BorderFactory
-				.createTitledBorder("Informationen"));
-
-		return panelDetails;
+		return panelDetailVideo;
+	}
+	
+	private Container createRentDetails() {
+		return null;
 	}
 
 	public void changePanelDetailsCard(String cardName) {
@@ -503,6 +241,9 @@ public class DetailPanel {
 		} else if (cardName.equals(CUSTOMERDETAILS)) {
 			this.currentCard = CUSTOMERDETAILS;
 			layout.show(this.panelDetails, CUSTOMERDETAILS);
+		} else if (cardName.equals(RENTDETAILS)) {
+			this.currentCard = RENTDETAILS;
+			layout.show(this.panelDetails, RENTDETAILS);
 		}
 	}
 

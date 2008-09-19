@@ -64,7 +64,7 @@ public class TablePanel {
 		tableRent = new JTable(rentContent, rentCollName);
 
 		String[][] searchVideo = { { "", "", "", "" } };
-		String[] searchVideoName = { "Titel", "Erscheinungsdatum",
+		String[] searchVideoName = { "Titel", "Erscheinungsjahr",
 				"Preisklasse", "Altersbeschr." };
 		tableSearchVideo = new JTable(searchVideo, searchVideoName);
 
@@ -134,7 +134,7 @@ public class TablePanel {
 		Vector<String> videeoColumnNames = new Vector(5);
 		videeoColumnNames.add("FilmNr.");
 		videeoColumnNames.add("Titel");
-		videeoColumnNames.add("Erscheinungsdatum");
+		videeoColumnNames.add("Erscheinungsjahr");
 		videeoColumnNames.add("Altersbeschränkung");
 		videeoColumnNames.add("Preisklasse");
 
