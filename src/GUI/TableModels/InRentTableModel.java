@@ -1,24 +1,15 @@
 package GUI.TableModels;
 
-import java.util.Collection;
 import java.util.Vector;
 
-import model.events.CustomerCreatedEvent;
-import model.events.CustomerDeletedEvent;
-import model.events.CustomerEditedEvent;
-import model.events.CustomerEvent;
-import model.events.EventManager;
-import model.events.InRentCreatedEvent;
-<<<<<<< HEAD:src/GUI/TableModels/InRentTableModel.java
-import model.events.InRentDeletedEvent;
-import model.events.InRentEditedEvent;
-=======
-import model.events.InRentEditedStateEvent;
->>>>>>> origin/andie:src/GUI/TableModels/InRentTableModel.java
-import model.events.VideothekEvent;
-import model.Customer;
 import model.InRent;
 import model.VideoUnit;
+import model.events.EventManager;
+import model.events.InRentCreatedEvent;
+import model.events.InRentDeletedEvent;
+import model.events.InRentDeletedUnitEvent;
+import model.events.InRentEditedStateEvent;
+import model.events.VideothekEvent;
 
 /**
  * CustomerTableModel.java
@@ -29,7 +20,7 @@ public class InRentTableModel extends NotEditableTableModel
 {
 	private static final long serialVersionUID = 7354689970611412976L;
 	
-	public InRentTableModel(Vector rowData, Vector columnNames)
+	public InRentTableModel(Vector rowData, Vector<String> columnNames)
 	{
 		super(rowData, columnNames);
 		
@@ -54,13 +45,13 @@ public class InRentTableModel extends NotEditableTableModel
 		else if(event instanceof InRentEditedStateEvent)
 		{
 			InRent inRent = ((InRentEditedStateEvent)event).getInRent();
-			editRow(inRent);
+			editState(inRent);
 		}
 		
-		else if(event instanceof InRentEditedStateEvent)
+		else if(event instanceof InRentDeletedUnitEvent)
 		{
-			InRent inRent = ((model.events.InRentEditedUnitsEvent)event).getInRent();
-			editRow(inRent);
+			VideoUnit videoUnit = ((model.events.InRentDeletedUnitEvent)event).getVideoUnit();
+			deleteRow(videoUnit);
 		}
 		
 		else if(event instanceof InRentDeletedEvent)
@@ -82,6 +73,7 @@ public class InRentTableModel extends NotEditableTableModel
 			rowData.add(inRent.isWarned()?"Ja":"Nein");
 			super.getDataVector().add(rowData);
 		}
+		fireTableDataChanged();
 	}
 	
 	public void editState(InRent inRent) {
@@ -90,12 +82,9 @@ public class InRentTableModel extends NotEditableTableModel
 			Vector inRentVector = (Vector)dataVector.elementAt(rowIndex);
 			if (inRentVector.elementAt(0).equals(inRent.getID())) {
 				setValueAt((inRent.isWarned()?"Ja":"Nein"), rowIndex, 0);
+				fireTableRowsUpdated(rowIndex, rowIndex);
 			}
 		}
-	}
-	
-	public void deleteUnit(VideoUnit videoUnit) {
-		
 	}
 
 	public void deleteRow(InRent inRent) {
@@ -111,6 +100,7 @@ public class InRentTableModel extends NotEditableTableModel
 			Vector rentValue = (Vector)dataVector.elementAt(rowIndex);
 			if (rentValue.elementAt(2).equals(videoUnit.getID())) {
 				removeRow(rowIndex);
+				fireTableRowsDeleted(rowIndex, rowIndex);
 			}
 		}
 	}
