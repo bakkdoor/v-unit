@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.events.EventManager;
+import model.events.VideoUnitCreatedEvent;
+import model.events.VideoUnitDeletedEvent;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseIDException;
 
@@ -41,6 +44,9 @@ public class VideoUnit
 
 		videoUnitList.put(this.uID, this);
 		addToUnitToVideoMap(this);
+		
+		// Event feuern
+		EventManager.fireEvent(new VideoUnitCreatedEvent(this));
 	}
 
 	/**
@@ -146,6 +152,9 @@ public class VideoUnit
 	{
 		videoUnitList.remove(this.getID());
 		this.deleted = true;
+		
+		// Event feuern
+		EventManager.fireEvent(new VideoUnitDeletedEvent(this));
 	}
 
 	/**

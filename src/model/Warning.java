@@ -9,6 +9,9 @@ import java.util.Map;
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.WarningWriter;
+import model.events.EventManager;
+import model.events.WarningCreatedEvent;
+import model.events.WarningDeletedEvent;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
@@ -29,8 +32,6 @@ public class Warning
 
 	private boolean deleted = false;
 
-//	private boolean warned = false;
-
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
 
@@ -47,6 +48,9 @@ public class Warning
 		this.inRent = inRent;
 		inRent.setWarned(true);
 		minwID++;
+		
+		// Event feuern
+		EventManager.fireEvent(new WarningCreatedEvent(this));
 
 		warningList.put(this.wID, this);
 	}
@@ -112,6 +116,9 @@ public class Warning
 		warningList.remove(this.getID());
 		this.deleted = true;
 		this.getInRent().setWarned(false);
+		
+		// Event feuern
+		EventManager.fireEvent(new WarningDeletedEvent(this));
 	}
 
 	/**

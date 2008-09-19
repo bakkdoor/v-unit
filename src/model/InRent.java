@@ -8,6 +8,7 @@ import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
+import model.events.*;
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
@@ -52,6 +53,9 @@ public class InRent
 		}
 		
 		this.videoUnitIDs = unitIDs;
+		
+		// Event feuern
+		EventManager.fireEvent(new InRentCreatedEvent(this));
 		
 		checkRentDate();
 		
@@ -240,6 +244,9 @@ public class InRent
 	{
 		inRentList.remove(this.getID());
 		this.deleted = true;
+		
+		// Event feuern
+		EventManager.fireEvent(new InRentDeletedEvent(this));
 	}
 	
 	/**

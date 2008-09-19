@@ -4,6 +4,7 @@ import model.Date;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.CustomerCreatedEvent;
 import model.events.CustomerDeletedEvent;
+import model.events.CustomerEditedEvent;
 import model.events.EventManager;
 import model.exceptions.*;
 
@@ -314,7 +315,12 @@ public class Customer
 	public void setFirstName(String newFirstName) throws EmptyFieldException
 	{
 		if (newFirstName != null && newFirstName != "")
+		{
 			this.firstName = newFirstName;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException("Kein Vorname eingegeben");
 	}
@@ -337,13 +343,19 @@ public class Customer
 	public void setLastName(String newLastName) throws EmptyFieldException
 	{
 		if (newLastName != null && newLastName != "")
+		{
 			this.lastName = newLastName;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException("Kein Nachname eingegeben");
 	}
-	
+
 	/**
 	 * Gibt den kompletten Namen (Vorname & Nachname) zurück.
+	 * 
 	 * @return Der komplette Name.
 	 */
 	public String getName()
@@ -384,6 +396,9 @@ public class Customer
 				this.birthDate.setYear(newBirthDate.getYear());
 				this.birthDate.setMonth(newBirthDate.getMonth());
 				this.birthDate.setDate(newBirthDate.getDate());
+
+				// Event feuern
+				EventManager.fireEvent(new CustomerEditedEvent(this));
 			}
 		}
 	}
@@ -407,22 +422,29 @@ public class Customer
 	public void setStreet(String newStreet) throws EmptyFieldException
 	{
 		if (newStreet != null && newStreet != "")
+		{
 			this.street = newStreet;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException("Keine Straße eingegeben");
 	}
-	
+
 	/**
 	 * Gibt Strasse/Hausnummer Adresszeile zurück
+	 * 
 	 * @return Strasse/Hausnummer Adresszeile
 	 */
 	public String getFirstAddressRow()
 	{
 		return this.street + " " + this.houseNr;
 	}
-	
+
 	/**
 	 * Gibt PLZ/Stadt Adresszeile zurück
+	 * 
 	 * @return PLZ/Stadt Adresszeile
 	 */
 	public String getLastAddressRow()
@@ -433,7 +455,12 @@ public class Customer
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
 		if (newTitle != null && newTitle != "")
+		{
 			this.title = newTitle;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException("Kein Titel eingegeben!");
 	}
@@ -461,7 +488,12 @@ public class Customer
 	public void setHouseNr(String newHouseNr) throws EmptyFieldException
 	{
 		if (newHouseNr != null && newHouseNr != "")
+		{
 			this.houseNr = newHouseNr;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException("Keine Hausnummer eingegeben");
 	}
@@ -484,7 +516,12 @@ public class Customer
 	public void setZipCode(int newZipCode) throws FalseFieldException
 	{
 		if (newZipCode < 0)
+		{
 			this.zipCode = newZipCode;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new FalseFieldException("Keine/falsche PLZ eingegeben");
 	}
@@ -507,7 +544,12 @@ public class Customer
 	public void setCity(String newCity) throws EmptyFieldException
 	{
 		if (newCity != null && newCity != "")
+		{
 			this.city = newCity;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException("Keine Stadt eingegeben");
 	}
@@ -531,7 +573,12 @@ public class Customer
 			throws EmptyFieldException
 	{
 		if (newIdentificationNr != null && newIdentificationNr != "")
+		{
 			this.identificationNr = newIdentificationNr;
+
+			// Event feuern
+			EventManager.fireEvent(new CustomerEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException(
 					"Keine Personalausweisenummer eingegeben");
@@ -584,7 +631,7 @@ public class Customer
 	{
 		customerList.remove(this.getID());
 		this.deleted = true;
-		
+
 		// Event feuern
 		EventManager.fireEvent(new CustomerDeletedEvent(this));
 	}
