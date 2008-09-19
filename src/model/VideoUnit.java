@@ -24,7 +24,7 @@ public class VideoUnit
 	private int videoID;
 
 	private boolean deleted = false;
-	
+
 	private static Map<Integer, VideoUnit> videoUnitList;
 	private static Map<Integer, Collection<VideoUnit>> unitToVideoMap;
 	private static int minuID;
@@ -89,10 +89,12 @@ public class VideoUnit
 
 		return false;
 	}
-	
+
 	/**
 	 * Gibt das InRent Objekt zu diesem VideoUnit zurück, falls ausgeliehen.
-	 * @return Das InRent Objekt (falls vorhanden/VideoUnit ausgeliehen) oder null (sonst) zurück.
+	 * 
+	 * @return Das InRent Objekt (falls vorhanden/VideoUnit ausgeliehen) oder
+	 *         null (sonst) zurück.
 	 */
 	public InRent getInRent()
 	{
@@ -105,7 +107,7 @@ public class VideoUnit
 		{
 			return null;
 		}
-		
+
 		return ir;
 	}
 
@@ -126,35 +128,36 @@ public class VideoUnit
 	 */
 	public Video getVideo()
 	{
-		try 
+		try
 		{
 			return Video.findByID(this.videoID);
-		} 
-		catch (RecordNotFoundException e) 
+		}
+		catch (RecordNotFoundException e)
 		{
 			return null;
 		}
 	}
-	
+
 	/**
-	 * Entfernt VideoUnit aus globaler VideoUnit-Liste.
-	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Entfernt VideoUnit aus globaler VideoUnit-Liste. Wird beim nächsten
+	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
 	 */
 	public void delete()
 	{
 		videoUnitList.remove(this.getID());
 		this.deleted = true;
 	}
-	
+
 	/**
 	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
 	public boolean isDeleted()
 	{
 		return this.deleted;
 	}
-	
+
 	/**
 	 * Gibt eine String-Repräsentation des VideoUnits zurück.
 	 */
@@ -163,7 +166,7 @@ public class VideoUnit
 		String rented = isRented() ? "ausgeliehen" : "verfügbar";
 		return this.uID + " (" + rented + ")";
 	}
-	
+
 	/**
 	 * Gibt das zur übergebenen VideoUnitID zugehörige VideoUnit zurück, falls
 	 * vorhanden.
@@ -239,10 +242,28 @@ public class VideoUnit
 	}
 
 	/**
+	 * Gibt eine Menge von VideoUnits zurück, die zu einem angegebenen InRent gehören.
+	 * @param inRent Das InRent (die Ausleihe), deren VideoUnits gesucht werden.
+	 * @return Die Menge der VideoUnits, die zu diesem InRent gehören.
+	 */
+	public static Collection<VideoUnit> findByInRent(InRent inRent)
+	{
+		Collection<VideoUnit> foundVideoUnits = new LinkedList<VideoUnit>();
+		for (VideoUnit unit : findAll())
+		{
+			if (unit.getInRent() == inRent)
+			{
+				foundVideoUnits.add(unit);
+			}
+		}
+		return foundVideoUnits;
+	}
+
+	/**
 	 * Setzt die MinID für VideoUnits.
 	 * 
 	 * @param newMinuID Die neue MinID für VideoUnits.
-	 * @throws FalseIDException 
+	 * @throws FalseIDException
 	 */
 	public static void setMinID(int newMinuID) throws FalseIDException
 	{
@@ -252,7 +273,8 @@ public class VideoUnit
 		}
 		else
 		{
-			throw new FalseIDException("Übergebene MinID für VideoUnit ist kleiner 0!!!");
+			throw new FalseIDException(
+					"Übergebene MinID für VideoUnit ist kleiner 0!!!");
 		}
 	}
 

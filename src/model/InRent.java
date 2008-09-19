@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.writers.InvoiceWriter;
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
@@ -17,8 +18,8 @@ public class InRent
 	private int rID;
 	private int customerID;
 	private Customer customer = null;
-	private int videoUnitID;
-	private VideoUnit videoUnit = null;
+	private Collection<Integer> videoUnitIDs = null;
+	private Collection<VideoUnit> videoUnits = null;
 	private Date date;
 	private int duration;
 
@@ -27,37 +28,52 @@ public class InRent
 	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
 
-	public InRent(Customer customer, VideoUnit videoUnit, Date date,
+	public InRent(Customer customer, Collection<VideoUnit> videoUnits, Date date,
 			int duration) throws FalseIDException, FalseFieldException,
 			CurrentDateException
 	{
-		this(minrID, customer.getID(), videoUnit.getID(), date, duration);
+		//this(minrID, customer.getID(), , date, duration);
+		this.rID = minrID;
 		minrID++;
+		
+		this.customerID = customer.getID();
 		this.customer = customer;
-		this.videoUnit = videoUnit;
+		this.date = date;
+		this.duration = duration;
+		this.videoUnits = videoUnits;
+		
+		// VideoUnitIDs aus übergebenen VideoUnits auslesen und in Liste speichern.
+		Collection<Integer> unitIDs = new LinkedList<Integer>();
+		for(VideoUnit unit : videoUnits)
+		{
+			unitIDs.add(unit.getID());
+		}
+		
+		this.videoUnitIDs = unitIDs;
+		
 		checkRentDate();
 		
 		inRentList.put(this.rID, this);
 	}
 
-	private InRent(int rID, int customerID, int videoUnitID, Date date,
+	private InRent(int rID, int customerID, Collection<Integer> videoUnitIDs, Date date,
 			int duration) throws FalseIDException, FalseFieldException,
 			CurrentDateException
 	{
 		this.rID = rID;
 		this.customerID = customerID;
-		this.videoUnitID = videoUnitID;
+		this.videoUnitIDs = videoUnitIDs;
 		this.date = date;
 		this.duration = duration;
 		checkIDs();
 		checkDuration();
 	}
 
-	public static InRent reCreate(int rID, int customerID, int videoUnitID,
+	public static InRent reCreate(int rID, int customerID, Collection<Integer> videoUnitIDs,
 			Date date, int duration) throws FalseIDException,
 			FalseFieldException, CurrentDateException
 	{
-		return new InRent(rID, customerID, videoUnitID, date, duration);
+		return new InRent(rID, customerID, videoUnitIDs, date, duration);
 	}
 
 	public static void setMinID(int newMinrID) throws FalseIDException
@@ -100,16 +116,30 @@ public class InRent
 	{
 		int rID = this.rID;
 		int customerID = this.customerID;
-		int videoUnitID = this.videoUnitID;
-		if (rID < 1 || customerID < 1 || videoUnitID < 1)
+		
+		// videoUnitIDs checken
+		for(Integer videoUnitID : this.videoUnitIDs)
+		{
+			if(videoUnitID < 1)
+				throw new FalseIDException();
+		}
+		
+		if (rID < 1 || customerID < 1)
 			throw new FalseIDException();
 	}
 
-	public Customer getCustomer() throws RecordNotFoundException
+	public Customer getCustomer()
 	{
 		if (this.customer == null)
 		{
-			this.customer = Customer.findByID(this.customerID);
+			try
+			{
+				this.customer = Customer.findByID(this.customerID);
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.customer = null; // sollte hoffentlich nie eintreten!
+			}
 		}
 		return this.customer;
 	}
@@ -124,9 +154,9 @@ public class InRent
 		return this.date.addWeeks(this.duration);
 	}
 
-	public int getVideoUnitID()
+	public Collection<Integer> getVideoUnitIDs()
 	{
-		return this.videoUnitID;
+		return this.videoUnitIDs;
 	}
 
 	public int getDuration()
@@ -134,13 +164,55 @@ public class InRent
 		return this.duration;
 	}
 
-	public VideoUnit getVideoUnit() throws RecordNotFoundException
+	public Collection<VideoUnit> getVideoUnits()
 	{
-		if (this.videoUnit == null)
+		if (this.videoUnits == null)
 		{
-			this.videoUnit = VideoUnit.findByID(this.videoUnitID);
+			try
+			{
+//				this.videoUnits = VideoUnit.findByInRent(this);
+				
+				// TODO: müssen evtl mal überlegen, welche variante sinniger ist...
+				
+				Collection<VideoUnit> foundVideoUnits = new LinkedList<VideoUnit>();
+				
+				for(Integer unitID : videoUnitIDs)
+				{
+					foundVideoUnits.add(VideoUnit.findByID(unitID));
+				}
+				
+				this.videoUnits = foundVideoUnits;
+			}
+			catch (RecordNotFoundException e)
+			{
+				this.videoUnits = null;
+			}
 		}
-		return this.videoUnit;
+		
+		return this.videoUnits;
+	}
+	
+	/**
+	 * Gibt den Preis dieser Ausleihe zurück, berechnet aus Ausleihdauer (duration) mal Preis des Films.
+	 * @return Der Preis der Ausleihe.
+	 */
+	public float getPrice()
+	{
+		float price = 0.0f;
+		try
+		{	
+			for(VideoUnit unit : this.getVideoUnits())
+			{
+				price += unit.getVideo().getPriceCategory().getPrice() * this.duration;
+			}
+		}
+		catch (RecordNotFoundException e)
+		{
+			// sollte hoffentlich nie passieren...
+			e.printStackTrace();
+		}
+		
+		return price;
 	}
 	
 	/**
@@ -160,6 +232,16 @@ public class InRent
 	public boolean isDeleted()
 	{
 		return this.deleted;
+	}
+	
+	/**
+	 * Erstellt eine Quittung für diese Ausleihe im quittungen/ Ordner.
+	 * Name der Quittings-Datei ist die ID dieses InRent Objektes + '.txt'
+	 */
+	public void createInvoice()
+	{
+		InvoiceWriter writer = new InvoiceWriter();
+		writer.writeInvoiceFor(this);
 	}
 
 	public static InRent findByID(int inRentID) throws RecordNotFoundException
@@ -196,9 +278,10 @@ public class InRent
 	public static InRent findByVideoUnit(VideoUnit videoUnit)
 			throws RecordNotFoundException
 	{
+		// TODO: hier kann das evtl. auch anders gemacht werden...
 		for (InRent ir : inRentList.values())
 		{
-			if (ir.videoUnitID == videoUnit.getID())
+			if (ir.getVideoUnits().contains(videoUnit))
 			{
 				return ir;
 			}

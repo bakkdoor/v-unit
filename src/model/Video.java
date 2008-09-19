@@ -56,6 +56,9 @@ public class Video
 		this.priceCategory = priceCategory;
 		
 		videoList.put(this.vID, this);
+
+		// Event feuern
+		EventManager.fireEvent(new VideoCreatedEvent(this));
 	}
 
 	/**
@@ -88,9 +91,6 @@ public class Video
 			this.releaseYear = releaseYear;
 			this.priceCategoryID = priceCategoryID;
 			this.ratedAge = ratedAge;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoCreatedEvent(this));
 		}
 	}
 

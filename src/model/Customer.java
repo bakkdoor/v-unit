@@ -79,6 +79,9 @@ public class Customer
 
 		customerList.put(this.cID, this);
 
+		// Event feuern
+		EventManager.fireEvent(new CustomerCreatedEvent(this));
+
 		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben
 		// wurde...
 	}
@@ -135,9 +138,6 @@ public class Customer
 			this.city = city;
 			this.identificationNr = identificationNr;
 			this.title = title;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerCreatedEvent(this));
 		}
 	}
 
@@ -340,6 +340,15 @@ public class Customer
 			this.lastName = newLastName;
 		else
 			throw new EmptyFieldException("Kein Nachname eingegeben");
+	}
+	
+	/**
+	 * Gibt den kompletten Namen (Vorname & Nachname) zurück.
+	 * @return Der komplette Name.
+	 */
+	public String getName()
+	{
+		return this.firstName + " " + this.lastName;
 	}
 
 	/**

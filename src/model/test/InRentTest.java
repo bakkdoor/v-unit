@@ -1,5 +1,8 @@
 package model.test;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import main.error.VideothekException;
 import model.*;
 import model.data.exceptions.RecordNotFoundException;
@@ -20,10 +23,19 @@ public class InRentTest extends ModelTest
 		
 		try
 		{
-			inRent = new InRent(Customer.findByID(1), VideoUnit.findByID(1),
+//			inRent = new InRent(Customer.findByID(1), VideoUnit.findByID(1),
+//					new Date(), 2);
+			
+			Collection<VideoUnit> videoUnitsToRent = new LinkedList<VideoUnit>();
+			videoUnitsToRent.add(VideoUnit.findByID(4));
+			videoUnitsToRent.add(VideoUnit.findByID(5));
+			
+			
+			inRent = new InRent(Customer.findByID(1), videoUnitsToRent,
 					new Date(), 2);
-
+			
 			assertTrue(InRent.findAll().contains(inRent));
+			assertEquals(2, inRent.getVideoUnits().size());
 		}
 		catch (VideothekException e1)
 		{

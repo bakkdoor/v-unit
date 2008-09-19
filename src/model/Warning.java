@@ -154,16 +154,9 @@ public class Warning
 
 		for (Warning w : warningList.values())
 		{
-			try
+			if (w.inRent.getCustomer() == customer)
 			{
-				if (w.inRent.getCustomer() == customer)
-				{
-					foundWarnings.add(w);
-				}
-			}
-			catch (RecordNotFoundException e)
-			{
-				// falls fehler kommt, einfach ignorieren...
+				foundWarnings.add(w);
 			}
 		}
 
@@ -218,8 +211,17 @@ public class Warning
 		}
 	}
 	
+	/**
+	 * Gibt die MinID für Warnings zurück.
+	 * @return Die MinID für Warnings.
+	 */
 	public static int getMinID()
 	{
 		return minwID;
+	}
+
+	public static void createPendingInvoices()
+	{
+		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen drucken lassen
 	}
 }

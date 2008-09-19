@@ -1,9 +1,10 @@
 <!ELEMENT inRents (inRent*)>
-<!ELEMENT inRent EMPTY>
+<!ELEMENT inRent (videoUnit*)>
+<!ELEMENT videoUnit EMPTY>
 
 <!ATTLIST inRents	minID NMTOKEN #REQUIRED>
 <!ATTLIST inRent	rID NMTOKEN #REQUIRED
 					customerID NMTOKEN #REQUIRED
-					videoUnitID NMTOKEN #REQUIRED
 					date NMTOKEN #REQUIRED
 					duration NMTOKEN #REQUIRED>
+<!ATTLIST videoUnit	uID NMTOKEN #REQUIRED>
