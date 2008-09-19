@@ -34,6 +34,7 @@ public class InRentParser extends AbstractParser
 	private Collection<Integer> videoUnitIDs = null;
 	private int rID, customerID, duration = Data.NOTSET;
 	private Date date = null;
+	private boolean warned;
 	/**
 	 * Konstruktor für InRentParser.
 	 */
@@ -136,7 +137,7 @@ public class InRentParser extends AbstractParser
 			InRent newInRent = null;
 			try
 			{
-				newInRent = InRent.reCreate(this.rID, this.customerID, this.videoUnitIDs, this.date, this.duration);
+				newInRent = InRent.reCreate(this.rID, this.customerID, this.videoUnitIDs, this.date, this.duration, this.warned);
 			}
 			catch (VideothekException e)
 			{

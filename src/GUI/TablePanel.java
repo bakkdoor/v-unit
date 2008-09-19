@@ -113,8 +113,8 @@ public class TablePanel {
 		Vector<String> customerColumnNames = new Vector(7);
 		customerColumnNames.add("ID");
 		customerColumnNames.add("Anrede");
-		customerColumnNames.add("Nachname");
 		customerColumnNames.add("Vorname");
+		customerColumnNames.add("Nachname");
 		customerColumnNames.add("Geburtsdatum");
 		customerColumnNames.add("Anschrift");
 		customerColumnNames.add("PersonalNummer");
