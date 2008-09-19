@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
+import model.events.EventManager;
+import model.events.PriceCategoryCreatedEvent;
+import model.events.PriceCategoryDeletedEvent;
+import model.events.PriceCategoryEditedEvent;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
@@ -36,6 +40,9 @@ public class PriceCategory
 	{
 		this(minpID, name, price);
 		minpID++;
+		
+		// Event feuern
+		EventManager.fireEvent(new PriceCategoryCreatedEvent(this));
 	}
 	
 	public int getID()
@@ -54,6 +61,9 @@ public class PriceCategory
 		if(newName != "" && newName != null)
 		{
 			this.name = newName;
+			
+			// Event feuern
+			EventManager.fireEvent(new PriceCategoryEditedEvent(this));
 		}
 		else
 		{
@@ -71,6 +81,9 @@ public class PriceCategory
 		if(newPrice > 0)
 		{
 			this.price = newPrice;
+			
+			// Event feuern
+			EventManager.fireEvent(new PriceCategoryEditedEvent(this));
 		}
 		else
 		{
@@ -86,6 +99,9 @@ public class PriceCategory
 	{
 		priceCategoryList.remove(this.getID());
 		this.deleted = true;
+		
+		// Event feuern
+		EventManager.fireEvent(new PriceCategoryDeletedEvent(this));
 	}
 	
 	/**

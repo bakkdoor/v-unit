@@ -6,7 +6,7 @@ import java.io.IOException;
 import model.CurrentDate;
 import model.InRent;
 import model.VideoUnit;
-import model.exceptions.CurrentDateException;
+import model.data.exceptions.RecordNotFoundException;
 
 /**
  * InvoiceWriter.java
@@ -44,11 +44,23 @@ public class InvoiceWriter
 			
 			for(VideoUnit unit : inRent.getVideoUnits())
 			{
-				sb.append(formatInt(unit.getID(), 10) + unit.getVideo().getTitle() + "\n");
+				sb.append(formatInt(unit.getID(), 10) + unit.getVideo().getTitle());
+				try
+				{
+					sb.append(formatLeft("(" + Float.toString(unit.getVideo().getPriceCategory().getPrice()) 
+									+ " Euro/Woche)", 18));
+				}
+				catch (RecordNotFoundException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				sb.append("\n");
 			}
-			
 			sb.append("\n");
 			sb.append("Rueckgabetermin: \t" + inRent.getReturnDate() + "\n");
+			String weeks = inRent.getDuration() > 1 ? "Wochen" : "Woche";
+			sb.append("Ausleihdauer: \t\t" + inRent.getDuration() +  weeks + " \n");
 			sb.append("Ausleihpreis: \t\t" + inRent.getPrice() +  " Euro" + "\n");
 			sb.append("\n\n");
 			sb.append("======================================================\n");
@@ -63,7 +75,7 @@ public class InvoiceWriter
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static String formatInt(int number, int maxWidth)
 	{
 		String numString = Integer.toString(number);
@@ -80,6 +92,24 @@ public class InvoiceWriter
 			}
 			
 			return numString;
+		}
+	}
+	
+	private static String formatLeft(String output, int maxWidth)
+	{
+		String prefix = "";
+		if(output.length() > maxWidth)
+		{
+			return output.substring(0, maxWidth - 1);
+		}
+		else
+		{
+			for(int i = output.length() - 1; i < maxWidth; i++)
+			{
+				prefix += " ";
+			}
+			
+			return prefix + output;
 		}
 	}
 }

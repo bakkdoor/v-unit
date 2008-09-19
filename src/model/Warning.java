@@ -1,15 +1,23 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
+import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.writers.WarningWriter;
+import model.events.EventManager;
+import model.events.WarningCreatedEvent;
+import model.events.WarningDeletedEvent;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
 /**
  * Warning.java
+ * 
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
  * 
@@ -23,27 +31,34 @@ public class Warning
 	private int inRentID;
 
 	private boolean deleted = false;
-	
+
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
 
 	public static final float billFactor = 1.5f;
-	
+
 	/**
 	 * Öffentlicher Konstruktor für Warnings.
+	 * 
 	 * @param inRent Das InRent der Warning.
 	 */
 	public Warning(InRent inRent)
 	{
 		this(minwID, inRent.getID());
 		this.inRent = inRent;
+		inRent.setWarned(true);
 		minwID++;
+		
+		// Event feuern
+		EventManager.fireEvent(new WarningCreatedEvent(this));
 
 		warningList.put(this.wID, this);
 	}
 
 	/**
-	 * Privater Konstruktor. Wird nur innerhalb der Klasse (in der reCreate-Methode) genutzt.
+	 * Privater Konstruktor. Wird nur innerhalb der Klasse (in der
+	 * reCreate-Methode) genutzt.
+	 * 
 	 * @param wID
 	 * @param inRentID
 	 */
@@ -52,16 +67,17 @@ public class Warning
 		this.wID = wID;
 		this.inRentID = inRentID;
 	}
-	
+
 	/**
 	 * Gibt die ID (Nummer) dieser Warning zurück.
+	 * 
 	 * @return Die ID dieser Warning (Mahnung).
 	 */
 	public int getID()
 	{
 		return this.wID;
 	}
-	
+
 	/**
 	 * @return Die InRentID der zugehörigen InRent.
 	 */
@@ -69,9 +85,10 @@ public class Warning
 	{
 		return this.inRentID;
 	}
-	
+
 	/**
 	 * Gibt das InRent zu dieser Warning zurück.
+	 * 
 	 * @return Das InRent dieser Warning.
 	 */
 	public InRent getInRent()
@@ -91,26 +108,33 @@ public class Warning
 	}
 
 	/**
-	 * Entfernt Warning aus globaler Warning-Liste.
-	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Entfernt Warning aus globaler Warning-Liste. Wird beim nächsten Speichern
+	 * nicht mehr mitgespeichert und geht somit verloren.
 	 */
 	public void delete()
 	{
 		warningList.remove(this.getID());
 		this.deleted = true;
+		this.getInRent().setWarned(false);
+		
+		// Event feuern
+		EventManager.fireEvent(new WarningDeletedEvent(this));
 	}
-	
+
 	/**
 	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
 	public boolean isDeleted()
 	{
 		return this.deleted;
 	}
-	
+
 	/**
-	 * Wird in der DataBase Klasse aufgerufen um die geladenen Warnings global verfügbar zu machen.
+	 * Wird in der DataBase Klasse aufgerufen um die geladenen Warnings global
+	 * verfügbar zu machen.
+	 * 
 	 * @param wID ID der geladenen Warning.
 	 * @param inRentID InRentID der geladenen Warning.
 	 * @return Das geladene Warning Objekt.
@@ -207,12 +231,14 @@ public class Warning
 		}
 		else
 		{
-			throw new FalseIDException("Übergebene MinID für Warnings ist kleiner 0!");
+			throw new FalseIDException(
+					"Übergebene MinID für Warnings ist kleiner 0!");
 		}
 	}
-	
+
 	/**
 	 * Gibt die MinID für Warnings zurück.
+	 * 
 	 * @return Die MinID für Warnings.
 	 */
 	public static int getMinID()
@@ -222,6 +248,61 @@ public class Warning
 
 	public static void createPendingInvoices()
 	{
-		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen drucken lassen
+		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen
+		// drucken lassen
 	}
+
+	/**
+	 * überprüft, ob neue Mahnungen fällig sind, die noch nicht erstellt wurden
+	 * @return true, wenn neue Mahnungen fällig, false sonst
+	 */
+	public static boolean newWarnings()
+	{
+		return InRent.newWarnings();
+	}
+
+	/**
+	 * liefert eine Liste der neuen, fälligen und noch nicht erstellten Mahnungen
+	 * @return Liste der neuen Mahnungen
+	 */
+	public static Collection<Warning> getNewWarnings()
+	{
+		return InRent.getNewWarnings();
+	}
+
+	/**
+	 * Methode schreibt die neuen Mahnungen in eine neue Datei mit dem aktuellen
+	 * Datum
+	 */
+	public static void writeNewWarnings()
+	{
+		try
+		{
+			WarningWriter writer = new WarningWriter("Mahnungen vom "
+					+ CurrentDate.get().toString());
+			writer.saveWarnings(getNewWarnings());
+		}
+		catch (DataSaveException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (RecordNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

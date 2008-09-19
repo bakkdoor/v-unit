@@ -8,6 +8,7 @@ import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
+import model.events.*;
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
@@ -24,6 +25,8 @@ public class InRent
 	private int duration;
 
 	private boolean deleted = false;
+	private boolean overDuration = false;
+	private boolean warned = false;
 	
 	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
@@ -51,13 +54,16 @@ public class InRent
 		
 		this.videoUnitIDs = unitIDs;
 		
+		// Event feuern
+		EventManager.fireEvent(new InRentCreatedEvent(this));
+		
 		checkRentDate();
 		
 		inRentList.put(this.rID, this);
 	}
 
 	private InRent(int rID, int customerID, Collection<Integer> videoUnitIDs, Date date,
-			int duration) throws FalseIDException, FalseFieldException,
+			int duration, boolean warned) throws FalseIDException, FalseFieldException,
 			CurrentDateException
 	{
 		this.rID = rID;
@@ -65,15 +71,16 @@ public class InRent
 		this.videoUnitIDs = videoUnitIDs;
 		this.date = date;
 		this.duration = duration;
+		this.warned = warned;
 		checkIDs();
 		checkDuration();
 	}
 
 	public static InRent reCreate(int rID, int customerID, Collection<Integer> videoUnitIDs,
-			Date date, int duration) throws FalseIDException,
+			Date date, int duration, boolean warned) throws FalseIDException,
 			FalseFieldException, CurrentDateException
 	{
-		return new InRent(rID, customerID, videoUnitIDs, date, duration);
+		return new InRent(rID, customerID, videoUnitIDs, date, duration, warned);
 	}
 
 	public static void setMinID(int newMinrID) throws FalseIDException
@@ -154,6 +161,20 @@ public class InRent
 		return this.date.addWeeks(this.duration);
 	}
 
+	/**
+	 * Methode überprüft, ob die Leihfrist abgelaufen ist
+	 * @return true, wenn Leihfrist überschritten, False sonst
+	 */
+	public boolean isOverDuration()
+	{
+		if( this.getReturnDate().compareTo(CurrentDate.get()) < 0 )
+		{
+			this.overDuration = true;
+			return true;
+		}
+		else return false;
+	}
+	
 	public Collection<Integer> getVideoUnitIDs()
 	{
 		return this.videoUnitIDs;
@@ -223,6 +244,9 @@ public class InRent
 	{
 		inRentList.remove(this.getID());
 		this.deleted = true;
+		
+		// Event feuern
+		EventManager.fireEvent(new InRentDeletedEvent(this));
 	}
 	
 	/**
@@ -232,6 +256,23 @@ public class InRent
 	public boolean isDeleted()
 	{
 		return this.deleted;
+	}
+	
+	/**
+	 * Methode informiert, ob bereits eine Mahnung (Warning) erstellt wurde
+	 * @return true, wenn schon gemahnt wurde, false sonst
+	 */
+	public boolean isWarned()
+	{
+		return warned;
+	}
+	
+	/**
+	 * Methode markiert, dass bereits eine Mahnung erstellt wurde
+	 */
+	public void setWarned(boolean b)
+	{
+		this.warned = b;
 	}
 	
 	/**
@@ -315,6 +356,39 @@ public class InRent
 		{
 			throw new FalseFieldException("InRentList is null!");
 		}
+	}
+
+	/**
+	 * Methode, die die Liste aller Inrents auf Inrents mit überzogener Leihfrist überprüft
+	 * @return true, wenn Inrents mit überzogener Leihfrist existieren, false sonst
+	 */
+	protected static boolean newWarnings()
+	{
+		for (InRent ir : inRentList.values())
+		{
+			if( ir.isOverDuration() && !ir.isWarned() )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Methode überprüft die Liste der Inrents und liefert eine Liste mit allen neuen, fälligen Mahnungen
+	 * @return Liste mit den neuen Mahnungen
+	 */
+	protected static Collection<Warning> getNewWarnings()
+	{
+		List<Warning> foundNewWarnings = new LinkedList<Warning>();
+		for( InRent ir : inRentList.values() )
+		{
+			if( ir.isOverDuration() && !ir.isWarned())
+			{
+				foundNewWarnings.add(new Warning(ir));
+			}
+		}
+		return foundNewWarnings;
 	}
 
 }

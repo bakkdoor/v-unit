@@ -8,6 +8,7 @@ import model.data.exceptions.RecordNotFoundException;
 import model.events.EventManager;
 import model.events.VideoCreatedEvent;
 import model.events.VideoDeletedEvent;
+import model.events.VideoEditedEvent;
 import model.exceptions.*;
 
 /**
@@ -29,7 +30,7 @@ public class Video
 	private int ratedAge = NotSet;
 
 	private boolean deleted = false;
-	
+
 	private static Map<Integer, Video> videoList;
 	private static int minvID;
 
@@ -54,7 +55,7 @@ public class Video
 		this(minvID, title, releaseYear, priceCategory.getID(), ratedAge);
 		minvID++;
 		this.priceCategory = priceCategory;
-		
+
 		videoList.put(this.vID, this);
 
 		// Event feuern
@@ -195,7 +196,7 @@ public class Video
 	{
 		return VideoUnit.findByVideo(this);
 	}
-	
+
 	/**
 	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
 	 *         {@link Video} verknüpften, sortiert nach Ausgeliehen-Status
@@ -206,10 +207,10 @@ public class Video
 		Collection<VideoUnit> availableVideoUnits = new LinkedList<VideoUnit>();
 		Collection<VideoUnit> rentedVideoUnits = new LinkedList<VideoUnit>();
 		Collection<VideoUnit> sortedVideoUnits = new LinkedList<VideoUnit>();
-		
-		for(VideoUnit unit : getVideoUnits())
+
+		for (VideoUnit unit : getVideoUnits())
 		{
-			if(unit.isRented())
+			if (unit.isRented())
 			{
 				rentedVideoUnits.add(unit);
 			}
@@ -218,39 +219,41 @@ public class Video
 				availableVideoUnits.add(unit);
 			}
 		}
-		
+
 		sortedVideoUnits.addAll(availableVideoUnits);
 		sortedVideoUnits.addAll(rentedVideoUnits);
-		
+
 		return sortedVideoUnits;
 	}
-	
+
 	/**
-	 * Entfernt Video aus globaler Video-Liste.
-	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Entfernt Video aus globaler Video-Liste. Wird beim nächsten Speichern
+	 * nicht mehr mitgespeichert und geht somit verloren.
 	 */
 	public void delete()
 	{
 		videoList.remove(this.getID());
 		this.deleted = true;
-		
+
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
 	}
-	
+
 	/**
 	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
 	public boolean isDeleted()
 	{
 		return this.deleted;
 	}
+
 	/**
 	 * setzt den Wert der statischen Variable MinvID
 	 * 
 	 * @param newMinvID die neue MinID der {@link Video}s
-	 * @throws FalseIDException 
+	 * @throws FalseIDException
 	 */
 	public static void setMinID(int newMinvID) throws FalseIDException
 	{
@@ -336,7 +339,12 @@ public class Video
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
 		if (newTitle != null && newTitle != "")
+		{
 			this.title = newTitle;
+
+			// Event feuern
+			EventManager.fireEvent(new VideoEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException();
 	}
@@ -350,14 +358,24 @@ public class Video
 				|| newReleaseYear > CurrentDate.get().getYear())
 			throw new FalseFieldException();
 		else
+		{
 			releaseYear = newReleaseYear;
+
+			// Event feuern
+			EventManager.fireEvent(new VideoEditedEvent(this));
+		}
 	}
 
 	public void setPriceCategory(PriceCategory newPriceCategory)
 			throws EmptyFieldException
 	{
 		if (newPriceCategory != null)
+		{
 			this.priceCategory = newPriceCategory;
+
+			// Event feuern
+			EventManager.fireEvent(new VideoEditedEvent(this));
+		}
 		else
 			throw new EmptyFieldException();
 	}
@@ -366,7 +384,12 @@ public class Video
 	{
 		if (newRatedAge == 0 || newRatedAge == 6 || newRatedAge == 12
 				|| newRatedAge == 16 || newRatedAge == 18)
+		{
 			this.ratedAge = newRatedAge;
+
+			// Event feuern
+			EventManager.fireEvent(new VideoEditedEvent(this));
+		}
 		else
 			throw new FalseFieldException("Bitte FSK überprüfen");
 	}

@@ -17,8 +17,9 @@ public class Main{
 		
 		// ein paar quittungen erstellen und so ;)
 		
-		model.InRent ir = model.InRent.findByID(1);
-		
-		ir.createInvoice();
+		for(model.InRent ir : model.InRent.findAll())
+		{
+			ir.createInvoice();
+		}
 	}
 }
