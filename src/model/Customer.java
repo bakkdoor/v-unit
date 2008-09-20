@@ -606,6 +606,16 @@ public class Customer
 	{
 		return InRent.findByCustomer(this);
 	}
+	
+	/**
+	 * Gibt an, ob ein Kunde einen Film (ein VideoExemplar) ausleihen kann.
+	 * @param unit Das VideoExemplar, das überprüft werden soll.
+	 * @return True, falls ausleihbar, False sonst.
+	 */
+	public boolean canRent(VideoUnit unit)
+	{
+		return unit.canBeRentedBy(this);
+	}
 
 	/**
 	 * @return einen String, der die Daten eines Customers enthält( Name,

@@ -18,7 +18,7 @@ import model.exceptions.FalseIDException;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
  * 
- * Klasse für alle VideoUnits (Video-Exemplare).
+ *       Klasse für alle VideoUnits (Video-Exemplare).
  */
 public class VideoUnit
 {
@@ -44,7 +44,7 @@ public class VideoUnit
 
 		videoUnitList.put(this.uID, this);
 		addToUnitToVideoMap(this);
-		
+
 		// Event feuern
 		EventManager.fireEvent(new VideoUnitCreatedEvent(this));
 	}
@@ -70,6 +70,31 @@ public class VideoUnit
 	public int getID()
 	{
 		return this.uID;
+	}
+
+	/**
+	 * Gibt an, ob das VideoExemplar ausgeliehen kann. Ist dann der Fall, wenn
+	 * es nicht ausgeliehen und nicht gelöscht wurde.
+	 * 
+	 * @return True, falls ja, sonst False.
+	 */
+	public boolean canBeRented()
+	{
+		return !isRented() && !isDeleted();
+	}
+
+	/**
+	 * Gibt an, ob dieses VideoExemplar von einem angegebenen Kunden ausgeliehen
+	 * werden kann. Das ist dann der Fall, wenn das VideoExemplar ausleihbar ist
+	 * (canBeRented()) und der Kunde die Altersbeschränkung erfüllt.
+	 * 
+	 * @param customer Der Kunde, der den Film ausleihen möchte.
+	 * @return True, falls der Kunde den Film ausleihen kann, False sonst.
+	 */
+	public boolean canBeRentedBy(Customer customer)
+	{
+		return (canBeRented() && customer.getAge() >= this.getVideo()
+				.getRatedAge());
 	}
 
 	/**
@@ -152,7 +177,7 @@ public class VideoUnit
 	{
 		videoUnitList.remove(this.getID());
 		this.deleted = true;
-		
+
 		// Event feuern
 		EventManager.fireEvent(new VideoUnitDeletedEvent(this));
 	}
@@ -251,7 +276,9 @@ public class VideoUnit
 	}
 
 	/**
-	 * Gibt eine Menge von VideoUnits zurück, die zu einem angegebenen InRent gehören.
+	 * Gibt eine Menge von VideoUnits zurück, die zu einem angegebenen InRent
+	 * gehören.
+	 * 
 	 * @param inRent Das InRent (die Ausleihe), deren VideoUnits gesucht werden.
 	 * @return Die Menge der VideoUnits, die zu diesem InRent gehören.
 	 */

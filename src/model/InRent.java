@@ -325,9 +325,10 @@ public class InRent implements Comparable<InRent>
 				return ir;
 			}
 		}
-
-		throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.",
-				videoUnit.getID());
+		return null;
+		// dieser code hier hat in der log-datei immer für die vielen fehlermeldungen gesorgt:
+//		throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.",
+//				videoUnit.getID());
 	}
 
 	public static Collection<InRent> findByDate(Date date)
