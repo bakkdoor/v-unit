@@ -23,12 +23,19 @@ public class CustomerTableModel extends NotEditableTableModel
 	public CustomerTableModel(Vector rowData, Vector columnNames)
 	{
 		super(rowData, columnNames);
-		
-		EventManager.registerEventListener(CustomerEvent.class, this);
+		registerAsEventListener();
 	}
 	
 	public CustomerTableModel(Vector<String> columnNames, int rowCount) {
-		 super(columnNames, rowCount);
+		super(columnNames, rowCount);
+		registerAsEventListener();
+	}
+	
+	private void registerAsEventListener()
+	{
+		EventManager.registerEventListener(CustomerCreatedEvent.class, this);
+		EventManager.registerEventListener(CustomerDeletedEvent.class, this);
+		EventManager.registerEventListener(CustomerEditedEvent.class, this);
 	}
 
 	/* (non-Javadoc)
@@ -55,7 +62,6 @@ public class CustomerTableModel extends NotEditableTableModel
 				}
 			}
 		}
-		
 		else if(event instanceof CustomerDeletedEvent)
 		{
 			Customer customer = ((CustomerCreatedEvent)event).getCustomer();
