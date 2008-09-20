@@ -14,13 +14,16 @@ import model.VideoUnit;
 public class InRentDeletedUnitEvent extends InRentEvent
 
 {
+	protected VideoUnit videoUnit = null;
+
 	public InRentDeletedUnitEvent(InRent inRent,  VideoUnit deletedUnit)
 	{
-		super(inRent, deletedUnit);
+		super(inRent);
+		this.videoUnit = deletedUnit;
 	}
 	
-	public VideoUnit getVideoUnit() 
+	public VideoUnit getDeletedVideoUnit() 
 	{
-		return super.videoUnit;
+		return this.videoUnit;
 	}
 }

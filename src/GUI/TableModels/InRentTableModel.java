@@ -50,7 +50,7 @@ public class InRentTableModel extends NotEditableTableModel
 		
 		else if(event instanceof InRentDeletedUnitEvent)
 		{
-			VideoUnit videoUnit = ((model.events.InRentDeletedUnitEvent)event).getVideoUnit();
+			VideoUnit videoUnit = ((model.events.InRentDeletedUnitEvent)event).getDeletedVideoUnit();
 			deleteRow(videoUnit);
 		}
 		

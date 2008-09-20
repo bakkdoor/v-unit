@@ -52,15 +52,14 @@ public class InvoiceWriter
 				}
 				catch (RecordNotFoundException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				sb.append("\n");
 			}
 			sb.append("\n");
 			sb.append("Rueckgabetermin: \t" + inRent.getReturnDate() + "\n");
-			String weeks = inRent.getDuration() > 1 ? "Wochen" : "Woche";
-			sb.append("Ausleihdauer: \t\t" + inRent.getDuration() +  weeks + " \n");
+			String weeks = inRent.getDuration() > 1 ? " Wochen" : " Woche";
+			sb.append("Ausleihdauer: \t\t" + inRent.getDuration() + weeks + " \n");
 			sb.append("Ausleihpreis: \t\t" + inRent.getPrice() +  " Euro" + "\n");
 			sb.append("\n\n");
 			sb.append("======================================================\n");

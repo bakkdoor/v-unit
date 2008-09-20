@@ -393,8 +393,6 @@ public class InRent
 	
 	public void deleteSingleVideoUnit(VideoUnit videoUnit)
 	{
-		Collection<VideoUnit> videoUnits = this.getVideoUnits();
-		
 		//TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
 		this.videoUnitIDs.remove(videoUnit.getID());
 		this.getVideoUnits().remove(videoUnit);
