@@ -25,7 +25,6 @@ public class InRent
 	private int duration;
 
 	private boolean deleted = false;
-	private boolean overDuration = false;
 	private boolean warned = false;
 	
 	private static Map<Integer, InRent> inRentList;
@@ -169,7 +168,6 @@ public class InRent
 	{
 		if( this.getReturnDate().compareTo(CurrentDate.get()) < 0 )
 		{
-			this.overDuration = true;
 			return true;
 		}
 		else return false;
@@ -359,9 +357,9 @@ public class InRent
 	}
 
 	/**
-	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller Inrents 
-	 * auf Inrents mit überzogener Leihfrist
-	 * @return true, wenn Inrents mit überzogener Leihfrist existieren, false sonst
+	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller InRents 
+	 * auf InRents mit überzogener Leihfrist
+	 * @return true, wenn InRents mit überzogener Leihfrist existieren, false sonst
 	 */
 	protected static boolean newWarnings()
 	{
@@ -397,13 +395,19 @@ public class InRent
 	{
 		Collection<VideoUnit> videoUnits = this.getVideoUnits();
 		
-		
 		//TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
+		this.videoUnitIDs.remove(videoUnit.getID());
+		this.getVideoUnits().remove(videoUnit);
 	}
 	
 	public void deleteMultipleVideoUnits(Collection<VideoUnit> videoUnits)
 	{
 		//TODO: mehrere VideoUnits aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
+		
+		for(VideoUnit unit : videoUnits)
+		{
+			deleteSingleVideoUnit(unit);
+		}
 	}
 
 }
