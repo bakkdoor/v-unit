@@ -1,11 +1,6 @@
 package model.test;
 
-import java.util.LinkedList;
-
 import main.error.VideothekException;
-import model.Customer;
-import model.Date;
-import model.InRent;
 import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;

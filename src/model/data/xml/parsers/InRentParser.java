@@ -110,6 +110,7 @@ public class InRentParser extends AbstractParser
 			this.customerID = Integer.parseInt(attributes.getValue("customerID"));
 			this.date = Date.parseString(attributes.getValue("date"));
 			this.duration = Integer.parseInt(attributes.getValue("duration"));
+			this.warned = Boolean.parseBoolean(attributes.getValue("warned"));
 		}
 		else if(tagname == "videoUnit")
 		{
