@@ -26,8 +26,17 @@ import model.Customer;
 import model.Data;
 import model.Date;
 import model.data.exceptions.RecordNotFoundException;
+import model.events.CreateNewCustomerEvent;
+import model.events.EventManager;
+import model.events.VideothekEvent;
+import model.events.VideothekEventListener;
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseBirthDateException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 
-public class CustomerDataDialog  {
+public class CustomerDataDialog implements VideothekEventListener  {
 	
 	// Dialogdtanen
 	private MainWindow mainWindow;
@@ -47,6 +56,29 @@ public class CustomerDataDialog  {
 	private String city;
 	private String identificationID;
 	
+	// Eingabefelder anlegen
+	private JLabel labelID = new JLabel("KundenNr.:");
+	private JTextField textFielID = new JTextField();
+	private JLabel labelTitle = new JLabel("Anrede:");
+	private JTextField textFieldTitle = new JTextField();
+	private JLabel labelFirstName = new JLabel("Vorname:");
+	private JTextField textFieldFirstName = new JTextField();
+	private JLabel labelLastName = new JLabel("Nachname:");
+	private JTextField textFieldLastName = new JTextField();
+	private JLabel labelIdentificationID = new JLabel("AusweisNr.:");
+	private JTextField textFieldIdentificationID = new JTextField(identificationID);
+
+	private JLabel labelAddress = new JLabel("Anschrift:");
+	private JTextField textFieldStreet = new JTextField("Straße");
+	private JTextField textFieldHouseNr = new JTextField("HausNr.");
+	private JTextField textFieldZipCode = new JTextField("PLZ");
+	private JTextField textFieldCity = new JTextField("Ort");
+	
+	// Geburtsdatum-Eingabefelder
+	private JLabel labelBirthDay = new JLabel("Geburtsdatum:");
+	private JComboBox comboBoxBirthDay = new JComboBox(this.createDayCollection());
+	private JComboBox comboBoxBirthMonth = new JComboBox(this.createMonthCollection());
+	private JTextField textFieldBirthYear = new JTextField("Geburtsjahr");
 	
 	public CustomerDataDialog(MainWindow mainWindow) {
 		
@@ -91,41 +123,29 @@ public class CustomerDataDialog  {
 	} 
 	
 	private void fillDataDialog () {
+		// TODO: sollte eigentlich in den konstruktor, aber tut dann irgendwie nicht...
+		EventManager.registerEventListener(CreateNewCustomerEvent.class, this);
 		
 		// KundenNr erzeugen
-		JLabel labelID = new JLabel("KundenNr.:");
-		JTextField textFielID = new JTextField();
 		textFielID.setText(CID.toString());
 		textFielID.setEditable(false);
 		
 		// Anrede erzeugen
-		JLabel labelTitle = new JLabel("Anrede:");
-		JTextField textFieldTitle = new JTextField();
 		textFieldTitle.setText(title);
 		textFieldTitle.setEditable(addCustomer);
 		
 		// Vorname erzeugen
-		JLabel labelFirstName = new JLabel("Vorname:");
-		JTextField textFieldFirstName = new JTextField();
+		
 		textFieldFirstName.setText(firstName);
 		textFieldFirstName.setEditable(addCustomer);
 		
 		// Nachname erzeugen
-		JLabel labelLastName = new JLabel("Nachname:");
-		JTextField textFieldLastName = new JTextField();
 		textFieldLastName.setText(Lastname);
 		textFieldLastName.setEditable(addCustomer);
 		
 		// PersonalNr erzeugen
-		JLabel labelIdentificationID = new JLabel("AusweisNr.:");
-		JTextField textFieldIdentificationID = new JTextField(identificationID);
 		textFieldIdentificationID.setEditable(addCustomer);
 		
-		// Geburtsdatum erzeugen
-		JLabel labelBirthDay = new JLabel("Geburtsdatum:");
-		JComboBox comboBoxBirthDay = new JComboBox(this.createDayCollection());
-		JComboBox comboBoxBirthMonth = new JComboBox(this.createMonthCollection());
-		JTextField textFieldBirthYear = new JTextField("Geburtsjahr");
 		
 		// Geburtsdatum setzen
 		Integer[] bDate = this.convertDate(birthDate);
@@ -137,12 +157,6 @@ public class CustomerDataDialog  {
 		textFieldBirthYear.setEditable(addCustomer);
 		
 		// Anschrift erzeugen
-		JLabel labelAddress = new JLabel("Anschrift:");
-		JTextField textFieldStreet = new JTextField("Straße");
-		JTextField textFieldHouseNr = new JTextField("HausNr.");
-		JTextField textFieldZipCode = new JTextField("PLZ");
-		JTextField textFieldCity = new JTextField("Ort");
-		
 		textFieldStreet.setText(street);
 		textFieldHouseNr.setText(housNr);
 		textFieldZipCode.setText(zipCode.toString());
@@ -158,6 +172,14 @@ public class CustomerDataDialog  {
 		});
 		
 		JButton buttonAdd = new JButton("Bestätigen");
+		
+		buttonAdd.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				EventManager.fireEvent(new CreateNewCustomerEvent());
+			}
+		});
 		
 		// ***************************************************************
 		
@@ -250,5 +272,56 @@ public class CustomerDataDialog  {
 					JOptionPane.ERROR_MESSAGE);
 		}
 		
+	}
+
+	@Override
+	public void handleEvent(VideothekEvent event)
+	{
+		if(event instanceof CreateNewCustomerEvent)
+		{
+			String firstName = textFieldFirstName.getText();
+			String lastName = textFieldLastName.getText();
+			int birthYear = Integer.parseInt(textFieldBirthYear.getText());
+			int birthMonth = comboBoxBirthMonth.getSelectedIndex() + 1;
+			int birthDay = comboBoxBirthDay.getSelectedIndex() + 1;
+			String street = textFieldStreet.getText();
+			String houseNr = textFieldHouseNr.getText();
+			String city = textFieldCity.getText();
+			int zipCode = Integer.parseInt(textFieldZipCode.getText());
+			String title = textFieldTitle.getText();
+			String identificationNr = textFieldIdentificationID.getText();
+			
+			// neuen Customer erstellen!
+			try
+			{
+				Customer cust = new Customer(firstName, lastName, new Date(birthDay, birthMonth, birthYear),
+						street, houseNr, zipCode, city, identificationNr, title);
+			}
+			catch (FalseIDException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (EmptyFieldException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (FalseBirthDateException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (CurrentDateException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (FalseFieldException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
