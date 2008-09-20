@@ -106,7 +106,7 @@ public class MainWindow {
 //		optionDialog.setVisible(true);
 //		
 		String[] options = {"Film", "Kunde"};
-		int section = JOptionPane.showOptionDialog(mainFrame, "Möchten Sie Film oder Kunden anlegen?", "Anlegen Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
+		int section = JOptionPane.showOptionDialog(mainFrame, "Möchten Sie einen Film oder Kunden anlegen?", "Anlegen Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
 				options , null);
 			
 		if (section == 0) {

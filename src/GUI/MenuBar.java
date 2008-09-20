@@ -86,7 +86,7 @@ public class MenuBar {
 				new VideoDataDialog(mainWindow);
 			}
 		});
-		menuItemVideoEdit = new JMenuItem("bearbeiten", new ImageIcon(
+		menuItemVideoEdit = new JMenuItem("Bearbeiten", new ImageIcon(
 				"icons/film_edit.png"));
 		menuItemVideoEdit.setEnabled(false);
 		menuItemVideoEdit.addActionListener(new ActionListener(){

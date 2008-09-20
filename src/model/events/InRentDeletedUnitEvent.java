@@ -12,9 +12,15 @@ import model.VideoUnit;
  * Event für den Fall, dass die VideoUnits-Liste eines InRent bearbeitete wurde
  */
 public class InRentDeletedUnitEvent extends InRentEvent
+
 {
 	public InRentDeletedUnitEvent(InRent inRent,  VideoUnit deletedUnit)
 	{
 		super(inRent, deletedUnit);
+	}
+	
+	public VideoUnit getVideoUnit() 
+	{
+		return super.videoUnit;
 	}
 }

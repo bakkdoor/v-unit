@@ -81,9 +81,10 @@ public class VideoTableModel extends NotEditableTableModel
 		try {
 		rowData.add(newVideo.getID());
 		rowData.add(newVideo.getTitle());
-		rowData.add(newVideo.getReleaseYear());
-		rowData.add(newVideo.getRatedAge());
 		rowData.add(newVideo.getPriceCategory().getName());
+		rowData.add(newVideo.getRatedAge());
+		rowData.add(newVideo.getReleaseYear());
+				
 		super.getDataVector().add(rowData);
 		} catch (RecordNotFoundException e) {
 			// TODO Fehlerbehandlung bei falscher Preiskategorie
