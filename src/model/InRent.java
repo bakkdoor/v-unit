@@ -359,7 +359,8 @@ public class InRent
 	}
 
 	/**
-	 * Methode, die die Liste aller Inrents auf Inrents mit überzogener Leihfrist überprüft
+	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller Inrents 
+	 * auf Inrents mit überzogener Leihfrist
 	 * @return true, wenn Inrents mit überzogener Leihfrist existieren, false sonst
 	 */
 	protected static boolean newWarnings()
@@ -375,7 +376,8 @@ public class InRent
 	}
 
 	/**
-	 * Methode überprüft die Liste der Inrents und liefert eine Liste mit allen neuen, fälligen Mahnungen
+	 * Methode wird aus Warning aufgerufen, überprüft die Liste der Inrents 
+	 * und liefert eine Liste mit allen neuen, fälligen Mahnungen
 	 * @return Liste mit den neuen Mahnungen
 	 */
 	protected static Collection<Warning> getNewWarnings()
@@ -389,6 +391,19 @@ public class InRent
 			}
 		}
 		return foundNewWarnings;
+	}
+	
+	public void deleteSingleVideoUnit(VideoUnit videoUnit)
+	{
+		Collection<VideoUnit> videoUnits = this.getVideoUnits();
+		
+		
+		//TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
+	}
+	
+	public void deleteMultipleVideoUnits(Collection<VideoUnit> videoUnits)
+	{
+		//TODO: mehrere VideoUnits aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
 	}
 
 }
