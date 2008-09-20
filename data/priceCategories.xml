@@ -1,6 +1,2 @@
-<?xml version="1.0" standalone="yes"?>
-<!DOCTYPE priceCategories PUBLIC 'priceCategoryList' 'priceCategories.dtd'>
-<priceCategories minID="3">
-	<priceCategory pID="1" name="Billige Filme" price="1.99" />
-	<priceCategory pID="2" name="Teure Filme" price="3.99" />
-</priceCategories>
+<?xml version="1.0" standalone="yes"?><!DOCTYPE priceCategories PUBLIC 'priceCategoryList' 'priceCategories.dtd'>
+<priceCategories minID='3'><priceCategory name='Billige Filme' pID='1' price='1.99'></priceCategory><priceCategory name='Teure Filme' pID='2' price='3.99'></priceCategory></priceCategories>

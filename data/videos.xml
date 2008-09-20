@@ -1,19 +1,2 @@
-<?xml version="1.0" standalone="yes"?>
-<!DOCTYPE videos PUBLIC 'videoList' 'videos.dtd'>
-<videos minID="3" minVideoUnitID="8">
-	<video vID="1" title="Rambo" releaseYear="1982" priceCategoryID="1" ratedAge="18">
-		<videoUnit uID="1" videoID="1" />
-		<videoUnit uID="2" videoID="1" />
-	</video>
-	<video vID="2" title="Casino Royale" releaseYear="2006" priceCategoryID="2" ratedAge="16">
-		<videoUnit uID="3" videoID="2" />
-		<videoUnit uID="4" videoID="2" />
-		<videoUnit uID="5" videoID="2" />
-	</video>
-	<video vID="3" title="Armageddon" releaseYear="1999" priceCategoryID="1" ratedAge="16">
-		<videoUnit uID="6" videoID="3" />
-	</video>
-	<video vID="4" title="Minority Report" releaseYear="2002" priceCategoryID="2" ratedAge="16">
-		<videoUnit uID="7" videoID="4" />
-	</video>
-</videos>
+<?xml version="1.0" standalone="yes"?><!DOCTYPE videos PUBLIC 'videoList' 'videos.dtd'>
+<videos minID='3' minVideoUnitID='8'><video vID='1' priceCategoryID='1' title='Rambo' ratedAge='18' releaseYear='1982'><videoUnit videoID='1' uID='1'></videoUnit><videoUnit videoID='1' uID='2'></videoUnit></video><video vID='2' priceCategoryID='2' title='Casino Royale' ratedAge='16' releaseYear='2006'><videoUnit videoID='2' uID='3'></videoUnit><videoUnit videoID='2' uID='4'></videoUnit><videoUnit videoID='2' uID='5'></videoUnit></video><video vID='3' priceCategoryID='1' title='Armageddon' ratedAge='16' releaseYear='1999'><videoUnit videoID='3' uID='6'></videoUnit></video><video vID='4' priceCategoryID='2' title='Minority Report' ratedAge='16' releaseYear='2002'><videoUnit videoID='4' uID='7'></videoUnit></video></videos>

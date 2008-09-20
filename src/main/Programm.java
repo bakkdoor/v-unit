@@ -10,6 +10,7 @@ import model.CurrentDate;
 import model.Date;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
+import model.data.exceptions.DataSaveException;
 import model.exceptions.CurrentDateException;
 import GUI.MainWindow;
 
@@ -55,6 +56,15 @@ public class Programm
 	{
 		mainWindow.getMainFrame().dispose();
 
+		try
+		{
+			DataBase.saveData();
+		}
+		catch (DataSaveException e1)
+		{
+			e1.printStackTrace();
+		}
+		
 		Logger.get().write("Programm wird beendet!");
 
 		try
