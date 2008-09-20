@@ -13,7 +13,7 @@ import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
 
-public class InRent
+public class InRent implements Comparable<InRent>
 {
 
 	private int rID;
@@ -408,4 +408,26 @@ public class InRent
 		}
 	}
 
+	@Override
+	public int compareTo(InRent other)
+	{
+		if(this.customerID == other.customerID && this.warned == other.warned 
+				&& this.date.equals(other.date) && this.duration == other.duration 
+				&& this.deleted == other.deleted && this.rID == other.rID
+				&& this.isOverDuration() == other.isOverDuration()
+				&& this.videoUnitIDs.equals(other.videoUnitIDs)
+				&& this.getPrice() == other.getPrice())
+		{
+				return 0; // sind gleich
+		}
+		else
+		{
+			return 1; // sind ungleich
+		}
+	}
+	
+	public boolean equals(InRent other)
+	{
+		return this.compareTo(other) == 0;
+	}
 }

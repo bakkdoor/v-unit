@@ -45,7 +45,8 @@ public class InRentWriter extends AbstractWriter
 				.addXMLAttribute("date",ir.getDate().getDate() + ":"
 											+ ir.getDate().getMonth() + ":"
 											+ ir.getDate().getYear())
-				.addXMLAttribute("duration", Integer.toString(ir.getDuration()));
+				.addXMLAttribute("duration", Integer.toString(ir.getDuration()))
+				.addXMLAttribute("warned", Boolean.toString(ir.isWarned()));
 			
 			for(VideoUnit unit : ir.getVideoUnits())
 			{
