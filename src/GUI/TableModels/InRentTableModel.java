@@ -68,7 +68,7 @@ public class InRentTableModel extends NotEditableTableModel
 			rowData = new Vector();
 			rowData.add(inRent.getID());
 			rowData.add(inRent.getCustomer().getID());
-			rowData.add(videoUnit.getVideoID());
+			rowData.add(videoUnit.getID());
 			rowData.add(videoUnit.getVideo().getTitle());
 			rowData.add(inRent.getReturnDate());
 			rowData.add(inRent.isWarned()?"Ja":"Nein");
