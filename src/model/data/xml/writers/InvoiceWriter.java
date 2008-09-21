@@ -6,6 +6,7 @@ import java.io.IOException;
 import model.CurrentDate;
 import model.InRent;
 import model.VideoUnit;
+import model.Warning;
 import model.data.exceptions.RecordNotFoundException;
 
 /**
@@ -18,10 +19,61 @@ import model.data.exceptions.RecordNotFoundException;
 public class InvoiceWriter
 {
 	private static String inVoiceFolder = "quittungen/";
+	private static String warningFolder = "mahnungen/";
 	
 	public InvoiceWriter()
 	{
+	}
+	
+	public void writeInvoiceFor(Warning warning)
+	{
+		try
+		{
+		FileWriter fWriter = new FileWriter(warningFolder + warning.getID() + ".txt");
 		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Quittung fuer MahnungsNr.: " + formatInt(warning.getID(), 10));
+		sb.append(" Datum: " + CurrentDate.get() + "\n");
+		sb.append("======================================================\n");
+		sb.append("\n");
+		sb.append("KundenNr.: \t\t\t" + warning.getInRent().getCustomer().getID() + "\n");
+		sb.append("Kundenname: \t\t" + warning.getInRent().getCustomer().getName() + "\n");
+		sb.append("\n");
+		
+		sb.append("Filme:\n");
+		
+		for(VideoUnit unit : warning.getInRent().getVideoUnits())
+		{
+			sb.append(formatInt(unit.getID(), 10) + unit.getVideo().getTitle());
+			try
+			{
+				sb.append(formatLeft("(" + Float.toString(unit.getVideo().getPriceCategory().getPrice()) 
+								+ " Euro/Woche)", 18));
+			}
+			catch (RecordNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			sb.append("\n");
+		}
+		sb.append("\n");
+		sb.append("Rueckgabetermin: \t" + warning.getInRent().getReturnDate() + "\n");
+		String weeks = warning.getInRent().getDuration() > 1 ? " Wochen" : " Woche";
+		sb.append("Ausleihdauer: \t\t" + warning.getInRent().getDuration() + weeks + " \n");
+		sb.append("Ausleihpreis: \t\t" + warning.getInRent().getPrice() +  " Euro" + "\n");
+		sb.append("\n\n");
+		sb.append("======================================================\n");
+		sb.append("Unterschrift Kunde:");
+		
+		fWriter.append(sb.toString());
+		fWriter.flush();
+		fWriter.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void writeInvoiceFor(InRent inRent)
