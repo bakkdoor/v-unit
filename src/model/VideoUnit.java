@@ -173,6 +173,8 @@ public class VideoUnit
 	/**
 	 * Entfernt VideoUnit aus globaler VideoUnit-Liste. Wird beim nächsten
 	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Falls dieses VideoUnit das letzte des zugehörigen Videos ist,
+	 * wird das Video mitgelöscht.
 	 * 
 	 * @throws VideothekException
 	 */
@@ -181,7 +183,15 @@ public class VideoUnit
 		if (!this.isRented())
 		{
 			videoUnitList.remove(this.getID());
+			unitToVideoMap.get(this.videoID).remove(this);
 			this.deleted = true;
+			
+			// falls dieses exemplar das letzte ist,
+			// kann auch der gesamte film gelöscht werden...
+			if(this.getVideo().getVideoUnits().size() == 1)
+			{
+				this.getVideo().delete();
+			}
 
 			// Event feuern
 			EventManager.fireEvent(new VideoUnitDeletedEvent(this));

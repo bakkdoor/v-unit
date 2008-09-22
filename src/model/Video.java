@@ -250,6 +250,12 @@ public class Video
 		videoList.remove(this.getID());
 		this.deleted = true;
 
+		// videounits mit löschen
+		for(VideoUnit unit : this.getVideoUnits())
+		{
+			unit.delete();
+		}
+		
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
 

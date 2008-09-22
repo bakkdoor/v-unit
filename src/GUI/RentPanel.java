@@ -3,6 +3,7 @@ package GUI;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -72,7 +74,9 @@ public class RentPanel {
 		JPanel panelRent = new JPanel(new GridBagLayout());
 		GridBagConstraints gridBagConstRent = new GridBagConstraints();
 
-		panelRent.setBorder(BorderFactory.createTitledBorder("Ausleihe"));
+		TitledBorder border = BorderFactory.createTitledBorder("Ausleihe");
+		border.setTitleFont(new Font("Arial", Font.BOLD, 14));
+		panelRent.setBorder(border);
 
 		// KundenNr - Label/TextField erstellen
 		JLabel labelRentCustomer = new JLabel("KundenNr.:");
@@ -253,7 +257,11 @@ public class RentPanel {
 
 	private Container returnVideoPanel() {
 		JPanel returnVideoPanel = new JPanel();
-		returnVideoPanel.setBorder(BorderFactory.createTitledBorder("Rückgabe"));
+		
+		TitledBorder border = BorderFactory.createTitledBorder("Rückgabe");
+		border.setTitleFont(new Font("Arial", Font.BOLD, 14));
+		returnVideoPanel.setBorder(border);
+		
 		returnVideoPanel.setLayout(new GridBagLayout());
 		
 		JLabel labelReturnVideo = new JLabel("ExemplarNr.:");

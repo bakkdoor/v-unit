@@ -15,6 +15,7 @@ import model.data.exceptions.DataException;
 import model.data.exceptions.DataSaveException;
 import model.exceptions.CurrentDateException;
 import GUI.MainWindow;
+import GUI.dialogs.SetCurrentDateDialog;
 
 /**
  * @author java
@@ -29,14 +30,28 @@ public class Programm
 	{
 		Logger.get().write("Programm gestartet!");
 		Logger.get().write("CurrentDate wird gesetzt");
+
 		try
 		{
-			CurrentDate.set(new Date());
+			SetCurrentDateDialog dialog = new SetCurrentDateDialog();
+			dialog.setVisible(true);
 		}
-		catch (CurrentDateException e2)
+		catch(Exception e)
 		{
-			Logger.get().write("Fehler beim Setzen von CurrentDate!");
+			e.printStackTrace();
 		}
+		
+		Logger.get().write("Aktuelles Currentdate ist: " + CurrentDate.get());
+		
+//		try
+//		{
+//			CurrentDate.set(new Date());
+//			
+//		}
+//		catch (CurrentDateException e2)
+//		{
+//			Logger.get().write("Fehler beim Setzen von CurrentDate!");
+//		}
 
 		Logger.get().write("XML-Daten werden geladen.");
 

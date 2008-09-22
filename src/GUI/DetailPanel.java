@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
@@ -80,8 +82,9 @@ public class DetailPanel {
 
 		// this.changePanelDetailsCard(RENTDETAILS);
 
-		panelDetails.setBorder(BorderFactory
-				.createTitledBorder("Informationen"));
+		TitledBorder border = BorderFactory.createTitledBorder("Informationen");
+		border.setTitleFont(new Font("Arial", Font.BOLD, 14));
+		panelDetails.setBorder(border);
 
 		return panelDetails;
 	}
