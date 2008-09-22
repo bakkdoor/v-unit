@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import main.error.VideothekException;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.EventManager;
 import model.events.PriceCategoryCreatedEvent;
@@ -22,7 +23,7 @@ public class PriceCategory
 	private float price;
 
 	private boolean deleted = false;
-	
+
 	private static Map<Integer, PriceCategory> priceCategoryList = new HashMap<Integer, PriceCategory>();
 	private static int minpID;
 
@@ -32,7 +33,6 @@ public class PriceCategory
 		this.name = name;
 		this.price = price;
 
-		
 		priceCategoryList.put(this.pID, this);
 	}
 
@@ -40,11 +40,11 @@ public class PriceCategory
 	{
 		this(minpID, name, price);
 		minpID++;
-		
+
 		// Event feuern
 		EventManager.fireEvent(new PriceCategoryCreatedEvent(this));
 	}
-	
+
 	public int getID()
 	{
 
@@ -55,15 +55,12 @@ public class PriceCategory
 	{
 		return this.name;
 	}
-	
+
 	public void setName(String newName) throws EmptyFieldException
 	{
-		if(newName != "" && newName != null)
+		if (newName != "" && newName != null)
 		{
 			this.name = newName;
-			
-			// Event feuern
-			EventManager.fireEvent(new PriceCategoryEditedEvent(this));
 		}
 		else
 		{
@@ -75,51 +72,84 @@ public class PriceCategory
 	{
 		return this.price;
 	}
-	
+
 	public void setPrice(float newPrice) throws FalseFieldException
 	{
-		if(newPrice > 0)
+		if (newPrice > 0)
 		{
 			this.price = newPrice;
-			
-			// Event feuern
-			EventManager.fireEvent(new PriceCategoryEditedEvent(this));
 		}
 		else
 		{
 			throw new FalseFieldException("Angegebener Preis kleiner 0!");
 		}
 	}
-	
+
 	/**
-	 * Entfernt PriceCategory aus globaler PriceCategory-Liste.
-	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Entfernt PriceCategory aus globaler PriceCategory-Liste. Wird beim
+	 * nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * 
+	 * @throws VideothekException
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
+		for (InRent inRent : InRent.findAll())
+		{
+			for (VideoUnit unit : inRent.getVideoUnits())
+			{
+				if (unit.getVideo().getPriceCategory() == this)
+				{
+					throw new VideothekException(
+							"Diese Preiskategorie ist noch für verliehene Videos gesetzt."
+									+ "Löschen nicht möglich!");
+				}
+			}
+		}
 		priceCategoryList.remove(this.getID());
 		this.deleted = true;
-		
+
 		// Event feuern
 		EventManager.fireEvent(new PriceCategoryDeletedEvent(this));
 	}
-	
+
 	/**
 	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
 	public boolean isDeleted()
 	{
 		return this.deleted;
 	}
+
+	/**
+	 * Informiert alle anderen Teilsysteme, dass diese Preiskategorie 
+	 * evtl. geändert wurde.
+	 * Feuert ein {@link PriceCategoryEditedEvent} und sollte einmal 
+	 * nach einem Bearbeitungsvorgang aufgerufen werden.
+	 */
+	public void save()
+	{
+		// Event feuern
+		EventManager.fireEvent(new PriceCategoryEditedEvent(this));
+	}
 	
 	/**
 	 * Gibt alle Videos dieser Preiskategorie zurück.
+	 * 
 	 * @return Alle Videos dieser Preiskategorie
 	 */
 	public Collection<Video> getVideos()
 	{
 		return Video.findByPriceCategory(this);
+	}
+	
+	/**
+	 * Gibt die Preiskategorie als String (nur der Name) zurück.
+	 */
+	public String toString()
+	{
+		return this.name;
 	}
 
 	public static void setMinID(int newMinpID) throws FalseIDException
@@ -134,7 +164,7 @@ public class PriceCategory
 					"Übergebene MinID für PriceCategory ist kleiner 0!");
 		}
 	}
-	
+
 	public static int getMinID()
 	{
 		return minpID;
@@ -144,7 +174,7 @@ public class PriceCategory
 	{
 		return new PriceCategory(pID, name, price);
 	}
-	
+
 	public static Collection<PriceCategory> findAll()
 	{
 		return priceCategoryList.values();
@@ -163,44 +193,46 @@ public class PriceCategory
 		}
 	}
 
-	public static PriceCategory findFirst() throws RecordNotFoundException
+	public static PriceCategory findFirst() //throws RecordNotFoundException
 	{
-		for(PriceCategory pc : priceCategoryList.values())
+		for (PriceCategory pc : priceCategoryList.values())
 		{
 			return pc;
 		}
 		
-		throw new RecordNotFoundException("Preiskategorie", "", "");
+		return null;
+
+//		throw new RecordNotFoundException("Preiskategorie", "", "");
 	}
-		
+
 	public static Collection<PriceCategory> findByName(String categoryName)
 	{
 		Collection<PriceCategory> foundPriceCategories = new LinkedList<PriceCategory>();
-		for(PriceCategory pc : priceCategoryList.values())
+		for (PriceCategory pc : priceCategoryList.values())
 		{
-			if(pc.getName().startsWith(categoryName))
+			if (pc.getName().startsWith(categoryName))
 			{
 				foundPriceCategories.add(pc);
 			}
 		}
-		
+
 		return foundPriceCategories;
 	}
-	
+
 	public static Collection<PriceCategory> findByPrice(float price)
 	{
 		Collection<PriceCategory> foundPriceCategories = new LinkedList<PriceCategory>();
-		for(PriceCategory pc : priceCategoryList.values())
+		for (PriceCategory pc : priceCategoryList.values())
 		{
-			if(pc.getPrice() == price)
+			if (pc.getPrice() == price)
 			{
 				foundPriceCategories.add(pc);
 			}
 		}
-		
+
 		return foundPriceCategories;
 	}
-	
+
 	public static void setPriceCategoryList(
 			Map<Integer, PriceCategory> newPriceCategoryList)
 			throws FalseFieldException

@@ -1,9 +1,10 @@
-﻿package model;
+package model;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
+import main.error.VideothekException;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.EventManager;
 import model.events.VideoCreatedEvent;
@@ -229,14 +230,25 @@ public class Video
 	/**
 	 * Entfernt Video aus globaler Video-Liste. Wird beim nächsten Speichern
 	 * nicht mehr mitgespeichert und geht somit verloren.
+	 * 
+	 * @throws VideothekException
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
+		for( VideoUnit unit : this.getVideoUnits() )
+		{
+			if( unit.getInRent() != null )
+			{
+				throw new VideothekException(
+						"Exemplare dieses Videos noch in Ausleihe. Löschen nicht möglich!");
+			}
+		}
 		videoList.remove(this.getID());
 		this.deleted = true;
 
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
+
 	}
 
 	/**
@@ -249,6 +261,18 @@ public class Video
 		return this.deleted;
 	}
 
+	/**
+	 * Informiert alle anderen Teilsysteme, dass dieses Video 
+	 * evtl. geändert wurde.
+	 * Feuert ein {@link VideoEditedEvent} und sollte einmal 
+	 * nach einem Bearbeitungsvorgang aufgerufen werden.
+	 */
+	public void save()
+	{
+		// Event feuern
+		EventManager.fireEvent(new VideoEditedEvent(this));
+	}
+	
 	/**
 	 * setzt den Wert der statischen Variable MinvID
 	 * 
@@ -341,9 +365,6 @@ public class Video
 		if (newTitle != null && newTitle != "")
 		{
 			this.title = newTitle;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException();
@@ -360,9 +381,6 @@ public class Video
 		else
 		{
 			releaseYear = newReleaseYear;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 	}
 
@@ -372,9 +390,6 @@ public class Video
 		if (newPriceCategory != null)
 		{
 			this.priceCategory = newPriceCategory;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException();
@@ -386,9 +401,6 @@ public class Video
 				|| newRatedAge == 16 || newRatedAge == 18)
 		{
 			this.ratedAge = newRatedAge;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 		else
 			throw new FalseFieldException("Bitte FSK überprüfen");

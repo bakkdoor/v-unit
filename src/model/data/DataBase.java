@@ -4,10 +4,26 @@ import java.io.IOException;
 import java.util.Map;
 
 import main.error.VideothekException;
-import model.*;
-import model.data.exceptions.*;
-import model.data.xml.parsers.*;
-import model.data.xml.writers.*;
+import model.Customer;
+import model.InRent;
+import model.PriceCategory;
+import model.Video;
+import model.VideoUnit;
+import model.Warning;
+import model.data.exceptions.DataException;
+import model.data.exceptions.DataLoadException;
+import model.data.exceptions.DataSaveException;
+import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.parsers.CustomerParser;
+import model.data.xml.parsers.InRentParser;
+import model.data.xml.parsers.PriceCategoryParser;
+import model.data.xml.parsers.VideoParser;
+import model.data.xml.parsers.WarningParser;
+import model.data.xml.writers.CustomerWriter;
+import model.data.xml.writers.InRentWriter;
+import model.data.xml.writers.PriceCategoryWriter;
+import model.data.xml.writers.VideoWriter;
+import model.exceptions.FalseFieldException;
 
 /**
  * DataBase.java
@@ -30,7 +46,7 @@ public class DataBase
 	private static CustomerWriter costWriter;
 	private static VideoWriter vidWriter;
 	private static InRentWriter irWriter;
-	private static WarningWriter wWriter;
+//	private static WarningWriter wWriter;
 
 	private static Map<Integer, PriceCategory> priceCategories;
 	private static Map<Integer, Customer> customers;
@@ -53,6 +69,15 @@ public class DataBase
 			inRents = irParser.parseInRents("xml-spec/inRents.xml");
 			warnings = wParser.parseWarnings("xml-spec/warnings.xml");
 
+			try
+			{
+				Warning.setWarningList(warnings);
+			}
+			catch (FalseFieldException e)
+			{
+				e.printStackTrace();
+			}
+			
 			setGlobalLists();
 		}
 	}
@@ -65,8 +90,7 @@ public class DataBase
 			Customer.setCustomerList(customers);
 			Video.setVideoList(videos);
 			VideoUnit.setVideoUnitList(videoUnits);
-			InRent.setInRentList(inRents);
-			Warning.setWarningList(warnings);
+			InRent.setInRentList(inRents);		
 
 			dataLoaded = true;
 		}
@@ -91,8 +115,19 @@ public class DataBase
 		videos = vidParser.parseVideos("data/videos.xml");
 		videoUnits = vidParser.getVideoUnitList();
 		inRents = irParser.parseInRents("data/inRents.xml");
-		warnings = wParser.parseWarnings("data/warnings.xml");
+//		warnings = wParser.parseWarnings("data/warnings.xml");
 
+		try
+		{
+			Warning.setMinID(1);
+			Warning.setWarningList(new java.util.HashMap<Integer,Warning>());
+		}
+		catch (VideothekException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setGlobalLists();
 	}
 
@@ -143,15 +178,15 @@ public class DataBase
 		{
 			throw new DataSaveException(ex.getMessage(), "data/inRents.xml");
 		}
-		try
-		{
-			wWriter = new WarningWriter("data/warnings.xml");
-			wWriter.saveWarnings(Warning.findAll());
-		}
-		catch (Exception ex)
-		{
-			throw new DataSaveException(ex.getMessage(), "data/warnings.xml");
-		}
+//		try
+//		{
+//			wWriter = new WarningWriter("data/warnings.xml");
+//			wWriter.saveWarnings(Warning.findAll());
+//		}
+//		catch (Exception ex)
+//		{
+//			throw new DataSaveException(ex.getMessage(), "data/warnings.xml");
+//		}
 	}
 
 }

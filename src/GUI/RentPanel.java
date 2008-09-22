@@ -72,7 +72,7 @@ public class RentPanel {
 		JTextField textFieldRentCustomer = new JTextField();
 
 		// VideoNr - Label/TextField erstellen
-		JLabel labelRentVideo = new JLabel("FilmNr.:");
+		JLabel labelRentVideo = new JLabel("ExemplarNr.:");
 		JTextField textFieldRentVideo = new JTextField();
 
 		// Ausleihdauer - Label erstellen
@@ -218,7 +218,7 @@ public class RentPanel {
 		returnVideoPanel.setBorder(BorderFactory.createTitledBorder("Rückgabe"));
 		returnVideoPanel.setLayout(new GridBagLayout());
 		
-		JLabel labelReturnVideo = new JLabel("FilmNr.:");
+		JLabel labelReturnVideo = new JLabel("ExemplarNr.:");
 		JTextField textFieldReturnVideo = new JTextField();
 		
 		JButton buttonReturnVideoAdd = new JButton("Hinzufügen");

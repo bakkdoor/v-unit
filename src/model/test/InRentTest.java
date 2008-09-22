@@ -74,7 +74,15 @@ public class InRentTest extends ModelTest
 		assertNotNull(inRent);
 		assertTrue(InRent.findAll().contains(inRent));
 
-		inRent.delete();
+		try
+		{
+			inRent.delete();
+		}
+		catch (VideothekException e1)
+		{
+			assertTrue(false);
+			e1.printStackTrace();
+		}
 
 		assertFalse(InRent.findAll().contains(inRent));
 		assertTrue(inRent.isDeleted());
@@ -89,9 +97,46 @@ public class InRentTest extends ModelTest
 		}
 	}
 	
+	public void testGetDate()
+	{
+		assertNotNull(inRent.getDate());
+		assertEquals(new Date(), inRent.getDate());
+	}
+	
 	public void testGetReturnDate()
 	{
-		assertNotNull(inRent);
+		assertNotNull(inRent.getReturnDate());
+		assertEquals((new Date()).addWeeks(2), inRent.getReturnDate());
+	}
+	
+	public void testCompareTo()
+	{	
+		assertTrue(inRent.compareTo(inRent) == 0);
+		try
+		{
+			InRent other = InRent.findByID(1);
+			assertFalse(inRent.compareTo(other) == 0);
+		}
+		catch (RecordNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void testEquals()
+	{
+		assertEquals(inRent, inRent);
+		try
+		{
+			InRent other = InRent.findByID(1);
+			assertFalse(inRent.equals(other));
+		}
+		catch (RecordNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

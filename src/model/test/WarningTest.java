@@ -43,34 +43,34 @@ public class WarningTest extends ModelTest
 		}
 	}
 	
-	public void testDelete()
-	{
-		Warning w = null;
-		try
-		{
-			w = new Warning(InRent.findByID(2));
-		}
-		catch (RecordNotFoundException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		assertNotNull(w);
-		assertTrue(Warning.findAll().contains(w));
-		
-		w.delete();
-		
-		assertFalse(Warning.findAll().contains(w));
-		assertTrue(w.isDeleted());
-		
-		try
-		{
-			Warning.findByID(w.getID());
-		}
-		catch (VideothekException e)
-		{
-			assertEquals(RecordNotFoundException.class, e.getClass());
-		}
-	}
+//	public void testDelete()
+//	{
+//		Warning w = null;
+//		try
+//		{
+//			w = new Warning(InRent.findByID(2));
+//		}
+//		catch (RecordNotFoundException e1)
+//		{
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		assertNotNull(w);
+//		assertTrue(Warning.findAll().contains(w));
+//		
+//		w.delete();
+//		
+//		assertFalse(Warning.findAll().contains(w));
+//		assertTrue(w.isDeleted());
+//		
+//		try
+//		{
+//			Warning.findByID(w.getID());
+//		}
+//		catch (VideothekException e)
+//		{
+//			assertEquals(RecordNotFoundException.class, e.getClass());
+//		}
+//	}
 }

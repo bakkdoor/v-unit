@@ -59,11 +59,13 @@ public class InRentParserTest extends AbstractParserTest
 			assertEquals(new Date(10, 9, 2008), first.getDate());
 			assertEquals(1, first.getVideoUnitIDs().size());
 			assertEquals(2, first.getDuration());
+			assertEquals(true, first.isWarned());
 			
 			assertEquals(2, second.getID());
 			assertEquals(new Date(11, 9, 2008), second.getDate());
 			assertEquals(2, second.getVideoUnitIDs().size());
 			assertEquals(1, second.getDuration());
+			assertEquals(false, second.isWarned());
 		}
 		catch (Exception e)
 		{

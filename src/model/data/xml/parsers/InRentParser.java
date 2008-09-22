@@ -1,4 +1,4 @@
-﻿package model.data.xml.parsers;
+package model.data.xml.parsers;
 
 import java.io.IOException;
 import model.Date;
@@ -34,6 +34,7 @@ public class InRentParser extends AbstractParser
 	private Collection<Integer> videoUnitIDs = null;
 	private int rID, customerID, duration = Data.NOTSET;
 	private Date date = null;
+	private boolean warned;
 	/**
 	 * Konstruktor für InRentParser.
 	 */
@@ -109,6 +110,7 @@ public class InRentParser extends AbstractParser
 			this.customerID = Integer.parseInt(attributes.getValue("customerID"));
 			this.date = Date.parseString(attributes.getValue("date"));
 			this.duration = Integer.parseInt(attributes.getValue("duration"));
+			this.warned = Boolean.parseBoolean(attributes.getValue("warned"));
 		}
 		else if(tagname == "videoUnit")
 		{
@@ -136,7 +138,7 @@ public class InRentParser extends AbstractParser
 			InRent newInRent = null;
 			try
 			{
-				newInRent = InRent.reCreate(this.rID, this.customerID, this.videoUnitIDs, this.date, this.duration);
+				newInRent = InRent.reCreate(this.rID, this.customerID, this.videoUnitIDs, this.date, this.duration, this.warned);
 			}
 			catch (VideothekException e)
 			{

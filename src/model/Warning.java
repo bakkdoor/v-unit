@@ -1,17 +1,15 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
-import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.writers.InvoiceWriter;
 import model.data.xml.writers.WarningWriter;
 import model.events.EventManager;
 import model.events.WarningCreatedEvent;
-import model.events.WarningDeletedEvent;
+//import model.events.WarningDeletedEvent;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
@@ -30,12 +28,13 @@ public class Warning
 	private InRent inRent = null;
 	private int inRentID;
 
-	private boolean deleted = false;
+//	private boolean deleted = false;
 
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
 
 	public static final float billFactor = 1.5f;
+	public static final float warningPrice = 5.99f;
 
 	/**
 	 * Öffentlicher Konstruktor für Warnings.
@@ -46,7 +45,7 @@ public class Warning
 	{
 		this(minwID, inRent.getID());
 		this.inRent = inRent;
-		inRent.setWarned(true);
+//		inRent.setWarned(true);
 		minwID++;
 		
 		// Event feuern
@@ -106,30 +105,40 @@ public class Warning
 		}
 		return this.inRent;
 	}
-
+	
 	/**
-	 * Entfernt Warning aus globaler Warning-Liste. Wird beim nächsten Speichern
-	 * nicht mehr mitgespeichert und geht somit verloren.
+	 * Erstellt eine Quittung für diese Mahnung im mahnungen/quittungen/ Ordner. Name der
+	 * Quittings-Datei ist die ID dieses Warning Objektes + '.txt'
 	 */
-	public void delete()
+	public void createInvoice()
 	{
-		warningList.remove(this.getID());
-		this.deleted = true;
-		this.getInRent().setWarned(false);
-		
-		// Event feuern
-		EventManager.fireEvent(new WarningDeletedEvent(this));
+		InvoiceWriter writer = new InvoiceWriter();
+		writer.writeInvoiceFor(this);
 	}
 
-	/**
-	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
-	 * 
-	 * @return True, falls gelöscht, False sonst.
-	 */
-	public boolean isDeleted()
-	{
-		return this.deleted;
-	}
+//	/**
+//	 * Entfernt Warning aus globaler Warning-Liste. Wird beim nächsten Speichern
+//	 * nicht mehr mitgespeichert und geht somit verloren.
+//	 */
+//	public void delete()
+//	{
+//		warningList.remove(this.getID());
+//		this.deleted = true;
+//		this.getInRent().setWarned(false);
+//		
+//		// Event feuern
+//		EventManager.fireEvent(new WarningDeletedEvent(this));
+//	}
+
+//	/**
+//	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+//	 * 
+//	 * @return True, falls gelöscht, False sonst.
+//	 */
+//	public boolean isDeleted()
+//	{
+//		return this.deleted;
+//	}
 
 	/**
 	 * Wird in der DataBase Klasse aufgerufen um die geladenen Warnings global
@@ -246,10 +255,18 @@ public class Warning
 		return minwID;
 	}
 
-	public static void createPendingInvoices()
+	/**
+	 * Übergibt alle noch ausstehenden Mahnungen (Warnings) dem WarningWriter 
+	 * und schreibt sie in eine Datei.
+	 */
+	public static void createPendingWarnings()
 	{
-		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen
-		// drucken lassen
+		WarningWriter writer = new WarningWriter();
+		for(Warning w : InRent.getNewWarnings())
+		{
+			writer.writeWarning(w);
+			w.inRent.setWarned(true);
+		}
 	}
 
 	/**
@@ -269,40 +286,4 @@ public class Warning
 	{
 		return InRent.getNewWarnings();
 	}
-
-	/**
-	 * Methode schreibt die neuen Mahnungen in eine neue Datei mit dem aktuellen
-	 * Datum
-	 */
-	public static void writeNewWarnings()
-	{
-		try
-		{
-			WarningWriter writer = new WarningWriter("Mahnungen vom "
-					+ CurrentDate.get().toString());
-			writer.saveWarnings(getNewWarnings());
-		}
-		catch (DataSaveException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (RecordNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
 }

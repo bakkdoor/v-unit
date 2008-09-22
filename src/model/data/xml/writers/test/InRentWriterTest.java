@@ -42,6 +42,13 @@ public class InRentWriterTest extends AbstractWriterTest
 					.parseInRents("xml-spec/inRents-save.xml").values();
 
 			assertEquals(InRent.findAll().size(), parsedInRents.size());
+			
+			// alle objekte miteinander vergleichen
+			for(int i = 0; i < InRent.findAll().size(); i++)
+			{
+				// compareTo() == 0 bedeutet, dass beide InRents gleich sind!
+				assertEquals(0, ((InRent)InRent.findAll().toArray()[i]).compareTo((InRent) parsedInRents.toArray()[i]));
+			}
 		}
 		catch (DataException e)
 		{

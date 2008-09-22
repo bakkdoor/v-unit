@@ -18,7 +18,7 @@ public abstract class InRentEvent extends VideothekEvent
 	{
 		this.inRent = inRent;
 	}
-	
+
 	public InRent getInRent()
 	{
 		return this.inRent;

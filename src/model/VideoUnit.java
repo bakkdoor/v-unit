@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import main.error.VideothekException;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.EventManager;
 import model.events.VideoUnitCreatedEvent;
@@ -44,7 +45,7 @@ public class VideoUnit
 
 		videoUnitList.put(this.uID, this);
 		addToUnitToVideoMap(this);
-		
+
 		// Event feuern
 		EventManager.fireEvent(new VideoUnitCreatedEvent(this));
 	}
@@ -70,6 +71,31 @@ public class VideoUnit
 	public int getID()
 	{
 		return this.uID;
+	}
+
+	/**
+	 * Gibt an, ob das VideoExemplar ausgeliehen kann. Ist dann der Fall, wenn
+	 * es nicht ausgeliehen und nicht gelöscht wurde.
+	 * 
+	 * @return True, falls ja, sonst False.
+	 */
+	public boolean canBeRented()
+	{
+		return !isRented() && !isDeleted();
+	}
+
+	/**
+	 * Gibt an, ob dieses VideoExemplar von einem angegebenen Kunden ausgeliehen
+	 * werden kann. Das ist dann der Fall, wenn das VideoExemplar ausleihbar ist
+	 * (canBeRented()) und der Kunde die Altersbeschränkung erfüllt.
+	 * 
+	 * @param customer Der Kunde, der den Film ausleihen möchte.
+	 * @return True, falls der Kunde den Film ausleihen kann, False sonst.
+	 */
+	public boolean canBeRentedBy(Customer customer)
+	{
+		return (canBeRented() && customer.getAge() >= this.getVideo()
+				.getRatedAge());
 	}
 
 	/**
@@ -147,14 +173,22 @@ public class VideoUnit
 	/**
 	 * Entfernt VideoUnit aus globaler VideoUnit-Liste. Wird beim nächsten
 	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * 
+	 * @throws VideothekException
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
-		videoUnitList.remove(this.getID());
-		this.deleted = true;
-		
-		// Event feuern
-		EventManager.fireEvent(new VideoUnitDeletedEvent(this));
+		if (!this.isRented())
+		{
+			videoUnitList.remove(this.getID());
+			this.deleted = true;
+
+			// Event feuern
+			EventManager.fireEvent(new VideoUnitDeletedEvent(this));
+		}
+		else
+			throw new VideothekException(
+					"Videoexemplar ist noch verliehen. Löschen nicht möglich!");
 	}
 
 	/**
@@ -251,7 +285,9 @@ public class VideoUnit
 	}
 
 	/**
-	 * Gibt eine Menge von VideoUnits zurück, die zu einem angegebenen InRent gehören.
+	 * Gibt eine Menge von VideoUnits zurück, die zu einem angegebenen InRent
+	 * gehören.
+	 * 
 	 * @param inRent Das InRent (die Ausleihe), deren VideoUnits gesucht werden.
 	 * @return Die Menge der VideoUnits, die zu diesem InRent gehören.
 	 */

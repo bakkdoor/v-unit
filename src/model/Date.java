@@ -1,4 +1,4 @@
-﻿package model;
+package model;
 
 import java.util.Calendar;
 
@@ -117,7 +117,24 @@ public class Date implements Comparable<Date>
 	 */
 	public String toString()
 	{
-		return this.date + "." + this.month + "." + this.year;
+		StringBuilder sb = new StringBuilder();
+		if(this.date < 10)
+		{
+			sb.append("0");
+		}
+		sb.append(this.date);
+		sb.append(".");
+		
+		if(this.month < 10)
+		{
+			sb.append("0");
+		}
+		sb.append(this.month);
+		sb.append(".");
+		
+		sb.append(this.year);
+		
+ 		return sb.toString();
 	}
 
 	/**

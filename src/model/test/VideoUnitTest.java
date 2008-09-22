@@ -54,7 +54,15 @@ public class VideoUnitTest extends ModelTest
 		assertNotNull(unit);
 		assertTrue(VideoUnit.findAll().contains(unit));
 		
-		unit.delete();
+		try
+		{
+			unit.delete();
+		}
+		catch (VideothekException e1)
+		{
+			assertTrue(false);
+			e1.printStackTrace();
+		}
 		
 		assertFalse(VideoUnit.findAll().contains(unit));
 		assertTrue(unit.isDeleted());

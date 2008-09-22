@@ -17,6 +17,9 @@ public class Config
 	public class Settings
 	{
 		public static final String SETDATEONSTARTUP = "setCurrentDateOnStartUp";
+		public static final String INVOICEFOLDER = "invoiceFolder";
+		public static final String WARNINGFOLDER = "warningFolder";
+		public static final String WARNINGINVOICEFOLDER = "warningInvoiceFolder";
 	}
 
 	/**
@@ -96,13 +99,14 @@ public class Config
 	}
 
 	/**
-	 * Speichert aktuelle Config-Settings in der Standard Config-Datei.
+	 * Speichert aktuelle Config-Settings in der jeweils angegebenen Config-Datei.
+	 * Falls nicht explizit angegeben, ist dies die Standard Config-Datei.
 	 * @throws IOException Wird geworfen, falls es Fehler beim Speichern gab.
 	 * @throws DataSaveException Wird geworfen, falls es Fehler beim Speichern gab.
 	 */
 	public void save() throws IOException, DataSaveException
 	{
-		save(stdConfigFileName);
+		save(this.configFile);
 	}
 
 	/**
@@ -118,5 +122,13 @@ public class Config
 	{
 		ConfigWriter writer = new ConfigWriter(fileName);
 		writer.saveConfig(this.configSettingsMap);
+	}
+	
+	public static void saveAll() throws DataSaveException, IOException
+	{
+		for(Config conf : configsMap.values())
+		{
+			conf.save();
+		}
 	}
 }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 
  */
 package main;
@@ -6,10 +6,13 @@ package main;
 import java.io.IOException;
 
 import logging.Logger;
+import main.config.Config;
 import model.CurrentDate;
 import model.Date;
+import model.Warning;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
+import model.data.exceptions.DataSaveException;
 import model.exceptions.CurrentDateException;
 import GUI.MainWindow;
 
@@ -55,6 +58,19 @@ public class Programm
 	{
 		mainWindow.getMainFrame().dispose();
 
+		try
+		{
+			// mahnungen in dateien schreiben
+			Warning.createPendingWarnings();
+			
+			DataBase.saveData();
+			Config.saveAll();
+		}
+		catch (Exception e1)
+		{
+			e1.printStackTrace();
+		}
+		
 		Logger.get().write("Programm wird beendet!");
 
 		try

@@ -6,5 +6,6 @@
 <!ATTLIST inRent	rID NMTOKEN #REQUIRED
 					customerID NMTOKEN #REQUIRED
 					date NMTOKEN #REQUIRED
-					duration NMTOKEN #REQUIRED>
+					duration NMTOKEN #REQUIRED
+					warned (true|false) "false">
 <!ATTLIST videoUnit	uID NMTOKEN #REQUIRED>
