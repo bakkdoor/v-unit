@@ -229,6 +229,7 @@ public class DetailPanel {
 						mainWindow));
 
 		buttonDetailVadd = new JButton("Übernehmen");
+		buttonDetailVadd.setEnabled(false);
 		buttonDetailVadd.addActionListener(new ActionListener() {
 
 			@Override
@@ -332,8 +333,6 @@ public class DetailPanel {
 
 		// ***************************************************************
 		// in Rentpanel hinzufügen
-		// Layout.addComponent(container, component, x, y, gridwidth,
-		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
 		Layout.addComponent(rentPanel, labelRentID, 0, 0, 1, 1, 0.3, 0.0, 0, 0,
 				GridBagConstraints.HORIZONTAL,
 				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
@@ -394,6 +393,7 @@ public class DetailPanel {
 
 	public void fillPanelDetailVideo(Video video) {
 
+		changePanelDetailsCard(VIDEODETAILS);
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
@@ -413,34 +413,18 @@ public class DetailPanel {
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getSortedVideoUnits());
 
-		class ColoredListCellRenderer extends DefaultListCellRenderer {
-
-			public void setValue(Object value) {
-				if (value instanceof VideoUnit) {
-					if (((VideoUnit) value).isRented()) {
-						setBackground(Color.RED);
-					} else
-						setBackground(Color.GREEN);
-				}
-			}
-		}
-
-		listDetailVUnit.setCellRenderer(new ColoredListCellRenderer());
-
 		this.listDetailVUnit.setListData(videoUnits);
-		this.listDetailVUnit.setSelectedIndex(0);
-		fillPanelDetailVideoState(videoUnits.get(0));
 	}
 
 	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
+		buttonDetailVadd.setEnabled(true);
 		boolean isRented = videoUnit.isRented();
-		InRent inRent = videoUnit.getInRent();
 
 		this.textFieldDetailVState.setText(isRented ? "Ausgeliehen"
 				: "Verfügbar");
 
 		if (isRented) {
-			this.textFieldDetailVDuration.setText(inRent.getReturnDate()
+			this.textFieldDetailVDuration.setText(videoUnit.getInRent().getReturnDate()
 					.toString());
 		} else {
 			this.textFieldDetailVDuration.setText("");
@@ -449,6 +433,7 @@ public class DetailPanel {
 
 	public void fillPanelDetailCustomer(Customer customer) {
 
+		this.changePanelDetailsCard(CUSTOMERDETAILS);
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setCustomerButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();

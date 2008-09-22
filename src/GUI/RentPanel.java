@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -14,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +29,7 @@ import GUI.TableModels.NotEditableTableModel;
 import GUI.TableModels.ReturnTableModel;
 
 import model.Customer;
+import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
 
@@ -39,7 +43,10 @@ public class RentPanel {
 	
 	private JTable tableRentVideo;
 	private TableModel tableModelRentVideo;
-	private JLabel labelReturnVideoSumWarning;
+	
+	private JTextField textFieldRentCustomer;
+	private JTextField textFieldRentVideoID;
+	private JTextField textFieldReturnVideo;
 	
 	private JPanel panelRent;
 	
@@ -69,11 +76,39 @@ public class RentPanel {
 
 		// KundenNr - Label/TextField erstellen
 		JLabel labelRentCustomer = new JLabel("KundenNr.:");
-		JTextField textFieldRentCustomer = new JTextField();
+		textFieldRentCustomer = new JTextField();
+		textFieldRentCustomer.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Integer custID = Integer.parseInt(textFieldRentCustomer.getText());
+				try {
+					mainWindow.getDetailPanel().fillPanelDetailCustomer(Customer.findByID(custID));
+				} catch (RecordNotFoundException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "Kunden nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+			
+		});
 
 		// VideoNr - Label/TextField erstellen
-		JLabel labelRentVideo = new JLabel("ExemplarNr.:");
-		JTextField textFieldRentVideo = new JTextField();
+		JLabel labelRentVideoID = new JLabel("ExemplarNr.:");
+		textFieldRentVideoID = new JTextField();
+		textFieldRentVideoID.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Integer unitID = Integer.parseInt(textFieldRentVideoID.getText());
+				try {
+					VideoUnit videoUnit = VideoUnit.findByID(unitID);
+					mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit.getVideo());
+					mainWindow.getDetailPanel().fillPanelDetailVideoState(videoUnit);
+				} catch (RecordNotFoundException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Videoexemplar nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}});
 
 		// Ausleihdauer - Label erstellen
 		JLabel labelRentDuration = new JLabel("Ausleihdauer:");
@@ -126,7 +161,7 @@ public class RentPanel {
 		gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstRent.insets = new Insets(0, 3, 3, 0);
-		panelRent.add(labelRentVideo, gridBagConstRent);
+		panelRent.add(labelRentVideoID, gridBagConstRent);
 
 		// TextField VideoNr
 		gridBagConstRent.gridx = 2;
@@ -136,7 +171,7 @@ public class RentPanel {
 		gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
 		gridBagConstRent.insets = new Insets(0, 0, 3, 3);
-		panelRent.add(textFieldRentVideo, gridBagConstRent);
+		panelRent.add(textFieldRentVideoID, gridBagConstRent);
 
 		// Label Dauer
 		gridBagConstRent.gridx = 0;
@@ -222,7 +257,7 @@ public class RentPanel {
 		returnVideoPanel.setLayout(new GridBagLayout());
 		
 		JLabel labelReturnVideo = new JLabel("ExemplarNr.:");
-		JTextField textFieldReturnVideo = new JTextField();
+		textFieldReturnVideo = new JTextField();
 		
 		JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
 		
@@ -232,7 +267,7 @@ public class RentPanel {
 		tableReturnVideo.getTableHeader().setReorderingAllowed(false);
 		
 		JLabel labelReturnVideoSum = new JLabel("Gesammtpreis:");
-		labelReturnVideoSumWarning = new JLabel("0,00 €");
+		JLabel labelReturnVideoSumWarning = new JLabel("0,00 €");
 		
 		JButton buttonReturnVideoCancel = new JButton("Abbrechen");
 		JButton buttonReturnVideoAccept = new JButton("Bestätigen");
