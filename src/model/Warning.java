@@ -1,14 +1,11 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
-import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
-import model.data.xml.writers.WarningWriter;
+import model.data.xml.writers.InvoiceWriter;
 import model.events.EventManager;
 import model.events.WarningCreatedEvent;
 //import model.events.WarningDeletedEvent;
@@ -36,6 +33,7 @@ public class Warning
 	private static Map<Integer, Warning> warningList;
 
 	public static final float billFactor = 1.5f;
+	public static final float warningPrice = 5.99f;
 
 	/**
 	 * Öffentlicher Konstruktor für Warnings.
@@ -46,7 +44,7 @@ public class Warning
 	{
 		this(minwID, inRent.getID());
 		this.inRent = inRent;
-		inRent.setWarned(true);
+//		inRent.setWarned(true);
 		minwID++;
 		
 		// Event feuern
@@ -246,10 +244,18 @@ public class Warning
 		return minwID;
 	}
 
+	/**
+	 * Übergibt alle noch ausstehenden Mahnungen (Warnings) dem InvoiceWriter 
+	 * und schreibt sie in eine Datei.
+	 */
 	public static void createPendingInvoices()
 	{
-		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen
-		// drucken lassen
+		InvoiceWriter writer = new InvoiceWriter();
+		for(Warning w : InRent.getNewWarnings())
+		{
+			writer.writeInvoiceFor(w);
+			w.inRent.setWarned(true);
+		}
 	}
 
 	/**
@@ -269,40 +275,4 @@ public class Warning
 	{
 		return InRent.getNewWarnings();
 	}
-
-	/**
-	 * Methode schreibt die neuen Mahnungen in eine neue Datei mit dem aktuellen
-	 * Datum
-	 */
-	public static void writeNewWarnings()
-	{
-		try
-		{
-			WarningWriter writer = new WarningWriter("Mahnungen vom "
-					+ CurrentDate.get().toString());
-			writer.saveWarnings(getNewWarnings());
-		}
-		catch (DataSaveException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (RecordNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
 }
