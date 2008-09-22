@@ -166,17 +166,28 @@ public class InRent implements Comparable<InRent>
 
 	/**
 	 * Methode überprüft, ob die Leihfrist abgelaufen ist
-	 * 
+	 * @param deadline Anzahl der Tage, die auf das Rückgabedatum 
+	 * 					hinzugerechnet werden.
 	 * @return true, wenn Leihfrist überschritten, False sonst
 	 */
-	public boolean isOverDuration()
+	public boolean isOverDuration(int deadline)
 	{
-		if (this.getReturnDate().compareTo(CurrentDate.get()) < 0)
+		if (this.getReturnDate().addDays(deadline).compareTo(CurrentDate.get()) < 0)
 		{
 			return true;
 		}
 		else
 			return false;
+	}
+	
+	/**
+	 * Methode überprüft, ob die Leihfrist abgelaufen ist
+	 * 
+	 * @return true, wenn Leihfrist überschritten, False sonst
+	 */
+	public boolean isOverDuration()
+	{
+		return isOverDuration(0);
 	}
 
 	public Collection<Integer> getVideoUnitIDs()
@@ -252,7 +263,7 @@ public class InRent implements Comparable<InRent>
 	 */
 	public void delete() throws VideothekException
 	{
-		if ( !this.isWarned() )
+		if (!this.isWarned())
 		{
 			inRentList.remove(this.getID());
 			this.deleted = true;
@@ -400,7 +411,7 @@ public class InRent implements Comparable<InRent>
 	{
 		for (InRent ir : inRentList.values())
 		{
-			if (ir.isOverDuration() && !ir.isWarned())
+			if (ir.isOverDuration(3) && !ir.isWarned())
 			{
 				return true;
 			}
@@ -419,7 +430,7 @@ public class InRent implements Comparable<InRent>
 		List<Warning> foundNewWarnings = new LinkedList<Warning>();
 		for (InRent ir : inRentList.values())
 		{
-			if (ir.isOverDuration() && !ir.isWarned())
+			if (ir.isOverDuration(3) && !ir.isWarned())
 			{
 				foundNewWarnings.add(new Warning(ir));
 			}
@@ -429,17 +440,12 @@ public class InRent implements Comparable<InRent>
 
 	public void deleteSingleVideoUnit(VideoUnit videoUnit)
 	{
-		// TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne
-		// ganzen InRent zu löschen
 		this.videoUnitIDs.remove(videoUnit.getID());
 		this.getVideoUnits().remove(videoUnit);
 	}
 
 	public void deleteMultipleVideoUnits(Collection<VideoUnit> videoUnits)
 	{
-		// TODO: mehrere VideoUnits aus einem InRent löschen / zurückgeben, ohne
-		// ganzen InRent zu löschen
-
 		for (VideoUnit unit : videoUnits)
 		{
 			deleteSingleVideoUnit(unit);
