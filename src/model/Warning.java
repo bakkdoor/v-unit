@@ -8,7 +8,7 @@ import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
 import model.events.EventManager;
 import model.events.WarningCreatedEvent;
-import model.events.WarningDeletedEvent;
+//import model.events.WarningDeletedEvent;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
@@ -27,7 +27,7 @@ public class Warning
 	private InRent inRent = null;
 	private int inRentID;
 
-	private boolean deleted = false;
+//	private boolean deleted = false;
 
 	private static int minwID;
 	private static Map<Integer, Warning> warningList;
@@ -105,29 +105,29 @@ public class Warning
 		return this.inRent;
 	}
 
-	/**
-	 * Entfernt Warning aus globaler Warning-Liste. Wird beim nächsten Speichern
-	 * nicht mehr mitgespeichert und geht somit verloren.
-	 */
-	public void delete()
-	{
-		warningList.remove(this.getID());
-		this.deleted = true;
-		this.getInRent().setWarned(false);
-		
-		// Event feuern
-		EventManager.fireEvent(new WarningDeletedEvent(this));
-	}
+//	/**
+//	 * Entfernt Warning aus globaler Warning-Liste. Wird beim nächsten Speichern
+//	 * nicht mehr mitgespeichert und geht somit verloren.
+//	 */
+//	public void delete()
+//	{
+//		warningList.remove(this.getID());
+//		this.deleted = true;
+//		this.getInRent().setWarned(false);
+//		
+//		// Event feuern
+//		EventManager.fireEvent(new WarningDeletedEvent(this));
+//	}
 
-	/**
-	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
-	 * 
-	 * @return True, falls gelöscht, False sonst.
-	 */
-	public boolean isDeleted()
-	{
-		return this.deleted;
-	}
+//	/**
+//	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+//	 * 
+//	 * @return True, falls gelöscht, False sonst.
+//	 */
+//	public boolean isDeleted()
+//	{
+//		return this.deleted;
+//	}
 
 	/**
 	 * Wird in der DataBase Klasse aufgerufen um die geladenen Warnings global

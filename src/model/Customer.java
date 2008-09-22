@@ -1,5 +1,6 @@
 package model;
 
+import main.error.VideothekException;
 import model.Date;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.CustomerCreatedEvent;
@@ -606,9 +607,10 @@ public class Customer
 	{
 		return InRent.findByCustomer(this);
 	}
-	
+
 	/**
 	 * Gibt an, ob ein Kunde einen Film (ein VideoExemplar) ausleihen kann.
+	 * 
 	 * @param unit Das VideoExemplar, das überprüft werden soll.
 	 * @return True, falls ausleihbar, False sonst.
 	 */
@@ -637,13 +639,17 @@ public class Customer
 	 * Entfernt Customer aus globaler Customer-Liste. Wird beim nächsten
 	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
-		customerList.remove(this.getID());
-		this.deleted = true;
+		if (this.getInRents().isEmpty() )
+		{
+			customerList.remove(this.getID());
+			this.deleted = true;
 
-		// Event feuern
-		EventManager.fireEvent(new CustomerDeletedEvent(this));
+			// Event feuern
+			EventManager.fireEvent(new CustomerDeletedEvent(this));
+		}
+		else throw new VideothekException("Kunde hat noch aktive Ausleihen. Löschen nicht möglich!");
 	}
 
 	/**

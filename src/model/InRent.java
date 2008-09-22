@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Collection;
+
+import main.error.VideothekException;
 import model.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,44 +28,45 @@ public class InRent implements Comparable<InRent>
 
 	private boolean deleted = false;
 	private boolean warned = false;
-	
+
 	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
 
-	public InRent(Customer customer, Collection<VideoUnit> videoUnits, Date date,
-			int duration) throws FalseIDException, FalseFieldException,
-			CurrentDateException
+	public InRent(Customer customer, Collection<VideoUnit> videoUnits,
+			Date date, int duration) throws FalseIDException,
+			FalseFieldException, CurrentDateException
 	{
-		//this(minrID, customer.getID(), , date, duration);
+		// this(minrID, customer.getID(), , date, duration);
 		this.rID = minrID;
 		minrID++;
-		
+
 		this.customerID = customer.getID();
 		this.customer = customer;
 		this.date = date;
 		this.duration = duration;
 		this.videoUnits = videoUnits;
-		
-		// VideoUnitIDs aus übergebenen VideoUnits auslesen und in Liste speichern.
+
+		// VideoUnitIDs aus übergebenen VideoUnits auslesen und in Liste
+		// speichern.
 		Collection<Integer> unitIDs = new LinkedList<Integer>();
-		for(VideoUnit unit : videoUnits)
+		for (VideoUnit unit : videoUnits)
 		{
 			unitIDs.add(unit.getID());
 		}
-		
+
 		this.videoUnitIDs = unitIDs;
-		
+
 		// Event feuern
 		EventManager.fireEvent(new InRentCreatedEvent(this));
-		
+
 		checkRentDate();
-		
+
 		inRentList.put(this.rID, this);
 	}
 
-	private InRent(int rID, int customerID, Collection<Integer> videoUnitIDs, Date date,
-			int duration, boolean warned) throws FalseIDException, FalseFieldException,
-			CurrentDateException
+	private InRent(int rID, int customerID, Collection<Integer> videoUnitIDs,
+			Date date, int duration, boolean warned) throws FalseIDException,
+			FalseFieldException, CurrentDateException
 	{
 		this.rID = rID;
 		this.customerID = customerID;
@@ -75,9 +78,10 @@ public class InRent implements Comparable<InRent>
 		checkDuration();
 	}
 
-	public static InRent reCreate(int rID, int customerID, Collection<Integer> videoUnitIDs,
-			Date date, int duration, boolean warned) throws FalseIDException,
-			FalseFieldException, CurrentDateException
+	public static InRent reCreate(int rID, int customerID,
+			Collection<Integer> videoUnitIDs, Date date, int duration,
+			boolean warned) throws FalseIDException, FalseFieldException,
+			CurrentDateException
 	{
 		return new InRent(rID, customerID, videoUnitIDs, date, duration, warned);
 	}
@@ -94,7 +98,7 @@ public class InRent implements Comparable<InRent>
 					"Übergebene MinID für InRent ist kleiner 0!!!");
 		}
 	}
-	
+
 	public static int getMinID()
 	{
 		return minrID;
@@ -122,14 +126,14 @@ public class InRent implements Comparable<InRent>
 	{
 		int rID = this.rID;
 		int customerID = this.customerID;
-		
+
 		// videoUnitIDs checken
-		for(Integer videoUnitID : this.videoUnitIDs)
+		for (Integer videoUnitID : this.videoUnitIDs)
 		{
-			if(videoUnitID < 1)
+			if (videoUnitID < 1)
 				throw new FalseIDException();
 		}
-		
+
 		if (rID < 1 || customerID < 1)
 			throw new FalseIDException();
 	}
@@ -154,7 +158,7 @@ public class InRent implements Comparable<InRent>
 	{
 		return this.date;
 	}
-	
+
 	public Date getReturnDate()
 	{
 		return this.date.addWeeks(this.duration);
@@ -162,17 +166,19 @@ public class InRent implements Comparable<InRent>
 
 	/**
 	 * Methode überprüft, ob die Leihfrist abgelaufen ist
+	 * 
 	 * @return true, wenn Leihfrist überschritten, False sonst
 	 */
 	public boolean isOverDuration()
 	{
-		if( this.getReturnDate().compareTo(CurrentDate.get()) < 0 )
+		if (this.getReturnDate().compareTo(CurrentDate.get()) < 0)
 		{
 			return true;
 		}
-		else return false;
+		else
+			return false;
 	}
-	
+
 	public Collection<Integer> getVideoUnitIDs()
 	{
 		return this.videoUnitIDs;
@@ -189,17 +195,18 @@ public class InRent implements Comparable<InRent>
 		{
 			try
 			{
-//				this.videoUnits = VideoUnit.findByInRent(this);
-				
-				// TODO: müssen evtl mal überlegen, welche variante sinniger ist...
-				
+				// this.videoUnits = VideoUnit.findByInRent(this);
+
+				// TODO: müssen evtl mal überlegen, welche variante sinniger
+				// ist...
+
 				Collection<VideoUnit> foundVideoUnits = new LinkedList<VideoUnit>();
-				
-				for(Integer unitID : videoUnitIDs)
+
+				for (Integer unitID : videoUnitIDs)
 				{
 					foundVideoUnits.add(VideoUnit.findByID(unitID));
 				}
-				
+
 				this.videoUnits = foundVideoUnits;
 			}
 			catch (RecordNotFoundException e)
@@ -207,22 +214,25 @@ public class InRent implements Comparable<InRent>
 				this.videoUnits = null;
 			}
 		}
-		
+
 		return this.videoUnits;
 	}
-	
+
 	/**
-	 * Gibt den Preis dieser Ausleihe zurück, berechnet aus Ausleihdauer (duration) mal Preis des Films.
+	 * Gibt den Preis dieser Ausleihe zurück, berechnet aus Ausleihdauer
+	 * (duration) mal Preis des Films.
+	 * 
 	 * @return Der Preis der Ausleihe.
 	 */
 	public float getPrice()
 	{
 		float price = 0.0f;
 		try
-		{	
-			for(VideoUnit unit : this.getVideoUnits())
+		{
+			for (VideoUnit unit : this.getVideoUnits())
 			{
-				price += unit.getVideo().getPriceCategory().getPrice() * this.duration;
+				price += unit.getVideo().getPriceCategory().getPrice()
+						* this.duration;
 			}
 		}
 		catch (RecordNotFoundException e)
@@ -230,41 +240,51 @@ public class InRent implements Comparable<InRent>
 			// sollte hoffentlich nie passieren...
 			e.printStackTrace();
 		}
-		
+
 		return price;
 	}
-	
+
 	/**
-	 * Entfernt InRent aus globaler InRent-Liste.
-	 * Wird beim nächsten Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * Entfernt InRent aus globaler InRent-Liste. Wird beim nächsten Speichern
+	 * nicht mehr mitgespeichert und geht somit verloren.
+	 * 
+	 * @throws VideothekException
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
-		inRentList.remove(this.getID());
-		this.deleted = true;
-		
-		// Event feuern
-		EventManager.fireEvent(new InRentDeletedEvent(this));
+		if ( !this.isWarned() )
+		{
+			inRentList.remove(this.getID());
+			this.deleted = true;
+
+			// Event feuern
+			EventManager.fireEvent(new InRentDeletedEvent(this));
+		}
+		else
+			throw new VideothekException(
+					"Ausstehende Mahnung für diese Ausleihe. Löschen nicht möglich!");
 	}
-	
+
 	/**
 	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
 	public boolean isDeleted()
 	{
 		return this.deleted;
 	}
-	
+
 	/**
 	 * Methode informiert, ob bereits eine Mahnung (Warning) erstellt wurde
+	 * 
 	 * @return true, wenn schon gemahnt wurde, false sonst
 	 */
 	public boolean isWarned()
 	{
 		return warned;
 	}
-	
+
 	/**
 	 * Methode markiert, dass bereits eine Mahnung erstellt wurde
 	 */
@@ -272,10 +292,10 @@ public class InRent implements Comparable<InRent>
 	{
 		this.warned = b;
 	}
-	
+
 	/**
-	 * Erstellt eine Quittung für diese Ausleihe im quittungen/ Ordner.
-	 * Name der Quittings-Datei ist die ID dieses InRent Objektes + '.txt'
+	 * Erstellt eine Quittung für diese Ausleihe im quittungen/ Ordner. Name der
+	 * Quittings-Datei ist die ID dieses InRent Objektes + '.txt'
 	 */
 	public void createInvoice()
 	{
@@ -295,7 +315,7 @@ public class InRent implements Comparable<InRent>
 					inRentID);
 		}
 	}
-	
+
 	public static Collection<InRent> findAll()
 	{
 		return inRentList.values();
@@ -326,9 +346,10 @@ public class InRent implements Comparable<InRent>
 			}
 		}
 		return null;
-		// dieser code hier hat in der log-datei immer für die vielen fehlermeldungen gesorgt:
-//		throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.",
-//				videoUnit.getID());
+		// dieser code hier hat in der log-datei immer für die vielen
+		// fehlermeldungen gesorgt:
+		// throw new RecordNotFoundException("Ausleihe", "VideoExemplarNr.",
+		// videoUnit.getID());
 	}
 
 	public static Collection<InRent> findByDate(Date date)
@@ -358,15 +379,17 @@ public class InRent implements Comparable<InRent>
 	}
 
 	/**
-	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller InRents 
+	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller InRents
 	 * auf InRents mit überzogener Leihfrist
-	 * @return true, wenn InRents mit überzogener Leihfrist existieren, false sonst
+	 * 
+	 * @return true, wenn InRents mit überzogener Leihfrist existieren, false
+	 *         sonst
 	 */
 	protected static boolean newWarnings()
 	{
 		for (InRent ir : inRentList.values())
 		{
-			if( ir.isOverDuration() && !ir.isWarned() )
+			if (ir.isOverDuration() && !ir.isWarned())
 			{
 				return true;
 			}
@@ -375,35 +398,38 @@ public class InRent implements Comparable<InRent>
 	}
 
 	/**
-	 * Methode wird aus Warning aufgerufen, überprüft die Liste der Inrents 
-	 * und liefert eine Liste mit allen neuen, fälligen Mahnungen
+	 * Methode wird aus Warning aufgerufen, überprüft die Liste der Inrents und
+	 * liefert eine Liste mit allen neuen, fälligen Mahnungen
+	 * 
 	 * @return Liste mit den neuen Mahnungen
 	 */
 	protected static Collection<Warning> getNewWarnings()
 	{
 		List<Warning> foundNewWarnings = new LinkedList<Warning>();
-		for( InRent ir : inRentList.values() )
+		for (InRent ir : inRentList.values())
 		{
-			if( ir.isOverDuration() && !ir.isWarned())
+			if (ir.isOverDuration() && !ir.isWarned())
 			{
 				foundNewWarnings.add(new Warning(ir));
 			}
 		}
 		return foundNewWarnings;
 	}
-	
+
 	public void deleteSingleVideoUnit(VideoUnit videoUnit)
 	{
-		//TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
+		// TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne
+		// ganzen InRent zu löschen
 		this.videoUnitIDs.remove(videoUnit.getID());
 		this.getVideoUnits().remove(videoUnit);
 	}
-	
+
 	public void deleteMultipleVideoUnits(Collection<VideoUnit> videoUnits)
 	{
-		//TODO: mehrere VideoUnits aus einem InRent löschen / zurückgeben, ohne ganzen InRent zu löschen
-		
-		for(VideoUnit unit : videoUnits)
+		// TODO: mehrere VideoUnits aus einem InRent löschen / zurückgeben, ohne
+		// ganzen InRent zu löschen
+
+		for (VideoUnit unit : videoUnits)
 		{
 			deleteSingleVideoUnit(unit);
 		}
@@ -412,21 +438,22 @@ public class InRent implements Comparable<InRent>
 	@Override
 	public int compareTo(InRent other)
 	{
-		if(this.customerID == other.customerID && this.warned == other.warned 
-				&& this.date.equals(other.date) && this.duration == other.duration 
+		if (this.customerID == other.customerID && this.warned == other.warned
+				&& this.date.equals(other.date)
+				&& this.duration == other.duration
 				&& this.deleted == other.deleted && this.rID == other.rID
 				&& this.isOverDuration() == other.isOverDuration()
 				&& this.videoUnitIDs.equals(other.videoUnitIDs)
 				&& this.getPrice() == other.getPrice())
 		{
-				return 0; // sind gleich
+			return 0; // sind gleich
 		}
 		else
 		{
 			return 1; // sind ungleich
 		}
 	}
-	
+
 	public boolean equals(InRent other)
 	{
 		return this.compareTo(other) == 0;
