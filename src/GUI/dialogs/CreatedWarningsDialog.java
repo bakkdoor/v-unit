@@ -1,5 +1,7 @@
 package GUI.dialogs;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Collection;
 import java.util.Vector;
 import model.*;
@@ -92,6 +94,10 @@ public class CreatedWarningsDialog extends javax.swing.JDialog
         .addComponent(okButton)
         .addContainerGap())
     );
+    
+    // dialog mittig auf dem bildschirm setzen
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
     pack();
   }// </editor-fold>

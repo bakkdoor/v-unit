@@ -1,5 +1,8 @@
 package GUI.dialogs;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JOptionPane;
 
 import model.CurrentDate;
@@ -90,6 +93,13 @@ public class SetCurrentDateDialog extends javax.swing.JDialog
         .addComponent(okButton)
         .addContainerGap())
     );
+    
+    this.setResizable(false);
+    this.setTitle("Tagesdatum festlegen");
+    
+    // dialog mittig auf dem bildschirm setzen
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
     pack();
   }// </editor-fold>
