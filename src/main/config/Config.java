@@ -19,6 +19,7 @@ public class Config
 		public static final String SETDATEONSTARTUP = "setCurrentDateOnStartUp";
 		public static final String INVOICEFOLDER = "invoiceFolder";
 		public static final String WARNINGFOLDER = "warningFolder";
+		public static final String WARNINGINVOICEFOLDER = "warningInvoiceFolder";
 	}
 
 	/**
