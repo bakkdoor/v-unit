@@ -10,7 +10,11 @@ import model.events.EventManager;
 import model.events.VideoCreatedEvent;
 import model.events.VideoDeletedEvent;
 import model.events.VideoEditedEvent;
-import model.exceptions.*;
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
+
 
 /**
  * 
