@@ -50,7 +50,7 @@ public class CustomerDataDialog  {
 	
 	public CustomerDataDialog(MainWindow mainWindow) {
 		
-		this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 2000), "", "", 0, "");
+		this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 1900), "", "", 0, "");
 	}
 	
 	public CustomerDataDialog(MainWindow mainWindow,  
