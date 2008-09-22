@@ -74,7 +74,15 @@ public class InRentTest extends ModelTest
 		assertNotNull(inRent);
 		assertTrue(InRent.findAll().contains(inRent));
 
-		inRent.delete();
+		try
+		{
+			inRent.delete();
+		}
+		catch (VideothekException e1)
+		{
+			assertTrue(false);
+			e1.printStackTrace();
+		}
 
 		assertFalse(InRent.findAll().contains(inRent));
 		assertTrue(inRent.isDeleted());

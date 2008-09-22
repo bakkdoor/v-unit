@@ -63,7 +63,15 @@ public class CustomerTest extends ModelTest
 		assertNotNull(c);
 		assertTrue(Customer.findAll().contains(c));
 		
-		c.delete();
+		try
+		{
+			c.delete();
+		}
+		catch (Exception e1)
+		{
+			assertTrue(false);
+			e1.printStackTrace();
+		}
 
 		assertFalse(Customer.findAll().contains(c));
 		assertTrue(c.isDeleted());
