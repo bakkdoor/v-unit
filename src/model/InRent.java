@@ -166,17 +166,28 @@ public class InRent implements Comparable<InRent>
 
 	/**
 	 * Methode überprüft, ob die Leihfrist abgelaufen ist
-	 * 
+	 * @param deadline Anzahl der Tage, die auf das Rückgabedatum 
+	 * 					hinzugerechnet werden.
 	 * @return true, wenn Leihfrist überschritten, False sonst
 	 */
-	public boolean isOverDuration()
+	public boolean isOverDuration(int deadline)
 	{
-		if (this.getReturnDate().compareTo(CurrentDate.get()) < 0)
+		if (this.getReturnDate().addDays(deadline).compareTo(CurrentDate.get()) < 0)
 		{
 			return true;
 		}
 		else
 			return false;
+	}
+	
+	/**
+	 * Methode überprüft, ob die Leihfrist abgelaufen ist
+	 * 
+	 * @return true, wenn Leihfrist überschritten, False sonst
+	 */
+	public boolean isOverDuration()
+	{
+		return isOverDuration(0);
 	}
 
 	public Collection<Integer> getVideoUnitIDs()
@@ -400,7 +411,7 @@ public class InRent implements Comparable<InRent>
 	{
 		for (InRent ir : inRentList.values())
 		{
-			if (ir.isOverDuration() && !ir.isWarned())
+			if (ir.isOverDuration(3) && !ir.isWarned())
 			{
 				return true;
 			}
@@ -419,7 +430,7 @@ public class InRent implements Comparable<InRent>
 		List<Warning> foundNewWarnings = new LinkedList<Warning>();
 		for (InRent ir : inRentList.values())
 		{
-			if (ir.isOverDuration() && !ir.isWarned())
+			if (ir.isOverDuration(3) && !ir.isWarned())
 			{
 				foundNewWarnings.add(new Warning(ir));
 			}

@@ -9,6 +9,7 @@ import logging.Logger;
 import main.config.Config;
 import model.CurrentDate;
 import model.Date;
+import model.Warning;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
 import model.exceptions.CurrentDateException;
@@ -58,6 +59,9 @@ public class Programm
 
 		try
 		{
+			// mahnungen in dateien schreiben
+			Warning.createPendingWarnings();
+			
 			DataBase.saveData();
 			Config.saveAll();
 		}

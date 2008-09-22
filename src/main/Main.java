@@ -1,6 +1,5 @@
 package main;
 
-import model.Warning;
 import model.data.exceptions.RecordNotFoundException;
 import model.exceptions.EmptyFieldException;
 
@@ -25,7 +24,5 @@ public class Main
 		{
 			ir.createInvoice();
 		}
-
-		Warning.createPendingInvoices();
 	}
 }

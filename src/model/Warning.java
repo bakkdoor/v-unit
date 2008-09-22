@@ -6,6 +6,7 @@ import java.util.Map;
 
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
+import model.data.xml.writers.WarningWriter;
 import model.events.EventManager;
 import model.events.WarningCreatedEvent;
 //import model.events.WarningDeletedEvent;
@@ -103,6 +104,16 @@ public class Warning
 			}
 		}
 		return this.inRent;
+	}
+	
+	/**
+	 * Erstellt eine Quittung für diese Mahnung im mahnungen/quittungen/ Ordner. Name der
+	 * Quittings-Datei ist die ID dieses Warning Objektes + '.txt'
+	 */
+	public void createInvoice()
+	{
+		InvoiceWriter writer = new InvoiceWriter();
+		writer.writeInvoiceFor(this);
 	}
 
 //	/**
@@ -245,17 +256,22 @@ public class Warning
 	}
 
 	/**
-	 * Übergibt alle noch ausstehenden Mahnungen (Warnings) dem InvoiceWriter 
+	 * Übergibt alle noch ausstehenden Mahnungen (Warnings) dem WarningWriter 
 	 * und schreibt sie in eine Datei.
+	 * 
+	 * @return Die Menge der neuen Mahnungen, die erstellt wurden.
 	 */
-	public static void createPendingInvoices()
+	public static Collection<Warning> createPendingWarnings()
 	{
-		InvoiceWriter writer = new InvoiceWriter();
-		for(Warning w : InRent.getNewWarnings())
+		WarningWriter writer = new WarningWriter();
+		Collection<Warning> newPendingWarnings = InRent.getNewWarnings();
+		for(Warning w : newPendingWarnings)
 		{
-			writer.writeInvoiceFor(w);
+			writer.writeWarning(w);
 			w.inRent.setWarned(true);
 		}
+		
+		return newPendingWarnings;
 	}
 
 	/**

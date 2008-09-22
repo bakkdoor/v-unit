@@ -143,6 +143,14 @@ public class PriceCategory
 	{
 		return Video.findByPriceCategory(this);
 	}
+	
+	/**
+	 * Gibt die Preiskategorie als String (nur der Name) zurück.
+	 */
+	public String toString()
+	{
+		return this.name;
+	}
 
 	public static void setMinID(int newMinpID) throws FalseIDException
 	{
@@ -185,14 +193,16 @@ public class PriceCategory
 		}
 	}
 
-	public static PriceCategory findFirst() throws RecordNotFoundException
+	public static PriceCategory findFirst() //throws RecordNotFoundException
 	{
 		for (PriceCategory pc : priceCategoryList.values())
 		{
 			return pc;
 		}
+		
+		return null;
 
-		throw new RecordNotFoundException("Preiskategorie", "", "");
+//		throw new RecordNotFoundException("Preiskategorie", "", "");
 	}
 
 	public static Collection<PriceCategory> findByName(String categoryName)

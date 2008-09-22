@@ -1,6 +1,5 @@
 package model.data.xml.writers;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -18,19 +17,22 @@ import model.data.exceptions.RecordNotFoundException;
  * 
  * Schreibt Invoices (Quittungen) in Textdateien.
  */
-public class InvoiceWriter
+public class InvoiceWriter extends AbstractTextWriter
 {
 	// default-werte, falls nicht in config.xml gesetzt
-	private String inVoiceFolder = "quittungen/";
-	private String warningFolder = "mahnungen/";
+	private String inVoiceFolder;
+	private String warningInvoiceFolder;
 	
 	/**
 	 * Konstruktor für InvoiceWriter.
 	 */
 	public InvoiceWriter()
 	{
-		this.inVoiceFolder = Config.get().getSetting(Config.Settings.INVOICEFOLDER);
-		this.warningFolder = Config.get().getSetting(Config.Settings.WARNINGFOLDER);
+		this.inVoiceFolder = 
+			Config.get().getSetting(Config.Settings.INVOICEFOLDER);
+		
+		this.warningInvoiceFolder = 
+			Config.get().getSetting(Config.Settings.WARNINGINVOICEFOLDER);
 	}
 	
 	/**
@@ -40,12 +42,13 @@ public class InvoiceWriter
 	 */
 	public void writeInvoiceFor(Warning warning)
 	{
+		System.out.println("warnungsquittung wird geschrieben..");
 		try
 		{
 			// Ordner erstellen, falls er nicht existiert.
-			createDirIfNeeded(this.warningFolder);
+			createDirIfNeeded(this.warningInvoiceFolder);
 			
-			FileWriter fWriter = new FileWriter(this.warningFolder + warning.getID() + ".txt");
+			FileWriter fWriter = new FileWriter(this.warningInvoiceFolder + warning.getID() + ".txt");
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -147,69 +150,6 @@ public class InvoiceWriter
 		catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Erstellt das angegebene Verzeichnis, falls es nicht existiert.
-	 * @param dirName Name/Pfad des Verzeichnisses.
-	 */
-	private static void createDirIfNeeded(String dirName)
-	{
-		File dir = new File(dirName);
-		if(!dir.exists())
-		{
-			dir.mkdir();
-		}
-	}
-
-	/**
-	 * Formatiert eine Zahl als String mit einer angegeben Breite/Länge.
-	 * @param number Die Zahl, die formatiert werden soll.
-	 * @param maxWidth Die maximale Breite/Länge des Strings.
-	 * @return Der String mit der Zahl, evtl. abgeschnitten auf 
-	 * 			die angegebene maxWidth.
-	 */
-	private static String formatInt(int number, int maxWidth)
-	{
-		String numString = Integer.toString(number);
-		
-		if(numString.length() > maxWidth)
-		{
-			return numString.substring(0, maxWidth - 1);
-		}
-		else
-		{
-			for(int i = numString.length() - 1; i < maxWidth; i++)
-			{
-				numString += " ";
-			}
-			
-			return numString;
-		}
-	}
-	
-	/**
-	 * Formatiert einen String linksbündig mit einer maximalen Breite/Länge.
-	 * @param output Der String, der formatiert werden soll.
-	 * @param maxWidth Die maximale Breite/Länge..
-	 * @return Der linksbündig formatierte String.
-	 */
-	private static String formatLeft(String output, int maxWidth)
-	{
-		String prefix = "";
-		if(output.length() > maxWidth)
-		{
-			return output.substring(0, maxWidth - 1);
-		}
-		else
-		{
-			for(int i = output.length() - 1; i < maxWidth; i++)
-			{
-				prefix += " ";
-			}
-			
-			return prefix + output;
 		}
 	}
 }

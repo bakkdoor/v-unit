@@ -1,6 +1,1 @@
-<?xml version="1.0" standalone="yes"?>
-<config>
-	<setting key="setCurrentDateOnStartUp" value="false" />
-	<setting key="invoiceFolder" value="quittungen/" />
-	<setting key="warningFolder" value="mahnungen/" />
-</config>
+<?xml version="1.0" standalone="yes"?><config><setting key='invoiceFolder' value='quittungen/'></setting><setting key='setCurrentDateOnStartUp' value='false'></setting><setting key='warningFolder' value='mahnungen/'></setting><setting key='warningInvoiceFolder' value='mahnungen/quittungen/'></setting></config>
