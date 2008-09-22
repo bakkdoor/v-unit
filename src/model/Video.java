@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
+import main.error.VideothekException;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.EventManager;
 import model.events.VideoCreatedEvent;
@@ -229,14 +230,25 @@ public class Video
 	/**
 	 * Entfernt Video aus globaler Video-Liste. Wird beim nächsten Speichern
 	 * nicht mehr mitgespeichert und geht somit verloren.
+	 * 
+	 * @throws VideothekException
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
+		for( VideoUnit unit : this.getVideoUnits() )
+		{
+			if( unit.getInRent() != null )
+			{
+				throw new VideothekException(
+						"Exemplare dieses Videos noch in Ausleihe. Löschen nicht möglich!");
+			}
+		}
 		videoList.remove(this.getID());
 		this.deleted = true;
 
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
+
 	}
 
 	/**

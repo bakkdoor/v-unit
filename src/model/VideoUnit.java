@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import main.error.VideothekException;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.EventManager;
 import model.events.VideoUnitCreatedEvent;
@@ -18,7 +19,7 @@ import model.exceptions.FalseIDException;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 15.09.2008
  * 
- *       Klasse für alle VideoUnits (Video-Exemplare).
+ * Klasse für alle VideoUnits (Video-Exemplare).
  */
 public class VideoUnit
 {
@@ -172,14 +173,22 @@ public class VideoUnit
 	/**
 	 * Entfernt VideoUnit aus globaler VideoUnit-Liste. Wird beim nächsten
 	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * 
+	 * @throws VideothekException
 	 */
-	public void delete()
+	public void delete() throws VideothekException
 	{
-		videoUnitList.remove(this.getID());
-		this.deleted = true;
+		if (!this.isRented())
+		{
+			videoUnitList.remove(this.getID());
+			this.deleted = true;
 
-		// Event feuern
-		EventManager.fireEvent(new VideoUnitDeletedEvent(this));
+			// Event feuern
+			EventManager.fireEvent(new VideoUnitDeletedEvent(this));
+		}
+		else
+			throw new VideothekException(
+					"Videoexemplar ist noch verliehen. Löschen nicht möglich!");
 	}
 
 	/**
