@@ -258,15 +258,20 @@ public class Warning
 	/**
 	 * Übergibt alle noch ausstehenden Mahnungen (Warnings) dem WarningWriter 
 	 * und schreibt sie in eine Datei.
+	 * 
+	 * @return Die Menge der neuen Mahnungen, die erstellt wurden.
 	 */
-	public static void createPendingWarnings()
+	public static Collection<Warning> createPendingWarnings()
 	{
 		WarningWriter writer = new WarningWriter();
-		for(Warning w : InRent.getNewWarnings())
+		Collection<Warning> newPendingWarnings = InRent.getNewWarnings();
+		for(Warning w : newPendingWarnings)
 		{
 			writer.writeWarning(w);
 			w.inRent.setWarned(true);
 		}
+		
+		return newPendingWarnings;
 	}
 
 	/**
