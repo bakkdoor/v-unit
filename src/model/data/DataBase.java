@@ -4,12 +4,26 @@ import java.io.IOException;
 import java.util.Map;
 
 import main.error.VideothekException;
-import model.*;
-import model.data.exceptions.*;
-import model.data.xml.parsers.*;
-import model.data.xml.writers.*;
-import model.exceptions.FalseFieldException;
-import model.exceptions.FalseIDException;
+import model.Customer;
+import model.InRent;
+import model.PriceCategory;
+import model.Video;
+import model.VideoUnit;
+import model.Warning;
+import model.data.exceptions.DataException;
+import model.data.exceptions.DataLoadException;
+import model.data.exceptions.DataSaveException;
+import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.parsers.CustomerParser;
+import model.data.xml.parsers.InRentParser;
+import model.data.xml.parsers.PriceCategoryParser;
+import model.data.xml.parsers.VideoParser;
+import model.data.xml.parsers.WarningParser;
+import model.data.xml.writers.CustomerWriter;
+import model.data.xml.writers.InRentWriter;
+import model.data.xml.writers.PriceCategoryWriter;
+import model.data.xml.writers.VideoWriter;
+import model.data.xml.writers.WarningWriter;
 
 /**
  * DataBase.java

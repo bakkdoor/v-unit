@@ -1,15 +1,11 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
-import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
-import model.data.xml.writers.WarningWriter;
 import model.events.EventManager;
 import model.events.WarningCreatedEvent;
 import model.events.WarningDeletedEvent;
