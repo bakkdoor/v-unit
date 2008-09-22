@@ -26,8 +26,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.TabExpander;
 
 import GUI.TableModels.NotEditableTableModel;
+import GUI.TableModels.RentTableModel;
 import GUI.TableModels.ReturnTableModel;
 
 import model.Customer;
@@ -93,7 +95,6 @@ public class RentPanel {
 					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "Kunden nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
-			
 		});
 
 		// VideoNr - Label/TextField erstellen
@@ -122,10 +123,10 @@ public class RentPanel {
 		JButton buttonRentAdd = new JButton("Hinzufügen");
 
 		// LeihVideo Tabelle erstellen
-		tableRentVideo = new JTable(this.createRentTableModel());
+		tableRentVideo = this.createRentTable();
 		tableRentVideo.setRowSorter(new TableRowSorter<TableModel>(tableRentVideo.getModel()));
 		// verschieben der Spalten nicht möglich
-		tableRentVideo.getTableHeader().setReorderingAllowed(false);
+		tableRentVideo.getTableHeader().setReorderingAllowed(false);		
 		
 
 		// Gesamtpreis Label erstellen
@@ -135,6 +136,23 @@ public class RentPanel {
 		// Abbrechen/Akzeptieren Button erstellen
 		JButton buttonRentCancel = new JButton("Abbrechen");
 		JButton buttonRentAccept = new JButton("Bestätigen");
+		buttonRentAccept.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					Integer unitID = Integer.parseInt(textFieldRentVideoID.getText());
+					VideoUnit videoUnit = VideoUnit.findByID(unitID);
+					RentTableModel tableRentModel = (RentTableModel) tableRentVideo.getModel();
+					tableRentModel.insertVideoUnit(videoUnit);
+				} catch (RecordNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 
 		// Datenfelder in panelRent einfügen
 		// Label KundenNr
@@ -316,7 +334,7 @@ public class RentPanel {
 		return returnTableModel;
 	}
 	
-	private TableModel createRentTableModel() {
+	private JTable createRentTable() {
 
 		Vector rentColumnNames = new Vector() {
 			{
@@ -326,8 +344,9 @@ public class RentPanel {
 			}
 		};
 		
-		TableModel rentTableModel = new DefaultTableModel(rentColumnNames, 0);
-		return rentTableModel;
+		JTable rentTable = new JTable(new RentTableModel(rentColumnNames, 0));
+		
+		return rentTable;
 	}
 	
 	protected void addVideoUnitInRentTable(VideoUnit videoUnit) {
