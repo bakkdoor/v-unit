@@ -36,14 +36,14 @@ public class ConfigTest extends TestCase
 
 		try
 		{
-			conf.save("data/config-save.xml");
+			conf.save("xml-spec/config-save.xml");
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 
-		Config savedConf = Config.get("data/config-save.xml");
+		Config savedConf = Config.get("xml-spec/config-save.xml");
 
 		assertEquals(conf.getSetting(Config.Settings.SETDATEONSTARTUP),
 				savedConf.getSetting(Config.Settings.SETDATEONSTARTUP));

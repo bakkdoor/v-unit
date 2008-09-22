@@ -23,7 +23,7 @@ import model.data.xml.writers.CustomerWriter;
 import model.data.xml.writers.InRentWriter;
 import model.data.xml.writers.PriceCategoryWriter;
 import model.data.xml.writers.VideoWriter;
-import model.data.xml.writers.WarningWriter;
+import model.exceptions.FalseFieldException;
 
 /**
  * DataBase.java
@@ -46,7 +46,7 @@ public class DataBase
 	private static CustomerWriter costWriter;
 	private static VideoWriter vidWriter;
 	private static InRentWriter irWriter;
-	private static WarningWriter wWriter;
+//	private static WarningWriter wWriter;
 
 	private static Map<Integer, PriceCategory> priceCategories;
 	private static Map<Integer, Customer> customers;
@@ -69,6 +69,15 @@ public class DataBase
 			inRents = irParser.parseInRents("xml-spec/inRents.xml");
 			warnings = wParser.parseWarnings("xml-spec/warnings.xml");
 
+			try
+			{
+				Warning.setWarningList(warnings);
+			}
+			catch (FalseFieldException e)
+			{
+				e.printStackTrace();
+			}
+			
 			setGlobalLists();
 		}
 	}
@@ -81,8 +90,7 @@ public class DataBase
 			Customer.setCustomerList(customers);
 			Video.setVideoList(videos);
 			VideoUnit.setVideoUnitList(videoUnits);
-			InRent.setInRentList(inRents);
-//			Warning.setWarningList(warnings);
+			InRent.setInRentList(inRents);		
 
 			dataLoaded = true;
 		}
