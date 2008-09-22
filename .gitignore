@@ -3,12 +3,12 @@ bin/*
 *.classpath
 *.project
 .settings/*
-.quittungen/*.txt
 management/Thumbs.db
 icons/Thumbs.db
 Videothek.log
 quittungen/*
 mahnungen/*
+mahnungen/quittungen/*
 build/*
 build.xml
 manifest.mf
