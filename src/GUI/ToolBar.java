@@ -83,7 +83,7 @@ public class ToolBar {
 				String dialogCard = mainWindow.getDetailPanel().currentCard;
 
 				if (dialogCard.equals(DetailPanel.VIDEODETAILS)) {
-					VideoDataDialog.createFilledVideoDataDialog(mainWindow);
+					mainWindow.showEditVideoDialog();
 				} else if (dialogCard.equals(DetailPanel.CUSTOMERDETAILS)) {
 
 					CustomerDataDialog.createFilledCustomerDataDialog(mainWindow);

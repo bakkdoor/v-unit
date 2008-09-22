@@ -84,7 +84,10 @@ public class RentPanel {
 
 		// LeihVideo Tabelle erstellen
 		tableRentVideo = new JTable(this.createRentTableModel());
-//		tableRentVideo.setRowSorter(new TableRowSorter<TableModel>(tableModelRentVideo));
+		tableRentVideo.setRowSorter(new TableRowSorter<TableModel>(tableRentVideo.getModel()));
+		// verschieben der Spalten nicht möglich
+		tableRentVideo.getTableHeader().setReorderingAllowed(false);
+		
 
 		// Gesamtpreis Label erstellen
 		JLabel labelRentVideoCost = new JLabel("Gesammtpreis: ");
@@ -224,6 +227,9 @@ public class RentPanel {
 		JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
 		
 		JTable tableReturnVideo = new JTable(this.createReturnTableModel());
+		tableReturnVideo.setRowSorter(new TableRowSorter<TableModel>(tableReturnVideo.getModel()));
+		// verschieben der Spalten nicht möglich
+		tableReturnVideo.getTableHeader().setReorderingAllowed(false);
 		
 		JLabel labelReturnVideoSum = new JLabel("Gesammtpreis:");
 		labelReturnVideoSumWarning = new JLabel("0,00 €");

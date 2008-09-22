@@ -8,6 +8,10 @@ import model.events.CustomerDeletedEvent;
 import model.events.CustomerEditedEvent;
 import model.events.CustomerEvent;
 import model.events.EventManager;
+import model.events.InRentCreatedEvent;
+import model.events.InRentDeletedEvent;
+import model.events.InRentDeletedUnitEvent;
+import model.events.InRentEditedStateEvent;
 import model.events.VideothekEvent;
 import model.Customer;
 
@@ -34,8 +38,8 @@ public class CustomerTableModel extends NotEditableTableModel
 	private void registerAsEventListener()
 	{
 		EventManager.registerEventListener(CustomerCreatedEvent.class, this);
-		EventManager.registerEventListener(CustomerDeletedEvent.class, this);
 		EventManager.registerEventListener(CustomerEditedEvent.class, this);
+		EventManager.registerEventListener(CustomerDeletedEvent.class, this);
 	}
 
 	/* (non-Javadoc)
@@ -51,13 +55,14 @@ public class CustomerTableModel extends NotEditableTableModel
 		}
 		else if(event instanceof CustomerEditedEvent)
 		{
-			Customer customer = ((CustomerCreatedEvent)event).getCustomer();
+			Customer customer = ((CustomerEditedEvent)event).getCustomer();
 			for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
 				if (getValueAt(rowIndex, 0).equals(customer.getID())) {
 					for (int colIndex = 0; colIndex < getColumnCount(); colIndex++) {
 						if (getValueAt(rowIndex, colIndex).equals("Anschrift")) {
 							String newAddress = customer.getFirstAddressRow() + ", " + customer.getLastAddressRow();
 							setValueAt(newAddress, rowIndex, colIndex);
+							fireTableDataChanged();
 						}
 					}
 				}
@@ -65,10 +70,11 @@ public class CustomerTableModel extends NotEditableTableModel
 		}
 		else if(event instanceof CustomerDeletedEvent)
 		{
-			Customer customer = ((CustomerCreatedEvent)event).getCustomer();
+			Customer customer = ((CustomerDeletedEvent)event).getCustomer();
 			for (int index = 0; index < getRowCount(); index++) {
 				if (getValueAt(index, 0).equals(customer.getID())) {
 					removeRow(index);
+					fireTableRowsDeleted(index, index);
 				}
 			}
 		}

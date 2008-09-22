@@ -93,7 +93,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VideoDataDialog.createFilledVideoDataDialog(mainWindow);
+				mainWindow.showEditVideoDialog();
 			}
 		});
 		

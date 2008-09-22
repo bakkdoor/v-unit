@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import main.Programm;
+import model.VideoUnit;
 
 public class MainWindow {
 
@@ -100,11 +101,6 @@ public class MainWindow {
 	}
 	
 	public void showCreateDialog() {
-//		JOptionPane optionDialog = new JOptionPane("Möchten Sie einen Film oder einen Kunden erstellen?", JOptionPane.QUESTION_MESSAGE,
-//													JOptionPane.OK_CANCEL_OPTION, null);
-//		
-//		optionDialog.setVisible(true);
-//		
 		String[] options = {"Film", "Kunde"};
 		int section = JOptionPane.showOptionDialog(mainFrame, "Möchten Sie einen Film oder Kunden anlegen?", "Anlegen Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
 				options , null);
@@ -115,8 +111,11 @@ public class MainWindow {
 			DataDialog createVideoDialog = new DataDialog(this, DataDialog.CUSTOMERDIALOG);
 			
 		}
-		
-		
+	}
+	
+	public void showEditVideoDialog() {
+		VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue();
+		VideoDataDialog.createFilledVideoDataDialog(this, selectedVideoUnit.getVideo());
 	}
 
 	public JFrame getMainFrame() {

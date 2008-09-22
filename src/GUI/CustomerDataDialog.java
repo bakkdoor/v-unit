@@ -82,7 +82,7 @@ public class CustomerDataDialog implements VideothekEventListener  {
 	
 	public CustomerDataDialog(MainWindow mainWindow) {
 		
-		this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 2000), "", "", 0, "");
+		this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 1900), "", "", 0, "");
 	}
 	
 	public CustomerDataDialog(MainWindow mainWindow,  
@@ -114,6 +114,35 @@ public class CustomerDataDialog implements VideothekEventListener  {
 		String dialogName = "Kunde " + (addCustomer ? "anlegen" : "bearbeiten");
 		this.customerDataDialog = new JDialog(mainWindowFrame, dialogName, true);
 		customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		labelID = new JLabel("KundenNr.:");
+		labelID.setVisible(!addCustomer);
+		textFielID = new JTextField();
+		textFielID.setVisible(!addCustomer);
+		
+		labelTitle = new JLabel("Anrede:");
+		textFieldTitle = new JTextField();
+		
+		labelFirstName = new JLabel("Vorname:");
+		textFieldFirstName = new JTextField();
+		
+		labelLastName = new JLabel("Nachname:");
+		textFieldLastName = new JTextField();
+		
+		labelIdentificationID = new JLabel("AusweisNr.:");
+		textFieldIdentificationID = new JTextField(identificationID);
+
+		labelAddress = new JLabel("Anschrift:");
+		textFieldStreet = new JTextField("Straße");
+		textFieldHouseNr = new JTextField("HausNr.");
+		textFieldZipCode = new JTextField("PLZ");
+		textFieldCity = new JTextField("Ort");
+		
+		// Geburtsdatum-Eingabefelder
+		labelBirthDay = new JLabel("Geburtsdatum:");
+		comboBoxBirthDay = new JComboBox(this.createDayCollection());
+		comboBoxBirthMonth = new JComboBox(this.createMonthCollection());
+		textFieldBirthYear = new JTextField("Geburtsjahr");
 		
 		// LauoutManager einstellen
 		Container contentPane = customerDataDialog.getContentPane();

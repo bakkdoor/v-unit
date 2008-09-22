@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
 
+import main.error.VideothekException;
 import model.*;
 import model.data.exceptions.RecordNotFoundException;
 
@@ -307,27 +308,27 @@ public class DetailPanel {
 
 		JLabel labelRentID = new JLabel("AusleihNr.:");
 		textFieldRentID = new JTextField();
-		textFieldRentID.setEnabled(false);
+		textFieldRentID.setEditable(false);
 
 		JLabel labelRentCustomerID = new JLabel("KundenNr.:");
 		textFieldRentCustomerID = new JTextField();
-		textFieldRentCustomerID.setEnabled(false);
+		textFieldRentCustomerID.setEditable(false);
 
 		JLabel labelRentVideoID = new JLabel("FilmNr.:");
 		textFieldRentVideoID = new JTextField();
-		textFieldRentVideoID.setEnabled(false);
+		textFieldRentVideoID.setEditable(false);
 
 		JLabel labelRentVideoTitle = new JLabel("Titel:");
 		textFieldRentVideoTitle = new JTextField();
-		textFieldRentVideoTitle.setEnabled(false);
+		textFieldRentVideoTitle.setEditable(false);
 
 		JLabel labelRentReturnDate = new JLabel("Rückgabefrist:");
 		textFieldRentReturnDate = new JTextField();
-		textFieldRentReturnDate.setEnabled(false);
+		textFieldRentReturnDate.setEditable(false);
 
 		JLabel labelRentWarning = new JLabel("Mahnung:");
 		textFieldRentWarning = new JTextField();
-		textFieldRentWarning.setEnabled(false);
+		textFieldRentWarning.setEditable(false);
 
 		// ***************************************************************
 		// in Rentpanel hinzufügen
@@ -467,10 +468,13 @@ public class DetailPanel {
 			this.textFieldRentID.setText(Integer.toString(inRent.getID()));
 			this.textFieldRentCustomerID.setText(Integer.toString(inRent
 					.getCustomer().getID()));
-			this.textFieldRentVideoID.setText(Integer.toString(selectedVideoUnit.getVideoID()));
-			this.textFieldRentVideoTitle.setText(selectedVideoUnit.getVideo().getTitle());
-			this.textFieldRentReturnDate.setText(inRent.getReturnDate().toString());
-//			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
+			this.textFieldRentVideoID.setText(Integer
+					.toString(selectedVideoUnit.getVideoID()));
+			this.textFieldRentVideoTitle.setText(selectedVideoUnit.getVideo()
+					.getTitle());
+			this.textFieldRentReturnDate.setText(inRent.getReturnDate()
+					.toString());
+			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
 		}
 	}
 
@@ -487,12 +491,13 @@ public class DetailPanel {
 
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentCusomer.delete();
+				mainWindow.getTablePanel().getTableCustomer().repaint();
 			}
-		} catch (Exception e) {
-			if (e instanceof RecordNotFoundException) {
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
-						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-			}
+		} catch (VideothekException e) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -510,10 +515,8 @@ public class DetailPanel {
 				currentVideoUnit.delete();
 			}
 		} catch (Exception e) {
-			if (e instanceof RecordNotFoundException) {
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
-						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-			}
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

@@ -69,34 +69,37 @@ public class VideoDataDialog {
 	private void fillDataDialog() {
 
 		JLabel labelVID = new JLabel("FilmNr.:");
+		labelVID.setVisible(!addVideo);
 		JTextField textFieldVID = new JTextField();
 		textFieldVID.setText(VID.toString());
-		textFieldVID.setEnabled(false);
+		textFieldVID.setEditable(false);
+		textFieldVID.setVisible(!addVideo);
 
 		JLabel labelTitle = new JLabel("Film Titel:");
 		JTextField textFieldTitle = new JTextField(title);
-		textFieldTitle.setEnabled(addVideo);
+		textFieldTitle.setEditable(addVideo);
 
 		JLabel labelreleaseYear = new JLabel("Erscheinungsjahr:");
 		JTextField textFieldReleaseYear = new JTextField();
 		textFieldReleaseYear.setText(addVideo ? "" : releaseYear.toString());
-		textFieldReleaseYear.setEnabled(addVideo);
+		textFieldReleaseYear.setEditable(addVideo);
 
 		JLabel labelratedAge = new JLabel("Altersbeschränkung:");
 		JTextField textFieldRatedAge = new JTextField();
 		textFieldRatedAge.setText(addVideo ? "" : ratedAge.toString());
-		textFieldRatedAge.setEnabled(addVideo);
+		textFieldRatedAge.setEditable(addVideo);
 
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		// mögliche Preisklassen abfragen
 		// JComboBox comboBoxPriceCategory = new
 		JComboBox comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
+
 		
 
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
 		JTextField textFieldUnitQuantity = new JTextField();
 		textFieldUnitQuantity.setText(unitQuantity.toString());
-		textFieldUnitQuantity.setEnabled(addVideo);
+		textFieldUnitQuantity.setEditable(addVideo);
 
 		JButton buttonCancel = new JButton("Abbrechen");
 		buttonCancel.addActionListener(new ActionListener() {
@@ -134,29 +137,17 @@ public class VideoDataDialog {
 
 	}
 
-	public static void main(String[] argv) {
-
-		// VideoDataDialog dialog = new VideoDataDialog(null);
-
-		VideoDataDialog dialogBearbeiten = new VideoDataDialog(null, 2134,
-				"Video hast du nicht gesehen", new Integer(2008), new Integer(
-						18), new PriceCategory("A", 1.5f), new Integer(1));
-	}
-
-	public static void createFilledVideoDataDialog(MainWindow mainWindow) {
-		try {
-			DetailPanel detailPanel = mainWindow.getDetailPanel();
-			VideoUnit selectedVideoUnit = (VideoUnit) detailPanel
-					.getListDetailVUnit().getSelectedValue();
-			Integer uID = new Integer(selectedVideoUnit.getID());
-			String title = selectedVideoUnit.getVideo().getTitle();
-			Integer releaseYear = selectedVideoUnit.getVideo().getReleaseYear();
-			Integer ratedAge = selectedVideoUnit.getVideo().getRatedAge();
-			PriceCategory priceCategory = selectedVideoUnit.getVideo()
+	public static void createFilledVideoDataDialog(MainWindow mainWindow, Video video) {
+		try {			
+			Integer vID = new Integer(video.getID());
+			String title = video.getTitle();
+			Integer releaseYear = video.getReleaseYear();
+			Integer ratedAge = video.getRatedAge();
+			PriceCategory priceCategory = video
 					.getPriceCategory();
 
 			VideoDataDialog videoEditDialog = new VideoDataDialog(mainWindow,
-					uID, title, releaseYear, ratedAge, priceCategory, 1);
+					vID, title, releaseYear, ratedAge, priceCategory, 1);
 		} catch (RecordNotFoundException e1) {
 			// TODO Dialog wird als MassegeDialog dargestellt und nicht als
 			// Errordialog! ändern

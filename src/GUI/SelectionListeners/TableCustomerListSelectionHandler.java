@@ -31,11 +31,11 @@ public class TableCustomerListSelectionHandler implements ListSelectionListener 
 		
 		
 		try {
-			int cID = (Integer) customerTable.getValueAt(lsm.getMinSelectionIndex(), 0);
+			Integer cID = (Integer) customerTable.getValueAt(lsm.getMinSelectionIndex(), 0);
 			Customer selectedCustomer = Customer.findByID(cID);
 			mainWindow.getDetailPanel().fillPanelDetailCustomer(selectedCustomer);
 		} catch (RecordNotFoundException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 	}
