@@ -263,7 +263,7 @@ public class InRent implements Comparable<InRent>
 	 */
 	public void delete() throws VideothekException
 	{
-		if ( !this.isWarned() )
+		if (!this.isWarned())
 		{
 			inRentList.remove(this.getID());
 			this.deleted = true;
@@ -440,17 +440,12 @@ public class InRent implements Comparable<InRent>
 
 	public void deleteSingleVideoUnit(VideoUnit videoUnit)
 	{
-		// TODO: einzelne VideoUnit aus einem InRent löschen / zurückgeben, ohne
-		// ganzen InRent zu löschen
 		this.videoUnitIDs.remove(videoUnit.getID());
 		this.getVideoUnits().remove(videoUnit);
 	}
 
 	public void deleteMultipleVideoUnits(Collection<VideoUnit> videoUnits)
 	{
-		// TODO: mehrere VideoUnits aus einem InRent löschen / zurückgeben, ohne
-		// ganzen InRent zu löschen
-
 		for (VideoUnit unit : videoUnits)
 		{
 			deleteSingleVideoUnit(unit);
