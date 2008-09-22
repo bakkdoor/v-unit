@@ -47,6 +47,7 @@ public class CustomerTableModel extends NotEditableTableModel
 		if(event instanceof CustomerCreatedEvent)
 		{
 			insertRow(((CustomerCreatedEvent)event).getCustomer());
+			fireTableDataChanged();
 		}
 		else if(event instanceof CustomerEditedEvent)
 		{
