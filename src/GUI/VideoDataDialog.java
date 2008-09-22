@@ -9,6 +9,8 @@ import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,7 +38,7 @@ public class VideoDataDialog {
 
 	public VideoDataDialog(MainWindow mainWindow) {
 		this(mainWindow, Data.NOTSET, "", Data.NOTSET, Data.NOTSET,
-				new PriceCategory("A", 1.5f), 1);
+				PriceCategory.findFirst(), 1);
 	}
 
 	public VideoDataDialog(MainWindow mainWindow, Integer VID, String title,
@@ -88,8 +90,8 @@ public class VideoDataDialog {
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		// mögliche Preisklassen abfragen
 		// JComboBox comboBoxPriceCategory = new
-		// JComboBox(PriceCategory.findAll().toArray());
-		JComboBox comboBoxPriceCategory = new JComboBox();
+		JComboBox comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
+		
 
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
 		JTextField textFieldUnitQuantity = new JTextField();
