@@ -8,6 +8,8 @@ import model.*;
 import model.data.exceptions.*;
 import model.data.xml.parsers.*;
 import model.data.xml.writers.*;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 
 /**
  * DataBase.java
@@ -66,7 +68,7 @@ public class DataBase
 			Video.setVideoList(videos);
 			VideoUnit.setVideoUnitList(videoUnits);
 			InRent.setInRentList(inRents);
-			Warning.setWarningList(warnings);
+//			Warning.setWarningList(warnings);
 
 			dataLoaded = true;
 		}
@@ -91,8 +93,19 @@ public class DataBase
 		videos = vidParser.parseVideos("data/videos.xml");
 		videoUnits = vidParser.getVideoUnitList();
 		inRents = irParser.parseInRents("data/inRents.xml");
-		warnings = wParser.parseWarnings("data/warnings.xml");
+//		warnings = wParser.parseWarnings("data/warnings.xml");
 
+		try
+		{
+			Warning.setMinID(1);
+			Warning.setWarningList(new java.util.HashMap<Integer,Warning>());
+		}
+		catch (VideothekException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setGlobalLists();
 	}
 
@@ -143,15 +156,15 @@ public class DataBase
 		{
 			throw new DataSaveException(ex.getMessage(), "data/inRents.xml");
 		}
-		try
-		{
-			wWriter = new WarningWriter("data/warnings.xml");
-			wWriter.saveWarnings(Warning.findAll());
-		}
-		catch (Exception ex)
-		{
-			throw new DataSaveException(ex.getMessage(), "data/warnings.xml");
-		}
+//		try
+//		{
+//			wWriter = new WarningWriter("data/warnings.xml");
+//			wWriter.saveWarnings(Warning.findAll());
+//		}
+//		catch (Exception ex)
+//		{
+//			throw new DataSaveException(ex.getMessage(), "data/warnings.xml");
+//		}
 	}
 
 }

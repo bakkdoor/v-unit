@@ -48,7 +48,7 @@ public class Warning
 	{
 		this(minwID, inRent.getID());
 		this.inRent = inRent;
-		inRent.setWarned(true);
+//		inRent.setWarned(true);
 		minwID++;
 		
 		// Event feuern
@@ -258,6 +258,7 @@ public class Warning
 		for(Warning w : InRent.getNewWarnings())
 		{
 			writer.writeInvoiceFor(w);
+			w.inRent.setWarned(true);
 		}
 	}
 
