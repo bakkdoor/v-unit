@@ -326,7 +326,7 @@ public class InRent implements Comparable<InRent>
 		List<InRent> foundInRents = new LinkedList<InRent>();
 		for (InRent ir : inRentList.values())
 		{
-			if (ir.customer.getID() == customer.getID())
+			if (ir.getCustomer().getID() == customer.getID())
 			{
 				foundInRents.add(ir);
 			}

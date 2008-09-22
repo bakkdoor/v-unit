@@ -55,7 +55,15 @@ public class PriceCategoryTest extends ModelTest
 		assertNotNull(pc);
 		assertTrue(PriceCategory.findAll().contains(pc));
 		
-		pc.delete();
+		try
+		{
+			pc.delete();
+		}
+		catch (VideothekException e1)
+		{
+			assertTrue(false);
+			e1.printStackTrace();
+		}
 		
 		assertFalse(PriceCategory.findAll().contains(pc));
 		assertTrue(pc.isDeleted());

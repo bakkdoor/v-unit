@@ -6,6 +6,7 @@ package main;
 import java.io.IOException;
 
 import logging.Logger;
+import main.config.Config;
 import model.CurrentDate;
 import model.Date;
 import model.data.DataBase;
@@ -59,8 +60,9 @@ public class Programm
 		try
 		{
 			DataBase.saveData();
+			Config.saveAll();
 		}
-		catch (DataSaveException e1)
+		catch (Exception e1)
 		{
 			e1.printStackTrace();
 		}
