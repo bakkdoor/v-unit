@@ -28,7 +28,6 @@ public class RentTableModel extends DefaultTableModel{
 		try {
 			super.addRow(new Object[] {videoUnit.getID(), videoUnit.getVideo().getTitle(), videoUnit.getVideo().getPriceCategory()});
 			fireTableDataChanged();
-			System.out.println("hinzugefügt");
 		} catch (RecordNotFoundException e) {
 			// TODO kann preiskategorie nicht finden
 			e.printStackTrace();
@@ -36,5 +35,10 @@ public class RentTableModel extends DefaultTableModel{
 		
 		return true;
 	}
+        
+        public void removeAll() {
+            this.getDataVector().removeAllElements();
+            fireTableDataChanged();
+        }
 
 }
