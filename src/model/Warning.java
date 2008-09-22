@@ -8,6 +8,7 @@ import java.util.Map;
 
 import model.data.exceptions.DataSaveException;
 import model.data.exceptions.RecordNotFoundException;
+import model.data.xml.writers.InvoiceWriter;
 import model.data.xml.writers.WarningWriter;
 import model.events.EventManager;
 import model.events.WarningCreatedEvent;
@@ -36,6 +37,7 @@ public class Warning
 	private static Map<Integer, Warning> warningList;
 
 	public static final float billFactor = 1.5f;
+	public static final float warningPrice = 5.99f;
 
 	/**
 	 * Öffentlicher Konstruktor für Warnings.
@@ -246,10 +248,17 @@ public class Warning
 		return minwID;
 	}
 
+	/**
+	 * Übergibt alle noch ausstehenden Mahnungen (Warnings) dem InvoiceWriter 
+	 * und schreibt sie in eine Datei.
+	 */
 	public static void createPendingInvoices()
 	{
-		// TODO: hier InvoiceWriter aufrufen und alle Mahnungs-Quittungen
-		// drucken lassen
+		InvoiceWriter writer = new InvoiceWriter();
+		for(Warning w : InRent.getNewWarnings())
+		{
+			writer.writeInvoiceFor(w);
+		}
 	}
 
 	/**
@@ -269,40 +278,4 @@ public class Warning
 	{
 		return InRent.getNewWarnings();
 	}
-
-	/**
-	 * Methode schreibt die neuen Mahnungen in eine neue Datei mit dem aktuellen
-	 * Datum
-	 */
-	public static void writeNewWarnings()
-	{
-		try
-		{
-			WarningWriter writer = new WarningWriter("Mahnungen vom "
-					+ CurrentDate.get().toString());
-			writer.saveWarnings(getNewWarnings());
-		}
-		catch (DataSaveException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (RecordNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
 }

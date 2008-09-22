@@ -8,6 +8,7 @@ management/Thumbs.db
 icons/Thumbs.db
 Videothek.log
 quittungen/*
+mahnungen/*
 build/*
 build.xml
 manifest.mf
