@@ -262,6 +262,18 @@ public class Video
 	}
 
 	/**
+	 * Informiert alle anderen Teilsysteme, dass dieses Video 
+	 * evtl. geändert wurde.
+	 * Feuert ein {@link VideoEditedEvent} und sollte einmal 
+	 * nach einem Bearbeitungsvorgang aufgerufen werden.
+	 */
+	public void save()
+	{
+		// Event feuern
+		EventManager.fireEvent(new VideoEditedEvent(this));
+	}
+	
+	/**
 	 * setzt den Wert der statischen Variable MinvID
 	 * 
 	 * @param newMinvID die neue MinID der {@link Video}s
@@ -353,9 +365,6 @@ public class Video
 		if (newTitle != null && newTitle != "")
 		{
 			this.title = newTitle;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException();
@@ -372,9 +381,6 @@ public class Video
 		else
 		{
 			releaseYear = newReleaseYear;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 	}
 
@@ -384,9 +390,6 @@ public class Video
 		if (newPriceCategory != null)
 		{
 			this.priceCategory = newPriceCategory;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException();
@@ -398,9 +401,6 @@ public class Video
 				|| newRatedAge == 16 || newRatedAge == 18)
 		{
 			this.ratedAge = newRatedAge;
-
-			// Event feuern
-			EventManager.fireEvent(new VideoEditedEvent(this));
 		}
 		else
 			throw new FalseFieldException("Bitte FSK überprüfen");

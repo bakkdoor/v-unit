@@ -274,6 +274,17 @@ public class InRent implements Comparable<InRent>
 	{
 		return this.deleted;
 	}
+	
+	/**
+	 * Informiert alle anderen Teilsysteme, dass diese Ausleihe evtl. geändert wurde.
+	 * Feuert ein InRentEditedStateEvent und sollte einmal nach einem Bearbeitungsvorgang
+	 * aufgerufen werden.
+	 */
+	public void save()
+	{
+		// Event feuern
+		EventManager.fireEvent(new InRentEditedStateEvent(this));
+	}
 
 	/**
 	 * Methode informiert, ob bereits eine Mahnung (Warning) erstellt wurde
