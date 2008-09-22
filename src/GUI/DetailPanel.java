@@ -232,7 +232,6 @@ public class DetailPanel {
 						mainWindow));
 
 		buttonDetailVadd = new JButton("Übernehmen");
-		buttonDetailVadd.setEnabled(false);
 		buttonDetailVadd.addActionListener(new ActionListener() {
 
 			@Override
@@ -397,6 +396,8 @@ public class DetailPanel {
 	public void fillPanelDetailVideo(Video video) {
 
 		changePanelDetailsCard(VIDEODETAILS);
+		buttonDetailVadd.setEnabled(false);
+		
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
@@ -420,7 +421,6 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
-		buttonDetailVadd.setEnabled(true);
 		boolean isRented = videoUnit.isRented();
 
 		this.textFieldDetailVState.setText(isRented ? "Ausgeliehen"
@@ -562,5 +562,9 @@ public class DetailPanel {
 
 	public JTextField getTextFieldDetailCustLastAddress() {
 		return textFieldDetailCustLastAddress;
+	}
+
+	public JButton getButtonDetailVadd() {
+		return buttonDetailVadd;
 	}
 }
