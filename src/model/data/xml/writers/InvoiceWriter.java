@@ -24,12 +24,20 @@ public class InvoiceWriter
 	private String inVoiceFolder = "quittungen/";
 	private String warningFolder = "mahnungen/";
 	
+	/**
+	 * Konstruktor für InvoiceWriter.
+	 */
 	public InvoiceWriter()
 	{
 		this.inVoiceFolder = Config.get().getSetting(Config.Settings.INVOICEFOLDER);
 		this.warningFolder = Config.get().getSetting(Config.Settings.WARNINGFOLDER);
 	}
 	
+	/**
+	 * Schreibt Quittung für Mahnung in Textdatei.
+	 * @param warning Die Mahnung, für die die Quittung 
+	 * 					erstellt werden soll.
+	 */
 	public void writeInvoiceFor(Warning warning)
 	{
 		try
@@ -83,6 +91,11 @@ public class InvoiceWriter
 		}
 	}
 	
+	/**
+	 * Schreibt Quittung für Ausleihe in Textdatei.
+	 * @param inRent Die Ausleihe, für die die Quittung 
+	 * 					erstellt werden soll.
+	 */
 	public void writeInvoiceFor(InRent inRent)
 	{
 		try
@@ -137,6 +150,10 @@ public class InvoiceWriter
 		}
 	}
 	
+	/**
+	 * Erstellt das angegebene Verzeichnis, falls es nicht existiert.
+	 * @param dirName Name/Pfad des Verzeichnisses.
+	 */
 	private static void createDirIfNeeded(String dirName)
 	{
 		File dir = new File(dirName);
@@ -146,6 +163,13 @@ public class InvoiceWriter
 		}
 	}
 
+	/**
+	 * Formatiert eine Zahl als String mit einer angegeben Breite/Länge.
+	 * @param number Die Zahl, die formatiert werden soll.
+	 * @param maxWidth Die maximale Breite/Länge des Strings.
+	 * @return Der String mit der Zahl, evtl. abgeschnitten auf 
+	 * 			die angegebene maxWidth.
+	 */
 	private static String formatInt(int number, int maxWidth)
 	{
 		String numString = Integer.toString(number);
@@ -165,6 +189,12 @@ public class InvoiceWriter
 		}
 	}
 	
+	/**
+	 * Formatiert einen String linksbündig mit einer maximalen Breite/Länge.
+	 * @param output Der String, der formatiert werden soll.
+	 * @param maxWidth Die maximale Breite/Länge..
+	 * @return Der linksbündig formatierte String.
+	 */
 	private static String formatLeft(String output, int maxWidth)
 	{
 		String prefix = "";
