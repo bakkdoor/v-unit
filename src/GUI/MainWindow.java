@@ -1,5 +1,8 @@
 package GUI;
 
+import GUI.dialogs.DataDialog;
+import GUI.dialogs.SearchDialog;
+import GUI.dialogs.VideoDataDialog;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

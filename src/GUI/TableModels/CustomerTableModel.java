@@ -1,17 +1,11 @@
 package GUI.TableModels;
 
-import java.util.Collection;
 import java.util.Vector;
 
 import model.events.CustomerCreatedEvent;
 import model.events.CustomerDeletedEvent;
 import model.events.CustomerEditedEvent;
-import model.events.CustomerEvent;
 import model.events.EventManager;
-import model.events.InRentCreatedEvent;
-import model.events.InRentDeletedEvent;
-import model.events.InRentDeletedUnitEvent;
-import model.events.InRentEditedStateEvent;
 import model.events.VideothekEvent;
 import model.Customer;
 

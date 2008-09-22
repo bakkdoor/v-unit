@@ -2,10 +2,12 @@ package GUI.TableModels;
 
 import java.util.Vector;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import main.error.VideothekException;
 import model.PriceCategory;
 import model.Video;
 import model.data.exceptions.RecordNotFoundException;
-import model.events.CustomerEvent;
 import model.events.EventManager;
 import model.events.VideoCreatedEvent;
 import model.events.VideoDeletedEvent;
@@ -57,6 +59,14 @@ public class VideoTableModel extends NotEditableTableModel {
             for (int index = 0; index < getRowCount(); index++) {
                 if (getValueAt(index, 0).equals(video.getID())) {
                     removeRow(index);
+                    if (video.getVideoUnits().size() == 0) {
+                        try {
+                            video.delete();
+                        } catch (VideothekException ex) {
+                            // TODO exception ausgeben
+                            Logger.getLogger(VideoTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                     fireTableDataChanged();
                 }
             }

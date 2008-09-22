@@ -1,5 +1,6 @@
-package GUI;
+package GUI.dialogs;
 
+import GUI.*;
 import java.awt.Container;
 import java.awt.Frame;
 import java.awt.GridBagLayout;

@@ -1,5 +1,6 @@
-package GUI;
+package GUI.dialogs;
 
+import GUI.*;
 import model.Data;
 import model.Video;
 import model.VideoUnit;

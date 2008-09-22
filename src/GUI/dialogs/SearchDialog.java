@@ -1,5 +1,6 @@
-package GUI;
+package GUI.dialogs;
 
+import GUI.*;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Container;
@@ -111,9 +112,5 @@ public class SearchDialog {
 			}
 		});
 		return buttonSearch;
-	}
-	
-	public static void main(String[] argv) {
-		SearchDialog dialog = new SearchDialog(null, CUSTOMERSEARCHMODEDIALOG);
 	}
 }

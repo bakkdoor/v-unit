@@ -1,5 +1,6 @@
-package GUI;
+package GUI.dialogs;
 
+import GUI.*;
 import java.awt.Frame;
 
 import javax.swing.JFrame;
@@ -13,9 +14,9 @@ public class DataDialog {
 	public DataDialog(MainWindow owner, final String dialogView){
 
 		if (dialogView.equals(CUSTOMERDIALOG)) {
-			new GUI.CustomerDataDialog(owner);
+			new GUI.dialogs.CustomerDataDialog(owner);
 		} else if (dialogView.equals(VIDEODIALOG)) {
-			new GUI.VideoDataDialog(owner);
+			new GUI.dialogs.VideoDataDialog(owner);
 		}
 	}
 }
