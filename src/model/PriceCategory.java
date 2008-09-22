@@ -61,9 +61,6 @@ public class PriceCategory
 		if (newName != "" && newName != null)
 		{
 			this.name = newName;
-
-			// Event feuern
-			EventManager.fireEvent(new PriceCategoryEditedEvent(this));
 		}
 		else
 		{
@@ -81,9 +78,6 @@ public class PriceCategory
 		if (newPrice > 0)
 		{
 			this.price = newPrice;
-
-			// Event feuern
-			EventManager.fireEvent(new PriceCategoryEditedEvent(this));
 		}
 		else
 		{
@@ -128,6 +122,18 @@ public class PriceCategory
 		return this.deleted;
 	}
 
+	/**
+	 * Informiert alle anderen Teilsysteme, dass diese Preiskategorie 
+	 * evtl. geändert wurde.
+	 * Feuert ein {@link PriceCategoryEditedEvent} und sollte einmal 
+	 * nach einem Bearbeitungsvorgang aufgerufen werden.
+	 */
+	public void save()
+	{
+		// Event feuern
+		EventManager.fireEvent(new PriceCategoryEditedEvent(this));
+	}
+	
 	/**
 	 * Gibt alle Videos dieser Preiskategorie zurück.
 	 * 

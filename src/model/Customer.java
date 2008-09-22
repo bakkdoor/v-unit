@@ -318,9 +318,6 @@ public class Customer
 		if (newFirstName != null && newFirstName != "")
 		{
 			this.firstName = newFirstName;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException("Kein Vorname eingegeben");
@@ -346,9 +343,6 @@ public class Customer
 		if (newLastName != null && newLastName != "")
 		{
 			this.lastName = newLastName;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException("Kein Nachname eingegeben");
@@ -397,9 +391,6 @@ public class Customer
 				this.birthDate.setYear(newBirthDate.getYear());
 				this.birthDate.setMonth(newBirthDate.getMonth());
 				this.birthDate.setDate(newBirthDate.getDate());
-
-				// Event feuern
-				EventManager.fireEvent(new CustomerEditedEvent(this));
 			}
 		}
 	}
@@ -425,9 +416,6 @@ public class Customer
 		if (newStreet != null && newStreet != "")
 		{
 			this.street = newStreet;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException("Keine Straße eingegeben");
@@ -458,9 +446,6 @@ public class Customer
 		if (newTitle != null && newTitle != "")
 		{
 			this.title = newTitle;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException("Kein Titel eingegeben!");
@@ -491,9 +476,6 @@ public class Customer
 		if (newHouseNr != null && newHouseNr != "")
 		{
 			this.houseNr = newHouseNr;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException("Keine Hausnummer eingegeben");
@@ -519,9 +501,6 @@ public class Customer
 		if (newZipCode < 0)
 		{
 			this.zipCode = newZipCode;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new FalseFieldException("Keine/falsche PLZ eingegeben");
@@ -547,9 +526,6 @@ public class Customer
 		if (newCity != null && newCity != "")
 		{
 			this.city = newCity;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException("Keine Stadt eingegeben");
@@ -576,9 +552,6 @@ public class Customer
 		if (newIdentificationNr != null && newIdentificationNr != "")
 		{
 			this.identificationNr = newIdentificationNr;
-
-			// Event feuern
-			EventManager.fireEvent(new CustomerEditedEvent(this));
 		}
 		else
 			throw new EmptyFieldException(
@@ -660,6 +633,17 @@ public class Customer
 	public boolean isDeleted()
 	{
 		return this.deleted;
+	}
+	
+	/**
+	 * Informiert alle anderen Teilsysteme, dass dieser Customer evtl. geändert wurde.
+	 * Feuert ein CustomerEditedEvent und sollte einmal nach einem Bearbeitungsvorgang
+	 * aufgerufen werden.
+	 */
+	public void save()
+	{
+		// Event feuern
+		EventManager.fireEvent(new CustomerEditedEvent(this));
 	}
 
 	/**
