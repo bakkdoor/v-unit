@@ -34,11 +34,16 @@ import GUI.TableModels.RentTableModel;
 import GUI.TableModels.ReturnTableModel;
 
 import main.error.VideothekException;
+import model.CurrentDate;
 import model.Customer;
+import model.InRent;
 import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.CurrentDateException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 import model.exceptions.VideoUnitRentedException;
 
 public class RentPanel {
@@ -168,15 +173,17 @@ public class RentPanel {
         buttonRentCancel.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                textFieldRentCustomerID.setText("");
-                textFieldRentVideoID.setText("");
-                // TODO elemente aus der tabelle entfernen
-                RentTableModel model = (RentTableModel) tableRentVideo.getModel();
-                model.removeAll();
+                clearRentDataFields();
             }
         });
 
         JButton buttonRentAccept = new JButton("Bestätigen");
+        buttonRentAccept.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createInRent();
+			}});
 
 
         // Datenfelder in panelRent einfügen
@@ -388,8 +395,21 @@ public class RentPanel {
     	}
     }
     
+    private void clearRentDataFields() {
+    	textFieldRentCustomerID.setText("");
+        textFieldRentVideoID.setText("");
+        // TODO elemente aus der tabelle entfernen
+        RentTableModel model = (RentTableModel) tableRentVideo.getModel();
+        model.removeAll();
+        calculateRentPrice();
+    }
+    
+    private int getRentDuration() {
+    	return comboBoxRentDuration.getSelectedIndex()+1;
+    }
+    
     public void calculateRentPrice() {
-    	int rentDuration = comboBoxRentDuration.getSelectedIndex()+1;
+    	int rentDuration = this.getRentDuration();
     	float price = 0.0f;
     	
     	Vector<Vector> dataVector = ((RentTableModel)tableRentVideo.getModel()).getDataVector();
@@ -398,12 +418,34 @@ public class RentPanel {
     		float tmpPrice = price;
     		price = tmpPrice + priceCat.getPrice();
     	}
-    	price *=rentDuration;
+    	price *= rentDuration;
     	this.setRentPrice(price);
     }
     
     private void setRentPrice(float price) {
+    	// TODO auf 2Stellen genau ausgeben
     	labelRentVideoCostPrice.setText(Float.toString(price) + " €");
+    }
+    
+    private void createInRent() {
+    	
+		try {
+			Integer cID = Integer.parseInt(textFieldRentCustomerID.getText());
+			Customer customer = Customer.findByID(cID);
+			int rentDuration = this.getRentDuration();
+	    	Vector<VideoUnit> videoUnits = new Vector<VideoUnit>();
+	    	Vector<Vector> tableDataVector = ((RentTableModel)tableRentVideo.getModel()).getDataVector(); 
+	    	for (Vector videoUnit : tableDataVector) {
+	    		videoUnits.add(VideoUnit.findByID((Integer)videoUnit.get(0)));
+	    	}
+	    	new InRent(customer, videoUnits, CurrentDate.get(), rentDuration);
+	    	clearRentDataFields();
+		} catch (NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Eingabe fehlerhaft! Bitte Eingabe prüfen.", "Eingabe fehlerhaft", JOptionPane.ERROR_MESSAGE);
+	    } catch (VideothekException e) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "Eingabe fehlerhaft", JOptionPane.ERROR_MESSAGE);
+		}
+    	
     }
     
     public void setTextRentCustID(int custID) {

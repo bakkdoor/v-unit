@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.dialogs.SettingsDialog;
 import GUI.dialogs.VideoDataDialog;
 import GUI.dialogs.CustomerDataDialog;
 import java.awt.event.ActionEvent;
@@ -20,9 +21,13 @@ public class MenuBar {
 	private JMenuItem menuItemVideoEdit;
 	private JMenuItem menuItemVideoDelete;
 
+	private MainWindow owner;
+	
 	protected JMenuBar createMenuBar(MainWindow owner) {
 
 		final MainWindow mainWindow = owner;
+		this.owner = owner;
+		
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();
 
@@ -132,6 +137,15 @@ public class MenuBar {
 				JSeparator.HORIZONTAL);
 		JMenuItem menuItemToolsOptions = new JMenuItem("Einstellungen",
 				new ImageIcon("icons/cog.png"));
+		
+		menuItemToolsOptions.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				openSettingsDialog();
+			}
+		});
 
 		menuTools.add(menuItemToolsWarnings);
 		menuTools.add(separatorToolsSeparator);
@@ -172,5 +186,11 @@ public class MenuBar {
 		this.menuItemVideoEdit.setEnabled(true);
 		this.menuItemVideoDelete.setEnabled(true);
 
+	}
+	
+	private void openSettingsDialog()
+	{
+		SettingsDialog dialog = new SettingsDialog(this.owner.getMainFrame(), true);
+		dialog.setVisible(true);
 	}
 }

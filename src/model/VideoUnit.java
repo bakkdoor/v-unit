@@ -188,7 +188,7 @@ public class VideoUnit
 			
 			// falls dieses exemplar das letzte ist,
 			// kann auch der gesamte film gelöscht werden...
-			if(this.getVideo().getVideoUnits().size() == 1)
+			if(this.getVideo().getVideoUnits().size() == 0)
 			{
 				this.getVideo().delete();
 			}

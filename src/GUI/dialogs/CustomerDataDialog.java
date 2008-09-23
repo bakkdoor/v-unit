@@ -105,8 +105,7 @@ public class CustomerDataDialog implements VideothekEventListener {
         customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         
         // Dialog mittig auf dem bildschirm setzen
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        customerDataDialog.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+        DialogHelper.setToCenterScreen(this.customerDataDialog);
 
         labelID = new JLabel("KundenNr.:");
         labelID.setVisible(!addCustomer);
