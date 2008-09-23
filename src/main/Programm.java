@@ -1,17 +1,17 @@
-package main;
+﻿package main;
 
+import java.awt.Dialog.ModalityType;
 import java.io.IOException;
+import java.util.Collection;
 
 import logging.Logger;
 import main.config.Config;
 import model.CurrentDate;
-import model.Date;
 import model.Warning;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
-import model.data.exceptions.DataSaveException;
-import model.exceptions.CurrentDateException;
 import GUI.MainWindow;
+import GUI.dialogs.CreatedWarningsDialog;
 import GUI.dialogs.SetCurrentDateDialog;
 
 /**
@@ -28,27 +28,22 @@ public class Programm
 		Logger.get().write("Programm gestartet!");
 		Logger.get().write("CurrentDate wird gesetzt");
 
-		try
+		if(Config.get().getSetting(Config.Settings.SETDATEONSTARTUP).equals("true"))
 		{
-			SetCurrentDateDialog dialog = new SetCurrentDateDialog();
-			dialog.setVisible(true);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
+			try
+			{
+				SetCurrentDateDialog dialog = new SetCurrentDateDialog(null, true);
+				dialog.setVisible(true);
+				dialog.setModalityType(ModalityType.APPLICATION_MODAL);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				Logger.get().write("Fehler beim Setzen von CurrentDate!");
+			}
 		}
 		
 		Logger.get().write("Aktuelles Currentdate ist: " + CurrentDate.get());
-		
-//		try
-//		{
-//			CurrentDate.set(new Date());
-//			
-//		}
-//		catch (CurrentDateException e2)
-//		{
-//			Logger.get().write("Fehler beim Setzen von CurrentDate!");
-//		}
 
 		Logger.get().write("XML-Daten werden geladen.");
 
@@ -73,7 +68,14 @@ public class Programm
 		try
 		{
 			// mahnungen in dateien schreiben
-			Warning.createPendingWarnings();
+			Collection<Warning> createdWarnings = Warning.createPendingWarnings();
+			
+			// falls welche erstellt, anzeigen
+			if(createdWarnings.size() > 0)
+			{
+				CreatedWarningsDialog dialog = new CreatedWarningsDialog(null, createdWarnings);
+				dialog.setVisible(true);
+			}
 			
 			DataBase.saveData();
 			Config.saveAll();
