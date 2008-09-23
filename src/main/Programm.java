@@ -73,12 +73,27 @@ public class Programm
 
 		mainWindow = new MainWindow();
 		mainWindow.getMainFrame().setVisible(true);
+		
+		// falls x und y größe gespeichert, laden und setzten!
+		if(Config.get().hasSetting(Config.Settings.MAINWINDOWRESX) 
+				&& Config.get().hasSetting(Config.Settings.MAINWINDOWRESY))
+		{
+			int resX = Integer.parseInt(Config.get().getSetting(Config.Settings.MAINWINDOWRESX));
+			int resY = Integer.parseInt(Config.get().getSetting(Config.Settings.MAINWINDOWRESY));
+			mainWindow.getMainFrame().setSize(resX, resY);
+		}
 	}
 
 	public static void shutdown()
 	{
+		int resX, resY;
+		resX = (int)mainWindow.getMainFrame().getSize().getWidth();
+		resY = (int)mainWindow.getMainFrame().getSize().getHeight();
 		mainWindow.getMainFrame().dispose();
 
+		Config.get().setSetting(Config.Settings.MAINWINDOWRESX, Integer.toString(resX));
+		Config.get().setSetting(Config.Settings.MAINWINDOWRESY, Integer.toString(resY));
+		
 		try
 		{
 			// mahnungen in dateien schreiben
