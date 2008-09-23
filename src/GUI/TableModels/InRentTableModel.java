@@ -24,17 +24,21 @@ public class InRentTableModel extends NotEditableTableModel implements Videothek
 	public InRentTableModel(Vector rowData, Vector<String> columnNames)
 	{
 		super(rowData, columnNames);
+		registerAsEventListener();
 		
-		EventManager.registerEventListener(InRentCreatedEvent.class, this);
-		EventManager.registerEventListener(InRentEditedStateEvent.class, this);
-		EventManager.registerEventListener(InRentDeletedUnitEvent.class, this);
-		EventManager.registerEventListener(InRentDeletedEvent.class, this);
 	}
 	
 	public InRentTableModel(Vector<String> columnNames, int rowCount) {
 		 super(columnNames, rowCount);
+                 registerAsEventListener();
 	}
 
+        private void registerAsEventListener() {
+                EventManager.registerEventListener(InRentCreatedEvent.class, this);
+		EventManager.registerEventListener(InRentEditedStateEvent.class, this);
+		EventManager.registerEventListener(InRentDeletedUnitEvent.class, this);
+		EventManager.registerEventListener(InRentDeletedEvent.class, this);
+        }
 	/* (non-Javadoc)
 	 * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
 	 */

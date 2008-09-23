@@ -28,12 +28,18 @@ public class VideoTableModel extends NotEditableTableModel implements VideothekE
 
     public VideoTableModel(Vector rowData, Vector columnNames) {
         super(rowData, columnNames);
-
-        EventManager.registerEventListener(VideoEvent.class, this);
+        registerAsEventListener();
     }
 
     public VideoTableModel(Vector<String> videeoColumnNames, int rowCount) {
         super(videeoColumnNames, rowCount);
+        registerAsEventListener();
+    }
+    
+    private void registerAsEventListener() {
+        EventManager.registerEventListener(VideoCreatedEvent.class, this);
+        EventManager.registerEventListener(VideoEditedEvent.class, this);
+        EventManager.registerEventListener(VideoDeletedEvent.class, this);
     }
 
     /* (non-Javadoc)
