@@ -4,6 +4,7 @@
 \par
 \par
 \par
+\par
 \b\fs28 Kurzbeschreibung\b0\fs24\par
 \fs20\par
 Aufgabe und Ziel von Project Video ist die umfangreiche und benutzerfreundliche Unterst\'fctzung einer Videothek bei ihren t\'e4glichen Routinegesch\'e4ftsvorg\'e4ngen.\par
@@ -11,7 +12,8 @@ Dazu z\'e4hlen u.a. das Anlegen und Verwalten von Kunden und Fillmen, Verleih- u
 \par
 \par
 \par
-\b\fs28 Programmstart\par
+\b\fs28\par
+Programmstart\par
 \b0\fs20\par
 Beim Starten von Project Video erfolgt zun\'e4chst die Datumsabfrage. Standardm\'e4\'dfig ist hier das aktuelle Datum eingetragen, das durch einen Klick auf \b OK\b0  \'fcbernommen oder vorher nach eigenem Wunsch frei gesetzt werden kann. (Bitte beachten Sie, dass alle Vorg\'e4nge im laufenden Programm, wie Ausleihen, Quittungen oder auch Mahnungen sich auf das hier gesetzte Datum beziehen.)\par
 Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'fc unter\par
@@ -21,6 +23,7 @@ Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'
 \i\tab\tab\tab Hier Bild vom Reiter Allgemein\i0\par
 \par
 \par
+\par
 \b\fs28\'dcbersicht - Programmfenster\par
 \fs20\par
 \b0 Am oberen Fensterrand befindet sich die Men\'fcleiste mit den Eintr\'e4gen:\par
@@ -28,8 +31,10 @@ Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'
 Deren Untermen\'fcs stellen die jeweiligen Funktionalit\'e4ten zur Verf\'fcgung.\par
 Zus\'e4tzlich zu den Men\'fcs werden die wichtigsten Funktionen unterhalb der Men\'fcleiste in einer Toolbar bereitgestellt. Hier hat der Benutzer folgende Buttons zur Wahl:\par
 \b Suche \b0 - \b Anlegen\b0  - \b Bearbeiten\b0  - \b L\'f6schen\b0  - und zus\'e4tzlich - \b Ausleihe - \b0 und - \b R\'fcckgabe\b0\par
-Diese beiden letzten Buttons wechseln die Ansicht des R\'fcckgabe- und Ausleihbereiches unterhalb der Toolbar, wo entsprechend jeweils eine R\'fcckgabe oder aber eine neue Ausleihe eingegeben werden kann.\par
-Rechts daneben werden Details im Infobereich dargestellt. Diese beziehen sich auf die aktuelle Auswahl im Listenbereich, der sich in der unteren Fensterh\'e4lfte befindet: Ist ein Film ausgew\'e4hlt, stehen im Infobereich Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse, Status (verliehen, oder nicht) , R\'fcckgabefrist (falls verliehen) und die vorhandenen Exemplare mitsamt ihrer Nummer aufgelistet.\par
+Diese beiden Buttons wechseln die Ansicht des R\'fcckgabe- und Ausleihbereiches unterhalb der Toolbar, wo entsprechend jeweils eine R\'fcckgabe oder aber eine neue Ausleihe eingegeben werden kann.\par
+Rechts daneben werden Details im Infobereich dargestellt. Diese beziehen sich auf die aktuelle Auswahl im Listenbereich, der sich in der unteren Fensterh\'e4lfte befindet:\par
+ Ist z.B. ein Film ausgew\'e4hlt, stehen im Infobereich Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse, Status (verliehen, oder nicht) , R\'fcckgabefrist (falls verliehen) und die vorhandenen Exemplare mitsamt ihrer Nummer aufgelistet.\par
+In den anderen F\'e4llen werden hier die Daten der entsprechenden Auswahl (Kunde, Ausleihe) dargestellt.\par
 Der Listenbereich im unteren Teil enth\'e4lt Reiter f\'fcr:\par
  -\b Filme\b0 , wo alle Filme aus dem Bestand der Videothek aufgelistet werden,\par
  -\b Kunden\b0 , wo alle Kunden der Videothek aufgelistet werden,\par
@@ -38,12 +43,14 @@ Der Listenbereich im unteren Teil enth\'e4lt Reiter f\'fcr:\par
 \par
 \par
 \par
+\par
 \b\fs28 Kunden\fs24\par
 \b0\fs20\par
 \b\fs24 Anlegen \b0 eines neuen Kunden\par
 \fs20\par
 Wenn ein neuer Kunde der Videothek angelegt bzw. zugef\'fcgt werden soll, ist dies entweder \'fcber das Men\'fc \b Kunde\b0  -> \b Anlegen\b0  oder aber den Button \b Anlegen\b0  m\'f6glich, der dann in einem neuen Dialogfenster abfragt, ob ein neuer Kunde oder Film angelegt werden soll. In beiden F\'e4llen \'f6ffnet sich dann der "\b Kunde anlegen\b0 "-Dialog. Hier m\'fcssen die Daten des anzulegenden Kunden eingetragen werden (Anrede, Vorname, Nachname, Personalausweisnummer, Geburtsdatum, Anschrift mit Stra\'dfe, Hausnummer, Postleitzahl und Stadt).\par
-Durch einen Klick auf \b Best\'e4tigen\b0  wird der neue Kunde angelegt, steht in der Liste aller Kunden und ist von nun an berechtigt, Videos auszuleihen. Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Kunden anzulegen.\par
+Durch Klick auf \b Best\'e4tigen\b0  wird der neue Kunde angelegt und ihm dabei eine feste, einzigartige Kundennummer zugeteilt. Er steht von nun an in der Liste aller Kunden und ist berechtigt, Videos auszuleihen. \par
+Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Kunden anzulegen.\par
 \par
 \b\fs24\par
 Bearbeiten \b0 eines bestehenden Kunden\par
@@ -68,22 +75,41 @@ Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn di
 Anlegen \b0 eines neuen Films\par
 \fs20\par
 Wenn ein neuer Film der Videothek angelegt bzw. zugef\'fcgt werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Anlegen\b0  oder aber den Button \b Anlegen\b0  m\'f6glich, der dann in einem neuen Dialogfenster abfragt, ob ein neuer Kunde oder Film angelegt werden soll. In beiden F\'e4llen \'f6ffnet sich dann der "\b Film anlegen\b0 "-Dialog. Hier m\'fcssen die Daten des anzulegenden Films eingetragen werden (Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse und Exemplaranzahl).\par
-Durch einen Klick auf \b Best\'e4tigen\b0  wird der neue Film angelegt, steht in der Liste aller Filme und kann von nun an von Kunden ausgeliehen werden. Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Film anzulegen.\par
+Durch Klick auf \b Best\'e4tigen\b0  wird der neue Film angelegt und ihm eine feste, einzigartige Filmnummer zugeteilt. Er steht von nun an in der Liste aller Filme. Seine Exemplare, die ebenfalls je eine feste, einzigartige Exemplarnummer erhalten haben, k\'f6nnen nun von Kunden ausgeliehen werden. \par
+Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Film anzulegen.\par
 \par
 \par
 \b\fs24 Bearbeiten \b0 eines vorhandenen Films\par
 \fs20\par
 Wenn ein vorhandener Film der Videothek bearbeitet werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Bearbeiten\b0  oder aber den Button \b Bearbeiten\b0  m\'f6glich. Dazu muss der zu bearbeitende FIlm zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten und vorhandene Exemplare rechts im Infobereich zu sehen sind.\par
-Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht und ein neuer mit den aktuellen Daten angelegt werden. Dadurch erh\'e4lt der Film dann allerdings auch eine neue Filmnummer.\par
-Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt nicht ausgeliehenen ist.\par
+Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht und ein neuer mit den aktuellen Daten und nat\'fcrlich den vorhandenen Exemplaren angelegt werden. Dadurch erhalten der Film und dessen Exemplare dann allerdings auch neue Filmnummern.\par
+Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
 \par
 \par
 \b\fs24 L\'f6schen \b0 eines vorhandenen Films\par
 \fs20\par
-Wenn ein vorhandener Film der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten rechts im Infobereich zu sehen sind. Dort wird dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt.\par
-Bevor der Kunde endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
-\b Nein \b0 bricht den Vorgang ab und der Kunde wird nicht gel\'f6scht.\par
-Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt keine ausgeliehenen Videos oder ausstehende Mahnungen mehr hat.\par
+Wenn ein vorhandener Film oder ein Filmexemplar der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Dort muss dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt, falls nicht der Film mitsamt seiner ganzen Exemplare gel\'f6scht werden soll.\par
+Bevor der Film endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
+\b Nein \b0 bricht den Vorgang ab und der Film wird nicht gel\'f6scht.\par
+Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
+\par
+\par
+\par
+\par
+\b\fs28 Ausleihe\par
+\fs24\par
+\b0\fs20 Um eine neue Ausleihe zu erstellen, also einen bzw. mehrere Filme an einen Kunden auszuleihen, ist folgendes Vorgehen m\'f6glich:\par
+1. Durch Klick auf den Button \b Ausleihe \b0 zur Ausleihansicht im R\'fcckgabe- und Ausleihbereich wechseln.\par
+2. Hier kann nun im oberen Feld die Kundennummer des Kunden eingegeben werden, der einen bzw. mehrere Filme\par
+ausleihen will.\par
+3. Im darunter liegenden Feld ist die Exemplarnummer des Filmexemplars einzutragen, das ausgeliehen werden soll.\par
+4. Wenn die Ausleihe l\'e4nger als 1 Woche gelten soll, kann dies im Dropdown-Men\'fc zur Ausleihdauer ausgew\'e4hlt werden.\par
+5. Nun f\'fcgt ein Klick auf \b Hinzuf\'fcgen\b0  dieses Filmexemplar mit der angegebenen Ausleihdauer in die darunter befindliche Liste ein.\par
+Falls dieser Kunde noch weitere Filmexemplare auszuleihen w\'fcnscht, sind die Schritte 3. - 5. solange zu wiederholen, bis alle Filmexemplare in der Ausleihliste eingetragen sind.\par
+Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, wird der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen und diese neue Ausleihe mit den eingegebenen Filmexemplaren und dem Kunden im Programm registriert. Der Kunde erh\'e4lt eine Ausleihquittung, die eine Liste der entliehenen Filme und der Leihgeb\'fchren enth\'e4lt.\par
+\par
+Durch Klick auf \b Abbrechen\b0  kann der Ausleihvorgang an dieser Stelle noch abgebrochen werden.\par
+\par
 \par
 \par
 }
