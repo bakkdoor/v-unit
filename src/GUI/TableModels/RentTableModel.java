@@ -20,7 +20,7 @@ public class RentTableModel extends DefaultTableModel {
 		return false;
 	}
 	
-	public boolean insertVideoUnit(VideoUnit videoUnit) throws VideoUnitRentedException, VideothekException {
+	public void insertVideoUnit(VideoUnit videoUnit) throws VideoUnitRentedException, VideothekException {
 		if (videoUnit.isRented()) throw new VideoUnitRentedException("Filmexemplar ist noch ausgeliehen!");
 		
 		Vector<Vector> data = this.getDataVector();
@@ -29,16 +29,23 @@ public class RentTableModel extends DefaultTableModel {
 				throw new VideothekException("Filmexemplar schon in der Liste vorhanden!");
 			}
 		}
+		insertRow(videoUnit);
+	}
+	
+	public void insertRow(VideoUnit videoUnit) {
 		
 		try {
-			super.addRow(new Object[] {videoUnit.getID(), videoUnit.getVideo().getTitle(), videoUnit.getVideo().getPriceCategory()});
+			Vector newRow = new Vector(3);
+			newRow.add(videoUnit.getID());
+			newRow.add(videoUnit.getVideo().getTitle());
+			newRow.add(videoUnit.getVideo().getPriceCategory());
+			super.addRow(newRow);
 			fireTableDataChanged();
+			
 		} catch (RecordNotFoundException e) {
-			// TODO kann preiskategorie nicht finden
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return true;
 	}
 	
 	public void removeAll() {
