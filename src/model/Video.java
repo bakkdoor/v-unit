@@ -15,7 +15,6 @@ import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
-
 /**
  * 
  * Video.java
@@ -28,11 +27,11 @@ public class Video
 
 	private int vID;
 	private String title;
-	private final int NotSet = -1;
-	private int releaseYear = NotSet;
+	private int releaseYear = Data.NOTSET;
 	private PriceCategory priceCategory;
-	private int priceCategoryID = NotSet;
-	private int ratedAge = NotSet;
+	private int priceCategoryID = Data.NOTSET;
+	private int ratedAge = Data.NOTSET;
+	private int numberOfVideoUnits = 0;
 
 	private boolean deleted = false;
 
@@ -54,12 +53,13 @@ public class Video
 	 *             CurrentDate nachträglich verändert werden soll
 	 */
 	public Video(String title, int releaseYear, PriceCategory priceCategory,
-			int ratedAge) throws FalseIDException, EmptyFieldException,
-			FalseFieldException, CurrentDateException
+			int ratedAge, int numberOfVideoUnits) throws FalseIDException,
+			EmptyFieldException, FalseFieldException, CurrentDateException
 	{
 		this(minvID, title, releaseYear, priceCategory.getID(), ratedAge);
 		minvID++;
 		this.priceCategory = priceCategory;
+		this.addNewVideoUnits(numberOfVideoUnits);
 
 		videoList.put(this.vID, this);
 
@@ -239,9 +239,9 @@ public class Video
 	 */
 	public void delete() throws VideothekException
 	{
-		for( VideoUnit unit : this.getVideoUnits() )
+		for (VideoUnit unit : this.getVideoUnits())
 		{
-			if( unit.getInRent() != null )
+			if (unit.getInRent() != null)
 			{
 				throw new VideothekException(
 						"Exemplare dieses Videos noch in Ausleihe. Löschen nicht möglich!");
@@ -251,11 +251,11 @@ public class Video
 		this.deleted = true;
 
 		// videounits mit löschen
-		for(VideoUnit unit : this.getVideoUnits())
+		for (VideoUnit unit : this.getVideoUnits())
 		{
 			unit.delete();
 		}
-		
+
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
 
@@ -272,17 +272,16 @@ public class Video
 	}
 
 	/**
-	 * Informiert alle anderen Teilsysteme, dass dieses Video 
-	 * evtl. geändert wurde.
-	 * Feuert ein {@link VideoEditedEvent} und sollte einmal 
-	 * nach einem Bearbeitungsvorgang aufgerufen werden.
+	 * Informiert alle anderen Teilsysteme, dass dieses Video evtl. geändert
+	 * wurde. Feuert ein {@link VideoEditedEvent} und sollte einmal nach einem
+	 * Bearbeitungsvorgang aufgerufen werden.
 	 */
 	public void save()
 	{
 		// Event feuern
 		EventManager.fireEvent(new VideoEditedEvent(this));
 	}
-	
+
 	/**
 	 * setzt den Wert der statischen Variable MinvID
 	 * 
@@ -333,8 +332,8 @@ public class Video
 	private boolean noEmptyFields(String newTitle, int newReleaseYear,
 			int newRatedAge) throws EmptyFieldException
 	{
-		if (newTitle == null || newTitle == "" || newReleaseYear == NotSet
-				|| newRatedAge == NotSet)
+		if (newTitle == null || newTitle == "" || newReleaseYear == Data.NOTSET
+				|| newRatedAge == Data.NOTSET)
 			throw new EmptyFieldException();
 		else
 			return true;
@@ -414,6 +413,29 @@ public class Video
 		}
 		else
 			throw new FalseFieldException("Bitte FSK überprüfen");
+	}
+
+	public void addNewVideoUnits(int numberOfNewUnits)
+			throws FalseFieldException
+	{
+		if (numberOfNewUnits > 0)
+		{
+			int numberOfNewUnitsLeft = numberOfNewUnits;
+			while (numberOfNewUnitsLeft > 0)
+			{
+				new VideoUnit(this);
+				numberOfNewUnitsLeft--;
+				this.numberOfVideoUnits++;
+			}
+		}
+		else
+			throw new FalseFieldException(
+					"Anzahl neuer Videoexemplare kleiner 1!");
+	}
+	
+	public int getNumberOfVideoUnits()
+	{
+		return this.numberOfVideoUnits;
 	}
 
 	/**
