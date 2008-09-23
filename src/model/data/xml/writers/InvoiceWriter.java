@@ -48,7 +48,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			// Ordner erstellen, falls er nicht existiert.
 			createDirIfNeeded(this.warningInvoiceFolder);
 			
-			FileWriter fWriter = new FileWriter(this.warningInvoiceFolder + warning.getID() + ".txt");
+			FileWriter fWriter = new FileWriter(this.warningInvoiceFolder + "/" + warning.getID() + ".txt");
 			
 			StringBuilder sb = new StringBuilder();
 			

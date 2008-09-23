@@ -161,7 +161,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	    jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Mahnungen"));
 	
-	    jLabel4.setText("Ausleih-Quittungen ablegen in:");
+	    jLabel4.setText("Mahnungen ablegen in:");
 	
 	    warningFolderSetButton.setText("Ordner festlegen");
 	    warningFolderSetButton.addActionListener(new java.awt.event.ActionListener()
