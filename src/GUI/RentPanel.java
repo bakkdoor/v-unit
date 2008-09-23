@@ -33,10 +33,13 @@ import GUI.TableModels.NotEditableTableModel;
 import GUI.TableModels.RentTableModel;
 import GUI.TableModels.ReturnTableModel;
 
+import main.error.VideothekException;
 import model.Customer;
+import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.VideoUnitRentedException;
 
 public class RentPanel {
 
@@ -48,7 +51,9 @@ public class RentPanel {
     private JTable tableRentVideo;
     private JTextField textFieldRentCustomerID;
     private JTextField textFieldRentVideoID;
-    private JTextField textFieldReturnVideo;
+    private JTextField textFieldReturnVideoID;
+    private JLabel labelRentVideoCostPrice;
+    private JLabel labelReturnVideoSumWarning;
     private JPanel panelRent;
     public static final String RENTVIDEOCARD = "RentCard";
     public static final String RETURNVIDEOCARD = "ReturnCard";
@@ -115,6 +120,13 @@ public class RentPanel {
         // Ausleihdauer - Label erstellen
         JLabel labelRentDuration = new JLabel("Ausleihdauer:");
         comboBoxRentDuration = new JComboBox(comboBoxRentDurationContent);
+        comboBoxRentDuration.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calculateRentPrice();
+				
+			}});
 
         // Hinzufügen Button erstellen
         JButton buttonRentAdd = new JButton("Hinzufügen");
@@ -134,6 +146,8 @@ public class RentPanel {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage());
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar- und Kundennummer-Feld eingeben!");
+                } catch (VideothekException e3) {
+                	JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e3.getMessage());
                 }
             }
         });
@@ -147,7 +161,7 @@ public class RentPanel {
 
         // Gesamtpreis Label erstellen
         JLabel labelRentVideoCost = new JLabel("Gesammtpreis: ");
-        JLabel labelRentVideoCostPrice = new JLabel("5,90€");
+        labelRentVideoCostPrice = new JLabel("0,00 €");
 
         // Abbrechen/Akzeptieren Button erstellen
         JButton buttonRentCancel = new JButton("Abbrechen");
@@ -294,7 +308,7 @@ public class RentPanel {
         returnVideoPanel.setLayout(new GridBagLayout());
 
         JLabel labelReturnVideo = new JLabel("ExemplarNr.:");
-        textFieldReturnVideo = new JTextField();
+        textFieldReturnVideoID = new JTextField();
 
         JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
 
@@ -304,7 +318,7 @@ public class RentPanel {
         tableReturnVideo.getTableHeader().setReorderingAllowed(false);
 
         JLabel labelReturnVideoSum = new JLabel("Gesammtpreis:");
-        JLabel labelReturnVideoSumWarning = new JLabel("0,00 €");
+        labelReturnVideoSumWarning = new JLabel("0,00 €");
 
         JButton buttonReturnVideoCancel = new JButton("Abbrechen");
         JButton buttonReturnVideoAccept = new JButton("Bestätigen");
@@ -312,7 +326,7 @@ public class RentPanel {
         // **************************************************************
         Insets insets = new Insets(3, 3, 3, 3);
         Layout.addComponent(returnVideoPanel, labelReturnVideo, 0, 0, 1, 1, 0.33, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, textFieldReturnVideo, 1, 0, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        Layout.addComponent(returnVideoPanel, textFieldReturnVideoID, 1, 0, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
         Layout.addComponent(returnVideoPanel, buttonReturnVideoAdd, 1, 1, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
         Layout.addComponent(returnVideoPanel, new JScrollPane(tableReturnVideo), 0, 2, 3, 1, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.NORTHWEST, insets);
         Layout.addComponent(returnVideoPanel, labelReturnVideoSum, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
@@ -362,16 +376,48 @@ public class RentPanel {
         return rentTable;
     }
 
-    protected void addVideoUnitInRentTable(VideoUnit videoUnit) {
-        Vector rowData = new Vector();
-        rowData.add(Integer.toString(videoUnit.getID()));
-        rowData.add(videoUnit.getVideo().getTitle());
-        try {
-            rowData.add(videoUnit.getVideo().getPriceCategory().getName());
-
-        } catch (RecordNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void addVideoUnitInRentTable(VideoUnit videoUnit) {
+    	try {
+    	RentTableModel model = (RentTableModel)tableRentVideo.getModel();
+    	model.insertVideoUnit(videoUnit);
+    	calculateRentPrice();
+    	} catch (VideoUnitRentedException e1) {
+    		JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Filmexemplar ausgeliehen", JOptionPane.ERROR_MESSAGE);
+    	} catch(VideothekException e2) {
+    		JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e2.getMessage(), "Filmexemplar schon in der Liste", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    }
+    
+    public void calculateRentPrice() {
+    	int rentDuration = comboBoxRentDuration.getSelectedIndex()+1;
+    	float price = 0.0f;
+    	
+    	Vector<Vector> dataVector = ((RentTableModel)tableRentVideo.getModel()).getDataVector();
+    	for (Vector videoUnit : dataVector) {
+    		PriceCategory priceCat = (PriceCategory) videoUnit.get(2);
+    		float tmpPrice = price;
+    		price = tmpPrice + priceCat.getPrice();
+    	}
+    	price *=rentDuration;
+    	this.setRentPrice(price);
+    }
+    
+    private void setRentPrice(float price) {
+    	labelRentVideoCostPrice.setText(Float.toString(price) + " €");
+    }
+    
+    public void setTextRentCustID(int custID) {
+    	changeCard(RENTVIDEOCARD);
+    	textFieldRentCustomerID.setText(Integer.toString(custID));
+    }
+    
+    public void setTextRentVideoID(int videoUnitID) {
+    	changeCard(RENTVIDEOCARD);
+    	textFieldRentVideoID.setText(Integer.toString(videoUnitID));
+    }
+    
+    public void setTextReturnVideoID(int videoUnitID) {
+    	changeCard(RETURNVIDEOCARD);
+    	textFieldReturnVideoID.setText(Integer.toString(videoUnitID));
     }
 }
