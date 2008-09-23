@@ -1,10 +1,12 @@
 package GUI;
 
+import GUI.dialogs.CreatedWarningsDialog;
 import GUI.dialogs.SettingsDialog;
 import GUI.dialogs.VideoDataDialog;
 import GUI.dialogs.CustomerDataDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -139,8 +141,16 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Warning.createPendingWarnings();
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Mahnungsliste wurde aktualisiert!");
+				Collection<Warning> createdWarnings = Warning.createPendingWarnings();
+				if(createdWarnings.size() > 0){
+					CreatedWarningsDialog dialog = 
+						new CreatedWarningsDialog(mainWindow.getMainFrame(), createdWarnings);
+					dialog.setVisible(true);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Keine neuen Mahnungen vorhanden.");
+				}
 			}
 		});
 		
@@ -175,9 +185,9 @@ public class MenuBar {
 
 		// Menus in dei MenuBar hinzufügen
 		menuBarMain.add(menuProgramm);
+		menuBarMain.add(menuSearch);
 		menuBarMain.add(menuCustomer);
 		menuBarMain.add(menuVideo);
-		menuBarMain.add(menuSearch);
 		menuBarMain.add(menuTools);
 		menuBarMain.add(menuHelp);
 

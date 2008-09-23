@@ -164,12 +164,13 @@ public class ToolBar {
 		// Buttons der ToolBar hinzufügen
 		toolBarButtons.add(toolBarButtonSearch);
 		toolBarButtons.addSeparator();
+		toolBarButtons.add(toolBarButtonPanelRentCard);
+		toolBarButtons.add(toolBarButtonRentPanelReturnCard);
+		toolBarButtons.addSeparator();
 		toolBarButtons.add(toolBarButtonNew);
 		toolBarButtons.add(toolBarButtonEdit);
 		toolBarButtons.add(toolBarButtonDelete);
-		toolBarButtons.addSeparator();
-		toolBarButtons.add(toolBarButtonPanelRentCard);
-		toolBarButtons.add(toolBarButtonRentPanelReturnCard);
+		
 
 		return toolBarButtons;
 	}
