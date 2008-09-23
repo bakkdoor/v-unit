@@ -10,9 +10,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 import main.Programm;
+import model.Warning;
 
 public class MenuBar {
 
@@ -83,7 +85,7 @@ public class MenuBar {
 		menuCustomer.add(menuItemCustomerDelete);
 
 		// Menu Video
-		JMenu menuVideo = new JMenu("Video");
+		JMenu menuVideo = new JMenu("Film");
 		JMenuItem menuItemVideoNew = new JMenuItem("Anlegen", new ImageIcon(
 				"icons/film_add.png"));
 		menuItemVideoNew.addActionListener(new ActionListener() {
@@ -133,6 +135,16 @@ public class MenuBar {
 		JMenu menuTools = new JMenu("Extras");
 		JMenuItem menuItemToolsWarnings = new JMenuItem("Mahnungen erstellen",
 				new ImageIcon("icons/clock.png"));
+		menuItemToolsWarnings.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Warning.createPendingWarnings();
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Mahnungsliste wurde aktualisiert!");
+			}
+		});
+		
+		
 		JSeparator separatorToolsSeparator = new JSeparator(
 				JSeparator.HORIZONTAL);
 		JMenuItem menuItemToolsOptions = new JMenuItem("Einstellungen",

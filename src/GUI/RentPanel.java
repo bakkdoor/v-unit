@@ -114,7 +114,7 @@ public class RentPanel {
                 try {
                     VideoUnit videoUnit = VideoUnit.findByID(unitID);
                     mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit.getVideo());
-                    mainWindow.getDetailPanel().fillPanelDetailVideoState(videoUnit);
+                    mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit);
                 } catch (RecordNotFoundException e1) {
                     // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Videoexemplar nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
