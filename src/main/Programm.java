@@ -7,6 +7,7 @@ import java.util.Collection;
 import logging.Logger;
 import main.config.Config;
 import model.CurrentDate;
+import model.InRent;
 import model.Warning;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
@@ -22,7 +23,8 @@ public class Programm
 {
 
 	private static MainWindow mainWindow;
-
+	private static boolean resetWarnings = false;
+	
 	public static void start()
 	{
 		Logger.get().write("Programm gestartet!");
@@ -35,6 +37,10 @@ public class Programm
 				SetCurrentDateDialog dialog = new SetCurrentDateDialog(null, true);
 				dialog.setVisible(true);
 				dialog.setModalityType(ModalityType.APPLICATION_MODAL);
+				
+				// falls gewollt, merken, dass mahnungen 
+				// zurückgesetzt werden sollen...
+				resetWarnings = dialog.resetWarnings;
 			}
 			catch(Exception e)
 			{
@@ -50,6 +56,15 @@ public class Programm
 		try
 		{
 			DataBase.loadData();
+			
+			if(resetWarnings)
+			{
+				for(model.InRent ir : model.InRent.findAll())
+				{
+					ir.setWarned(false);
+				}
+			}
+			
 			Logger.get().write("Daten erfolgreich geladen.");
 		}
 		catch (DataException e1)

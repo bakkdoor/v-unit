@@ -1,19 +1,20 @@
 package GUI.dialogs;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import model.CurrentDate;
 import model.Date;
+import model.InRent;
 import model.exceptions.CurrentDateException;
 
 
 public class SetCurrentDateDialog extends JDialog
-{	private static final long serialVersionUID = 1247338857373301483L;
-
+{	
+	private static final long serialVersionUID = 1247338857373301483L;
+	
+	public boolean resetWarnings = false;
+	
 /** Creates new form SetCurrentDateDialog */
   public SetCurrentDateDialog(java.awt.Frame parent, boolean modal)
   {
@@ -36,6 +37,7 @@ public class SetCurrentDateDialog extends JDialog
     dayComboBox = new javax.swing.JComboBox();
     monthComboBox = new javax.swing.JComboBox();
     yearTextField = new javax.swing.JTextField();
+    resetWarningsCheckbox = new javax.swing.JCheckBox();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -60,6 +62,8 @@ public class SetCurrentDateDialog extends JDialog
     yearTextField.setMaximumSize(new java.awt.Dimension(6, 21));
     yearTextField.setMinimumSize(new java.awt.Dimension(4, 21));
 
+    resetWarningsCheckbox.setText("Mahnungen zurücksetzen");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -73,7 +77,9 @@ public class SetCurrentDateDialog extends JDialog
         .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(75, 75, 75))
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(323, Short.MAX_VALUE)
+        .addContainerGap()
+        .addComponent(resetWarningsCheckbox)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -92,7 +98,9 @@ public class SetCurrentDateDialog extends JDialog
           .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-        .addComponent(okButton)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(okButton)
+          .addComponent(resetWarningsCheckbox))
         .addContainerGap())
     );
     
@@ -105,28 +113,27 @@ public class SetCurrentDateDialog extends JDialog
     pack();
   }// </editor-fold>
 
-  private void okButtonActionPerformed(java.awt.event.ActionEvent evt)
-  {
-	  // hier wird das currentDate gesetzt
-	  int day = dayComboBox.getSelectedIndex() + 1;
-	  int month = monthComboBox.getSelectedIndex() + 1;
-	  int year = Integer.parseInt(yearTextField.getText());
-	  Date newCurrentDate = new Date(day, month, year);
-	  try
+  	private void okButtonActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		CurrentDate.set(newCurrentDate);
-		this.setVisible(false);
-	}
-	catch (CurrentDateException e)
-	{			
-		JOptionPane.showMessageDialog(this,
-					e.getMessage(), "Fehler beim setzen des Tagesdatums",
+		// hier wird das currentDate gesetzt
+		int day = dayComboBox.getSelectedIndex() + 1;
+		int month = monthComboBox.getSelectedIndex() + 1;
+		int year = Integer.parseInt(yearTextField.getText());
+		Date newCurrentDate = new Date(day, month, year);
+		try
+		{
+			CurrentDate.set(newCurrentDate);
+			this.setVisible(false);
+			
+			this.resetWarnings = this.resetWarningsCheckbox.isSelected();
+		}
+		catch (CurrentDateException e)
+		{
+			JOptionPane.showMessageDialog(this, e.getMessage(),
+					"Fehler beim setzen des Tagesdatums",
 					JOptionPane.ERROR_MESSAGE);
+		}
 	}
-  }
-  /**
-   * @param args the command line arguments
-   */
   
   private void fillComboBoxes()
   {
@@ -154,7 +161,8 @@ public class SetCurrentDateDialog extends JDialog
   private javax.swing.JComboBox dayComboBox;
   private javax.swing.JComboBox monthComboBox;
   private javax.swing.JButton okButton;
+  private javax.swing.JCheckBox resetWarningsCheckbox;
   private javax.swing.JLabel titleLabel;
   private javax.swing.JTextField yearTextField;
-	// End of variables declaration
+  // End of variables declaration
 }
