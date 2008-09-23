@@ -132,7 +132,7 @@ public class VideoDataDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (addVideo) {
-                                    while (createVideo()){};
+                                    createVideo();
                                     videoDataDialog.dispose();
 				} else {
 					updateVideo();
@@ -213,6 +213,7 @@ public class VideoDataDialog {
 			int vID = Integer.parseInt(textFieldVID.getText());
 			Video video = Video.findByID(vID);
 			video.setPriceCategory(priceCategory);
+                        video.save();
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage());
 		}

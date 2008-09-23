@@ -44,25 +44,21 @@ public class CustomerTableModel extends NotEditableTableModel implements Videoth
         if (event instanceof CustomerCreatedEvent) {
             insertRow(((CustomerCreatedEvent) event).getCustomer());
             fireTableDataChanged();
+            
         } else if (event instanceof CustomerEditedEvent) {
             Customer customer = ((CustomerEditedEvent) event).getCustomer();
-            for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
-                if (getValueAt(rowIndex, 0).equals(customer.getID())) {
-                    String newAddress = customer.getFirstAddressRow() + ", " + customer.getLastAddressRow();
-                    setValueAt(newAddress, rowIndex, 5);
-                    ((Vector) getDataVector().get(rowIndex)).setElementAt(newAddress, 5);
-                    fireTableDataChanged();
-                }
+            int dataIndex = findByCustID(customer.getID());
+            if(dataIndex != -1) {
+                ((Vector)getDataVector().get(dataIndex)).setElementAt(customer.getFirstAddressRow() + ", " + customer.getLastAddressRow(), 5);
+                fireTableDataChanged();
             }
+            
         } else if (event instanceof CustomerDeletedEvent) {
             Customer customer = ((CustomerDeletedEvent) event).getCustomer();
-            Vector<Vector> data = getDataVector(); 
-            
-            for (Vector tmpCustomer : data) {
-                if(tmpCustomer.get(0).equals(customer.getID())) {
-                    data.remove(tmpCustomer);
-                    fireTableDataChanged();
-                }
+            int dataindex = findByCustID(customer.getID());
+            if(dataindex != -1) {
+                getDataVector().remove(dataindex);
+                fireTableDataChanged();
             }
         }
     }
@@ -79,5 +75,18 @@ public class CustomerTableModel extends NotEditableTableModel implements Videoth
 
         super.getDataVector().add(rowData);
         fireTableDataChanged();
+    }
+    
+    public int findByCustID(Integer custID) {
+        int foundIndex = -1;
+        Vector<Vector> data = getDataVector();
+        for (int index = 0; index < data.size(); index++) {
+            Vector foundVector = data.get(index);
+            if (foundVector.get(0).equals(custID)) {
+               foundIndex = index;
+               index = data.size();
+            }
+        }
+        return foundIndex;
     }
 }

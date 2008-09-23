@@ -2,10 +2,8 @@ package GUI.dialogs;
 
 import GUI.*;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,23 +20,19 @@ import model.Customer;
 import model.Data;
 import model.Date;
 import model.data.exceptions.RecordNotFoundException;
-import model.events.CreateNewCustomerEvent;
-import model.events.CustomerEditedEvent;
-import model.events.EventManager;
-import model.events.VideothekEvent;
-import model.events.VideothekEventListener;
 import model.exceptions.CurrentDateException;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseBirthDateException;
 import model.exceptions.FalseFieldException;
 import model.exceptions.FalseIDException;
 
-public class CustomerDataDialog implements VideothekEventListener {
+public class CustomerDataDialog {
     // Dialogdtanen
     private MainWindow mainWindow;
     private Frame mainWindowFrame;
     private JDialog customerDataDialog;
-    private boolean addCustomer = false;    // KundenDaten
+    private boolean addCustomer = false;    
+    // KundenDaten
     private Integer CID;
     private String title;
     private String firstName;
@@ -48,26 +42,28 @@ public class CustomerDataDialog implements VideothekEventListener {
     private String housNr;
     private Integer zipCode;
     private String city;
-    private String identificationID;    // Eingabefelder anlegen
-    private JLabel labelID = new JLabel("KundenNr.:");
-    private JTextField textFieldID = new JTextField();
-    private JLabel labelTitle = new JLabel("Anrede:");
-    private JTextField textFieldTitle = new JTextField();
-    private JLabel labelFirstName = new JLabel("Vorname:");
-    private JTextField textFieldFirstName = new JTextField();
-    private JLabel labelLastName = new JLabel("Nachname:");
-    private JTextField textFieldLastName = new JTextField();
-    private JLabel labelIdentificationID = new JLabel("AusweisNr.:");
-    private JTextField textFieldIdentificationID = new JTextField(identificationID);
-    private JLabel labelAddress = new JLabel("Anschrift:");
-    private JTextField textFieldStreet = new JTextField("Straße");
-    private JTextField textFieldHouseNr = new JTextField("HausNr.");
-    private JTextField textFieldZipCode = new JTextField("PLZ");
-    private JTextField textFieldCity = new JTextField("Ort");    // Geburtsdatum-Eingabefelder
-    private JLabel labelBirthDay = new JLabel("Geburtsdatum:");
-    private JComboBox comboBoxBirthDay = new JComboBox(this.createDayCollection());
-    private JComboBox comboBoxBirthMonth = new JComboBox(this.createMonthCollection());
-    private JTextField textFieldBirthYear = new JTextField("Geburtsjahr");
+    private String identificationID;    
+    // Eingabefelder anlegen
+    private JLabel labelID;
+    private JTextField textFieldID;
+    private JLabel labelTitle;
+    private JComboBox comboBoxTitle;
+    private JLabel labelFirstName;
+    private JTextField textFieldFirstName;
+    private JLabel labelLastName;
+    private JTextField textFieldLastName;
+    private JLabel labelIdentificationID;
+    private JTextField textFieldIdentificationID;
+    private JLabel labelAddress;
+    private JTextField textFieldStreet;
+    private JTextField textFieldHouseNr;
+    private JTextField textFieldZipCode;
+    private JTextField textFieldCity;    
+    // Geburtsdatum-Eingabefelder
+    private JLabel labelBirthDay;
+    private JComboBox comboBoxBirthDay;
+    private JComboBox comboBoxBirthMonth;
+    private JTextField textFieldBirthYear;
 
     public CustomerDataDialog(MainWindow mainWindow) {
 
@@ -113,7 +109,7 @@ public class CustomerDataDialog implements VideothekEventListener {
         textFieldID.setVisible(!addCustomer);
 
         labelTitle = new JLabel("Anrede:");
-        textFieldTitle = new JTextField();
+        comboBoxTitle = new JComboBox(new String[] {"Herr", "Frau"});
 
         labelFirstName = new JLabel("Vorname:");
         textFieldFirstName = new JTextField();
@@ -144,16 +140,14 @@ public class CustomerDataDialog implements VideothekEventListener {
     }
 
     private void fillDataDialog() {
-        // TODO: sollte eigentlich in den konstruktor, aber tut dann irgendwie nicht...
-        EventManager.registerEventListener(CreateNewCustomerEvent.class, this);
 
         // KundenNr erzeugen
         textFieldID.setText(CID.toString());
         textFieldID.setEditable(false);
 
         // Anrede erzeugen
-        textFieldTitle.setText(title);
-        textFieldTitle.setEditable(addCustomer);
+        comboBoxTitle.setSelectedIndex(title.equals("Herr")?0:1);
+        comboBoxTitle.setEnabled(addCustomer);
 
         // Vorname erzeugen
 
@@ -169,12 +163,11 @@ public class CustomerDataDialog implements VideothekEventListener {
 
 
         // Geburtsdatum setzen
-        Integer[] bDate = this.convertDate(birthDate);
-        comboBoxBirthDay.setSelectedIndex(bDate[2] - 1);
+        comboBoxBirthDay.setSelectedIndex(birthDate.getDate() - 1);
         comboBoxBirthDay.setEnabled(addCustomer);
-        comboBoxBirthMonth.setSelectedIndex(bDate[1] - 1);
+        comboBoxBirthMonth.setSelectedIndex(birthDate.getMonth() - 1);
         comboBoxBirthMonth.setEnabled(addCustomer);
-        textFieldBirthYear.setText(bDate[0].toString());
+        textFieldBirthYear.setText(Integer.toString(birthDate.getYear()));
         textFieldBirthYear.setEditable(addCustomer);
 
         // Anschrift erzeugen
@@ -193,14 +186,36 @@ public class CustomerDataDialog implements VideothekEventListener {
             }
         });
 
-        JButton buttonAdd = new JButton("Bestätigen");
-        buttonAdd.addActionListener(new ActionListener() {
+        JButton buttonAccept = new JButton("Bestätigen");
+        buttonAccept.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (addCustomer) {
-                    EventManager.fireEvent(new CreateNewCustomerEvent());
-                    customerDataDialog.dispose();
+                    try {
+                        new Customer(textFieldFirstName.getText(), 
+                                textFieldLastName.getText(), 
+                                new Date(comboBoxBirthDay.getSelectedIndex() + 1, comboBoxBirthMonth.getSelectedIndex() + 1, Integer.parseInt(textFieldBirthYear.getText())), 
+                                textFieldStreet.getText(), 
+                                textFieldHouseNr.getText(), 
+                                Integer.parseInt(textFieldZipCode.getText()), 
+                                textFieldCity.getText(), 
+                                textFieldIdentificationID.getText(), 
+                                comboBoxTitle.getSelectedIndex() == 0 ? "Herr" : "Frau");
+                        
+                        customerDataDialog.dispose();
+                    } catch (FalseIDException ex) {
+                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (EmptyFieldException ex) {
+                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (FalseBirthDateException ex) {
+                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (CurrentDateException ex) {
+                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (FalseFieldException ex) {
+                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 } else {
                     try {
                         Customer editedCustomer = Customer.findByID(Integer.parseInt(textFieldID.getText()));
@@ -209,7 +224,7 @@ public class CustomerDataDialog implements VideothekEventListener {
                         // TODO meldet zipcode fehler
                         editedCustomer.setZipCode(Integer.parseInt(textFieldZipCode.getText()));
                         editedCustomer.setCity(textFieldCity.getText());
-                        EventManager.fireEvent(new CustomerEditedEvent(editedCustomer));
+                        editedCustomer.save();
                         customerDataDialog.dispose();
                     } catch (FalseFieldException ex) {
                         JOptionPane.showMessageDialog(mainWindow.getMainFrame(), ex.getMessage(), "Falsche Eingaben", JOptionPane.ERROR_MESSAGE);
@@ -231,7 +246,7 @@ public class CustomerDataDialog implements VideothekEventListener {
         Layout.addComponent(contentPane, textFieldID, 1, 0, 3, 1, 0.7, 0.0);
 
         Layout.addComponent(contentPane, labelTitle, 0, 1, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, textFieldTitle, 1, 1, 3, 1, 0.7, 0.0);
+        Layout.addComponent(contentPane, comboBoxTitle, 1, 1, 3, 1, 0.7, 0.0);
 
         Layout.addComponent(contentPane, labelFirstName, 0, 2, 1, 1, 0.3, 0.0);
         Layout.addComponent(contentPane, textFieldFirstName, 1, 2, 3, 1, 0.7, 0.0);
@@ -254,7 +269,7 @@ public class CustomerDataDialog implements VideothekEventListener {
         Layout.addComponent(contentPane, textFieldCity, 2, 7, 2, 1, 0.46, 0.0);
 
         Layout.addComponent(contentPane, buttonCancel, 1, 8, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, buttonAdd, 2, 8, 1, 1, 0.23, 0.0);
+        Layout.addComponent(contentPane, buttonAccept, 2, 8, 1, 1, 0.23, 0.0);
 
         // ***************************************************************
 
@@ -279,14 +294,6 @@ public class CustomerDataDialog implements VideothekEventListener {
         return new String[]{"Januar", "Februar", "März", "April", "Mai", "Juni", "juli",
                     "August", "September", "Oktober", "November", "Dezember"
                 };
-    }
-
-    private Integer[] convertDate(Date date) {
-        Integer[] dateArr = new Integer[3];
-        dateArr[0] = date.getYear();
-        dateArr[1] = date.getMonth();
-        dateArr[2] = date.getDate();
-        return dateArr;
     }
 
     public static void createFilledCustomerDataDialog(MainWindow mainWindow) {
@@ -315,43 +322,5 @@ public class CustomerDataDialog implements VideothekEventListener {
                     JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-
-    @Override
-    public void handleEvent(VideothekEvent event) {
-        if (event instanceof CreateNewCustomerEvent) {
-            String firstName = textFieldFirstName.getText();
-            String lastName = textFieldLastName.getText();
-            int birthYear = Integer.parseInt(textFieldBirthYear.getText());
-            int birthMonth = comboBoxBirthMonth.getSelectedIndex() + 1;
-            int birthDay = comboBoxBirthDay.getSelectedIndex() + 1;
-            String street = textFieldStreet.getText();
-            String houseNr = textFieldHouseNr.getText();
-            String city = textFieldCity.getText();
-            int zipCode = Integer.parseInt(textFieldZipCode.getText());
-            String title = textFieldTitle.getText();
-            String identificationNr = textFieldIdentificationID.getText();
-
-            // neuen Customer erstellen!
-            try {
-                Customer cust = new Customer(firstName, lastName, new Date(birthDay, birthMonth, birthYear),
-                        street, houseNr, zipCode, city, identificationNr, title);
-            } catch (FalseIDException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (EmptyFieldException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (FalseBirthDateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (CurrentDateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (FalseFieldException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
     }
 }
