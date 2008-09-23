@@ -10,7 +10,11 @@ import model.events.EventManager;
 import model.events.VideoCreatedEvent;
 import model.events.VideoDeletedEvent;
 import model.events.VideoEditedEvent;
-import model.exceptions.*;
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
+
 
 /**
  * 
@@ -246,6 +250,12 @@ public class Video
 		videoList.remove(this.getID());
 		this.deleted = true;
 
+		// videounits mit löschen
+		for(VideoUnit unit : this.getVideoUnits())
+		{
+			unit.delete();
+		}
+		
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
 

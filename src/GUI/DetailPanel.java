@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,10 +24,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
 
+import main.error.VideothekException;
 import model.*;
 import model.data.exceptions.RecordNotFoundException;
 
@@ -79,8 +82,9 @@ public class DetailPanel {
 
 		// this.changePanelDetailsCard(RENTDETAILS);
 
-		panelDetails.setBorder(BorderFactory
-				.createTitledBorder("Informationen"));
+		TitledBorder border = BorderFactory.createTitledBorder("Informationen");
+		border.setTitleFont(new Font("Arial", Font.BOLD, 14));
+		panelDetails.setBorder(border);
 
 		return panelDetails;
 	}
@@ -307,32 +311,30 @@ public class DetailPanel {
 
 		JLabel labelRentID = new JLabel("AusleihNr.:");
 		textFieldRentID = new JTextField();
-		textFieldRentID.setEnabled(false);
+		textFieldRentID.setEditable(false);
 
 		JLabel labelRentCustomerID = new JLabel("KundenNr.:");
 		textFieldRentCustomerID = new JTextField();
-		textFieldRentCustomerID.setEnabled(false);
+		textFieldRentCustomerID.setEditable(false);
 
 		JLabel labelRentVideoID = new JLabel("FilmNr.:");
 		textFieldRentVideoID = new JTextField();
-		textFieldRentVideoID.setEnabled(false);
+		textFieldRentVideoID.setEditable(false);
 
 		JLabel labelRentVideoTitle = new JLabel("Titel:");
 		textFieldRentVideoTitle = new JTextField();
-		textFieldRentVideoTitle.setEnabled(false);
+		textFieldRentVideoTitle.setEditable(false);
 
 		JLabel labelRentReturnDate = new JLabel("Rückgabefrist:");
 		textFieldRentReturnDate = new JTextField();
-		textFieldRentReturnDate.setEnabled(false);
+		textFieldRentReturnDate.setEditable(false);
 
 		JLabel labelRentWarning = new JLabel("Mahnung:");
 		textFieldRentWarning = new JTextField();
-		textFieldRentWarning.setEnabled(false);
+		textFieldRentWarning.setEditable(false);
 
 		// ***************************************************************
 		// in Rentpanel hinzufügen
-		// Layout.addComponent(container, component, x, y, gridwidth,
-		// gridheight, widthx, widthy, ipadx, ipady, fill, anchor, insets)
 		Layout.addComponent(rentPanel, labelRentID, 0, 0, 1, 1, 0.3, 0.0, 0, 0,
 				GridBagConstraints.HORIZONTAL,
 				GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 0, 3));
@@ -393,6 +395,9 @@ public class DetailPanel {
 
 	public void fillPanelDetailVideo(Video video) {
 
+		changePanelDetailsCard(VIDEODETAILS);
+		buttonDetailVadd.setEnabled(false);
+		
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
@@ -412,34 +417,17 @@ public class DetailPanel {
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getSortedVideoUnits());
 
-		class ColoredListCellRenderer extends DefaultListCellRenderer {
-
-			public void setValue(Object value) {
-				if (value instanceof VideoUnit) {
-					if (((VideoUnit) value).isRented()) {
-						setBackground(Color.RED);
-					} else
-						setBackground(Color.GREEN);
-				}
-			}
-		}
-
-		listDetailVUnit.setCellRenderer(new ColoredListCellRenderer());
-
 		this.listDetailVUnit.setListData(videoUnits);
-		this.listDetailVUnit.setSelectedIndex(0);
-		fillPanelDetailVideoState(videoUnits.get(0));
 	}
 
 	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
 		boolean isRented = videoUnit.isRented();
-		InRent inRent = videoUnit.getInRent();
 
 		this.textFieldDetailVState.setText(isRented ? "Ausgeliehen"
 				: "Verfügbar");
 
 		if (isRented) {
-			this.textFieldDetailVDuration.setText(inRent.getReturnDate()
+			this.textFieldDetailVDuration.setText(videoUnit.getInRent().getReturnDate()
 					.toString());
 		} else {
 			this.textFieldDetailVDuration.setText("");
@@ -448,6 +436,7 @@ public class DetailPanel {
 
 	public void fillPanelDetailCustomer(Customer customer) {
 
+		this.changePanelDetailsCard(CUSTOMERDETAILS);
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setCustomerButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
@@ -467,10 +456,13 @@ public class DetailPanel {
 			this.textFieldRentID.setText(Integer.toString(inRent.getID()));
 			this.textFieldRentCustomerID.setText(Integer.toString(inRent
 					.getCustomer().getID()));
-			this.textFieldRentVideoID.setText(Integer.toString(selectedVideoUnit.getVideoID()));
-			this.textFieldRentVideoTitle.setText(selectedVideoUnit.getVideo().getTitle());
-			this.textFieldRentReturnDate.setText(inRent.getReturnDate().toString());
-//			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
+			this.textFieldRentVideoID.setText(Integer
+					.toString(selectedVideoUnit.getVideoID()));
+			this.textFieldRentVideoTitle.setText(selectedVideoUnit.getVideo()
+					.getTitle());
+			this.textFieldRentReturnDate.setText(inRent.getReturnDate()
+					.toString());
+			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
 		}
 	}
 
@@ -487,12 +479,13 @@ public class DetailPanel {
 
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentCusomer.delete();
+				mainWindow.getTablePanel().getTableCustomer().repaint();
 			}
-		} catch (Exception e) {
-			if (e instanceof RecordNotFoundException) {
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
-						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-			}
+		} catch (VideothekException e) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -510,10 +503,8 @@ public class DetailPanel {
 				currentVideoUnit.delete();
 			}
 		} catch (Exception e) {
-			if (e instanceof RecordNotFoundException) {
-				JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
-						.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-			}
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -571,5 +562,9 @@ public class DetailPanel {
 
 	public JTextField getTextFieldDetailCustLastAddress() {
 		return textFieldDetailCustLastAddress;
+	}
+
+	public JButton getButtonDetailVadd() {
+		return buttonDetailVadd;
 	}
 }

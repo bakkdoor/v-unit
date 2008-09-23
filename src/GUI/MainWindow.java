@@ -1,10 +1,15 @@
 package GUI;
 
+import GUI.dialogs.DataDialog;
+import GUI.dialogs.SearchDialog;
+import GUI.dialogs.VideoDataDialog;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import main.Programm;
+import model.VideoUnit;
 
 public class MainWindow {
 
@@ -41,6 +47,10 @@ public class MainWindow {
 			}
 		});
 //		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
+		
+//		 Frame mittig auf dem Bildschirm setzen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        mainFrame.setLocation(((int)screenSize.getWidth()-1024)/2, ((int)screenSize.getHeight()-768)/2);
 
 		// Haupt Container Layout setzen
 		Container mainContainer = mainFrame.getContentPane();
@@ -70,7 +80,7 @@ public class MainWindow {
 		// RentPanel - Cards zu Testzwecken umschalten
 		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);
 		// detailPanel - Cards zu Testzwecken umschalten
-		detailPanel.changePanelDetailsCard(detailPanel.RENTDETAILS);
+		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		tablePanel = new TablePanel();
@@ -100,11 +110,6 @@ public class MainWindow {
 	}
 	
 	public void showCreateDialog() {
-//		JOptionPane optionDialog = new JOptionPane("Möchten Sie einen Film oder einen Kunden erstellen?", JOptionPane.QUESTION_MESSAGE,
-//													JOptionPane.OK_CANCEL_OPTION, null);
-//		
-//		optionDialog.setVisible(true);
-//		
 		String[] options = {"Film", "Kunde"};
 		int section = JOptionPane.showOptionDialog(mainFrame, "Möchten Sie einen Film oder Kunden anlegen?", "Anlegen Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
 				options , null);
@@ -115,8 +120,11 @@ public class MainWindow {
 			DataDialog createVideoDialog = new DataDialog(this, DataDialog.CUSTOMERDIALOG);
 			
 		}
-		
-		
+	}
+	
+	public void showEditVideoDialog() {
+		VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue();
+		VideoDataDialog.createFilledVideoDataDialog(this, selectedVideoUnit.getVideo());
 	}
 
 	public JFrame getMainFrame() {

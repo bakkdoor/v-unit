@@ -56,15 +56,15 @@ public class Logger implements Closeable
 
 			sb.append(now.get(Calendar.DAY_OF_MONTH));
 			sb.append(".");
-			sb.append(now.get(Calendar.MONTH));
+			sb.append(toFormattedString(now.get(Calendar.MONTH)));
 			sb.append(".");
 			sb.append(now.get(Calendar.YEAR));
 			sb.append(" - ");
-			sb.append(now.get(Calendar.HOUR));
+			sb.append(toFormattedString(now.get(Calendar.HOUR_OF_DAY)));
 			sb.append(":");
-			sb.append(now.get(Calendar.MINUTE));
+			sb.append(toFormattedString(now.get(Calendar.MINUTE)));
 			sb.append(":");
-			sb.append(now.get(Calendar.SECOND));
+			sb.append(toFormattedString(now.get(Calendar.SECOND)));
 			sb.append(" :: ");
 			sb.append(message);
 
@@ -79,6 +79,14 @@ public class Logger implements Closeable
 				System.out.println(e.getMessage());
 			}
 		}
+	}
+	
+	private String toFormattedString(int number)
+	{
+		if(number < 10)
+			return "0" + number;
+		else
+			return Integer.toString(number);
 	}
 
 	/**

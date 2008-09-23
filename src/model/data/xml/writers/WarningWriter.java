@@ -7,7 +7,6 @@ import main.config.Config;
 import model.CurrentDate;
 import model.VideoUnit;
 import model.Warning;
-import model.data.exceptions.RecordNotFoundException;
 
 /**
  * WarningWriter.java

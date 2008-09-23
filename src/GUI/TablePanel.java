@@ -18,6 +18,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
+import GUI.SelectionListeners.TableInRentListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
 import GUI.TableModels.CustomerTableModel;
 import GUI.TableModels.InRentTableModel;
@@ -37,7 +38,7 @@ public class TablePanel {
 	private MainWindow mainWindow;
 	private JTable tableVideo;
 	private JTable tableCustomer;
-	private JTable tableRent;
+	private JTable tableInRent;
 	private JPanel panelSearch;
 	private JTable tableSearchVideo;
 	private JTable tableSearchCustomer;
@@ -62,10 +63,11 @@ public class TablePanel {
 				.addListSelectionListener(new TableCustomerListSelectionHandler(
 						mainWindow));
 
-		tableRent = this.createTableRent();
-		tableRent.setRowSorter(new TableRowSorter<TableModel>(tableRent
+		tableInRent = this.createTableRent();
+		tableInRent.setRowSorter(new TableRowSorter<TableModel>(tableInRent
 				.getModel()));
-//		tableRent.addListSelectionListener(new TableRentListSelectionHandler(mainWindow));
+		ListSelectionModel tableSelectionModel = tableInRent.getSelectionModel();
+		tableSelectionModel.addListSelectionListener(new TableInRentListSelectionHandler(mainWindow));
 
 		String[][] searchVideo = { { "", "", "", "" } };
 		String[] searchVideoName = { "Titel", "Erscheinungsjahr",
@@ -93,7 +95,7 @@ public class TablePanel {
 		tableTabbedPane.addTab("Kunden", new ImageIcon("icons/user.png"),
 				new JScrollPane(tableCustomer));
 		tableTabbedPane.addTab("Ausgeliehen", new ImageIcon(
-				"icons/film_key.png"), new JScrollPane(tableRent));
+				"icons/film_key.png"), new JScrollPane(tableInRent));
 		tableTabbedPane.addTab("Suchergebnisse", new ImageIcon(
 				"icons/magnifier.png"), panelSearch);
 
@@ -139,6 +141,9 @@ public class TablePanel {
 		colModel.getColumn(4).setPreferredWidth(90);
 		colModel.getColumn(5).setPreferredWidth(334);
 		colModel.getColumn(6).setPreferredWidth(110);
+		// verschieben der Spalten nicht möglich
+		custTable.getTableHeader().setReorderingAllowed(false);
+		
 		
 		return custTable;
 	}
@@ -168,6 +173,8 @@ public class TablePanel {
 		colModel.getColumn(2).setPreferredWidth(120);
 		colModel.getColumn(3).setPreferredWidth(45);
 		colModel.getColumn(4).setPreferredWidth(155);
+		// verschieben der Spalten nicht möglich
+		videoTable.getTableHeader().setReorderingAllowed(false);
 
 		return videoTable;
 	}
@@ -197,6 +204,8 @@ public class TablePanel {
 		colModel.getColumn(3).setPreferredWidth(350);
 		colModel.getColumn(4).setPreferredWidth(100);
 		colModel.getColumn(5).setPreferredWidth(100);
+		// verschieben der Spalten nicht möglich
+		rentTable.getTableHeader().setReorderingAllowed(false);
 		
 		return rentTable;
 	}
@@ -209,8 +218,8 @@ public class TablePanel {
 		return tableCustomer;
 	}
 
-	public JTable getTableRent() {
-		return tableRent;
+	public JTable getTableInRent() {
+		return tableInRent;
 	}
 
 	public JTable getTableSearchVideo() {

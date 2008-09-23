@@ -25,6 +25,9 @@ public class InRentTableModel extends NotEditableTableModel
 		super(rowData, columnNames);
 		
 		EventManager.registerEventListener(InRentCreatedEvent.class, this);
+		EventManager.registerEventListener(InRentEditedStateEvent.class, this);
+		EventManager.registerEventListener(InRentDeletedUnitEvent.class, this);
+		EventManager.registerEventListener(InRentDeletedEvent.class, this);
 	}
 	
 	public InRentTableModel(Vector<String> columnNames, int rowCount) {

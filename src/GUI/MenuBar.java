@@ -1,5 +1,7 @@
 package GUI;
 
+import GUI.dialogs.VideoDataDialog;
+import GUI.dialogs.CustomerDataDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -93,7 +95,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VideoDataDialog.createFilledVideoDataDialog(mainWindow);
+				mainWindow.showEditVideoDialog();
 			}
 		});
 		

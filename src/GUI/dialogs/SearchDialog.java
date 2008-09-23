@@ -1,6 +1,8 @@
-package GUI;
+package GUI.dialogs;
 
+import GUI.*;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -8,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,6 +44,10 @@ public class SearchDialog {
 		dialogSearch = new JDialog(owner, "Suche", true);
 		dialogSearch.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 //		dialogSearch.setIcon(new ImageIcon("icons/magnifier.png"));
+		
+		// Dialog mittig auf dem bildschirm setzen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        dialogSearch.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 		
 		Container mainContainer = dialogSearch.getContentPane();
 		mainContainer.setLayout(new GridBagLayout());
@@ -111,9 +118,5 @@ public class SearchDialog {
 			}
 		});
 		return buttonSearch;
-	}
-	
-	public static void main(String[] argv) {
-		SearchDialog dialog = new SearchDialog(null, CUSTOMERSEARCHMODEDIALOG);
 	}
 }
