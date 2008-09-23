@@ -74,16 +74,16 @@ Durch einen Klick auf \b Best\'e4tigen\b0  wird der neue Film angelegt, steht in
 \b\fs24 Bearbeiten \b0 eines vorhandenen Films\par
 \fs20\par
 Wenn ein vorhandener Film der Videothek bearbeitet werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Bearbeiten\b0  oder aber den Button \b Bearbeiten\b0  m\'f6glich. Dazu muss der zu bearbeitende FIlm zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten und vorhandene Exemplare rechts im Infobereich zu sehen sind.\par
-Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht und ein neuer mit den aktuellen Daten angelegt werden. Dadurch erh\'e4lt der Film dann allerdings auch eine neue Filmnummer.\par
-Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt nicht ausgeliehenen ist.\par
+Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht und ein neuer mit den aktuellen Daten und nat\'fcrlich den vorhandenen Exemplaren angelegt werden. Dadurch erhalten der Film und dessen Exemplare dann allerdings auch neue Filmnummern.\par
+Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
 \par
 \par
 \b\fs24 L\'f6schen \b0 eines vorhandenen Films\par
 \fs20\par
-Wenn ein vorhandener Film der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten rechts im Infobereich zu sehen sind. Dort wird dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt.\par
-Bevor der Kunde endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
-\b Nein \b0 bricht den Vorgang ab und der Kunde wird nicht gel\'f6scht.\par
-Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt keine ausgeliehenen Videos oder ausstehende Mahnungen mehr hat.\par
+Wenn ein vorhandener Film oder ein Filmexemplar der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Dort muss dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt, falls nicht der Film mitsamt seiner ganzen Exemplare gel\'f6scht werden soll.\par
+Bevor der Film endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
+\b Nein \b0 bricht den Vorgang ab und der Film wird nicht gel\'f6scht.\par
+Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
 \par
 \par
 }
