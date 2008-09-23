@@ -44,6 +44,7 @@ public class SetCurrentDateDialog extends javax.swing.JDialog
       public void actionPerformed(java.awt.event.ActionEvent evt)
       {
         okButtonActionPerformed(evt);
+        dispose();
       }
     });
 
