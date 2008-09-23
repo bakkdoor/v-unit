@@ -96,9 +96,8 @@ public class CreatedWarningsDialog extends javax.swing.JDialog
     );
     
     // dialog mittig auf dem bildschirm setzen
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    this.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-
+    DialogHelper.setToCenterScreen(this);
+    
     pack();
   }// </editor-fold>
 

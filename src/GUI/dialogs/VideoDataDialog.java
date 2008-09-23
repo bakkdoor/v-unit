@@ -63,9 +63,8 @@ public class VideoDataDialog {
 		videoDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		// Dialog mittig auf dem bildschirm setzen
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        videoDataDialog.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-
+		DialogHelper.setToCenterScreen(this.videoDataDialog);
+		
 		// LauoutManager einstellen
 		Container contentPane = videoDataDialog.getContentPane();
 		contentPane.setLayout(new GridBagLayout());
