@@ -6,17 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.TableCellEditor;
-
-import org.apache.ecs.xhtml.col;
 
 import main.config.Config;
 import main.error.VideothekException;
@@ -80,6 +73,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	    deleteButton = new javax.swing.JButton();
 	    okButton = new javax.swing.JButton();
 	    cancelButton = new javax.swing.JButton();
+	    editButton = new javax.swing.JButton();
 	
 	    okButton.addActionListener(new ActionListener()
 	    {
@@ -251,8 +245,17 @@ public class SettingsDialog extends javax.swing.JDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				removeRow();
+				deleteButtonActionPerformed(e);
 			}
+	    });
+	    
+	    editButton.setText("Bearbeiten");
+	    editButton.addActionListener(new java.awt.event.ActionListener()
+	    {
+	      public void actionPerformed(java.awt.event.ActionEvent evt)
+	      {
+	        editButtonActionPerformed(evt);
+	      }
 	    });
 	
 	    javax.swing.GroupLayout priceCategoriesPanelLayout = new javax.swing.GroupLayout(priceCategoriesPanel);
@@ -265,7 +268,9 @@ public class SettingsDialog extends javax.swing.JDialog
 	          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
 	          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, priceCategoriesPanelLayout.createSequentialGroup()
 	            .addComponent(deleteButton)
-	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 534, Short.MAX_VALUE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+	            .addComponent(editButton)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 	            .addComponent(addButton)))
 	        .addContainerGap())
 	    );
@@ -275,7 +280,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	        .addContainerGap()
 	        .addGroup(priceCategoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 	          .addComponent(addButton)
-	          .addComponent(deleteButton))
+	          .addComponent(deleteButton)
+	          .addComponent(editButton))
 	        .addGap(11, 11, 11)
 	        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
 	        .addContainerGap())
@@ -343,11 +349,6 @@ public class SettingsDialog extends javax.swing.JDialog
 	    
 	    pack();
 	  }// </editor-fold>
-	
-	private void fillTableContentAt(Object value, int row, int column)
-	{
-		
-	}
 	  
 	private void fillTableContent()
 	{
@@ -366,10 +367,9 @@ public class SettingsDialog extends javax.swing.JDialog
 			{
 				return types[columnIndex];
 			}
-			public void setValueAt(Object value, int row, int column)
-			{
-				fillTableContentAt(value, row, column);
-			}
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
 		});
 		
 		priceCategoryTable.getTableHeader().setReorderingAllowed(false);
@@ -411,29 +411,15 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	private void addRow()
 	{
-		PriceCategory newCategory = new PriceCategory("NAME", 1.99f);
+		PriceCategoryDataDialog dialog = new PriceCategoryDataDialog(null, new PriceCategory("NAME", 1.99f));
+		dialog.setVisible(true);
+		
 		fillTableContent();
 	}
 	
-	private void removeRow()
-	{
-		int selectedRow = this.priceCategoryTable.getSelectedRow();
-
-		Integer id = (Integer) this.priceCategoryTable.getValueAt(selectedRow, 0);
-		
-		try
-		{
-			PriceCategory.findByID(id).delete();
-			fillTableContent();
-		}
-		catch (VideothekException e)
-		{
-            JOptionPane.showMessageDialog(this,
-                    e.getMessage(), "Fehler",
-                    JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	
+	/*
+	 * wird derzeit nicht gebraucht...
+	 
 	private void savePriceCategoryRows()
 	{
 		for(int row = 0; row < this.priceCategoryTable.getRowCount(); row++)
@@ -458,6 +444,7 @@ public class SettingsDialog extends javax.swing.JDialog
 			}
 		}
 	}
+	*/
 	  
 	private void setToMiddle()
 	{
@@ -483,7 +470,7 @@ public class SettingsDialog extends javax.swing.JDialog
 		Config.get().setSetting(Config.Settings.WARNINGINVOICEFOLDER,
 				this.warningInvoiceFolder);
 		
-		savePriceCategoryRows();
+//		savePriceCategoryRows();
 		
 		this.dispose();
 	}
@@ -530,13 +517,76 @@ public class SettingsDialog extends javax.swing.JDialog
 
 	private void addButtonActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		addRow();
+//		addRow();
+		PriceCategoryDataDialog dialog = new PriceCategoryDataDialog(null);
+		dialog.setVisible(true);
+		
+		fillTableContent();
 	}
 	  
+	private void editButtonActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		PriceCategory selectedPriceCategory = null;
+		try
+		{
+			int row = this.priceCategoryTable.getSelectedRow();
+			Integer id = (Integer) this.priceCategoryTable.getValueAt(row, 0);
+			
+			selectedPriceCategory = PriceCategory.findByID(id);
+			
+			PriceCategoryDataDialog dialog = new PriceCategoryDataDialog(null, selectedPriceCategory);
+			dialog.setVisible(true);
+			
+			fillTableContent();
+		}
+		catch (RecordNotFoundException e)
+		{            
+			JOptionPane.showMessageDialog(this,
+                e.getMessage(), "Fehler",
+                JOptionPane.ERROR_MESSAGE);
+		}
+		catch(Exception e)
+		{
+			// hier einfach nichts tun
+		}
+	}
+	
+	private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		try
+		{
+			int selectedRow = this.priceCategoryTable.getSelectedRow();
+			Integer id = (Integer) this.priceCategoryTable.getValueAt(selectedRow, 0);
+			
+			PriceCategory pc = PriceCategory.findByID(id);
+			
+			if(pc.getVideos().size() > 0)
+			{
+				throw new VideothekException("Fehler beim Löschen: Preiskategorie enthält noch Videos.");
+			}
+			else
+			{
+				pc.delete();
+				fillTableContent();
+			}
+		}
+		catch (VideothekException e)
+		{
+            JOptionPane.showMessageDialog(this,
+                    e.getMessage(), "Fehler",
+                    JOptionPane.ERROR_MESSAGE);
+		}
+		catch(Exception e)
+		{
+			// hier einfach nichts tun
+		}
+	}
+
 	// Variables declaration - do not modify
 	private javax.swing.JButton addButton;
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JButton deleteButton;
+	private javax.swing.JButton editButton;
 	private javax.swing.JFileChooser invoiceFolderFileChooser;
 	private javax.swing.JButton invoiceFolderSetButton;
 	private javax.swing.JTextField invoiceFolderTextField;
