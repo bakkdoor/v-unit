@@ -6,10 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableCellEditor;
 
 import org.apache.ecs.xhtml.col;
 
@@ -339,14 +344,19 @@ public class SettingsDialog extends javax.swing.JDialog
 	    pack();
 	  }// </editor-fold>
 	
+	private void fillTableContentAt(Object value, int row, int column)
+	{
+		
+	}
+	  
 	private void fillTableContent()
 	{
 		Vector columnNames = new Vector();
 		columnNames.add("Nr.");
 		columnNames.add("Name");
 		columnNames.add("Preis");
-		
-		 priceCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
+
+		priceCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
 				createEntries(), columnNames)
 		{
 			Class[] types = new Class[] { java.lang.Integer.class,
@@ -356,9 +366,12 @@ public class SettingsDialog extends javax.swing.JDialog
 			{
 				return types[columnIndex];
 			}
+			public void setValueAt(Object value, int row, int column)
+			{
+				fillTableContentAt(value, row, column);
+			}
 		});
-		 
-
+		
 		priceCategoryTable.getTableHeader().setReorderingAllowed(false);
 		jScrollPane1.setViewportView(priceCategoryTable);
 		priceCategoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
