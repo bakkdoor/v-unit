@@ -311,6 +311,22 @@ public class RentPanel {
         });
 
         JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
+        buttonReturnVideoAdd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					Integer uID = Integer.parseInt(textFieldReturnVideoID.getText());
+					addVideoUnitInReturnTable(VideoUnit.findByID(uID));
+				} catch (RecordNotFoundException e1) {
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar Feld eingebe!");
+				}
+			}
+        	
+        });
 
         tableReturnVideo = createReturnTable();
         tableReturnVideo.setRowSorter(new TableRowSorter<TableModel>(tableReturnVideo.getModel()));
@@ -472,6 +488,12 @@ public class RentPanel {
     	textFieldReturnVideoID.setText(Integer.toString(videoUnitID));
     }
     
+    public void addVideoUnitInReturnTable(VideoUnit videoUnit) {
+    	ReturnTableModel model = (ReturnTableModel) tableReturnVideo.getModel();
+    	model.insertRow(videoUnit);
+    	collectReturnUnit(videoUnit);
+    }
+    
     private Map<InRent, Collection<VideoUnit>> videoUnitMap = 
     	new HashMap<InRent, Collection<VideoUnit>>();
     
@@ -492,7 +514,11 @@ public class RentPanel {
     	// falls ja, retunPrice erhöhen
     	if(videoUnitMap.get(unit.getInRent()).size() == unit.getInRent().getVideoUnits().size())
     	{
-    		increaseReturnPrice();
+    		if(unit.getInRent().isOverDuration())
+    		{
+	    		increaseReturnPrice();
+	    		labelReturnVideoSumWarning.setText(Float.toString(returnPrice) + " €");
+    		}
     	}
     }
     
@@ -510,7 +536,7 @@ public class RentPanel {
     	{
     		ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
     		
-    		if(ir.getVideoUnits().size() == 0)
+    		if(ir.getVideoUnits().size() == 0 && ir.isOverDuration())
     		{
     			increaseReturnPrice();
     			try {
@@ -527,7 +553,7 @@ public class RentPanel {
     	}
     }
     
-    private double returnPrice = 0.0f;
+    private float returnPrice = 0.0f;
     
     private void increaseReturnPrice()
     {

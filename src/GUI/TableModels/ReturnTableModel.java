@@ -35,17 +35,19 @@ public class ReturnTableModel extends DefaultTableModel
 		super(videeoColumnNames, rowCount);
 	}
 
-	public void insertRow(InRent inRent, VideoUnit videoUnit)
+	public void insertRow(VideoUnit videoUnit)
 	{
+		InRent inRent = videoUnit.getInRent();
 		Vector rowData = new Vector();
 		
 		rowData.add(inRent.getCustomer().getID());
 		rowData.add(videoUnit.getVideoID());
 		rowData.add(videoUnit.getVideo().getTitle());
 		rowData.add(inRent.getReturnDate());
-		rowData.add(inRent.isWarned()?inRent.);
+		rowData.add(inRent.isWarned()?"Ja" : "Nein");
 				
 		super.getDataVector().add(rowData);
+		fireTableDataChanged();
 	}
 	
 	public void removeAll() {
