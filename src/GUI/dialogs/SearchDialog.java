@@ -46,8 +46,7 @@ public class SearchDialog {
 //		dialogSearch.setIcon(new ImageIcon("icons/magnifier.png"));
 		
 		// Dialog mittig auf dem bildschirm setzen
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        dialogSearch.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+		DialogHelper.setToCenterScreen(this.dialogSearch);
 		
 		Container mainContainer = dialogSearch.getContentPane();
 		mainContainer.setLayout(new GridBagLayout());
