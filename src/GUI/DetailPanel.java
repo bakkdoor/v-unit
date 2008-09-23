@@ -437,7 +437,6 @@ public class DetailPanel {
 		} else {
 			this.textFieldDetailVDuration.setText("");
 		}
-		getButtonDetailVadd().setEnabled(true);
 	}
 
 	public void fillPanelDetailCustomer(Customer customer) {

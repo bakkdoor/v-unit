@@ -27,7 +27,6 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
-		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
 		int vID = (Integer) videoTable.getValueAt(lsm.getMinSelectionIndex(), 0);
 		
 		try {
