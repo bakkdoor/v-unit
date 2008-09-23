@@ -1,6 +1,7 @@
 package GUI.dialogs;
 
 import GUI.*;
+import main.error.VideothekException;
 import model.Data;
 import model.Video;
 import model.VideoUnit;
@@ -24,6 +25,10 @@ import javax.swing.JTextField;
 
 import model.PriceCategory;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.CurrentDateException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseFieldException;
+import model.exceptions.FalseIDException;
 
 public class VideoDataDialog {
 
@@ -38,6 +43,14 @@ public class VideoDataDialog {
 	private model.PriceCategory priceCategory;
 	private Integer unitQuantity;
 	private boolean addVideo;
+	
+	private JTextField textFieldVID;
+	private JTextField textFieldTitle;
+	private JTextField textFieldReleaseYear;	
+	private JTextField textFieldRatedAge;
+	private JComboBox comboBoxPriceCategory;
+	private JTextField textFieldUnitQuantity;
+	
 
 	public VideoDataDialog(MainWindow mainWindow) {
 		this(mainWindow, Data.NOTSET, "", Data.NOTSET, Data.NOTSET,
@@ -76,34 +89,34 @@ public class VideoDataDialog {
 
 		JLabel labelVID = new JLabel("FilmNr.:");
 		labelVID.setVisible(!addVideo);
-		JTextField textFieldVID = new JTextField();
+		textFieldVID = new JTextField();
 		textFieldVID.setText(VID.toString());
 		textFieldVID.setEditable(false);
 		textFieldVID.setVisible(!addVideo);
 
 		JLabel labelTitle = new JLabel("Film Titel:");
-		JTextField textFieldTitle = new JTextField(title);
+		textFieldTitle = new JTextField(title);
 		textFieldTitle.setEditable(addVideo);
 
 		JLabel labelreleaseYear = new JLabel("Erscheinungsjahr:");
-		JTextField textFieldReleaseYear = new JTextField();
+		textFieldReleaseYear = new JTextField();
 		textFieldReleaseYear.setText(addVideo ? "" : releaseYear.toString());
 		textFieldReleaseYear.setEditable(addVideo);
 
 		JLabel labelratedAge = new JLabel("Altersbeschränkung:");
-		JTextField textFieldRatedAge = new JTextField();
+		textFieldRatedAge = new JTextField();
 		textFieldRatedAge.setText(addVideo ? "" : ratedAge.toString());
 		textFieldRatedAge.setEditable(addVideo);
 
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		// mögliche Preisklassen abfragen
 		// JComboBox comboBoxPriceCategory = new
-		JComboBox comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
+		comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
 
 		
 
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
-		JTextField textFieldUnitQuantity = new JTextField();
+		textFieldUnitQuantity = new JTextField();
 		textFieldUnitQuantity.setText(unitQuantity.toString());
 		textFieldUnitQuantity.setEditable(addVideo);
 
@@ -163,5 +176,22 @@ public class VideoDataDialog {
 					"Konnte Videodaten nicht einlesen", "Fehler",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	private void createVideo() {
+		try {
+			String title = textFieldTitle.getText();
+			Integer releaseYear = Integer.parseInt(textFieldRatedAge.getText());
+			Integer ratedAge = Integer.parseInt(textFieldRatedAge.getText());
+			PriceCategory priceCategory = (PriceCategory)comboBoxPriceCategory.getSelectedItem();
+			Integer quantity = Integer.parseInt(textFieldUnitQuantity.getText());
+			
+			new Video(title, releaseYear, priceCategory, ratedAge, quantity);
+			videoDataDialog.dispose();
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(mainWindowFrame, "Falsche Eingabe! Bitte Eingaben prüfen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+		} catch (VideothekException e) {
+			JOptionPane.showMessageDialog(mainWindowFrame, e.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+		}		
 	}
 }
