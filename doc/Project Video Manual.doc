@@ -28,8 +28,10 @@ Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'
 Deren Untermen\'fcs stellen die jeweiligen Funktionalit\'e4ten zur Verf\'fcgung.\par
 Zus\'e4tzlich zu den Men\'fcs werden die wichtigsten Funktionen unterhalb der Men\'fcleiste in einer Toolbar bereitgestellt. Hier hat der Benutzer folgende Buttons zur Wahl:\par
 \b Suche \b0 - \b Anlegen\b0  - \b Bearbeiten\b0  - \b L\'f6schen\b0  - und zus\'e4tzlich - \b Ausleihe - \b0 und - \b R\'fcckgabe\b0\par
-Diese beiden letzten Buttons wechseln die Ansicht des R\'fcckgabe- und Ausleihbereiches unterhalb der Toolbar, wo entsprechend jeweils eine R\'fcckgabe oder aber eine neue Ausleihe eingegeben werden kann.\par
-Rechts daneben werden Details im Infobereich dargestellt. Diese beziehen sich auf die aktuelle Auswahl im Listenbereich, der sich in der unteren Fensterh\'e4lfte befindet: Ist ein Film ausgew\'e4hlt, stehen im Infobereich Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse, Status (verliehen, oder nicht) , R\'fcckgabefrist (falls verliehen) und die vorhandenen Exemplare mitsamt ihrer Nummer aufgelistet.\par
+Diese beiden Buttons wechseln die Ansicht des R\'fcckgabe- und Ausleihbereiches unterhalb der Toolbar, wo entsprechend jeweils eine R\'fcckgabe oder aber eine neue Ausleihe eingegeben werden kann.\par
+Rechts daneben werden Details im Infobereich dargestellt. Diese beziehen sich auf die aktuelle Auswahl im Listenbereich, der sich in der unteren Fensterh\'e4lfte befindet:\par
+ Ist z.B. ein Film ausgew\'e4hlt, stehen im Infobereich Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse, Status (verliehen, oder nicht) , R\'fcckgabefrist (falls verliehen) und die vorhandenen Exemplare mitsamt ihrer Nummer aufgelistet.\par
+In den anderen F\'e4llen werden hier die Daten der entsprechenden Auswahl (Kunde, Ausleihe) dargestellt.\par
 Der Listenbereich im unteren Teil enth\'e4lt Reiter f\'fcr:\par
  -\b Filme\b0 , wo alle Filme aus dem Bestand der Videothek aufgelistet werden,\par
  -\b Kunden\b0 , wo alle Kunden der Videothek aufgelistet werden,\par
@@ -43,7 +45,8 @@ Der Listenbereich im unteren Teil enth\'e4lt Reiter f\'fcr:\par
 \b\fs24 Anlegen \b0 eines neuen Kunden\par
 \fs20\par
 Wenn ein neuer Kunde der Videothek angelegt bzw. zugef\'fcgt werden soll, ist dies entweder \'fcber das Men\'fc \b Kunde\b0  -> \b Anlegen\b0  oder aber den Button \b Anlegen\b0  m\'f6glich, der dann in einem neuen Dialogfenster abfragt, ob ein neuer Kunde oder Film angelegt werden soll. In beiden F\'e4llen \'f6ffnet sich dann der "\b Kunde anlegen\b0 "-Dialog. Hier m\'fcssen die Daten des anzulegenden Kunden eingetragen werden (Anrede, Vorname, Nachname, Personalausweisnummer, Geburtsdatum, Anschrift mit Stra\'dfe, Hausnummer, Postleitzahl und Stadt).\par
-Durch einen Klick auf \b Best\'e4tigen\b0  wird der neue Kunde angelegt, steht in der Liste aller Kunden und ist von nun an berechtigt, Videos auszuleihen. Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Kunden anzulegen.\par
+Durch Klick auf \b Best\'e4tigen\b0  wird der neue Kunde angelegt und ihm dabei eine feste, einzigartige Kundennummer zugeteilt. Er steht von nun an in der Liste aller Kunden und ist berechtigt, Videos auszuleihen. \par
+Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Kunden anzulegen.\par
 \par
 \b\fs24\par
 Bearbeiten \b0 eines bestehenden Kunden\par
@@ -68,7 +71,8 @@ Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn di
 Anlegen \b0 eines neuen Films\par
 \fs20\par
 Wenn ein neuer Film der Videothek angelegt bzw. zugef\'fcgt werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Anlegen\b0  oder aber den Button \b Anlegen\b0  m\'f6glich, der dann in einem neuen Dialogfenster abfragt, ob ein neuer Kunde oder Film angelegt werden soll. In beiden F\'e4llen \'f6ffnet sich dann der "\b Film anlegen\b0 "-Dialog. Hier m\'fcssen die Daten des anzulegenden Films eingetragen werden (Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse und Exemplaranzahl).\par
-Durch einen Klick auf \b Best\'e4tigen\b0  wird der neue Film angelegt, steht in der Liste aller Filme und kann von nun an von Kunden ausgeliehen werden. Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Film anzulegen.\par
+Durch Klick auf \b Best\'e4tigen\b0  wird der neue Film angelegt und ihm eine feste, einzigartige Filmnummer zugeteilt. Er steht von nun an in der Liste aller Filme. Seine Exemplare, die ebenfalls je eine feste, einzigartige Exemplarnummer erhalten haben, k\'f6nnen nun von Kunden ausgeliehen werden. \par
+Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Film anzulegen.\par
 \par
 \par
 \b\fs24 Bearbeiten \b0 eines vorhandenen Films\par
@@ -84,6 +88,7 @@ Wenn ein vorhandener Film oder ein Filmexemplar der Videothek gel\'f6scht werden
 Bevor der Film endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
 \b Nein \b0 bricht den Vorgang ab und der Film wird nicht gel\'f6scht.\par
 Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
+\par
 \par
 \par
 }
