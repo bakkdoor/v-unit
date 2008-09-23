@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
+import main.error.VideothekException;
 import model.InRent;
 import model.PriceCategory;
 import model.Video;
@@ -16,6 +17,7 @@ import model.events.VideoCreatedEvent;
 import model.events.VideoDeletedEvent;
 import model.events.VideoEditedEvent;
 import model.events.VideothekEvent;
+import model.exceptions.VideoUnitRentedException;
 
 /**
  * CustomerTableModel.java
@@ -35,17 +37,33 @@ public class ReturnTableModel extends DefaultTableModel
 		super(videeoColumnNames, rowCount);
 	}
 
-	public void insertRow(InRent inRent, VideoUnit videoUnit)
+	
+	public void insertVideoUnit(VideoUnit videoUnit) throws VideothekException {
+		if (!videoUnit.isRented()) throw new VideothekException("Filmexemplar momentan nicht ausgeliehen!");
+		
+		Vector<Vector> data = this.getDataVector();
+		for (Vector tmpVideoUnit : data) {
+			if ((Integer)tmpVideoUnit.get(1) == videoUnit.getID()) {
+				throw new VideothekException("Filmexemplar schon in der Liste vorhanden!");
+			}
+		}
+		
+		insertRow(videoUnit);
+	}
+	
+	public void insertRow(VideoUnit videoUnit)
 	{
-		Vector rowData = new Vector();
+		InRent inRent = videoUnit.getInRent();
+		Vector rowData = new Vector(5);
 		
 		rowData.add(inRent.getCustomer().getID());
 		rowData.add(videoUnit.getVideoID());
 		rowData.add(videoUnit.getVideo().getTitle());
 		rowData.add(inRent.getReturnDate());
-		rowData.add(inRent.isWarned()?inRent.);
+		rowData.add(inRent.isWarned()?"Ja" : "Nein");
 				
-		super.getDataVector().add(rowData);
+		super.addRow(rowData);
+		fireTableDataChanged();
 	}
 	
 	public void removeAll() {

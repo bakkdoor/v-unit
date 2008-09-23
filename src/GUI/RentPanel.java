@@ -302,15 +302,32 @@ public class RentPanel {
                     mainWindow.getDetailPanel().fillPanelDetailVideo(VideoUnit.findByID(uID));
                 } catch (RecordNotFoundException e1) {
                     // TODO Auto-generated catch block
-                    JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Kunden nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Kunde nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NumberFormatException e2) {
-                    JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar-/Kundennummer-Feld eingeben!");
+                    JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar Feld eingeben!");
                 }
 			}
         	
         });
 
         JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
+        buttonReturnVideoAdd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					Integer uID = Integer.parseInt(textFieldReturnVideoID.getText());
+					addVideoUnitInReturnTable(VideoUnit.findByID(uID));
+					textFieldReturnVideoID.setText("");
+				} catch (RecordNotFoundException e1) {
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar Feld eingeben!");
+				}
+			}
+        	
+        });
 
         tableReturnVideo = createReturnTable();
         tableReturnVideo.setRowSorter(new TableRowSorter<TableModel>(tableReturnVideo.getModel()));
@@ -321,7 +338,23 @@ public class RentPanel {
         labelReturnVideoSumWarning = new JLabel("0,00 €");
 
         JButton buttonReturnVideoCancel = new JButton("Abbrechen");
+        buttonReturnVideoCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearReturnDataFields();
+			}
+        });
+        
         JButton buttonReturnVideoAccept = new JButton("Bestätigen");
+        buttonReturnVideoAccept.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loopVideoUnitMap();
+				clearReturnDataFields();
+			}
+        });
 
         // **************************************************************
         Insets insets = new Insets(3, 3, 3, 3);
@@ -353,7 +386,7 @@ public class RentPanel {
         columnNames.add("FilmNr");
         columnNames.add("Titel");
         columnNames.add("Rückgabefrist");
-        columnNames.add("Mahnungskosten");
+        columnNames.add("Mahnung");
 
         // TODO RentTablePanel eintragen
         TableModel returnTableModel = new ReturnTableModel(columnNames, 0);
@@ -407,6 +440,7 @@ public class RentPanel {
     
     private void clearReturnDataFields() {
     	textFieldReturnVideoID.setText("");
+    	labelReturnVideoSumWarning.setText("0.00 €");
         // TODO elemente aus der tabelle entfernen
         ReturnTableModel model = (ReturnTableModel) tableReturnVideo.getModel();
         model.removeAll();
@@ -472,6 +506,18 @@ public class RentPanel {
     	textFieldReturnVideoID.setText(Integer.toString(videoUnitID));
     }
     
+    public void addVideoUnitInReturnTable(VideoUnit videoUnit) {
+    	
+    	try {
+    		ReturnTableModel model = (ReturnTableModel) tableReturnVideo.getModel();
+			model.insertVideoUnit(videoUnit);
+			collectReturnUnit(videoUnit);
+		} catch (VideothekException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage());
+		}
+    }
+    
     private Map<InRent, Collection<VideoUnit>> videoUnitMap = 
     	new HashMap<InRent, Collection<VideoUnit>>();
     
@@ -492,7 +538,11 @@ public class RentPanel {
     	// falls ja, retunPrice erhöhen
     	if(videoUnitMap.get(unit.getInRent()).size() == unit.getInRent().getVideoUnits().size())
     	{
-    		increaseReturnPrice();
+    		if(unit.getInRent().isOverDuration())
+    		{
+	    		increaseReturnPrice();
+	    		labelReturnVideoSumWarning.setText(Float.toString(returnPrice) + " €");
+    		}
     	}
     }
     
@@ -510,11 +560,10 @@ public class RentPanel {
     	{
     		ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
     		
-    		if(ir.getVideoUnits().size() == 0)
+    		if(ir.getVideoUnits().size() == 0 && ir.isOverDuration())
     		{
     			increaseReturnPrice();
     			try {
-    				
     				writer.writeInvoiceFor(new Warning(ir));
     				
     				ir.setWarned(false);
@@ -527,7 +576,7 @@ public class RentPanel {
     	}
     }
     
-    private double returnPrice = 0.0f;
+    private float returnPrice = 0.0f;
     
     private void increaseReturnPrice()
     {
