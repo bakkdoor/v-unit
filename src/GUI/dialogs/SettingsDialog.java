@@ -1,23 +1,39 @@
 package GUI.dialogs;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFileChooser;
 
+import main.config.Config;
+
+/**
+ *
+ * @author  bakkdoor
+ */
 public class SettingsDialog extends javax.swing.JDialog
 {
-	private static final long serialVersionUID = 4874571449595555298L;
+	private static final long serialVersionUID = -4374045845527969881L;
 	
 	private String invoiceFolder;
 	private String warningInvoiceFolder;
 	private String warningFolder;
 	private boolean setCurrentDateOnStartup;
-
+	
 	/** Creates new form SettingsDialog */
 	public SettingsDialog(java.awt.Frame parent, boolean modal)
-	  {
-	    super(parent, modal);
-	    initComponents();
-	  }
-  
+	{
+		super(parent, modal);
+		
+		this.invoiceFolder = Config.get().getSetting(Config.Settings.INVOICEFOLDER);
+		this.warningInvoiceFolder = Config.get().getSetting(Config.Settings.WARNINGINVOICEFOLDER);
+		this.warningFolder = Config.get().getSetting(Config.Settings.WARNINGFOLDER);
+		this.setCurrentDateOnStartup = 
+			Boolean.parseBoolean(Config.get().getSetting(Config.Settings.SETDATEONSTARTUP));
+		
+		initComponents();
+	}
+	  
 	  /** This method is called from within the constructor to
 	   * initialize the form.
 	   * WARNING: Do NOT modify this code. The content of this method is
@@ -26,8 +42,6 @@ public class SettingsDialog extends javax.swing.JDialog
 	  // <editor-fold defaultstate="collapsed" desc="Generated Code">
 	  private void initComponents()
 	  {
-	
-	    jFileChooser2 = new javax.swing.JFileChooser();
 	    jTabbedPane1 = new javax.swing.JTabbedPane();
 	    settingsPanel = new javax.swing.JPanel();
 	    setCurrentDateCheckbox = new javax.swing.JCheckBox();
@@ -35,20 +49,19 @@ public class SettingsDialog extends javax.swing.JDialog
 	    jPanel1 = new javax.swing.JPanel();
 	    jLabel2 = new javax.swing.JLabel();
 	    invoiceFolderSetButton = new javax.swing.JButton();
-	    invoiceFolderLabel = new javax.swing.JLabel();
 	    jLabel3 = new javax.swing.JLabel();
-	    warningInvoiceFolderLabel = new javax.swing.JLabel();
 	    warningInvoiceFolderSetButton = new javax.swing.JButton();
+	    invoiceFolderTextField = new javax.swing.JTextField();
+	    warningInvoiceFolderTextField = new javax.swing.JTextField();
 	    jPanel2 = new javax.swing.JPanel();
-	    warningFolderLabel = new javax.swing.JLabel();
 	    jLabel4 = new javax.swing.JLabel();
 	    warningFolderSetButton = new javax.swing.JButton();
+	    warningFolderTextField = new javax.swing.JTextField();
 	    priceCategoriesPanel = new javax.swing.JPanel();
 	    jScrollPane1 = new javax.swing.JScrollPane();
 	    priceCategoryTable = new javax.swing.JTable();
 	    addButton = new javax.swing.JButton();
 	    deleteButton = new javax.swing.JButton();
-	    jLabel1 = new javax.swing.JLabel();
 	    okButton = new javax.swing.JButton();
 	    cancelButton = new javax.swing.JButton();
 	
@@ -60,14 +73,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	    setCurrentDateCheckbox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 	
 	    invoiceFolderFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-	    invoiceFolderFileChooser.addActionListener(new java.awt.event.ActionListener()
-	    {
-	      public void actionPerformed(java.awt.event.ActionEvent evt)
-	      {
-	        invoiceFolderFileChooserActionPerformed(evt);
-	      }
-	    });
-	
+	    
 	    jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Quittungen"));
 	
 	    jLabel2.setText("Ausleih-Quittungen ablegen in:");
@@ -81,11 +87,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	      }
 	    });
 	
-	    invoiceFolderLabel.setText("/quittungen/");
-	
 	    jLabel3.setText("Mahnungs-Quittungen ablegen in:");
-	
-	    warningInvoiceFolderLabel.setText("/quittungen/mahnungen/");
 	
 	    warningInvoiceFolderSetButton.setText("Ordner festlegen");
 	    warningInvoiceFolderSetButton.addActionListener(new java.awt.event.ActionListener()
@@ -96,6 +98,10 @@ public class SettingsDialog extends javax.swing.JDialog
 	      }
 	    });
 	
+	    invoiceFolderTextField.setText("jTextField1");
+	
+	    warningInvoiceFolderTextField.setText("jTextField1");
+	
 	    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 	    jPanel1.setLayout(jPanel1Layout);
 	    jPanel1Layout.setHorizontalGroup(
@@ -103,12 +109,16 @@ public class SettingsDialog extends javax.swing.JDialog
 	      .addGroup(jPanel1Layout.createSequentialGroup()
 	        .addContainerGap()
 	        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	          .addComponent(invoiceFolderLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
 	          .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-	          .addComponent(warningInvoiceFolderLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+	          .addGroup(jPanel1Layout.createSequentialGroup()
+	            .addComponent(invoiceFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	            .addComponent(invoiceFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
 	          .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-	          .addComponent(invoiceFolderSetButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-	          .addComponent(warningInvoiceFolderSetButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+	          .addGroup(jPanel1Layout.createSequentialGroup()
+	            .addComponent(warningInvoiceFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	            .addComponent(warningInvoiceFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
 	        .addContainerGap())
 	    );
 	    jPanel1Layout.setVerticalGroup(
@@ -116,22 +126,20 @@ public class SettingsDialog extends javax.swing.JDialog
 	      .addGroup(jPanel1Layout.createSequentialGroup()
 	        .addContainerGap()
 	        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-	        .addGap(11, 11, 11)
-	        .addComponent(invoiceFolderLabel)
-	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	        .addComponent(invoiceFolderSetButton)
-	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	          .addComponent(invoiceFolderSetButton)
+	          .addComponent(invoiceFolderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
 	        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-	        .addGap(11, 11, 11)
-	        .addComponent(warningInvoiceFolderLabel)
 	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	        .addComponent(warningInvoiceFolderSetButton)
-	        .addContainerGap())
+	        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	          .addComponent(warningInvoiceFolderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	          .addComponent(warningInvoiceFolderSetButton))
+	        .addGap(19, 19, 19))
 	    );
 	
 	    jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Mahnungen"));
-	
-	    warningFolderLabel.setText("/mahnungen/");
 	
 	    jLabel4.setText("Ausleih-Quittungen ablegen in:");
 	
@@ -144,6 +152,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	      }
 	    });
 	
+	    warningFolderTextField.setText("jTextField1");
+	
 	    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 	    jPanel2.setLayout(jPanel2Layout);
 	    jPanel2Layout.setHorizontalGroup(
@@ -151,9 +161,11 @@ public class SettingsDialog extends javax.swing.JDialog
 	      .addGroup(jPanel2Layout.createSequentialGroup()
 	        .addContainerGap()
 	        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	          .addComponent(warningFolderLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
 	          .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-	          .addComponent(warningFolderSetButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+	          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+	            .addComponent(warningFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	            .addComponent(warningFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
 	        .addContainerGap())
 	    );
 	    jPanel2Layout.setVerticalGroup(
@@ -161,10 +173,10 @@ public class SettingsDialog extends javax.swing.JDialog
 	      .addGroup(jPanel2Layout.createSequentialGroup()
 	        .addContainerGap()
 	        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-	        .addGap(11, 11, 11)
-	        .addComponent(warningFolderLabel)
-	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	        .addComponent(warningFolderSetButton)
+	        .addGap(18, 18, 18)
+	        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	          .addComponent(warningFolderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	          .addComponent(warningFolderSetButton))
 	        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	    );
 	
@@ -175,11 +187,11 @@ public class SettingsDialog extends javax.swing.JDialog
 	      .addComponent(setCurrentDateCheckbox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
 	      .addGroup(settingsPanelLayout.createSequentialGroup()
 	        .addContainerGap()
-	        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	        .addContainerGap())
 	      .addGroup(settingsPanelLayout.createSequentialGroup()
 	        .addContainerGap()
-	        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	        .addContainerGap())
 	    );
 	    settingsPanelLayout.setVerticalGroup(
@@ -188,10 +200,10 @@ public class SettingsDialog extends javax.swing.JDialog
 	        .addContainerGap()
 	        .addComponent(setCurrentDateCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
 	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-	        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	        .addGap(18, 18, 18)
 	        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        .addContainerGap())
+	        .addGap(39, 39, 39))
 	    );
 	
 	    jTabbedPane1.addTab("Allgemeines", settingsPanel);
@@ -257,15 +269,11 @@ public class SettingsDialog extends javax.swing.JDialog
 	          .addComponent(addButton)
 	          .addComponent(deleteButton))
 	        .addGap(11, 11, 11)
-	        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+	        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
 	        .addContainerGap())
 	    );
 	
 	    jTabbedPane1.addTab("Preiskategorien", priceCategoriesPanel);
-	
-	    jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14));
-	    jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	    jLabel1.setText("Einstellungen");
 	
 	    okButton.setText("OK");
 	    okButton.addActionListener(new java.awt.event.ActionListener()
@@ -289,12 +297,11 @@ public class SettingsDialog extends javax.swing.JDialog
 	    getContentPane().setLayout(layout);
 	    layout.setHorizontalGroup(
 	      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	      .addGroup(layout.createSequentialGroup()
+	      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
 	        .addContainerGap()
-	        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	          .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-	          .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-	          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+	          .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+	          .addGroup(layout.createSequentialGroup()
 	            .addComponent(cancelButton)
 	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	            .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -302,11 +309,9 @@ public class SettingsDialog extends javax.swing.JDialog
 	    );
 	    layout.setVerticalGroup(
 	      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	      .addGroup(layout.createSequentialGroup()
+	      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
 	        .addContainerGap()
-	        .addComponent(jLabel1)
-	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-	        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+	        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
 	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 	        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 	          .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,84 +319,121 @@ public class SettingsDialog extends javax.swing.JDialog
 	        .addContainerGap())
 	    );
 	
+	    // textfelder nicht editierbar
+	    invoiceFolderTextField.setEditable(false);
+	    warningInvoiceFolderTextField.setEditable(false);
+	    warningFolderTextField.setEditable(false);
+	    
+	    // einstellungen aus config übernehmen
+	    invoiceFolderTextField.setText(this.invoiceFolder);
+	    warningInvoiceFolderTextField.setText(this.warningInvoiceFolder);
+	    warningFolderTextField.setText(this.warningFolder);
+	    setCurrentDateCheckbox.setSelected(this.setCurrentDateOnStartup);
+	    
+
+	    setToMiddle();
+	    
 	    pack();
 	  }// </editor-fold>
 	
-	  private void okButtonActionPerformed(java.awt.event.ActionEvent evt)                                         
-	  {                                             
-	    // config setzen und so...
-	    
-	    this.dispose();
-	  }                                        
-	
-	  private void invoiceFolderFileChooserActionPerformed(java.awt.event.ActionEvent evt)                                                         
-	  {                                                             
-	    // TODO add your handling code here:
-	}                                                        
-	
-	  private void invoiceFolderSetButtonActionPerformed(java.awt.event.ActionEvent evt)                                                       
-	  {                                                           
-	    if(invoiceFolderFileChooser.showDialog(this, "Ordner auswählen") == JFileChooser.APPROVE_OPTION)
-	    {
-	      this.invoiceFolder = invoiceFolderFileChooser.getSelectedFile().getPath();
-	      this.invoiceFolderLabel.setText(this.invoiceFolder);
-	    }
-	  }                                                      
-	
-	  private void warningInvoiceFolderSetButtonActionPerformed(java.awt.event.ActionEvent evt)                                                              
-	  {                                                                  
-	    if(invoiceFolderFileChooser.showDialog(this, "Ordner auswählen") == JFileChooser.APPROVE_OPTION)
-	    {
-	      this.warningInvoiceFolder = invoiceFolderFileChooser.getSelectedFile().getPath();
-	      this.warningInvoiceFolderLabel.setText(this.warningInvoiceFolder);
-	    }
-	}                                                             
-	
-	  private void warningFolderSetButtonActionPerformed(java.awt.event.ActionEvent evt)
-	  {
-	    if(invoiceFolderFileChooser.showDialog(this, "Ordner auswählen") == JFileChooser.APPROVE_OPTION)
-	    {
-	      this.warningFolder = invoiceFolderFileChooser.getSelectedFile().getPath();
-	      this.warningFolderLabel.setText(this.warningFolder);
-	    }
+	private void setToMiddle()
+	{
+	    // mittig zum hauptfenster (owner) setzen
+	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) (screenSize.getWidth() + super.getOwner().getLocationOnScreen().getX()) / 5;
+	    int y = (int) (screenSize.getHeight() + super.getOwner().getLocationOnScreen().getY()) / 5;
+	    this.setLocation(x, y);   
 	}
 	
-	  private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)
-	  {
-	    this.dispose();
-	  }
-	
-	  private void addButtonActionPerformed(java.awt.event.ActionEvent evt)
-	  {
-	    
-	  }
-	  
-	  
-	  // Variables declaration - do not modify
-	  private javax.swing.JButton addButton;
-	  private javax.swing.JButton cancelButton;
-	  private javax.swing.JButton deleteButton;
-	  private javax.swing.JFileChooser invoiceFolderFileChooser;
-	  private javax.swing.JLabel invoiceFolderLabel;
-	  private javax.swing.JButton invoiceFolderSetButton;
-	  private javax.swing.JFileChooser jFileChooser2;
-	  private javax.swing.JLabel jLabel1;
-	  private javax.swing.JLabel jLabel2;
-	  private javax.swing.JLabel jLabel3;
-	  private javax.swing.JLabel jLabel4;
-	  private javax.swing.JPanel jPanel1;
-	  private javax.swing.JPanel jPanel2;
-	  private javax.swing.JScrollPane jScrollPane1;
-	  private javax.swing.JTabbedPane jTabbedPane1;
-	  private javax.swing.JButton okButton;
-	  private javax.swing.JPanel priceCategoriesPanel;
-	  private javax.swing.JTable priceCategoryTable;
-	  private javax.swing.JCheckBox setCurrentDateCheckbox;
-	  private javax.swing.JPanel settingsPanel;
-	  private javax.swing.JLabel warningFolderLabel;
-	  private javax.swing.JButton warningFolderSetButton;
-	  private javax.swing.JLabel warningInvoiceFolderLabel;
-	  private javax.swing.JButton warningInvoiceFolderSetButton;
-	  // End of variables declaration
-	  
+	private void okButtonActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		// config setzen und so...
+
+		this.dispose();
 	}
+
+	private void invoiceFolderSetButtonActionPerformed(
+			java.awt.event.ActionEvent evt)
+	{
+		if (invoiceFolderFileChooser.showDialog(this, "Ordner auswählen") == JFileChooser.APPROVE_OPTION)
+		{
+			this.invoiceFolder = invoiceFolderFileChooser.getSelectedFile()
+					.getPath();
+			this.invoiceFolderTextField.setText(this.invoiceFolder);
+		}
+	}
+
+	private void warningInvoiceFolderSetButtonActionPerformed(
+			java.awt.event.ActionEvent evt)
+	{
+		if (invoiceFolderFileChooser.showDialog(this, "Ordner auswählen") == JFileChooser.APPROVE_OPTION)
+		{
+			this.warningInvoiceFolder = invoiceFolderFileChooser
+					.getSelectedFile().getPath();
+			this.warningInvoiceFolderTextField
+					.setText(this.warningInvoiceFolder);
+		}
+	}
+
+	private void warningFolderSetButtonActionPerformed(
+			java.awt.event.ActionEvent evt)
+	{
+		if (invoiceFolderFileChooser.showDialog(this, "Ordner auswählen") == JFileChooser.APPROVE_OPTION)
+		{
+			this.warningFolder = invoiceFolderFileChooser.getSelectedFile()
+					.getPath();
+			this.warningFolderTextField.setText(this.warningFolder);
+		}
+	}
+
+	private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		// keine Einstellungen speichern & dialog beenden
+		this.dispose();
+	}
+
+	private void addButtonActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		// Einstellungen in Config speichern
+		Config.get().setSetting(Config.Settings.SETDATEONSTARTUP,
+				Boolean.toString(this.setCurrentDateCheckbox.isSelected()));
+		
+		Config.get().setSetting(Config.Settings.INVOICEFOLDER,
+				this.invoiceFolder);
+		
+		Config.get().setSetting(Config.Settings.WARNINGFOLDER,
+				this.warningFolder);
+		
+		Config.get().setSetting(Config.Settings.WARNINGINVOICEFOLDER,
+				this.warningInvoiceFolder);
+		
+		this.dispose();
+	}
+	  
+	  
+	// Variables declaration - do not modify
+	private javax.swing.JButton addButton;
+	private javax.swing.JButton cancelButton;
+	private javax.swing.JButton deleteButton;
+	private javax.swing.JFileChooser invoiceFolderFileChooser;
+	private javax.swing.JButton invoiceFolderSetButton;
+	private javax.swing.JTextField invoiceFolderTextField;
+	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel jLabel4;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JTabbedPane jTabbedPane1;
+	private javax.swing.JButton okButton;
+	private javax.swing.JPanel priceCategoriesPanel;
+	private javax.swing.JTable priceCategoryTable;
+	private javax.swing.JCheckBox setCurrentDateCheckbox;
+	private javax.swing.JPanel settingsPanel;
+	private javax.swing.JButton warningFolderSetButton;
+	private javax.swing.JTextField warningFolderTextField;
+	private javax.swing.JButton warningInvoiceFolderSetButton;
+	private javax.swing.JTextField warningInvoiceFolderTextField;
+	// End of variables declaration
+	  
+}
