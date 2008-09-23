@@ -62,6 +62,11 @@ public class Config
 		this.configFile = configFile;
 	}
 
+	/**
+	 * Gibt an, ob in der Config ein entsprechendes Setting vorhanden ist.
+	 * @param settingName Der Name des Settings.
+	 * @return True, falls vorhanden, False sonst.
+	 */
 	public boolean hasSetting(String settingName)
 	{
 		return this.configSettingsMap.containsKey(settingName);

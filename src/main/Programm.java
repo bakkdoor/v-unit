@@ -86,13 +86,14 @@ public class Programm
 
 	public static void shutdown()
 	{
+		// aktuelle größe vom hauptfenster speichern für nächstes mal.
 		int resX, resY;
 		resX = (int)mainWindow.getMainFrame().getSize().getWidth();
 		resY = (int)mainWindow.getMainFrame().getSize().getHeight();
-		mainWindow.getMainFrame().dispose();
-
 		Config.get().setSetting(Config.Settings.MAINWINDOWRESX, Integer.toString(resX));
 		Config.get().setSetting(Config.Settings.MAINWINDOWRESY, Integer.toString(resY));
+		
+		mainWindow.getMainFrame().dispose();
 		
 		try
 		{
@@ -124,7 +125,5 @@ public class Programm
 		{
 			e.printStackTrace();
 		}
-
-		// TODO: abspeichern von daten, andere sachen aufräumen etc.
 	}
 }
