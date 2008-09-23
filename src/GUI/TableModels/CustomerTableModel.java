@@ -2,19 +2,21 @@ package GUI.TableModels;
 
 import java.util.Vector;
 
+import javax.swing.table.DefaultTableModel;
 import model.events.CustomerCreatedEvent;
 import model.events.CustomerDeletedEvent;
 import model.events.CustomerEditedEvent;
 import model.events.EventManager;
 import model.events.VideothekEvent;
 import model.Customer;
+import model.events.VideothekEventListener;
 
 /**
  * CustomerTableModel.java
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 18.09.2008
  */
-public class CustomerTableModel extends NotEditableTableModel {
+public class CustomerTableModel extends NotEditableTableModel implements VideothekEventListener {
 
     private static final long serialVersionUID = 7354689970611412976L;
 
@@ -54,9 +56,11 @@ public class CustomerTableModel extends NotEditableTableModel {
             }
         } else if (event instanceof CustomerDeletedEvent) {
             Customer customer = ((CustomerDeletedEvent) event).getCustomer();
-            for (int index = 0; index < getRowCount(); index++) {
-                if (getValueAt(index, 0).equals(customer.getID())) {
-                    getDataVector().remove(index);
+            Vector<Vector> data = getDataVector(); 
+            
+            for (Vector tmpCustomer : data) {
+                if(tmpCustomer.get(0).equals(customer.getID())) {
+                    data.remove(tmpCustomer);
                     fireTableDataChanged();
                 }
             }

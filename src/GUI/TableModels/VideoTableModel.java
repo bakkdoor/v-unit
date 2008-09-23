@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import main.error.VideothekException;
 import model.PriceCategory;
 import model.Video;
@@ -14,13 +15,14 @@ import model.events.VideoDeletedEvent;
 import model.events.VideoEditedEvent;
 import model.events.VideoEvent;
 import model.events.VideothekEvent;
+import model.events.VideothekEventListener;
 
 /**
  * CustomerTableModel.java
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 18.09.2008
  */
-public class VideoTableModel extends NotEditableTableModel {
+public class VideoTableModel extends NotEditableTableModel implements VideothekEventListener {
 
     private static final long serialVersionUID = 7354689970611412976L;
 

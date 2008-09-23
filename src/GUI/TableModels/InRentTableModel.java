@@ -10,13 +10,14 @@ import model.events.InRentDeletedEvent;
 import model.events.InRentDeletedUnitEvent;
 import model.events.InRentEditedStateEvent;
 import model.events.VideothekEvent;
+import model.events.VideothekEventListener;
 
 /**
  * CustomerTableModel.java
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 18.09.2008
  */
-public class InRentTableModel extends NotEditableTableModel
+public class InRentTableModel extends NotEditableTableModel implements VideothekEventListener
 {
 	private static final long serialVersionUID = 7354689970611412976L;
 	
@@ -42,7 +43,7 @@ public class InRentTableModel extends NotEditableTableModel
 	{
 		if(event instanceof InRentCreatedEvent)
 		{
-			insertRow(((InRentCreatedEvent)event).getInRent());
+			this.insertRow(((InRentCreatedEvent)event).getInRent());
 		}
 
 		else if(event instanceof InRentEditedStateEvent)

@@ -194,7 +194,6 @@ public class CustomerDataDialog implements VideothekEventListener {
         });
 
         JButton buttonAdd = new JButton("Bestätigen");
-
         buttonAdd.addActionListener(new ActionListener() {
 
             @Override
