@@ -27,8 +27,8 @@ public class InRentTest extends ModelTest
 //					new Date(), 2);
 			
 			Collection<VideoUnit> videoUnitsToRent = new LinkedList<VideoUnit>();
-			videoUnitsToRent.add(VideoUnit.findByID(4));
-			videoUnitsToRent.add(VideoUnit.findByID(5));
+			videoUnitsToRent.add(new VideoUnit(Video.findByID(1)));
+			videoUnitsToRent.add(new VideoUnit(Video.findByID(2)));
 			
 			
 			inRent = new InRent(Customer.findByID(1), videoUnitsToRent,

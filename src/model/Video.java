@@ -45,12 +45,14 @@ public class Video
 	 * @param releaseYear Erscheinungsjahr
 	 * @param priceCategory Preiskategorie-ID
 	 * @param ratedAge Altersfreigabe
+	 * @param numberOfVideoUnits Anzahl VideoUnits, die für diesen Film erstellt
+	 * werden soll.
 	 * @throws FalseIDException , wenn eine falsche ID übergeben wird
 	 * @throws EmptyFieldException , wenn leere Felder übergeben werden
 	 * @throws FalseFieldException , wenn nicht reguläre Daten übergeben werden
 	 * @throws CurrentDateException , wenn ein noch nicht existentes
-	 *             CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
-	 *             CurrentDate nachträglich verändert werden soll
+	 * CurrentDate-Objekt abgefragt wird, oder das schon gesetzte CurrentDate
+	 * nachträglich verändert werden soll
 	 */
 	public Video(String title, int releaseYear, PriceCategory priceCategory,
 			int ratedAge, int numberOfVideoUnits) throws FalseIDException,
@@ -80,9 +82,8 @@ public class Video
 	 * @throws EmptyFieldException , wenn leere Felder übergeben werden
 	 * @throws FalseFieldException , wenn nicht reguläre Daten übergeben werden
 	 * @throws CurrentDateException , wenn ein noch nicht existentes
-	 *             {@link CurrentDate}-Objekt abgefragt wird, oder das schon
-	 *             gesetzte {@link CurrentDate} nachträglich verändert werden
-	 *             soll
+	 * {@link CurrentDate}-Objekt abgefragt wird, oder das schon gesetzte
+	 * {@link CurrentDate} nachträglich verändert werden soll
 	 */
 	private Video(int vID, String title, int releaseYear, int priceCategoryID,
 			int ratedAge) throws FalseIDException, EmptyFieldException,
@@ -114,9 +115,8 @@ public class Video
 	 * @throws EmptyFieldException , wenn leere Felder übergeben werden
 	 * @throws FalseFieldException , wenn nicht reguläre Daten übergeben werden
 	 * @throws CurrentDateException , wenn ein noch nicht existentes
-	 *             {@link CurrentDate}-Objekt abgefragt wird, oder das schon
-	 *             gesetzte {@link CurrentDate} nachträglich verändert werden
-	 *             soll
+	 * {@link CurrentDate}-Objekt abgefragt wird, oder das schon gesetzte
+	 * {@link CurrentDate} nachträglich verändert werden soll
 	 */
 	public static Video reCreate(int vID, String title, int releaseYear,
 			int priceCategoryID, int ratedAge) throws FalseIDException,
@@ -182,7 +182,7 @@ public class Video
 	/**
 	 * @return das zum {@link Video} gehörende {@link PriceCategory}-Objekt
 	 * @throws RecordNotFoundException , wenn das {@link Video} keine
-	 *             {@link PriceCategory} enthält
+	 * {@link PriceCategory} enthält
 	 */
 	public PriceCategory getPriceCategory() throws RecordNotFoundException
 	{
@@ -195,7 +195,7 @@ public class Video
 
 	/**
 	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
-	 *         {@link Video} verknüpften
+	 * {@link Video} verknüpften
 	 */
 	public Collection<VideoUnit> getVideoUnits()
 	{
@@ -204,8 +204,8 @@ public class Video
 
 	/**
 	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
-	 *         {@link Video} verknüpften, sortiert nach Ausgeliehen-Status
-	 *         (Zuerst nicht ausgeliehene, danach ausgeliehene)
+	 * {@link Video} verknüpften, sortiert nach Ausgeliehen-Status (Zuerst nicht
+	 * ausgeliehene, danach ausgeliehene)
 	 */
 	public Collection<VideoUnit> getSortedVideoUnits()
 	{
@@ -239,22 +239,22 @@ public class Video
 	 */
 	public void delete() throws VideothekException
 	{
-		for (VideoUnit unit : this.getVideoUnits())
+		Collection<VideoUnit> videoUnits = this.getVideoUnits();
+		for (VideoUnit unit : new LinkedList<VideoUnit>(videoUnits))
 		{
-			if (unit.getInRent() != null)
+			if (unit.getInRent() != null && !unit.isRented())
 			{
 				throw new VideothekException(
 						"Exemplare dieses Videos noch in Ausleihe. Löschen nicht möglich!");
 			}
+			else
+			{
+				unit.delete();
+			}
 		}
+		
 		videoList.remove(this.getID());
 		this.deleted = true;
-
-		// videounits mit löschen
-		for (VideoUnit unit : this.getVideoUnits())
-		{
-			unit.delete();
-		}
 
 		// Event feuern
 		EventManager.fireEvent(new VideoDeletedEvent(this));
@@ -346,10 +346,10 @@ public class Video
 	 * @param newReleaseYear Erscheinungsjahr
 	 * @return true, wenn alle Parameter logisch korrekt
 	 * @throws FalseFieldException , wenn FSK falsch, oder wenn Erscheinungsjahr
-	 *             vor 1900 oder in Zukunft
+	 * vor 1900 oder in Zukunft
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
-	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
-	 *             gesetzte CurrentDate nachträglich verändert werden soll
+	 * existentes CurrentDate-Objekt abgefragt wird, oder das schon gesetzte
+	 * CurrentDate nachträglich verändert werden soll
 	 */
 	private boolean noFalseFields(int newRatedAge, int newReleaseYear)
 			throws FalseFieldException, CurrentDateException
@@ -432,7 +432,7 @@ public class Video
 			throw new FalseFieldException(
 					"Anzahl neuer Videoexemplare kleiner 1!");
 	}
-	
+
 	public int getNumberOfVideoUnits()
 	{
 		return this.numberOfVideoUnits;
@@ -454,7 +454,7 @@ public class Video
 	 * @param vID Die ID des Videos.
 	 * @return Das Video mit der angegebenen ID.
 	 * @throws RecordNotFoundException , falls kein Video mit dieser ID gefunden
-	 *             wurde.
+	 * wurde.
 	 */
 	public static Video findByID(int vID) throws RecordNotFoundException
 	{
@@ -496,7 +496,7 @@ public class Video
 	 * 
 	 * @param releaseYear Das Veröffentlichungsjahr, nach dem gesucht wird.
 	 * @return Die Menge der Videos, die das gleiche Veröffentlichungsjahr
-	 *         haben.
+	 * haben.
 	 */
 	public static Collection<Video> findByReleaseYear(int releaseYear)
 	{
