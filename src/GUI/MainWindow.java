@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.dialogs.DataDialog;
+import GUI.dialogs.DialogHelper;
 import GUI.dialogs.SearchDialog;
 import GUI.dialogs.VideoDataDialog;
 import java.awt.Container;
@@ -49,9 +50,8 @@ public class MainWindow {
 //		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
 		
 //		 Frame mittig auf dem Bildschirm setzen
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        mainFrame.setLocation(((int)screenSize.getWidth()-1024)/2, ((int)screenSize.getHeight()-768)/2);
-
+		DialogHelper.setLargeWindowToCenterScreen(this.mainFrame);
+		
 		// Haupt Container Layout setzen
 		Container mainContainer = mainFrame.getContentPane();
 		mainContainer.setLayout(new GridBagLayout());

@@ -24,4 +24,10 @@ public class DialogHelper
 	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    window.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 	}
+	
+	public static void setLargeWindowToCenterScreen(Window window)
+	{
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		 window.setLocation(((int)screenSize.getWidth()-1024)/2, ((int)screenSize.getHeight()-768)/2);
+	}
 }
