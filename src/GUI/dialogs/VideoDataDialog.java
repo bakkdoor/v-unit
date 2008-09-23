@@ -6,8 +6,10 @@ import model.Video;
 import model.VideoUnit;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -59,6 +61,10 @@ public class VideoDataDialog {
 		String dialogName = "Film " + (addVideo ? "anlegen" : "bearbeiten");
 		this.videoDataDialog = new JDialog(mainWindowFrame, dialogName, true);
 		videoDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		// Dialog mittig auf dem bildschirm setzen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        videoDataDialog.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
 		// LauoutManager einstellen
 		Container contentPane = videoDataDialog.getContentPane();

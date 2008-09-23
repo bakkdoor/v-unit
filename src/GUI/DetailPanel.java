@@ -131,6 +131,14 @@ public class DetailPanel {
 
 		// Übernehmen Button erzeugen
 		JButton buttonDetailCustAdd = new JButton("Übernehmen");
+		buttonDetailCustAdd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int custID = Integer.parseInt(textFieldDetailCustID.getText());
+				mainWindow.getRentPanel().setTextRentCustID(custID);
+			}
+		});
 
 		// ***************************************************************
 		// Datenelemente in deas Kunden Panel einfügen
@@ -238,11 +246,8 @@ public class DetailPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				VideoUnit selectedVideoUnit;
 				try {
-					selectedVideoUnit = VideoUnit.findByID(Integer
-							.parseInt((String) listDetailVUnit
-									.getSelectedValue()));
-					DetailPanel.this.mainWindow.getRentPanel()
-							.addVideoUnitInRentTable(selectedVideoUnit);
+					selectedVideoUnit = (VideoUnit) listDetailVUnit.getSelectedValue();
+					mainWindow.getRentPanel().addVideoUnitInRentTable(selectedVideoUnit);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

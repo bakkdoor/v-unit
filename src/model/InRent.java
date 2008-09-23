@@ -34,11 +34,19 @@ public class InRent implements Comparable<InRent>
 
 	public InRent(Customer customer, Collection<VideoUnit> videoUnits,
 			Date date, int duration) throws FalseIDException,
-			FalseFieldException, CurrentDateException
+			FalseFieldException, CurrentDateException, VideoUnitRentedException
 	{
 		// this(minrID, customer.getID(), , date, duration);
 		this.rID = minrID;
 		minrID++;
+
+		for (VideoUnit unit : videoUnits)
+		{
+			if (unit.isRented())
+				throw new VideoUnitRentedException(
+						"Videoexemplar " + unit.getID() + " bereits verliehen. "
+								+ "Erneute Ausleihe nicht möglich!");
+		}
 
 		this.customerID = customer.getID();
 		this.customer = customer;
@@ -166,8 +174,9 @@ public class InRent implements Comparable<InRent>
 
 	/**
 	 * Methode überprüft, ob die Leihfrist abgelaufen ist
-	 * @param deadline Anzahl der Tage, die auf das Rückgabedatum 
-	 * 					hinzugerechnet werden.
+	 * 
+	 * @param deadline Anzahl der Tage, die auf das Rückgabedatum hinzugerechnet
+	 *            werden.
 	 * @return true, wenn Leihfrist überschritten, False sonst
 	 */
 	public boolean isOverDuration(int deadline)
@@ -179,7 +188,7 @@ public class InRent implements Comparable<InRent>
 		else
 			return false;
 	}
-	
+
 	/**
 	 * Methode überprüft, ob die Leihfrist abgelaufen ist
 	 * 
@@ -285,11 +294,11 @@ public class InRent implements Comparable<InRent>
 	{
 		return this.deleted;
 	}
-	
+
 	/**
-	 * Informiert alle anderen Teilsysteme, dass diese Ausleihe evtl. geändert wurde.
-	 * Feuert ein InRentEditedStateEvent und sollte einmal nach einem Bearbeitungsvorgang
-	 * aufgerufen werden.
+	 * Informiert alle anderen Teilsysteme, dass diese Ausleihe evtl. geändert
+	 * wurde. Feuert ein InRentEditedStateEvent und sollte einmal nach einem
+	 * Bearbeitungsvorgang aufgerufen werden.
 	 */
 	public void save()
 	{

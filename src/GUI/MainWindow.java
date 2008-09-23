@@ -4,10 +4,12 @@ import GUI.dialogs.DataDialog;
 import GUI.dialogs.SearchDialog;
 import GUI.dialogs.VideoDataDialog;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -45,6 +47,10 @@ public class MainWindow {
 			}
 		});
 //		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
+		
+//		 Frame mittig auf dem Bildschirm setzen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        mainFrame.setLocation(((int)screenSize.getWidth()-1024)/2, ((int)screenSize.getHeight()-768)/2);
 
 		// Haupt Container Layout setzen
 		Container mainContainer = mainFrame.getContentPane();

@@ -2,8 +2,10 @@ package GUI.dialogs;
 
 import GUI.*;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -101,6 +103,10 @@ public class CustomerDataDialog implements VideothekEventListener {
         String dialogName = "Kunde " + (addCustomer ? "anlegen" : "bearbeiten");
         this.customerDataDialog = new JDialog(mainWindowFrame, dialogName, true);
         customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
+        // Dialog mittig auf dem bildschirm setzen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        customerDataDialog.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
         labelID = new JLabel("KundenNr.:");
         labelID.setVisible(!addCustomer);
@@ -196,6 +202,7 @@ public class CustomerDataDialog implements VideothekEventListener {
             public void actionPerformed(ActionEvent e) {
                 if (addCustomer) {
                     EventManager.fireEvent(new CreateNewCustomerEvent());
+                    customerDataDialog.dispose();
                 } else {
                     try {
                         Customer editedCustomer = Customer.findByID(Integer.parseInt(textFieldID.getText()));
