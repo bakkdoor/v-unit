@@ -1,0 +1,21 @@
+Videothekgruppe: Christopher Bertels, Waldemar Smirnow, Andie Hoffmann, Volha Baranouskaya.
+
+Protokoll von Teamversammlung am 19.09:
+**************************************
+
+Allgemeine Fragestellungen & Klärungen:
+	- eine kurze Erklärung was an letzten Tagen passiert.
+	- Korregierung des Tagesplan, wegen der Krankheit des Cristopher
+
+- GUI(Olga, Waldemar):
+	- Verfeinerung vom Code
+	- alle Event-Klassen erstellt
+	- TabelModels weiter entwicklung
+
+- Model/Business-Logik (Andie): 
+	- Event- Klassen erstellt, die dazu passendeEvent in Customer/ InRent/
+	  Preiscategory/ Video/ VideoUnit/Warning zugefügt.
+	- methoden zur Mahnungserstellung und zum ;Mahnungscheck erstellt
+	- weitere Anpassungen in InRent.
+- Data/XML-Backend (Christopher): krank
+

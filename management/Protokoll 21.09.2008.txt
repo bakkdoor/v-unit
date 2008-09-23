@@ -1,0 +1,19 @@
+Videothekgruppe: Christopher Bertels, Waldemar Smirnow, Andie Hoffmann, Volha Baranouskaya.
+
+Protokoll von Teamversammlung am 21.09:
+**************************************
+
+Allgemeine Fragestellungen & Klärungen:
+	- ab heute kommen trotzdem zum 9:00
+	- alle Gruppenmitglieder sind da,aber nicht fit. Wir müssen genau nacht dem vorgesprochenen Plan gehen.
+	- Erklären bei der Fr. Göers: wie soll Testprotokoll genau aussehen soll.
+
+- GUI(Olga, Waldemar):
+	- Realisation der Funktionalität Der "AuslehTabelle" und Verbindung mit DatelPanel
+	- Verfeinerungen (z.B. feste Ordnung der Spalten in den Tabellen)
+
+- Model/Business-Logik + Data/XML-Backend (Christopher,Andie):
+	- Beim Beenden wird Mahnungdatei erzeugt.
+	- Quittung ist fertig
+	- Fehlertesting
+	- Löschenoption, Verfeinerungen
