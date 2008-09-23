@@ -35,9 +35,11 @@ import GUI.TableModels.ReturnTableModel;
 
 import main.error.VideothekException;
 import model.Customer;
+import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.VideoUnitRentedException;
 
 public class RentPanel {
 
@@ -50,6 +52,8 @@ public class RentPanel {
     private JTextField textFieldRentCustomerID;
     private JTextField textFieldRentVideoID;
     private JTextField textFieldReturnVideoID;
+    private JLabel labelRentVideoCostPrice;
+    private JLabel labelReturnVideoSumWarning;
     private JPanel panelRent;
     public static final String RENTVIDEOCARD = "RentCard";
     public static final String RETURNVIDEOCARD = "ReturnCard";
@@ -116,6 +120,13 @@ public class RentPanel {
         // Ausleihdauer - Label erstellen
         JLabel labelRentDuration = new JLabel("Ausleihdauer:");
         comboBoxRentDuration = new JComboBox(comboBoxRentDurationContent);
+        comboBoxRentDuration.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calculateRentPrice();
+				
+			}});
 
         // Hinzufügen Button erstellen
         JButton buttonRentAdd = new JButton("Hinzufügen");
@@ -150,7 +161,7 @@ public class RentPanel {
 
         // Gesamtpreis Label erstellen
         JLabel labelRentVideoCost = new JLabel("Gesammtpreis: ");
-        JLabel labelRentVideoCostPrice = new JLabel("5,90€");
+        labelRentVideoCostPrice = new JLabel("0,00 €");
 
         // Abbrechen/Akzeptieren Button erstellen
         JButton buttonRentCancel = new JButton("Abbrechen");
@@ -307,7 +318,7 @@ public class RentPanel {
         tableReturnVideo.getTableHeader().setReorderingAllowed(false);
 
         JLabel labelReturnVideoSum = new JLabel("Gesammtpreis:");
-        JLabel labelReturnVideoSumWarning = new JLabel("0,00 €");
+        labelReturnVideoSumWarning = new JLabel("0,00 €");
 
         JButton buttonReturnVideoCancel = new JButton("Abbrechen");
         JButton buttonReturnVideoAccept = new JButton("Bestätigen");
@@ -369,8 +380,11 @@ public class RentPanel {
     	try {
     	RentTableModel model = (RentTableModel)tableRentVideo.getModel();
     	model.insertVideoUnit(videoUnit);
-    	} catch(VideothekException e) {
-    		JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "FilmExemplar ausgeliehen", JOptionPane.ERROR_MESSAGE);
+    	calculateRentPrice();
+    	} catch (VideoUnitRentedException e1) {
+    		JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Filmexemplar ausgeliehen", JOptionPane.ERROR_MESSAGE);
+    	} catch(VideothekException e2) {
+    		JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e2.getMessage(), "Filmexemplar schon in der Liste", JOptionPane.INFORMATION_MESSAGE);
     	}
     }
     
@@ -380,8 +394,16 @@ public class RentPanel {
     	
     	Vector<Vector> dataVector = ((RentTableModel)tableRentVideo.getModel()).getDataVector();
     	for (Vector videoUnit : dataVector) {
-    		videoUnit.get(2);
+    		PriceCategory priceCat = (PriceCategory) videoUnit.get(2);
+    		float tmpPrice = price;
+    		price = tmpPrice + priceCat.getPrice();
     	}
+    	price *=rentDuration;
+    	this.setRentPrice(price);
+    }
+    
+    private void setRentPrice(float price) {
+    	labelRentVideoCostPrice.setText(Float.toString(price) + " €");
     }
     
     public void setTextRentCustID(int custID) {
