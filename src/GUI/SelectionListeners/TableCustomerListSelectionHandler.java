@@ -31,6 +31,7 @@ public class TableCustomerListSelectionHandler implements ListSelectionListener 
 		
 		
 		try {
+			// TODo index out of bound
 			Integer cID = (Integer) customerTable.getValueAt(lsm.getMinSelectionIndex(), 0);
 			Customer selectedCustomer = Customer.findByID(cID);
 			mainWindow.getDetailPanel().fillPanelDetailCustomer(selectedCustomer);

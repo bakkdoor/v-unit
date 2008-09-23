@@ -202,6 +202,7 @@ public class CustomerDataDialog implements VideothekEventListener {
             public void actionPerformed(ActionEvent e) {
                 if (addCustomer) {
                     EventManager.fireEvent(new CreateNewCustomerEvent());
+                    customerDataDialog.dispose();
                 } else {
                     try {
                         Customer editedCustomer = Customer.findByID(Integer.parseInt(textFieldID.getText()));
