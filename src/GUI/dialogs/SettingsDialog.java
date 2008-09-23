@@ -89,7 +89,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	    setTitle("Einstellungen");
 	    setResizable(false);
 	
-	    setCurrentDateCheckbox.setText("Tagesdatum bei Programmstart festlegen");
+	    setCurrentDateCheckbox.setText("Tagesdatum bei Programmstart manuell festlegen");
 	    setCurrentDateCheckbox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 	
 	    invoiceFolderFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
