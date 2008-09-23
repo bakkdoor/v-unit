@@ -178,6 +178,12 @@ public class RentPanel {
         });
 
         JButton buttonRentAccept = new JButton("Bestätigen");
+        buttonRentAccept.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createInRent();
+			}});
 
 
         // Datenfelder in panelRent einfügen
@@ -434,6 +440,8 @@ public class RentPanel {
 	    	}
 	    	new InRent(customer, videoUnits, CurrentDate.get(), rentDuration);
 	    	clearRentDataFields();
+		} catch (NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Eingabe fehlerhaft! Bitte Eingabe prüfen.", "Eingabe fehlerhaft", JOptionPane.ERROR_MESSAGE);
 	    } catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "Eingabe fehlerhaft", JOptionPane.ERROR_MESSAGE);
 		}
