@@ -2,10 +2,21 @@ package GUI.dialogs;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+
+import org.apache.ecs.xhtml.col;
 
 import main.config.Config;
+import main.error.VideothekException;
+import model.PriceCategory;
+import model.data.exceptions.RecordNotFoundException;
 
 /**
  *
@@ -65,6 +76,16 @@ public class SettingsDialog extends javax.swing.JDialog
 	    okButton = new javax.swing.JButton();
 	    cancelButton = new javax.swing.JButton();
 	
+	    okButton.addActionListener(new ActionListener()
+	    {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				okButtonActionPerformed(e);
+			}
+	    	
+	    });
+	    
 	    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 	    setTitle("Einstellungen");
 	    setResizable(false);
@@ -208,34 +229,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	    jTabbedPane1.addTab("Allgemeines", settingsPanel);
 	
-	    priceCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
-	      new Object [][]
-	      {
-	        {null, null, null}
-	      },
-	      new String []
-	      {
-	        "Nr.", "Name", "Preis"
-	      }
-	    )
-	    {
-	      Class[] types = new Class []
-	      {
-	        java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
-	      };
-	
-	      public Class getColumnClass(int columnIndex)
-	      {
-	        return types [columnIndex];
-	      }
-	    });
-	    priceCategoryTable.getTableHeader().setReorderingAllowed(false);
-	    jScrollPane1.setViewportView(priceCategoryTable);
-	    priceCategoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
-	    priceCategoryTable.getColumnModel().getColumn(0).setMaxWidth(100);
-	    priceCategoryTable.getColumnModel().getColumn(1).setPreferredWidth(1100);
-	    priceCategoryTable.getColumnModel().getColumn(2).setPreferredWidth(400);
-	
+	    fillTableContent();
+	    
 	    addButton.setText("Hinzufügen");
 	    addButton.addActionListener(new java.awt.event.ActionListener()
 	    {
@@ -246,6 +241,14 @@ public class SettingsDialog extends javax.swing.JDialog
 	    });
 	
 	    deleteButton.setText("Löschen");
+	    deleteButton.addActionListener(new ActionListener()
+	    {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				removeRow();
+			}
+	    });
 	
 	    javax.swing.GroupLayout priceCategoriesPanelLayout = new javax.swing.GroupLayout(priceCategoriesPanel);
 	    priceCategoriesPanel.setLayout(priceCategoriesPanelLayout);
@@ -336,6 +339,113 @@ public class SettingsDialog extends javax.swing.JDialog
 	    pack();
 	  }// </editor-fold>
 	
+	private void fillTableContent()
+	{
+		Vector columnNames = new Vector();
+		columnNames.add("Nr.");
+		columnNames.add("Name");
+		columnNames.add("Preis");
+		
+		 priceCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
+				createEntries(), columnNames)
+		{
+			Class[] types = new Class[] { java.lang.Integer.class,
+					java.lang.String.class, java.lang.Float.class };
+
+			public Class getColumnClass(int columnIndex)
+			{
+				return types[columnIndex];
+			}
+		});
+		 
+
+		priceCategoryTable.getTableHeader().setReorderingAllowed(false);
+		jScrollPane1.setViewportView(priceCategoryTable);
+		priceCategoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+		priceCategoryTable.getColumnModel().getColumn(0).setMaxWidth(100);
+		priceCategoryTable.getColumnModel().getColumn(1)
+				.setPreferredWidth(1100);
+		priceCategoryTable.getColumnModel().getColumn(2).setPreferredWidth(400);
+
+		this.priceCategoryTable.getModel().addTableModelListener(
+				new TableModelListener()
+				{
+					@Override
+					public void tableChanged(TableModelEvent e)
+					{
+						fillTableContent();
+					}
+				});
+	}
+	
+	private Vector createEntries()
+	{
+	    Vector dataRows = new Vector();
+		
+	    for(PriceCategory pc : PriceCategory.findAll())
+	    {
+	    	Vector row = new Vector();
+	    	
+	    	row.add(pc.getID());
+	    	row.add(pc.getName());
+	    	row.add(pc.getPrice());
+	    	
+	    	dataRows.add(row);
+	    }
+	    
+	    return dataRows;
+	}
+	
+	private void addRow()
+	{
+		PriceCategory newCategory = new PriceCategory("NAME", 1.99f);
+		fillTableContent();
+	}
+	
+	private void removeRow()
+	{
+		int selectedRow = this.priceCategoryTable.getSelectedRow();
+
+		Integer id = (Integer) this.priceCategoryTable.getValueAt(selectedRow, 0);
+		
+		try
+		{
+			PriceCategory.findByID(id).delete();
+			fillTableContent();
+		}
+		catch (VideothekException e)
+		{
+            JOptionPane.showMessageDialog(this,
+                    e.getMessage(), "Fehler",
+                    JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private void savePriceCategoryRows()
+	{
+		for(int row = 0; row < this.priceCategoryTable.getRowCount(); row++)
+		{
+			Integer id = (Integer) this.priceCategoryTable.getValueAt(row, 0);
+			String name = (String) this.priceCategoryTable.getValueAt(row, 1);
+			Float price = (Float) this.priceCategoryTable.getValueAt(row, 2);
+			
+			PriceCategory pc;
+			try
+			{
+				pc = PriceCategory.findByID(id);
+				pc.setName(name);
+				pc.setPrice(price);
+				pc.save();
+			}
+			catch (VideothekException e)
+			{
+				 JOptionPane.showMessageDialog(this,
+		                    e.getMessage(), "Fehler beim Speichern von Preiskategorien",
+		                    JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	  
 	private void setToMiddle()
 	{
 	    // mittig zum hauptfenster (owner) setzen
@@ -347,8 +457,21 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	private void okButtonActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		// config setzen und so...
-
+		// Einstellungen in Config speichern
+		Config.get().setSetting(Config.Settings.SETDATEONSTARTUP,
+				Boolean.toString(this.setCurrentDateCheckbox.isSelected()));
+		
+		Config.get().setSetting(Config.Settings.INVOICEFOLDER,
+				this.invoiceFolder);
+		
+		Config.get().setSetting(Config.Settings.WARNINGFOLDER,
+				this.warningFolder);
+		
+		Config.get().setSetting(Config.Settings.WARNINGINVOICEFOLDER,
+				this.warningInvoiceFolder);
+		
+		savePriceCategoryRows();
+		
 		this.dispose();
 	}
 
@@ -394,22 +517,8 @@ public class SettingsDialog extends javax.swing.JDialog
 
 	private void addButtonActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		// Einstellungen in Config speichern
-		Config.get().setSetting(Config.Settings.SETDATEONSTARTUP,
-				Boolean.toString(this.setCurrentDateCheckbox.isSelected()));
-		
-		Config.get().setSetting(Config.Settings.INVOICEFOLDER,
-				this.invoiceFolder);
-		
-		Config.get().setSetting(Config.Settings.WARNINGFOLDER,
-				this.warningFolder);
-		
-		Config.get().setSetting(Config.Settings.WARNINGINVOICEFOLDER,
-				this.warningInvoiceFolder);
-		
-		this.dispose();
+		addRow();
 	}
-	  
 	  
 	// Variables declaration - do not modify
 	private javax.swing.JButton addButton;
