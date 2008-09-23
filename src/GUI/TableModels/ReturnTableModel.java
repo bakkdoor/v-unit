@@ -2,8 +2,12 @@ package GUI.TableModels;
 
 import java.util.Vector;
 
+import javax.swing.table.DefaultTableModel;
+
+import model.InRent;
 import model.PriceCategory;
 import model.Video;
+import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
 import model.events.CustomerEvent;
 import model.events.EventManager;
@@ -18,9 +22,8 @@ import model.events.VideothekEvent;
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 18.09.2008
  */
-public class ReturnTableModel extends NotEditableTableModel
+public class ReturnTableModel extends DefaultTableModel
 {
-	private static final long serialVersionUID = 7354689970611412976L;
 	
 	public ReturnTableModel(Vector rowData, Vector columnNames)
 	{
@@ -32,58 +35,21 @@ public class ReturnTableModel extends NotEditableTableModel
 		super(videeoColumnNames, rowCount);
 	}
 
-	/* (non-Javadoc)
-	 * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
-	 */
-	@Override
-	public void handleEvent(VideothekEvent event)
-	{
-		if(event instanceof VideoCreatedEvent)
-		{
-			insertRow(((VideoCreatedEvent)event).getVideo());
-		}
-		else if(event instanceof VideoEditedEvent)
-		{
-			Video video = ((VideoCreatedEvent)event).getVideo();
-			for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
-				if (getValueAt(rowIndex, 0).equals(video.getID())) {
-					for (int colIndex = 0; colIndex < getColumnCount(); colIndex++) {
-						if (getValueAt(rowIndex, colIndex).equals("Preisklasse")) {
-							try {
-								PriceCategory priceCategory = video.getPriceCategory();
-								setValueAt(priceCategory, rowIndex, colIndex);
-							} catch (RecordNotFoundException e) {
-								// TODO konnte keine preiscategory aus den neuen video auslesen
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		else if(event instanceof VideoDeletedEvent)
-		{
-			Video video = ((VideoCreatedEvent)event).getVideo();
-			for (int index = 0; index < getRowCount(); index++) {
-				if (getValueAt(index, 0).equals(video.getID())) {
-					removeRow(index);
-				}
-			}
-		}
-	}
-	
-	public void insertRow(Video newVideo)
+	public void insertRow(InRent inRent, VideoUnit videoUnit)
 	{
 		Vector rowData = new Vector();
 		
-		rowData.add(newVideo.getID());
-		rowData.add(newVideo.getTitle());
-		rowData.add(newVideo.getReleaseYear());
-		rowData.add(newVideo.getRatedAge());
-		rowData.add(newVideo.getPriceCategoryID());
+		rowData.add(inRent.getCustomer().getID());
+		rowData.add(videoUnit.getVideoID());
+		rowData.add(videoUnit.getVideo().getTitle());
+		rowData.add(inRent.getReturnDate());
+		rowData.add(inRent.isWarned()?inRent.);
 				
 		super.getDataVector().add(rowData);
 	}
-
+	
+	public void removeAll() {
+        getDataVector().removeAllElements();
+        fireTableDataChanged();
+    }
 }

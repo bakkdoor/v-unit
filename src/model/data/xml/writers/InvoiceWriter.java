@@ -52,7 +52,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("Quittung fuer MahnungsNr.: " + formatInt(warning.getID(), 10));
+			sb.append("Quittung fuer Mahnung");
 			sb.append(" Datum: " + CurrentDate.get() + "\n");
 			sb.append("========================================================\n");
 			sb.append("\n");
@@ -79,7 +79,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			sb.append("\n");
 			sb.append("Rueckgabefrist: \t" + warning.getInRent().getReturnDate() + "\n");
 			sb.append("Rueckgabedatum: \t" + CurrentDate.get() + "\n");
-			sb.append("Mahnungskosten: \t" + Warning.warningPrice +  " Euro" + "\n");
+			sb.append("Mahnungskosten: \t" + Warning.warningPrice + " Euro" + "\n");
 			sb.append("\n\n");
 			sb.append("========================================================\n");
 			sb.append("Unterschrift Kunde:");
