@@ -4,8 +4,10 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
+import main.error.VideothekException;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.VideoUnitRentedException;
 
 public class RentTableModel extends DefaultTableModel{
 	
@@ -17,11 +19,13 @@ public class RentTableModel extends DefaultTableModel{
 		return false;
 	}
 	
-	public boolean insertVideoUnit(VideoUnit videoUnit) {
+	public boolean insertVideoUnit(VideoUnit videoUnit) throws VideoUnitRentedException, VideothekException {
+		if (videoUnit.isRented()) throw new VideoUnitRentedException("Filmexemplar ist noch ausgeliehen!");
+		
 		Vector<Vector> data = this.getDataVector();
 		for (Vector tmpVideoUnit : data) {
 			if ((Integer)tmpVideoUnit.get(0) == videoUnit.getID()) {
-				return false;
+				throw new VideothekException("Filmexemplar schon in der Liste vorhanden!");
 			}
 		}
 		
