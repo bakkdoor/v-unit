@@ -7,7 +7,6 @@ import java.util.Collection;
 import logging.Logger;
 import main.config.Config;
 import model.CurrentDate;
-import model.InRent;
 import model.Warning;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
