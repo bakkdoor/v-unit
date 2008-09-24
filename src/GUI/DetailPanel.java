@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
+import GUI.TableModels.VideoUnitListModel;
 
 import main.error.VideothekException;
 import model.*;
@@ -232,12 +233,15 @@ public class DetailPanel {
 		textFieldDetailVDuration.setEditable(false);
 
 		JLabel labelDetailVUnit = new JLabel("Exemplare:");
+		
 
 		// Model definieren
 		listDetailVUnit = new JList();
 		listDetailVUnit
 				.addListSelectionListener(new DetailVideoListSelectionHandler(
 						mainWindow));
+		
+		listDetailVUnit.setModel(new VideoUnitListModel(mainWindow));
 
 		buttonDetailVadd = new JButton("Übernehmen");
 		buttonDetailVadd.addActionListener(new ActionListener() {
@@ -501,6 +505,27 @@ public class DetailPanel {
 		}
 	}
 
+	public void deleteVideo() {
+		try {
+			if(listDetailVUnit.getModel().getSize() > 0){
+				Video video = ((VideoUnit) listDetailVUnit.getModel().getElementAt(0)).getVideo();
+				
+				int selectedOption = JOptionPane.showConfirmDialog(mainWindow
+						.getMainFrame(), "Möchten Sie den Film mit der Nummer "
+						+ video.getID() 
+						+ " wirklich löschen? Es werden auch alle Filmexemplare mit gelöscht!",
+						"Film Löschen", JOptionPane.YES_NO_OPTION);
+	
+				if (selectedOption == JOptionPane.YES_OPTION) {
+					video.delete();
+				}
+			}
+		} catch (VideothekException e) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	public void deleteVideoUnit() {
 		try {
 			if (listDetailVUnit.isSelectionEmpty()) {
@@ -511,7 +536,7 @@ public class DetailPanel {
 					.getSelectedValue();
 			
 			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
-					.getMainFrame(), "Möchten Sie den Film mit der Nummer "
+					.getMainFrame(), "Möchten Sie den Filmexemplar mit der Nummer "
 					+ currentVideoUnit.getID() + " wirklich löschen?",
 					"Filmexemplar Löschen", JOptionPane.YES_NO_OPTION);
 

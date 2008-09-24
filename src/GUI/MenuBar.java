@@ -25,14 +25,15 @@ public class MenuBar {
 	private JMenuItem menuItemCustomerDelete;
 	private JMenuItem menuItemVideoEdit;
 	private JMenuItem menuItemVideoDelete;
+	private JMenuItem menuItemVideoUnitDelete;
 
 	private MainWindow owner;
-	
+
 	protected JMenuBar createMenuBar(MainWindow owner) {
 
 		final MainWindow mainWindow = owner;
 		this.owner = owner;
-		
+
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();
 
@@ -65,13 +66,13 @@ public class MenuBar {
 		menuItemCustomerEdit = new JMenuItem("Bearbeiten", new ImageIcon(
 				"icons/user_edit.png"));
 		menuItemCustomerEdit.setEnabled(false);
-		menuItemCustomerEdit.addActionListener(new ActionListener(){
+		menuItemCustomerEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CustomerDataDialog.createFilledCustomerDataDialog(mainWindow);
 			}
 		});
-		
+
 		menuItemCustomerDelete = new JMenuItem("Löschen", new ImageIcon(
 				"icons/user_delete.png"));
 		menuItemCustomerDelete.setEnabled(false);
@@ -101,18 +102,29 @@ public class MenuBar {
 		menuItemVideoEdit = new JMenuItem("Bearbeiten", new ImageIcon(
 				"icons/film_edit.png"));
 		menuItemVideoEdit.setEnabled(false);
-		menuItemVideoEdit.addActionListener(new ActionListener(){
+		menuItemVideoEdit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainWindow.showEditVideoDialog();
 			}
 		});
-		
+
 		menuItemVideoDelete = new JMenuItem("Löschen", new ImageIcon(
 				"icons/film_delete.png"));
 		menuItemVideoDelete.setEnabled(false);
 		menuItemVideoDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainWindow.getDetailPanel().deleteVideo();
+			}
+		});
+
+		menuItemVideoUnitDelete = new JMenuItem("Exemplar Löschen", new ImageIcon(
+				"icons/film_delete.png"));
+		menuItemVideoUnitDelete.setEnabled(false);
+		menuItemVideoUnitDelete.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,6 +135,7 @@ public class MenuBar {
 		menuVideo.add(menuItemVideoNew);
 		menuVideo.add(menuItemVideoEdit);
 		menuVideo.add(menuItemVideoDelete);
+		menuVideo.add(menuItemVideoUnitDelete);
 
 		// Menu Suchen
 		JMenu menuSearch = new JMenu("Suche");
@@ -142,30 +155,27 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Collection<Warning> createdWarnings = Warning.createPendingWarnings();
-				if(createdWarnings.size() > 0){
-					CreatedWarningsDialog dialog = 
-						new CreatedWarningsDialog(mainWindow.getMainFrame(), createdWarnings);
+				Collection<Warning> createdWarnings = Warning
+						.createPendingWarnings();
+				if (createdWarnings.size() > 0) {
+					CreatedWarningsDialog dialog = new CreatedWarningsDialog(
+							mainWindow.getMainFrame(), createdWarnings);
 					dialog.setVisible(true);
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Keine neuen Mahnungen vorhanden.");
+				} else {
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+							"Keine neuen Mahnungen vorhanden.");
 				}
 			}
 		});
-		
-		
+
 		JSeparator separatorToolsSeparator = new JSeparator(
 				JSeparator.HORIZONTAL);
 		JMenuItem menuItemToolsOptions = new JMenuItem("Einstellungen",
 				new ImageIcon("icons/cog.png"));
-		
-		menuItemToolsOptions.addActionListener(new ActionListener()
-		{
+
+		menuItemToolsOptions.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				openSettingsDialog();
 			}
 		});
@@ -220,6 +230,7 @@ public class MenuBar {
 		this.menuItemCustomerDelete.setEnabled(true);
 		this.menuItemVideoEdit.setEnabled(false);
 		this.menuItemVideoDelete.setEnabled(false);
+		this.menuItemVideoUnitDelete.setEnabled(false);
 	}
 
 	public void setVideoButtonsEnabled() {
@@ -227,20 +238,21 @@ public class MenuBar {
 		this.menuItemCustomerDelete.setEnabled(false);
 		this.menuItemVideoEdit.setEnabled(true);
 		this.menuItemVideoDelete.setEnabled(true);
+		this.menuItemVideoUnitDelete.setEnabled(true);
 
 	}
-	
+
 	public void setButtonsDisabled() {
 		this.menuItemCustomerEdit.setEnabled(false);
 		this.menuItemCustomerDelete.setEnabled(false);
 		this.menuItemVideoEdit.setEnabled(false);
 		this.menuItemVideoDelete.setEnabled(false);
-
+		this.menuItemVideoUnitDelete.setEnabled(false);
 	}
-	
-	private void openSettingsDialog()
-	{
-		SettingsDialog dialog = new SettingsDialog(this.owner.getMainFrame(), true);
+
+	private void openSettingsDialog() {
+		SettingsDialog dialog = new SettingsDialog(this.owner.getMainFrame(),
+				true);
 		dialog.setVisible(true);
 	}
 }
