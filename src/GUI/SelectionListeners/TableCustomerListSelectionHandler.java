@@ -23,6 +23,7 @@ public class TableCustomerListSelectionHandler implements ListSelectionListener 
 	}
 	
 	public void valueChanged(ListSelectionEvent e) {
+		// kann nur eine Zeile markiert werden 
 		ListSelectionModel lsm = (ListSelectionModel)e.getSource();
 		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		

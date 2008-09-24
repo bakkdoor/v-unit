@@ -121,6 +121,7 @@ public class RentPanel {
                     VideoUnit videoUnit = VideoUnit.findByID(unitID);
                     RentTableModel tableRentModel = (RentTableModel) tableRentVideo.getModel();
                     tableRentModel.insertVideoUnit(videoUnit);
+                    calculateRentPrice();
                     textFieldRentVideoID.setText("");
                 } catch (RecordNotFoundException e1) {
                     // TODO Auto-generated catch block
@@ -358,7 +359,7 @@ public class RentPanel {
     		price = tmpPrice + priceCat.getPrice();
     	}
     	price *= rentDuration;
-    	this.setRentPrice(price);
+    	setRentPrice(price);
     }
     
     private void setRentPrice(float price) {
