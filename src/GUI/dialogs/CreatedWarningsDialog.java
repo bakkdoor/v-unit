@@ -109,7 +109,7 @@ public class CreatedWarningsDialog extends javax.swing.JDialog
   private void fillTable()
   {
     Vector columnNames = new Vector();
-    columnNames.add("MahnungsNr.");
+    columnNames.add("AusleihNr.");
     columnNames.add("KundenNr.");
     columnNames.add("Anzahl Filme");
     columnNames.add("Rückgabefrist");
@@ -124,7 +124,7 @@ public class CreatedWarningsDialog extends javax.swing.JDialog
     for(Warning w : this.warnings)
     {
       Vector row = new Vector();
-      row.add(w.getID());
+      row.add(w.getInRent().getID());
       row.add(w.getInRent().getCustomer().getID());
       row.add(w.getInRent().getVideoUnits().size());
       row.add(w.getInRent().getReturnDate());
