@@ -109,8 +109,6 @@ public class VideoDataDialog {
 		textFieldRatedAge.setEditable(addVideo);
 
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
-		// mögliche Preisklassen abfragen
-		// JComboBox comboBoxPriceCategory = new
 		comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
 
 		
@@ -130,6 +128,18 @@ public class VideoDataDialog {
 		});
 
 		JButton buttonAdd = new JButton("Bestätigen");
+		buttonAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (addVideo) {
+                                    createVideo();
+                                    videoDataDialog.dispose();
+				} else {
+					updateVideo();
+					videoDataDialog.dispose();
+				}
+			}
+		});
 
 		// ***************************************************************
 		Container container = videoDataDialog.getContentPane();
@@ -178,20 +188,35 @@ public class VideoDataDialog {
 		}
 	}
 	
-	private void createVideo() {
+	private boolean createVideo() {
 		try {
 			String title = textFieldTitle.getText();
-			Integer releaseYear = Integer.parseInt(textFieldRatedAge.getText());
+			Integer releaseYear = Integer.parseInt(textFieldReleaseYear.getText());
 			Integer ratedAge = Integer.parseInt(textFieldRatedAge.getText());
 			PriceCategory priceCategory = (PriceCategory)comboBoxPriceCategory.getSelectedItem();
 			Integer quantity = Integer.parseInt(textFieldUnitQuantity.getText());
 			
 			new Video(title, releaseYear, priceCategory, ratedAge, quantity);
-			videoDataDialog.dispose();
+                        return true;
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(mainWindowFrame, "Falsche Eingabe! Bitte Eingaben prüfen.", "Fehler", JOptionPane.ERROR_MESSAGE);
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindowFrame, e.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-		}		
+		}
+                return false;
+	}
+	
+	private void updateVideo() {
+		
+		try {
+			PriceCategory priceCategory = (PriceCategory) comboBoxPriceCategory.getSelectedItem();
+			int vID = Integer.parseInt(textFieldVID.getText());
+			Video video = Video.findByID(vID);
+			video.setPriceCategory(priceCategory);
+                        video.save();
+		} catch (VideothekException e) {
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage());
+		}
+		
 	}
 }

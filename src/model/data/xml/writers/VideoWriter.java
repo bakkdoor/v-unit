@@ -33,8 +33,7 @@ public class VideoWriter extends AbstractWriter
 		document.addToProlog(new Doctype("videos", "'videoList'", "'videos.dtd'"));
 		
 		XML videosTag = new XML("videos");
-		videosTag.addXMLAttribute("minID", Integer.toString(PriceCategory
-				.getMinID()));
+		videosTag.addXMLAttribute("minID", Integer.toString(Video.getMinID()));
 		videosTag.addXMLAttribute("minVideoUnitID", Integer.toString(VideoUnit.getMinID()));
 
 		document.addElement(videosTag);

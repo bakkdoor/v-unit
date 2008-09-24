@@ -19,9 +19,10 @@ public class VideoTest extends ModelTest
 	{
 		try
 		{
-			Video v = new Video("test", 1960, PriceCategory.findByID(1), 18);
+			Video v = new Video("test", 1960, PriceCategory.findByID(1), 18, 3);
 
 			assertTrue(Video.findAll().contains(v));
+			assertEquals(3, v.getVideoUnits().size());
 
 			v.delete();
 		}
@@ -48,7 +49,7 @@ public class VideoTest extends ModelTest
 		Video v = null;
 		try
 		{
-			v = new Video("test", 1960, PriceCategory.findByID(1), 18);
+			v = new Video("test", 1960, PriceCategory.findByID(1), 18, 3);
 		}
 		catch (VideothekException e)
 		{
@@ -70,6 +71,7 @@ public class VideoTest extends ModelTest
 
 		assertFalse(Video.findAll().contains(v));
 		assertTrue(v.isDeleted());
+		assertEquals(0, v.getVideoUnits().size());
 
 		try
 		{

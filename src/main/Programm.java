@@ -1,4 +1,4 @@
-﻿package main;
+package main;
 
 import java.awt.Dialog.ModalityType;
 import java.io.IOException;
@@ -22,7 +22,8 @@ public class Programm
 {
 
 	private static MainWindow mainWindow;
-
+	private static boolean resetWarnings = false;
+	
 	public static void start()
 	{
 		Logger.get().write("Programm gestartet!");
@@ -35,6 +36,10 @@ public class Programm
 				SetCurrentDateDialog dialog = new SetCurrentDateDialog(null, true);
 				dialog.setVisible(true);
 				dialog.setModalityType(ModalityType.APPLICATION_MODAL);
+				
+				// falls gewollt, merken, dass mahnungen 
+				// zurückgesetzt werden sollen...
+				resetWarnings = dialog.resetWarnings;
 			}
 			catch(Exception e)
 			{
@@ -50,6 +55,15 @@ public class Programm
 		try
 		{
 			DataBase.loadData();
+			
+			if(resetWarnings)
+			{
+				for(model.InRent ir : model.InRent.findAll())
+				{
+					ir.setWarned(false);
+				}
+			}
+			
 			Logger.get().write("Daten erfolgreich geladen.");
 		}
 		catch (DataException e1)

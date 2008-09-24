@@ -1,18 +1,22 @@
 package GUI;
 
+import GUI.dialogs.CreatedWarningsDialog;
 import GUI.dialogs.SettingsDialog;
 import GUI.dialogs.VideoDataDialog;
 import GUI.dialogs.CustomerDataDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 import main.Programm;
+import model.Warning;
 
 public class MenuBar {
 
@@ -83,7 +87,7 @@ public class MenuBar {
 		menuCustomer.add(menuItemCustomerDelete);
 
 		// Menu Video
-		JMenu menuVideo = new JMenu("Video");
+		JMenu menuVideo = new JMenu("Film");
 		JMenuItem menuItemVideoNew = new JMenuItem("Anlegen", new ImageIcon(
 				"icons/film_add.png"));
 		menuItemVideoNew.addActionListener(new ActionListener() {
@@ -133,6 +137,24 @@ public class MenuBar {
 		JMenu menuTools = new JMenu("Extras");
 		JMenuItem menuItemToolsWarnings = new JMenuItem("Mahnungen erstellen",
 				new ImageIcon("icons/clock.png"));
+		menuItemToolsWarnings.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Collection<Warning> createdWarnings = Warning.createPendingWarnings();
+				if(createdWarnings.size() > 0){
+					CreatedWarningsDialog dialog = 
+						new CreatedWarningsDialog(mainWindow.getMainFrame(), createdWarnings);
+					dialog.setVisible(true);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Keine neuen Mahnungen vorhanden.");
+				}
+			}
+		});
+		
+		
 		JSeparator separatorToolsSeparator = new JSeparator(
 				JSeparator.HORIZONTAL);
 		JMenuItem menuItemToolsOptions = new JMenuItem("Einstellungen",
@@ -163,9 +185,9 @@ public class MenuBar {
 
 		// Menus in dei MenuBar hinzufügen
 		menuBarMain.add(menuProgramm);
+		menuBarMain.add(menuSearch);
 		menuBarMain.add(menuCustomer);
 		menuBarMain.add(menuVideo);
-		menuBarMain.add(menuSearch);
 		menuBarMain.add(menuTools);
 		menuBarMain.add(menuHelp);
 

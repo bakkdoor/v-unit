@@ -425,12 +425,12 @@ public class DetailPanel {
 		this.listDetailVUnit.setListData(videoUnits);
 	}
 
-	public void fillPanelDetailVideoState(VideoUnit videoUnit) {
-		boolean isRented = videoUnit.isRented();
 
+	public void fillPanelDetailVideo(VideoUnit videoUnit) {
+		
+		boolean isRented = videoUnit.isRented();
 		this.textFieldDetailVState.setText(isRented ? "Ausgeliehen"
 				: "Verfügbar");
-
 		if (isRented) {
 			this.textFieldDetailVDuration.setText(videoUnit.getInRent().getReturnDate()
 					.toString());
@@ -496,18 +496,22 @@ public class DetailPanel {
 
 	public void deleteVideoUnit() {
 		try {
+			if (listDetailVUnit.isSelectionEmpty()) {
+				throw new VideothekException("Bitte erst ein Exemplar auswählen!");
+			}
+			
 			VideoUnit currentVideoUnit = (VideoUnit) this.getListDetailVUnit()
 					.getSelectedValue();
-
+			
 			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
 					.getMainFrame(), "Möchten Sie den Film mit der Nummer "
 					+ currentVideoUnit.getID() + " wirklich löschen?",
-					"Film Löschen", JOptionPane.YES_NO_OPTION);
+					"Filmexemplar Löschen", JOptionPane.YES_NO_OPTION);
 
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentVideoUnit.delete();
 			}
-		} catch (Exception e) {
+		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
 					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
