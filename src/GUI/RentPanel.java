@@ -555,8 +555,6 @@ public class RentPanel {
     	// preis temporär zurücksetzen und neu berechnen
     	returnPrice = 0.0f;
     	
-    	InvoiceWriter writer = new InvoiceWriter();
-	
     	for(InRent ir : videoUnitMap.keySet())
     	{
     		ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
@@ -565,8 +563,7 @@ public class RentPanel {
     		{
     			increaseReturnPrice();
     			try {
-    				writer.writeInvoiceFor(new Warning(ir));
-    				
+    				ir.getWarning().createInvoice();
     				ir.setWarned(false);
 					ir.delete();
 				} catch (VideothekException e) {

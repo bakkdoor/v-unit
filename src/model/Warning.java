@@ -182,13 +182,19 @@ public class Warning
 	 */
 	public static Warning findByInRent(InRent inRent)
 	{
+		Warning warning = null;
 		for(Warning w : warningList.values())
 		{
 			if(w.getInRent() == inRent)
-				return w;
+				warning = w;
 		}
 		
-		return null;
+		if(warning == null && inRent.isOverDuration())
+		{
+			warning = new Warning(inRent);
+		}
+		
+		return warning;
 	}
 
 	/**
