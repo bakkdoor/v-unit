@@ -481,7 +481,8 @@ public class RentPanel {
 	    	for (Vector videoUnit : tableDataVector) {
 	    		videoUnits.add(VideoUnit.findByID((Integer)videoUnit.get(0)));
 	    	}
-	    	new InRent(customer, videoUnits, CurrentDate.get(), rentDuration);
+	    	InRent newInRent = new InRent(customer, videoUnits, CurrentDate.get(), rentDuration);
+	    	newInRent.createInvoice();
 	    	clearRentDataFields();
 		} catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Eingabe fehlerhaft! Bitte Eingabe prüfen.", "Eingabe fehlerhaft", JOptionPane.ERROR_MESSAGE);

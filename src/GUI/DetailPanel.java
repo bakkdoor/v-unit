@@ -399,13 +399,13 @@ public class DetailPanel {
 	}
 
 	public void fillPanelDetailVideo(Video video) {
-
-		changePanelDetailsCard(VIDEODETAILS);
-		buttonDetailVadd.setEnabled(false);
 		
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
+		
+		changePanelDetailsCard(VIDEODETAILS);
+		buttonDetailVadd.setEnabled(false);
 
 		this.textFieldDetailVTitle.setText(video.getTitle());
 		this.textFieldDetailVReleaseYear.setText(new Integer(video
@@ -457,6 +457,10 @@ public class DetailPanel {
 
 	public void fillPanelDetailInRent(InRent inRent, VideoUnit selectedVideoUnit) {
 
+		// Buttons aktivieren
+		mainWindow.getMenuBar().setButtonsDisabled();
+		mainWindow.getToolBar().setButtonsDisabled();
+		
 		if (inRent.getVideoUnitIDs().contains(selectedVideoUnit.getID())) {
 			this.textFieldRentID.setText(Integer.toString(inRent.getID()));
 			this.textFieldRentCustomerID.setText(Integer.toString(inRent

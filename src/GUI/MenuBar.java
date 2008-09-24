@@ -210,6 +210,14 @@ public class MenuBar {
 
 	}
 	
+	public void setButtonsDisabled() {
+		this.menuItemCustomerEdit.setEnabled(false);
+		this.menuItemCustomerDelete.setEnabled(false);
+		this.menuItemVideoEdit.setEnabled(false);
+		this.menuItemVideoDelete.setEnabled(false);
+
+	}
+	
 	private void openSettingsDialog()
 	{
 		SettingsDialog dialog = new SettingsDialog(this.owner.getMainFrame(), true);

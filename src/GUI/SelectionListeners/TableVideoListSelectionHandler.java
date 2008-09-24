@@ -34,7 +34,8 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 			mainWindow.getDetailPanel().fillPanelDetailVideo(selectedVideo);
 		} catch (RecordNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("TableVideoListSelectionHandler:");
+			System.out.println(e1);
 		}
 	}
 }

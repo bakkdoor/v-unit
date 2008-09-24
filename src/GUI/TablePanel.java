@@ -2,6 +2,9 @@ package GUI;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -11,11 +14,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.TabExpander;
 
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableInRentListSelectionHandler;
@@ -53,6 +58,18 @@ public class TablePanel {
 		tableVideoSelectionModel
 				.addListSelectionListener(new TableVideoListSelectionHandler(
 						mainWindow));
+		tableVideo.addMouseListener(new MouseAdapter() {
+			
+			public void mouseClicked(MouseEvent e) {
+//				int selRow = tableVideo.getSelectedRow();
+//				if (selRow != -1 && selRow < tableVideo.getSelectedRowCount()) {
+//					
+//				}
+//				TableVideoListSelectionHandler selHandler = (TableVideoListSelectionHandler) tableVideo.getSelectionModel();
+				int selectedRow = tableVideo.getSelectedRow();
+				new ListSelectionEvent(tableVideo.getSelectionModel(), selectedRow, selectedRow, true);
+			}
+		});
 
 		tableCustomer = this.createTableCustomer();
 		tableCustomer.setRowSorter(new TableRowSorter<TableModel>(tableCustomer
