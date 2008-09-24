@@ -595,7 +595,23 @@ public class Customer implements Comparable<Customer>
 	 */
 	public boolean canRent(VideoUnit unit)
 	{
-		return unit.canBeRentedBy(this);
+		return unit.canBeRentedBy(this) && !this.hasDueInRents();
+	}
+
+	/**
+	 * Gibt an, ob dieser Kunde fällige Ausleihen hat.
+	 * @return True, falls Kunde fällige Ausleihen hat, False sonst.
+	 */
+	public boolean hasDueInRents()
+	{
+		for(InRent ir : this.getInRents())
+		{
+			if(ir.isOverDuration() && ir.getVideoUnits().size() > 0)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

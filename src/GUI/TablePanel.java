@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -31,6 +32,7 @@ import GUI.TableModels.NotEditableTableModel;
 import GUI.TableModels.VideoTableModel;
 
 import model.Customer;
+import model.Date;
 import model.InRent;
 import model.Video;
 import model.data.exceptions.RecordNotFoundException;
@@ -52,7 +54,7 @@ public class TablePanel {
 
 		this.mainWindow = mainWindow;
 		tableVideo = this.createTableVideo();
-//		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
+		tableVideo.setRowSorter(createIntegerSorter(new int[]{0,4}, tableVideo));
 		ListSelectionModel tableVideoSelectionModel = tableVideo
 				.getSelectionModel();
 		tableVideoSelectionModel
@@ -68,8 +70,9 @@ public class TablePanel {
 		});
 
 		tableCustomer = this.createTableCustomer();
-		tableCustomer.setRowSorter(new TableRowSorter<TableModel>(tableCustomer
-				.getModel()));
+		TableRowSorter customerSorter = createIntegerSorter(new int[]{0}, tableCustomer);
+		customerSorter = createDateSorter(new int[]{4}, tableCustomer, customerSorter);
+		tableCustomer.setRowSorter(customerSorter);
 		ListSelectionModel tableCustomerSelectionModel = tableCustomer
 				.getSelectionModel();
 		tableCustomerSelectionModel
@@ -77,8 +80,9 @@ public class TablePanel {
 						mainWindow));
 
 		tableInRent = this.createTableRent();
-		tableInRent.setRowSorter(new TableRowSorter<TableModel>(tableInRent
-				.getModel()));
+		TableRowSorter inRentSorter = createIntegerSorter(new int[]{0,1,2}, tableInRent);
+		inRentSorter = createDateSorter(new int[]{4}, tableInRent, inRentSorter);
+		tableInRent.setRowSorter(inRentSorter);
 		ListSelectionModel tableSelectionModel = tableInRent.getSelectionModel();
 		tableSelectionModel.addListSelectionListener(new TableInRentListSelectionHandler(mainWindow));
 
@@ -161,6 +165,49 @@ public class TablePanel {
 		return custTable;
 	}
 
+	private TableRowSorter<TableModel> createIntegerSorter(int[] columns, JTable table)
+	{
+		TableRowSorter<TableModel> tableSorter = new TableRowSorter<TableModel>(table.getModel());
+		Comparator<Integer> comp = createIntegerComparator();
+		for(int columnIndex : columns)
+		{
+			tableSorter.setComparator(columnIndex, comp);
+		}
+		
+		return tableSorter;
+	}
+	
+	private TableRowSorter<TableModel> createDateSorter(int[] columns, JTable table, TableRowSorter<TableModel> sorter)
+	{
+		Comparator<Date> comp = createDateComparator();
+		for(int columnIndex : columns)
+		{
+			sorter.setComparator(columnIndex, comp);
+		}
+		
+		return sorter;
+	}
+	
+	private Comparator<Date> createDateComparator()
+	{
+		return new Comparator<Date>(){
+			@Override
+			public int compare(Date o1, Date o2) {
+				return o1.compareTo(o2);
+			}
+		};
+	}
+	
+	private Comparator<Integer> createIntegerComparator()
+	{
+		return new Comparator<Integer>(){
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o1.compareTo(o2);
+			}			
+		};
+	}
+	
 	private JTable createTableVideo() {
 
 		Vector<String> videeoColumnNames = new Vector(5);
