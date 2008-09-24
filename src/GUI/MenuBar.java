@@ -178,11 +178,8 @@ public class MenuBar {
 		JMenu menuHelp = new JMenu("Hilfe");
 		JMenuItem menuItemHelpGetHelp = new JMenuItem("Hilfetext",
 				new ImageIcon("icons/help.png"));
-		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon(
-				"icons/tag_blue.png"));
-		
 		// handbuch öffnen
-		menuItemHelpAbout.addActionListener(new ActionListener(){
+		menuItemHelpGetHelp.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -199,6 +196,9 @@ public class MenuBar {
 				}
 			}
 		});
+		
+		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon(
+				"icons/tag_blue.png"));
 
 		menuHelp.add(menuItemHelpGetHelp);
 		menuHelp.add(menuItemHelpAbout);
