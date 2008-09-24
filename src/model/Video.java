@@ -31,7 +31,6 @@ public class Video implements Comparable<Video>
 	private PriceCategory priceCategory;
 	private int priceCategoryID = Data.NOTSET;
 	private int ratedAge = Data.NOTSET;
-	private int numberOfVideoUnits = 0;
 
 	private boolean deleted = false;
 
@@ -421,27 +420,22 @@ public class Video implements Comparable<Video>
 			throw new FalseFieldException("Bitte FSK überprüfen");
 	}
 
-	public void addNewVideoUnits(int numberOfNewUnits)
+	public Collection<VideoUnit> addNewVideoUnits(int numberOfNewUnits)
 			throws FalseFieldException
 	{
-		if (numberOfNewUnits > 0)
+		Collection<VideoUnit> newVideoUnits = new LinkedList<VideoUnit>();
+		
+		for(int i = 0; i < numberOfNewUnits; i++)
 		{
-			int numberOfNewUnitsLeft = numberOfNewUnits;
-			while (numberOfNewUnitsLeft > 0)
-			{
-				new VideoUnit(this);
-				numberOfNewUnitsLeft--;
-				this.numberOfVideoUnits++;
-			}
+			newVideoUnits.add(new VideoUnit(this));
 		}
-		else
-			throw new FalseFieldException(
-					"Anzahl neuer Videoexemplare kleiner 1!");
+		
+		return newVideoUnits;
 	}
 
 	public int getNumberOfVideoUnits()
 	{
-		return this.numberOfVideoUnits;
+		return this.getVideoUnits().size();
 	}
 
 	/**
