@@ -24,7 +24,7 @@ import java.util.Map;
  * und Nachnamen, Geburtsdatum, Alter, Adresse, Personalausweisnummer, Anrede,
  * und optional eine Liste der von ihm ausgliehenen Videos.
  */
-public class Customer
+public class Customer implements Comparable<Customer>
 {
 	private int cID, age, zipCode = Data.NOTSET;
 	private Date birthDate;
@@ -77,6 +77,12 @@ public class Customer
 		this(mincID, firstName, lastName, birthDate, street, houseNr, zipCode,
 				city, identificationNr, title);
 
+
+		if(containsEqualCustomer(this))
+		{
+			throw new FalseFieldException("Kunde mit gleichen Daten bereits vorhanden!");
+		}
+		
 		mincID++;
 
 		customerList.put(this.cID, this);
@@ -815,5 +821,52 @@ public class Customer
 		{
 			throw new FalseFieldException("CustomerList ist null!");
 		}
+	}
+	
+	/*
+	 * Gibt an, ob ein angegebener Customer bereits vorhanden ist
+	 * (d.h. dass bereits ein anderer Customer existiert, bei dem alle Datenfelder gleich sind).
+	 */
+	private static boolean containsEqualCustomer(Customer customer)
+	{
+		for(Customer c : customerList.values())
+		{
+			if(c.equals(customer))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public int compareTo(Customer other)
+	{
+		if(this.age == other.age 
+				&& this.birthDate.equals(other.birthDate)
+				&& this.city.equals(other.city) 
+				&& this.zipCode == other.zipCode
+				&& this.firstName.equals(other.firstName) 
+				&& this.lastName.equals(other.lastName)
+				&& this.houseNr.equals(other.houseNr) 
+				&& this.identificationNr.equals(other.identificationNr)
+				&& this.street.equals(other.street) 
+				&& this.title.equals(other.title))
+		{
+			return 0;
+		}
+		
+		return 1;
+	}
+	
+	/**
+	 * Gibt an, ob dieser Customer gleich einem anderen ist.
+	 * @param other Der zu vergleichende Customer.
+	 * @return True, falls gleich, False sonst.
+	 */
+	public boolean equals(Customer other)
+	{
+		return this.compareTo(other) == 0;
 	}
 }
