@@ -42,7 +42,7 @@ public class MainWindow {
 	
 	public MainWindow() {
 
-		mainFrame = new JFrame("Videothek 3.Auge");
+		mainFrame = new JFrame("V-Unit v1.0");
 		mainFrame.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
