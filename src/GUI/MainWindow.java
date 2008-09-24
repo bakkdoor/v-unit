@@ -9,11 +9,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -91,6 +93,10 @@ public class MainWindow {
 
 		// mainFrame.pack();
 		mainFrame.setSize(1024, 768);
+		
+		// icon setzen.
+		Image iconImage = Toolkit.getDefaultToolkit().getImage("icons/V-Unit.png");
+		mainFrame.setIconImage(iconImage);
 	}
 
 	public RentPanel getRentPanel() {
