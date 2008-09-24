@@ -174,6 +174,22 @@ public class Warning
 					warningID);
 		}
 	}
+	
+	/**
+	 * Gibt eine Warning zu einem InRent zurück (falls vorhanden, sonst null).
+	 * @param inRent Das InRent, dessen Warning gefunden werden soll.
+	 * @return Das Warning (falls vorhanden) oder null (falls nicht).
+	 */
+	public static Warning findByInRent(InRent inRent)
+	{
+		for(Warning w : warningList.values())
+		{
+			if(w.getInRent() == inRent)
+				return w;
+		}
+		
+		return null;
+	}
 
 	/**
 	 * Gibt eine Menge von Warnings zu einem angegebenen Customer zurück.

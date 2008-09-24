@@ -333,6 +333,15 @@ public class InRent implements Comparable<InRent>
 		InvoiceWriter writer = new InvoiceWriter();
 		writer.writeInvoiceFor(this);
 	}
+	
+	/**
+	 * Gibt das zugehörige Warning zurück falls vorhanden, ansonsten null.
+	 * @return Das zugehörige Warning bzw null, falls nicht vorhanden.
+	 */
+	public Warning getWarning()
+	{
+		return Warning.findByInRent(this);
+	}
 
 	public static InRent findByID(int inRentID) throws RecordNotFoundException
 	{
