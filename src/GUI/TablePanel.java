@@ -52,7 +52,7 @@ public class TablePanel {
 
 		this.mainWindow = mainWindow;
 		tableVideo = this.createTableVideo();
-//		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
+		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
 		ListSelectionModel tableVideoSelectionModel = tableVideo
 				.getSelectionModel();
 		tableVideoSelectionModel

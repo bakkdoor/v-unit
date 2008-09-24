@@ -426,6 +426,7 @@ public class DetailPanel {
 				.getSortedVideoUnits());
 		
 		this.listDetailVUnit.setListData(videoUnits);
+//		listDetailVUnit.setModel(model)
 	}
 
 
