@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
+import GUI.TableModels.VideoUnitListModel;
 
 import main.error.VideothekException;
 import model.*;
@@ -232,12 +233,15 @@ public class DetailPanel {
 		textFieldDetailVDuration.setEditable(false);
 
 		JLabel labelDetailVUnit = new JLabel("Exemplare:");
+		
 
 		// Model definieren
 		listDetailVUnit = new JList();
 		listDetailVUnit
 				.addListSelectionListener(new DetailVideoListSelectionHandler(
 						mainWindow));
+		
+		listDetailVUnit.setModel(new VideoUnitListModel(mainWindow));
 
 		buttonDetailVadd = new JButton("Übernehmen");
 		buttonDetailVadd.addActionListener(new ActionListener() {
@@ -426,7 +430,6 @@ public class DetailPanel {
 				.getSortedVideoUnits());
 		
 		this.listDetailVUnit.setListData(videoUnits);
-//		listDetailVUnit.setModel(model)
 	}
 
 

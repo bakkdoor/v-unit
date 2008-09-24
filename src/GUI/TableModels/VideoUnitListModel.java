@@ -3,19 +3,17 @@ package GUI.TableModels;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
-import GUI.MainWindow;
-
+import model.Video;
+import model.VideoUnit;
 import model.events.EventManager;
-import model.events.VideoCreatedEvent;
+import model.events.InRentCreatedEvent;
 import model.events.VideoDeletedEvent;
 import model.events.VideoEditedEvent;
 import model.events.VideoUnitCreatedEvent;
 import model.events.VideothekEvent;
 import model.events.VideothekEventListener;
-import model.Video;
-import model.VideoUnit;
+import GUI.MainWindow;
 
 public class VideoUnitListModel extends DefaultListModel implements
 		VideothekEventListener {
@@ -31,13 +29,14 @@ public class VideoUnitListModel extends DefaultListModel implements
 		EventManager.registerEventListener(VideoUnitCreatedEvent.class, this);
 		EventManager.registerEventListener(VideoEditedEvent.class, this);
 		EventManager.registerEventListener(VideoDeletedEvent.class, this);
+		EventManager.registerEventListener(InRentCreatedEvent.class, this);
 	}
 
 	@Override
 	public void handleEvent(VideothekEvent event) {
 
 		if (event instanceof VideoUnitCreatedEvent) {
-			if (getSize() > 0) {
+			if (super.getSize() > 0) {
 				if (((VideoUnit) get(0)).getVideoID() == ((VideoUnitCreatedEvent) event).getVideoUnit().getVideoID()) {
 					reloadList(((VideoUnitCreatedEvent) event).getVideoUnit().getVideo());
 				}
@@ -45,7 +44,7 @@ public class VideoUnitListModel extends DefaultListModel implements
 			
 		} else if (event instanceof VideoEditedEvent) {
 
-			if (getSize() > 0) {
+			if (super.getSize() > 0) {
 				if (((VideoUnit) get(0)).getVideoID() == ((VideoUnitCreatedEvent) event).getVideoUnit().getVideoID()) {
 					reloadList(((VideoEditedEvent) event).getVideo());
 				}
@@ -53,11 +52,14 @@ public class VideoUnitListModel extends DefaultListModel implements
 			
 		} else if (event instanceof VideoDeletedEvent) {
 
-			if (getSize() > 0) {
+			if (super.getSize() > 0) {
 				if (((VideoUnit) get(0)).getVideoID() == ((VideoUnitCreatedEvent) event).getVideoUnit().getVideoID()) {
 					reloadList(((VideoDeletedEvent) event).getVideo());
 				}
 			}
+		} else if (event instanceof InRentCreatedEvent) {
+
+			
 		}
 	}
 
