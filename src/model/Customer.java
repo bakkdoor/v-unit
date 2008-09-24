@@ -831,7 +831,7 @@ public class Customer implements Comparable<Customer>
 	{
 		for(Customer c : customerList.values())
 		{
-			if(c.equals(customer))
+			if(c.identificationNr.equals(customer.identificationNr))
 			{
 				return true;
 			}
