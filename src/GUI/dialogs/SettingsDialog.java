@@ -548,6 +548,9 @@ public class SettingsDialog extends javax.swing.JDialog
 		catch(Exception e)
 		{
 			// hier einfach nichts tun
+			JOptionPane.showMessageDialog(this,
+	                "Bitte erst eine Preiskategorie auswählen", "Keine Auswahl",
+	                JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -579,6 +582,9 @@ public class SettingsDialog extends javax.swing.JDialog
 		catch(Exception e)
 		{
 			// hier einfach nichts tun
+			JOptionPane.showMessageDialog(this,
+	                "Bitte erst eine Preiskategorie auswählen", "Keine Auswahl",
+	                JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
