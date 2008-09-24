@@ -1,11 +1,16 @@
 package GUI.dialogs;
 
 import GUI.*;
+
 import java.awt.Container;
 import java.awt.Frame;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,7 +73,7 @@ public class CustomerDataDialog {
 
     public CustomerDataDialog(MainWindow mainWindow) {
 
-        this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 1900), "", "", 0, "");
+        this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 19), "", "", 0, "");
     }
 
     public CustomerDataDialog(MainWindow mainWindow,
@@ -174,9 +179,17 @@ public class CustomerDataDialog {
         // Anschrift erzeugen
         textFieldStreet.setText(street);
         textFieldHouseNr.setText(housNr);
-        textFieldZipCode.setText(zipCode.toString());
+        textFieldZipCode.setText(zipCode > 0 ? zipCode.toString() : "PLZ");
         textFieldCity.setText(city);
 
+        if(addCustomer)
+        {
+        	textFieldStreet.addFocusListener(new OnFocusClearTextFieldListener(textFieldStreet, "Straße"));
+        	textFieldCity.addFocusListener(new OnFocusClearTextFieldListener(textFieldCity, "Ort"));
+        	textFieldHouseNr.addFocusListener(new OnFocusClearTextFieldListener(textFieldHouseNr, "Nr."));
+        	textFieldZipCode.addFocusListener(new OnFocusClearTextFieldListener(textFieldZipCode, "PLZ"));
+        }
+        
         // Übernehmen Button erzeugen
         JButton buttonCancel = new JButton("Abbrechen");
         buttonCancel.addActionListener(new ActionListener() {
@@ -256,7 +269,8 @@ public class CustomerDataDialog {
         Layout.addComponent(contentPane, labelBirthDay, 0, 5, 1, 1, 0.3, 0.0);
         Layout.addComponent(contentPane, comboBoxBirthDay, 1, 5, 1, 1, 0.23, 0.0);
         Layout.addComponent(contentPane, comboBoxBirthMonth, 2, 5, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0);
+//        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0);
+        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0, 40, 0,GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,3,3));
 
         Layout.addComponent(contentPane, labelAddress, 0, 6, 1, 1, 0.3, 0.0);
         Layout.addComponent(contentPane, textFieldStreet, 1, 6, 2, 1, 0.46, 0.0);
