@@ -236,7 +236,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	        .addGap(39, 39, 39))
 	    );
 	
-	    jTabbedPane1.addTab("Allgemeines", settingsPanel);
+	    jTabbedPane1.addTab("Allgemeines", new ImageIcon("icons/cog_edit.png"), settingsPanel);
 	
 	    fillTableContent();
 	    
@@ -297,7 +297,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	        .addContainerGap())
 	    );
 	
-	    jTabbedPane1.addTab("Preiskategorien", priceCategoriesPanel);
+	    jTabbedPane1.addTab("Preiskategorien", new ImageIcon("icons/money_euro.png") ,priceCategoriesPanel);
 	
 	    okButton.setText("OK");
 	    okButton.addActionListener(new java.awt.event.ActionListener()

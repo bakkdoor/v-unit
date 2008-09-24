@@ -39,12 +39,16 @@ public class InRent implements Comparable<InRent>
 		// this(minrID, customer.getID(), , date, duration);
 		this.rID = minrID;
 		minrID++;
-
+		
 		// checken, ob übergebene videoUnits auch keine leere liste ist
 		if(videoUnits.size() > 0)
 		{
 			for (VideoUnit unit : videoUnits)
 			{
+				if(!customer.canRent(unit))
+					throw new FalseFieldException("Kunde ist nicht alt genug für Film: " 
+							+ unit.getVideo().getTitle() + " (FSK " + unit.getVideo().getRatedAge() + ")");
+				
 				if (unit.isRented())
 					throw new VideoUnitRentedException(
 							"Videoexemplar " + unit.getID() + " bereits verliehen. "

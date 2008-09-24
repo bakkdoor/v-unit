@@ -48,7 +48,7 @@ public class InRentTableModel extends NotEditableTableModel implements
 	@Override
 	public void handleEvent(VideothekEvent event) {
 		if (event instanceof InRentCreatedEvent) {
-			this.insertRow(((InRentCreatedEvent) event).getInRent());
+			insertRow(((InRentCreatedEvent) event).getInRent());
 		}
 
 		else if (event instanceof InRentEditedStateEvent) {
@@ -88,8 +88,8 @@ public class InRentTableModel extends NotEditableTableModel implements
 		for (int rowIndex = 0; rowIndex < dataVector.size(); rowIndex++) {
 			Vector inRentVector = (Vector) dataVector.elementAt(rowIndex);
 			if (inRentVector.elementAt(2).equals(inRent.getID())) {
-				setValueAt((inRent.isWarned() ? "Ja" : "Nein"), rowIndex, 0);
-				fireTableRowsUpdated(rowIndex, rowIndex);
+				setValueAt((inRent.isWarned() ? "Ja" : "Nein"), rowIndex, 5);
+				fireTableDataChanged();
 			}
 		}
 	}
@@ -112,7 +112,8 @@ public class InRentTableModel extends NotEditableTableModel implements
 			Vector rentValue = (Vector) dataVector.elementAt(rowIndex);
 			if (rentValue.elementAt(0).equals(videoUnit.getID())) {
 				removeRow(rowIndex);
-				fireTableRowsDeleted(rowIndex, rowIndex);
+//				fireTableRowsDeleted(rowIndex, rowIndex);
+				fireTableDataChanged();
 			}
 		}
 	}

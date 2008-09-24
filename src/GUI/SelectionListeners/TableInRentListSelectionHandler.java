@@ -31,7 +31,7 @@ public class TableInRentListSelectionHandler implements ListSelectionListener {
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
 		detailPanel.changePanelDetailsCard(detailPanel.RENTDETAILS);
 		
-		if (mainWindow.getTablePanel().getTableInRent().getModel().getRowCount() > 0) {
+		if (InRent.findAll().size() > 0) {
 			
 			try {
 				int rID = (Integer) inRentTable.getValueAt(lsm.getMinSelectionIndex(), 2);
