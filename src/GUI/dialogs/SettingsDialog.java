@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -100,7 +102,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	    jLabel2.setText("Ausleih-Quittungen ablegen in:");
 	
-	    invoiceFolderSetButton.setText("Ordner festlegen");
+//	    invoiceFolderSetButton.setText("Ordner festlegen");
+	    invoiceFolderSetButton.setIcon(new ImageIcon("icons/folder_explore.png"));
 	    invoiceFolderSetButton.addActionListener(new java.awt.event.ActionListener()
 	    {
 	      public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -111,7 +114,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	    jLabel3.setText("Mahnungs-Quittungen ablegen in:");
 	
-	    warningInvoiceFolderSetButton.setText("Ordner festlegen");
+//	    warningInvoiceFolderSetButton.setText("Ordner festlegen");
+	    warningInvoiceFolderSetButton.setIcon(new ImageIcon("icons/folder_explore.png"));
 	    warningInvoiceFolderSetButton.addActionListener(new java.awt.event.ActionListener()
 	    {
 	      public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -135,12 +139,14 @@ public class SettingsDialog extends javax.swing.JDialog
 	          .addGroup(jPanel1Layout.createSequentialGroup()
 	            .addComponent(invoiceFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
 	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	            .addComponent(invoiceFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+	            .addComponent(invoiceFolderSetButton))
+//	            .addComponent(invoiceFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
 	          .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
 	          .addGroup(jPanel1Layout.createSequentialGroup()
 	            .addComponent(warningInvoiceFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
 	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	            .addComponent(warningInvoiceFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+	            .addComponent(warningInvoiceFolderSetButton)))
+//	            .addComponent(warningInvoiceFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
 	        .addContainerGap())
 	    );
 	    jPanel1Layout.setVerticalGroup(
@@ -165,7 +171,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	    jLabel4.setText("Mahnungen ablegen in:");
 	
-	    warningFolderSetButton.setText("Ordner festlegen");
+//	    warningFolderSetButton.setText("Ordner festlegen");
+	    warningFolderSetButton.setIcon(new ImageIcon("icons/folder_explore.png"));
 	    warningFolderSetButton.addActionListener(new java.awt.event.ActionListener()
 	    {
 	      public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -187,7 +194,8 @@ public class SettingsDialog extends javax.swing.JDialog
 	          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 	            .addComponent(warningFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
 	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	            .addComponent(warningFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+	            .addComponent(warningFolderSetButton)))
+//	            .addComponent(warningFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
 	        .addContainerGap())
 	    );
 	    jPanel2Layout.setVerticalGroup(
