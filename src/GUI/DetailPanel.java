@@ -419,9 +419,12 @@ public class DetailPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		textFieldDetailVState.setText("");
+		textFieldDetailVDuration.setText("");
+		
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getSortedVideoUnits());
-
+		
 		this.listDetailVUnit.setListData(videoUnits);
 	}
 
@@ -429,7 +432,7 @@ public class DetailPanel {
 	public void fillPanelDetailVideo(VideoUnit videoUnit) {
 		
 		boolean isRented = videoUnit.isRented();
-		this.textFieldDetailVState.setText(isRented ? "Ausgeliehen"
+		textFieldDetailVState.setText(isRented ? "Ausgeliehen"
 				: "Verfügbar");
 		if (isRented) {
 			this.textFieldDetailVDuration.setText(videoUnit.getInRent().getReturnDate()

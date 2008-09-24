@@ -110,8 +110,7 @@ public class VideoDataDialog {
 
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
-
-		
+//		comboBoxPriceCategory.setSelectedItem(anObject)
 
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
 		textFieldUnitQuantity = new JTextField();

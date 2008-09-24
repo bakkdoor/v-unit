@@ -31,18 +31,20 @@ public class TableInRentListSelectionHandler implements ListSelectionListener {
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
 		detailPanel.changePanelDetailsCard(detailPanel.RENTDETAILS);
 		
-		
-		try {
-			int rID = (Integer) inRentTable.getValueAt(lsm.getMinSelectionIndex(), 0);
-			int uID = (Integer) inRentTable.getValueAt(lsm.getMinSelectionIndex(), 2);
-			if (rID != -1) {
-				InRent selectedInRent = InRent.findByID(rID);
-				VideoUnit selectedVideoUnit = VideoUnit.findByID(uID);
-				mainWindow.getDetailPanel().fillPanelDetailInRent(selectedInRent, selectedVideoUnit);
-			}
-		} catch (RecordNotFoundException e1) {
+		if (InRent.findAll().size() > 0) {
 			
-			e1.printStackTrace();
+			try {
+				int rID = (Integer) inRentTable.getValueAt(lsm.getMinSelectionIndex(), 2);
+				int uID = (Integer) inRentTable.getValueAt(lsm.getMinSelectionIndex(), 0);
+				if (rID != -1) {
+					InRent selectedInRent = InRent.findByID(rID);
+					VideoUnit selectedVideoUnit = VideoUnit.findByID(uID);
+					mainWindow.getDetailPanel().fillPanelDetailInRent(selectedInRent, selectedVideoUnit);
+				}
+			} catch (RecordNotFoundException e1) {
+				
+				e1.printStackTrace();
+			}
 		}
 	}
 }

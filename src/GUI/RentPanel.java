@@ -3,6 +3,8 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -61,7 +63,17 @@ public class RentPanel {
 
         // KundenNr - Label/TextField erstellen
         JLabel labelRentCustomer = new JLabel("KundenNr.:");
-        textFieldRentCustomerID = new JTextField();
+        textFieldRentCustomerID = new JFormattedTextField();
+//        textFieldRentCustomerID.setInputVerifier(new InputVerifier() {
+//
+//			@Override
+//			public boolean verify(JComponent input) {
+//				 Pattern p = Pattern.compile("\\d*");
+//				 Matcher m = p.matcher(((JTextField)input).getText());
+//				 return m.matches();
+//			}
+//        	
+//        });
         textFieldRentCustomerID.addActionListener(new ActionListener() {
 
             @Override
@@ -123,6 +135,7 @@ public class RentPanel {
                     tableRentModel.insertVideoUnit(videoUnit);
                     calculateRentPrice();
                     textFieldRentVideoID.setText("");
+                    textFieldRentVideoID.grabFocus();
                 } catch (RecordNotFoundException e1) {
                     // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage());
@@ -281,7 +294,7 @@ public class RentPanel {
 
         Vector<String> columnNames = new Vector<String>(5);
         columnNames.add("KundenNr");
-        columnNames.add("FilmNr");
+        columnNames.add("ExemplarNr");
         columnNames.add("Titel");
         columnNames.add("Rückgabefrist");
         columnNames.add("Mahnung");
@@ -338,11 +351,12 @@ public class RentPanel {
     
     private void clearReturnDataFields() {
     	textFieldReturnVideoID.setText("");
-    	labelReturnVideoSumWarning.setText("0.00 €");
+    	setReturnPrice(0.0f);
         // TODO elemente aus der tabelle entfernen
         ReturnTableModel model = (ReturnTableModel) tableReturnVideo.getModel();
         model.removeAll();
         calculateRentPrice();
+        videoUnitMap.clear();
     }
     
     private int getRentDuration() {
@@ -365,7 +379,7 @@ public class RentPanel {
     
     private void setRentPrice(float price) {
     	// TODO auf 2Stellen genau ausgeben
-    	labelRentVideoCostPrice.setText(Float.toString(price) + " €");
+    	labelRentVideoCostPrice.setText(String.format("%5.2f €", price));
     }
     
     private void createInRent() {
@@ -373,7 +387,7 @@ public class RentPanel {
 		try {
 			Integer cID = Integer.parseInt(textFieldRentCustomerID.getText());
 			Customer customer = Customer.findByID(cID);
-			int rentDuration = this.getRentDuration();
+			int rentDuration = getRentDuration();
 	    	Vector<VideoUnit> videoUnits = new Vector<VideoUnit>();
 	    	Vector<Vector> tableDataVector = ((RentTableModel)tableRentVideo.getModel()).getDataVector(); 
 	    	for (Vector videoUnit : tableDataVector) {
@@ -417,6 +431,10 @@ public class RentPanel {
 		}
     }
     
+    private void setReturnPrice(float price) {
+    	labelReturnVideoSumWarning.setText(String.format("%5.2f €", price));
+    }
+    
     private Map<InRent, Collection<VideoUnit>> videoUnitMap = 
     	new HashMap<InRent, Collection<VideoUnit>>();
     
@@ -440,7 +458,7 @@ public class RentPanel {
     		if(unit.getInRent().isOverDuration())
     		{
 	    		increaseReturnPrice();
-	    		labelReturnVideoSumWarning.setText(Float.toString(returnPrice) + " €");
+	    		setReturnPrice(returnPrice);
     		}
     	}
     }
