@@ -9,6 +9,7 @@ import javax.xml.parsers.SAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import main.error.VideothekException;
 import model.data.exceptions.*;
 import model.exceptions.FalseIDException;
 import model.Data;
@@ -34,11 +35,9 @@ public class PriceCategoryParser extends AbstractParser
 	/**
 	 * XML-Dokument für PriceCategories durchlaufen und in die Liste packen.
 	 * 
-	 * @param priceCategoriesFile
-	 *            Dateiname bzw. -pfad der priceCategories.xml
+	 * @param priceCategoriesFile Dateiname bzw. -pfad der priceCategories.xml
 	 * @return Liste von eingelesenen PriceCategories
-	 * @throws Exception
-	 *             Wird geworfen, fall Fehler beim Parsen auftrat.
+	 * @throws Exception Wird geworfen, fall Fehler beim Parsen auftrat.
 	 */
 	public Map<Integer, PriceCategory> parsePriceCategories(
 			String priceCategoriesFile) throws DataException
@@ -97,10 +96,20 @@ public class PriceCategoryParser extends AbstractParser
 			name = attributes.getValue("name");
 			price = Float.parseFloat(attributes.getValue("price"));
 
-			PriceCategory newPriceCategory = PriceCategory.reCreate(pID, name,
-					price);
+			PriceCategory newPriceCategory = null;
+			try
+			{
+				newPriceCategory = PriceCategory.reCreate(pID, name, price);
+			}
+			catch (VideothekException e)
+			{
+				this.exceptionsToThrow.add(new DataException(e.getMessage()));
+			}
 
-			this.priceCategoriesMap.put(pID, newPriceCategory);
+			if (newPriceCategory != null)
+			{
+				this.priceCategoriesMap.put(pID, newPriceCategory);
+			}
 		}
 	}
 

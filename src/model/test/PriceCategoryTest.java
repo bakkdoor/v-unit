@@ -22,8 +22,17 @@ public class PriceCategoryTest extends ModelTest
 
 	public void testConstructor()
 	{
-		PriceCategory pCategory = new PriceCategory("test", 2.99f);
+		PriceCategory pCategory = null;
+		try
+		{
+			pCategory = new PriceCategory("test", 2.99f);
+		}
+		catch(VideothekException e1)
+		{
+			e1.printStackTrace();
+		}
 
+		assertNotNull(pCategory);
 		assertTrue(PriceCategory.findAll().contains(pCategory));
 
 		try
@@ -50,7 +59,16 @@ public class PriceCategoryTest extends ModelTest
 	
 	public void testDelete()
 	{
-		PriceCategory pc = new PriceCategory("test", 3.99f);
+		PriceCategory pc = null;
+		try
+		{
+			pc = new PriceCategory("test", 3.99f);
+		}
+		catch (VideothekException e2)
+		{
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		assertNotNull(pc);
 		assertTrue(PriceCategory.findAll().contains(pc));
@@ -82,7 +100,16 @@ public class PriceCategoryTest extends ModelTest
 	{
 		PriceCategory pc = null;
 
-		pc = new PriceCategory("test", 3.99f);
+		try
+		{
+			pc = new PriceCategory("test", 3.99f);
+		}
+		catch (VideothekException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		assertNotNull(pc);
 		
 		try
