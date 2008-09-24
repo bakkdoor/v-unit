@@ -13,6 +13,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -23,12 +25,16 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import model.events.EventManager;
+import model.events.SearchEvent;
+
 public class SearchDialog {
 
 	private Frame owner;
 	private JDialog dialogSearch;
 	private JTextField textFieldVideo;
 	private JTextField textFieldCustomer;
+	private int searchMode;
 	
 	public final static int CUSTOMERSEARCHMODEDIALOG = 1;
 	public final static int VIDEOSEARCHMODEDIALOG = 2;
@@ -40,10 +46,12 @@ public class SearchDialog {
 	public SearchDialog(Frame owner, int searchModeDialog) {
 		
 		this.owner = owner;
+		this.searchMode = searchModeDialog;
 		
 		dialogSearch = new JDialog(owner, "Suche", true);
 		dialogSearch.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//		dialogSearch.setIcon(new ImageIcon("icons/magnifier.png"));
+		Image iconImage = Toolkit.getDefaultToolkit().getImage("icons/magnifier.png");
+		dialogSearch.setIconImage(iconImage);
 		
 		// Dialog mittig auf dem bildschirm setzen
 		DialogHelper.setToCenterScreen(this.dialogSearch);
@@ -74,6 +82,19 @@ public class SearchDialog {
 		JLabel labelVideo = new JLabel();
 		labelVideo.setText("Bitte Filmtitel eingeben");
 		textFieldVideo = new JTextField();
+		textFieldVideo.addFocusListener(new FocusListener(){
+
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				removeFocusFrom(textFieldCustomer);
+			}
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{	
+			}
+		});
 		
 		panelVideo.add(labelVideo);
 		panelVideo.add(textFieldVideo);
@@ -86,11 +107,30 @@ public class SearchDialog {
 		JLabel labelCustomer = new JLabel();
 		labelCustomer.setText("Bitte Kundennamen eingeben");
 		textFieldCustomer = new JTextField();
+		textFieldCustomer.addFocusListener(new FocusListener(){
+
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				removeFocusFrom(textFieldVideo);
+			}
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+			}
+			
+		});
 		
 		panelCustomer.add(labelCustomer);
 		panelCustomer.add(textFieldCustomer);
 		tabbedPane.addTab("Kunde", new ImageIcon("icons/user.png"), panelCustomer);
 		return tabbedPane;
+	}
+	
+	private void removeFocusFrom(JTextField textField)
+	{
+		textField.setText("");
 	}
 	
 	private Component createButtonCancel() {
@@ -114,8 +154,25 @@ public class SearchDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// noch implementieren
+				startSearch();
 			}
 		});
 		return buttonSearch;
+	}
+	
+	private void startSearch()
+	{
+		
+		
+		if(!this.textFieldCustomer.getText().trim().equals(""))
+		{
+			String searchTerm = this.textFieldCustomer.getText();
+			EventManager.fireEvent(new SearchEvent(searchTerm, SearchEvent.SearchType.COSTUMER));
+		}
+		else if(!this.textFieldVideo.getText().trim().equals(""))
+		{
+			String searchTerm = this.textFieldVideo.getText();
+			EventManager.fireEvent(new SearchEvent(searchTerm, SearchEvent.SearchType.VIDEO));	
+		}
 	}
 }
