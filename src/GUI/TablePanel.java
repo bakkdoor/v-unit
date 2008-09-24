@@ -52,7 +52,7 @@ public class TablePanel {
 
 		this.mainWindow = mainWindow;
 		tableVideo = this.createTableVideo();
-		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
+//		tableVideo.setRowSorter(new TableRowSorter<TableModel>(tableVideo.getModel()));
 		ListSelectionModel tableVideoSelectionModel = tableVideo
 				.getSelectionModel();
 		tableVideoSelectionModel
@@ -61,13 +61,8 @@ public class TablePanel {
 		tableVideo.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent e) {
-//				int selRow = tableVideo.getSelectedRow();
-//				if (selRow != -1 && selRow < tableVideo.getSelectedRowCount()) {
-//					
-//				}
-//				TableVideoListSelectionHandler selHandler = (TableVideoListSelectionHandler) tableVideo.getSelectionModel();
+
 				int selectedRow = tableVideo.getSelectedRow();
-//				new ListSelectionEvent(e, selectedRow, selectedRow, true);
 				tableVideo.getSelectionModel().setSelectionInterval(selectedRow, selectedRow);
 			}
 		});

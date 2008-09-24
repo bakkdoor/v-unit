@@ -13,7 +13,6 @@ import GUI.MainWindow;
 
 public class TableVideoListSelectionHandler implements ListSelectionListener {
 
-	
 	private MainWindow mainWindow;
 	private JTable videoTable;
 
@@ -21,21 +20,24 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 		this.mainWindow = mainWindow;
 		this.videoTable = mainWindow.getTablePanel().getTableVideo();
 	}
-	
+
 	public void valueChanged(ListSelectionEvent e) {
-		ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		DetailPanel detailPanel = mainWindow.getDetailPanel();
-		int vID = (Integer) videoTable.getValueAt(lsm.getMinSelectionIndex(), 0);
-		
-		try {
-			Video selectedVideo = Video.findByID(vID);
-			mainWindow.getDetailPanel().fillPanelDetailVideo(selectedVideo);
-		} catch (RecordNotFoundException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("TableVideoListSelectionHandler:");
-			System.out.println(e1);
+		if (lsm.getMinSelectionIndex() >= 0) {
+			int vID = (Integer) videoTable.getValueAt(lsm
+					.getMinSelectionIndex(), 0);
+
+			try {
+				Video selectedVideo = Video.findByID(vID);
+				mainWindow.getDetailPanel().fillPanelDetailVideo(selectedVideo);
+			} catch (RecordNotFoundException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("TableVideoListSelectionHandler:");
+				System.out.println(e1);
+			}
 		}
 	}
 }
