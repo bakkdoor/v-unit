@@ -5,6 +5,9 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
+
 import main.error.VideothekException;
 import model.PriceCategory;
 import model.Video;
@@ -55,7 +58,9 @@ public class VideoTableModel extends NotEditableTableModel implements VideothekE
             int dataIndex = findByVideoID(video.getID());
             if(dataIndex != -1) {
                 try {
+                	
                     ((Vector) getDataVector().get(dataIndex)).setElementAt(video.getPriceCategory(), 2);
+                    
                     fireTableDataChanged();
                 } catch (RecordNotFoundException ex) {
                     System.out.println(ex);

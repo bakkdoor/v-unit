@@ -142,10 +142,8 @@ public class VideoDataDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (addVideo) {
 					createVideo();
-					videoDataDialog.dispose();
 				} else {
 					updateVideo();
-					videoDataDialog.dispose();
 				}
 			}
 		});
@@ -187,18 +185,16 @@ public class VideoDataDialog {
 
 			VideoDataDialog videoEditDialog = new VideoDataDialog(mainWindow,
 					vID, title, releaseYear, ratedAge, priceCategory, video.getNumberOfVideoUnits());
-		} catch (RecordNotFoundException e1) {
-			// TODO Dialog wird als MassegeDialog dargestellt und nicht als
-			// Errordialog! ändern
+		} catch (VideothekException e1) {
 
 			// Exception abfangen und Dialog erstellen
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
-					"Konnte Videodaten nicht einlesen", "Fehler",
+					e1.getMessage(), "Fehler",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	private boolean createVideo() {
+	private void createVideo() {
 		try {
 			String title = textFieldTitle.getText();
 			Integer releaseYear = Integer.parseInt(textFieldReleaseYear
@@ -210,7 +206,8 @@ public class VideoDataDialog {
 					.parseInt(textFieldUnitQuantity.getText());
 
 			new Video(title, releaseYear, priceCategory, ratedAge, quantity);
-			return true;
+
+			videoDataDialog.dispose();
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(mainWindowFrame,
 					"Falsche Eingabe! Bitte Eingaben prüfen.", "Fehler",
@@ -219,7 +216,6 @@ public class VideoDataDialog {
 			JOptionPane.showMessageDialog(mainWindowFrame, e.getMessage(),
 					"Fehler", JOptionPane.ERROR_MESSAGE);
 		}
-		return false;
 	}
 
 	private void updateVideo() {
@@ -229,6 +225,7 @@ public class VideoDataDialog {
 					.getSelectedItem();
 			int vID = Integer.parseInt(textFieldVID.getText());
 			Video video = Video.findByID(vID);
+			video.setPriceCategory(priceCategory);
 			
 			int quantity = Integer.parseInt(textFieldUnitQuantity.getText());
 			int diff = quantity - video.getNumberOfVideoUnits();
@@ -250,6 +247,7 @@ public class VideoDataDialog {
 			}
 			
 			video.save();
+			videoDataDialog.dispose();
 			
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
