@@ -27,16 +27,16 @@ public class PriceCategory
 	private static Map<Integer, PriceCategory> priceCategoryList = new HashMap<Integer, PriceCategory>();
 	private static int minpID;
 
-	private PriceCategory(int pID, String name, float price)
+	private PriceCategory(int pID, String name, float price) throws FalseFieldException, EmptyFieldException
 	{
 		this.pID = pID;
-		this.name = name;
-		this.price = price;
+		setName(name);
+		setPrice(price);
 
 		priceCategoryList.put(this.pID, this);
 	}
 
-	public PriceCategory(String name, float price)
+	public PriceCategory(String name, float price) throws FalseFieldException, EmptyFieldException
 	{
 		this(minpID, name, price);
 		minpID++;
@@ -170,7 +170,7 @@ public class PriceCategory
 		return minpID;
 	}
 
-	public static PriceCategory reCreate(int pID, String name, float price)
+	public static PriceCategory reCreate(int pID, String name, float price) throws FalseFieldException, EmptyFieldException
 	{
 		return new PriceCategory(pID, name, price);
 	}
