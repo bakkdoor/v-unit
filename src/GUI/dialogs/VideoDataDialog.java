@@ -40,17 +40,16 @@ public class VideoDataDialog {
 	private String title;
 	private Integer releaseYear;
 	private Integer ratedAge;
-	private model.PriceCategory priceCategory;
+	private PriceCategory priceCategory;
 	private Integer unitQuantity;
 	private boolean addVideo;
-	
+
 	private JTextField textFieldVID;
 	private JTextField textFieldTitle;
-	private JTextField textFieldReleaseYear;	
+	private JTextField textFieldReleaseYear;
 	private JTextField textFieldRatedAge;
 	private JComboBox comboBoxPriceCategory;
 	private JTextField textFieldUnitQuantity;
-	
 
 	public VideoDataDialog(MainWindow mainWindow) {
 		this(mainWindow, Data.NOTSET, "", Data.NOTSET, Data.NOTSET,
@@ -74,10 +73,10 @@ public class VideoDataDialog {
 		String dialogName = "Film " + (addVideo ? "anlegen" : "bearbeiten");
 		this.videoDataDialog = new JDialog(mainWindowFrame, dialogName, true);
 		videoDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
+
 		// Dialog mittig auf dem bildschirm setzen
 		DialogHelper.setToCenterScreen(this.videoDataDialog);
-		
+
 		// LauoutManager einstellen
 		Container contentPane = videoDataDialog.getContentPane();
 		contentPane.setLayout(new GridBagLayout());
@@ -110,12 +109,23 @@ public class VideoDataDialog {
 
 		JLabel labelPriceCategory = new JLabel("Preisklasse:");
 		comboBoxPriceCategory = new JComboBox(PriceCategory.findAll().toArray());
-//		comboBoxPriceCategory.setSelectedItem(anObject)
+		comboBoxPriceCategory.setSelectedItem(priceCategory);
 
 		JLabel labelUnitQuantity = new JLabel("Exemplaranzahl:");
 		textFieldUnitQuantity = new JTextField();
 		textFieldUnitQuantity.setText(unitQuantity.toString());
 		textFieldUnitQuantity.setEditable(addVideo);
+		
+		JButton buttonUnitQuantity = new JButton("Hinzufügen");
+		buttonUnitQuantity.setVisible(!addVideo);
+		buttonUnitQuantity.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addVideoQuantity();
+			}
+		});
+		
 
 		JButton buttonCancel = new JButton("Abbrechen");
 		buttonCancel.addActionListener(new ActionListener() {
@@ -131,8 +141,8 @@ public class VideoDataDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (addVideo) {
-                                    createVideo();
-                                    videoDataDialog.dispose();
+					createVideo();
+					videoDataDialog.dispose();
 				} else {
 					updateVideo();
 					videoDataDialog.dispose();
@@ -156,6 +166,7 @@ public class VideoDataDialog {
 		Layout.addComponent(container, comboBoxPriceCategory, 1, 4);
 		Layout.addComponent(container, labelUnitQuantity, 0, 5);
 		Layout.addComponent(container, textFieldUnitQuantity, 1, 5);
+		Layout.addComponent(container, buttonUnitQuantity, 2, 5);
 		Layout.addComponent(container, buttonCancel, 1, 6);
 		Layout.addComponent(container, buttonAdd, 2, 6);
 
@@ -165,57 +176,74 @@ public class VideoDataDialog {
 
 	}
 
-	public static void createFilledVideoDataDialog(MainWindow mainWindow, Video video) {
-		try {			
+	public static void createFilledVideoDataDialog(MainWindow mainWindow,
+			Video video) {
+		try {
 			Integer vID = new Integer(video.getID());
 			String title = video.getTitle();
 			Integer releaseYear = video.getReleaseYear();
 			Integer ratedAge = video.getRatedAge();
-			PriceCategory priceCategory = video
-					.getPriceCategory();
+			PriceCategory priceCategory = video.getPriceCategory();
 
 			VideoDataDialog videoEditDialog = new VideoDataDialog(mainWindow,
 					vID, title, releaseYear, ratedAge, priceCategory, 1);
 		} catch (RecordNotFoundException e1) {
 			// TODO Dialog wird als MassegeDialog dargestellt und nicht als
 			// Errordialog! ändern
-			
+
 			// Exception abfangen und Dialog erstellen
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
 					"Konnte Videodaten nicht einlesen", "Fehler",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
 	private boolean createVideo() {
 		try {
 			String title = textFieldTitle.getText();
-			Integer releaseYear = Integer.parseInt(textFieldReleaseYear.getText());
+			Integer releaseYear = Integer.parseInt(textFieldReleaseYear
+					.getText());
 			Integer ratedAge = Integer.parseInt(textFieldRatedAge.getText());
-			PriceCategory priceCategory = (PriceCategory)comboBoxPriceCategory.getSelectedItem();
-			Integer quantity = Integer.parseInt(textFieldUnitQuantity.getText());
-			
+			PriceCategory priceCategory = (PriceCategory) comboBoxPriceCategory
+					.getSelectedItem();
+			Integer quantity = Integer
+					.parseInt(textFieldUnitQuantity.getText());
+
 			new Video(title, releaseYear, priceCategory, ratedAge, quantity);
-                        return true;
+			return true;
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(mainWindowFrame, "Falsche Eingabe! Bitte Eingaben prüfen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(mainWindowFrame,
+					"Falsche Eingabe! Bitte Eingaben prüfen.", "Fehler",
+					JOptionPane.ERROR_MESSAGE);
 		} catch (VideothekException e) {
-			JOptionPane.showMessageDialog(mainWindowFrame, e.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(mainWindowFrame, e.getMessage(),
+					"Fehler", JOptionPane.ERROR_MESSAGE);
 		}
-                return false;
+		return false;
 	}
-	
+
 	private void updateVideo() {
-		
+
 		try {
-			PriceCategory priceCategory = (PriceCategory) comboBoxPriceCategory.getSelectedItem();
+			int quantity = Integer.parseInt(textFieldUnitQuantity.getText());
+			
+			PriceCategory priceCategory = (PriceCategory) comboBoxPriceCategory
+					.getSelectedItem();
 			int vID = Integer.parseInt(textFieldVID.getText());
 			Video video = Video.findByID(vID);
 			video.setPriceCategory(priceCategory);
-                        video.save();
+			video.save();
+			
+			
 		} catch (VideothekException e) {
-			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage());
+			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
+					.getMessage());
 		}
-		
+	}
+	
+	private void addVideoQuantity () {
+		int quantity = Integer.parseInt(textFieldUnitQuantity.getText());
+		quantity += 1;
+		textFieldUnitQuantity.setText(Integer.toString(quantity));
 	}
 }
