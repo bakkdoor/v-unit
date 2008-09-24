@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+import main.config.Config;
+
 
 /**
  * DialogHelper.java
@@ -27,7 +29,16 @@ public class DialogHelper
 	
 	public static void setLargeWindowToCenterScreen(Window window)
 	{
-		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		 window.setLocation(((int)screenSize.getWidth()-1024)/2, ((int)screenSize.getHeight()-768)/2);
+		int resX = 1024;
+		int resY = 768;
+		if(Config.get().hasSetting(Config.Settings.MAINWINDOWRESX) 
+				&& Config.get().hasSetting(Config.Settings.MAINWINDOWRESY))
+		{
+			resX = Integer.parseInt(Config.get().getSetting(Config.Settings.MAINWINDOWRESX));
+			resY = Integer.parseInt(Config.get().getSetting(Config.Settings.MAINWINDOWRESY));
+		}
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		window.setLocation(((int)screenSize.getWidth()-resX)/2, ((int)screenSize.getHeight()-resY)/2);
 	}
 }

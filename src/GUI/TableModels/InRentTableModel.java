@@ -30,7 +30,7 @@ public class InRentTableModel extends NotEditableTableModel implements Videothek
 	
 	public InRentTableModel(Vector<String> columnNames, int rowCount) {
 		 super(columnNames, rowCount);
-                 registerAsEventListener();
+         registerAsEventListener();
 	}
 
         private void registerAsEventListener() {

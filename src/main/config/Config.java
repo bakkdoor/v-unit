@@ -20,6 +20,8 @@ public class Config
 		public static final String INVOICEFOLDER = "invoiceFolder";
 		public static final String WARNINGFOLDER = "warningFolder";
 		public static final String WARNINGINVOICEFOLDER = "warningInvoiceFolder";
+		public static final String MAINWINDOWRESX = "mainWindowResX";
+		public static final String MAINWINDOWRESY = "mainWindowResY";		
 	}
 
 	/**
@@ -60,6 +62,16 @@ public class Config
 		this.configFile = configFile;
 	}
 
+	/**
+	 * Gibt an, ob in der Config ein entsprechendes Setting vorhanden ist.
+	 * @param settingName Der Name des Settings.
+	 * @return True, falls vorhanden, False sonst.
+	 */
+	public boolean hasSetting(String settingName)
+	{
+		return this.configSettingsMap.containsKey(settingName);
+	}
+	
 	/**
 	 * Gibt Wert (als String) eines bestimmten Settings zurück.
 	 * 

@@ -377,7 +377,8 @@ public class RentPanel {
 	    	for (Vector videoUnit : tableDataVector) {
 	    		videoUnits.add(VideoUnit.findByID((Integer)videoUnit.get(0)));
 	    	}
-	    	new InRent(customer, videoUnits, CurrentDate.get(), rentDuration);
+	    	InRent newInRent = new InRent(customer, videoUnits, CurrentDate.get(), rentDuration);
+	    	newInRent.createInvoice();
 	    	clearRentDataFields();
 		} catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Eingabe fehlerhaft! Bitte Eingabe prüfen.", "Eingabe fehlerhaft", JOptionPane.ERROR_MESSAGE);
@@ -450,18 +451,17 @@ public class RentPanel {
     	// preis temporär zurücksetzen und neu berechnen
     	returnPrice = 0.0f;
     	
-    	InvoiceWriter writer = new InvoiceWriter();
-	
     	for(InRent ir : videoUnitMap.keySet())
     	{
-    		ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
+    		int amountVideoUnits = ir.getVideoUnits().size();
     		
-    		if(ir.getVideoUnits().size() == 0 && ir.isOverDuration())
+    		if(amountVideoUnits == videoUnitMap.get(ir).size() 
+    				&& ir.isOverDuration())
     		{
     			increaseReturnPrice();
     			try {
-    				writer.writeInvoiceFor(new Warning(ir));
-    				
+    				ir.getWarning().createInvoice();
+    				ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
     				ir.setWarned(false);
 					ir.delete();
 				} catch (VideothekException e) {

@@ -179,4 +179,9 @@ public class ToolBar {
 		this.toolBarButtonEdit.setEnabled(true);
 		this.toolBarButtonDelete.setEnabled(true);
 	}
+	
+	public void setButtonsDisabled() {
+		this.toolBarButtonEdit.setEnabled(false);
+		this.toolBarButtonDelete.setEnabled(false);
+	}
 }
