@@ -40,12 +40,21 @@ public class InRent implements Comparable<InRent>
 		this.rID = minrID;
 		minrID++;
 
-		for (VideoUnit unit : videoUnits)
+		// checken, ob übergebene videoUnits auch keine leere liste ist
+		if(videoUnits.size() > 0)
 		{
-			if (unit.isRented())
-				throw new VideoUnitRentedException(
-						"Videoexemplar " + unit.getID() + " bereits verliehen. "
-								+ "Erneute Ausleihe nicht möglich!");
+			for (VideoUnit unit : videoUnits)
+			{
+				if (unit.isRented())
+					throw new VideoUnitRentedException(
+							"Videoexemplar " + unit.getID() + " bereits verliehen. "
+									+ "Erneute Ausleihe nicht möglich!");
+			}
+		}
+		else
+		{
+			// leere liste => exception
+			throw new FalseFieldException("Übergebene VideoExemplarListe leer!");
 		}
 
 		this.customerID = customer.getID();
@@ -82,6 +91,13 @@ public class InRent implements Comparable<InRent>
 		this.date = date;
 		this.duration = duration;
 		this.warned = warned;
+
+		// leere liste => exception
+		if(videoUnitIDs.size() <= 0)
+		{
+			throw new FalseFieldException("Übergebene VideoExemplarListe leer!");
+		}
+		
 		checkIDs();
 		checkDuration();
 	}
@@ -332,6 +348,15 @@ public class InRent implements Comparable<InRent>
 	{
 		InvoiceWriter writer = new InvoiceWriter();
 		writer.writeInvoiceFor(this);
+	}
+	
+	/**
+	 * Gibt das zugehörige Warning zurück falls vorhanden, ansonsten null.
+	 * @return Das zugehörige Warning bzw null, falls nicht vorhanden.
+	 */
+	public Warning getWarning()
+	{
+		return Warning.findByInRent(this);
 	}
 
 	public static InRent findByID(int inRentID) throws RecordNotFoundException

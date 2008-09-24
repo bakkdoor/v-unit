@@ -17,12 +17,5 @@ public class Main
 			EmptyFieldException, RecordNotFoundException
 	{
 		Programm.start();
-
-		// ein paar quittungen erstellen und so ;)
-
-		for (model.InRent ir : model.InRent.findAll())
-		{
-			ir.createInvoice();
-		}
 	}
 }
