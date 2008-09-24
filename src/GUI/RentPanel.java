@@ -123,6 +123,7 @@ public class RentPanel {
                     tableRentModel.insertVideoUnit(videoUnit);
                     calculateRentPrice();
                     textFieldRentVideoID.setText("");
+                    textFieldRentVideoID.grabFocus();
                 } catch (RecordNotFoundException e1) {
                     // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage());
@@ -281,7 +282,7 @@ public class RentPanel {
 
         Vector<String> columnNames = new Vector<String>(5);
         columnNames.add("KundenNr");
-        columnNames.add("FilmNr");
+        columnNames.add("ExemplarNr");
         columnNames.add("Titel");
         columnNames.add("Rückgabefrist");
         columnNames.add("Mahnung");
