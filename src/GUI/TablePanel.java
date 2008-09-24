@@ -200,9 +200,10 @@ public class TablePanel {
 	private JTable createTableRent() {
 		
 		Vector<String> colNames = new Vector<String>(6);
-		colNames.add("AusleihNr.");
-		colNames.add("KundeNr.");
+		
 		colNames.add("ExemplarNr.");
+		colNames.add("KundeNr.");
+		colNames.add("AusleihNr.");
 		colNames.add("Titel");
 		colNames.add("Rückgabefrist.");
 		colNames.add("Mahnung.");

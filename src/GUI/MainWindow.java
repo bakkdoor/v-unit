@@ -129,7 +129,7 @@ public class MainWindow {
 	}
 	
 	public void showEditVideoDialog() {
-		VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getSelectedValue();
+		VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getModel().getElementAt(0);
 		VideoDataDialog.createFilledVideoDataDialog(this, selectedVideoUnit.getVideo());
 	}
 
