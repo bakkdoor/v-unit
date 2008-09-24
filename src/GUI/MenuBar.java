@@ -6,6 +6,7 @@ import GUI.dialogs.VideoDataDialog;
 import GUI.dialogs.CustomerDataDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Collection;
 
 import javax.swing.ImageIcon;
@@ -179,6 +180,25 @@ public class MenuBar {
 				new ImageIcon("icons/help.png"));
 		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon(
 				"icons/tag_blue.png"));
+		
+		// handbuch öffnen
+		menuItemHelpAbout.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				try
+				{
+					Runtime.getRuntime().exec(
+							new String[] { "hh", "doc/V-Unit Manual.html" });
+				}
+				catch (IOException e)
+				{
+					JOptionPane.showMessageDialog(null,
+			                e.getMessage(), "Fehler beim Öffnen des Handbuchs",
+			                JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		menuHelp.add(menuItemHelpGetHelp);
 		menuHelp.add(menuItemHelpAbout);
