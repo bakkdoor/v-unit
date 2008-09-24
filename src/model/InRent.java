@@ -348,6 +348,7 @@ public class InRent implements Comparable<InRent>
 	{
 		InvoiceWriter writer = new InvoiceWriter();
 		writer.writeInvoiceFor(this);
+		save();
 	}
 	
 	/**

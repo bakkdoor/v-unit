@@ -57,7 +57,8 @@ Bearbeiten \b0 eines bestehenden Kunden\par
 \fs20\par
 Wenn ein bestehender Kunde der Videothek bearbeitet werden soll, ist dies entweder \'fcber das Men\'fc \b Kunde\b0  -> \b Bearbeiten\b0  oder aber den Button \b Bearbeiten\b0  m\'f6glich. Dazu muss der zu bearbeitende Kunde zun\'e4chst in der Liste aller Kunden ausgew\'e4hlt werden, wonach dessen Daten rechts im Infobereich zu sehen sind.\par
 Im "\b Kunde bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Adresse des Kunden zu korrigieren bzw. zu aktualisieren. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieses Kundenkonto gel\'f6scht und ein neues mit den aktuellen Daten (wie z.B. neuer Nachname) angelegt werden. Dadurch erh\'e4lt der Kunde dann allerdings auch eine neue Kundennummer.\par
-Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt keine ausgeliehenen Videos oder ausstehende Mahnungen mehr hat.\par
+\par
+ \i Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt keine ausgeliehenen Videos oder ausstehende Mahnungen mehr hat.\par
 \par
 \b\fs24\par
 L\'f6schen \b0 eines bestehenden Kunden\par
@@ -65,7 +66,8 @@ L\'f6schen \b0 eines bestehenden Kunden\par
 Wenn ein bestehender Kunde der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Kunde\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Kunde zun\'e4chst in der Liste aller Kunden ausgew\'e4hlt werden, wonach dessen Daten rechts im Infobereich zu sehen sind.\par
 Bevor der Kunde endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
 \b Nein \b0 bricht den Vorgang ab und der Kunde wird nicht gel\'f6scht.\par
-Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt keine ausgeliehenen Videos oder ausstehende Mahnungen mehr hat.\par
+\par
+ \i Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Kunden nur m\'f6glich ist, wenn dieser zum aktuellen Zeitpunkt keine ausgeliehenen Videos oder ausstehende Mahnungen mehr hat.\par
 \par
 \par
 \par
@@ -83,7 +85,8 @@ Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den 
 \fs20\par
 Wenn ein vorhandener Film der Videothek bearbeitet werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Bearbeiten\b0  oder aber den Button \b Bearbeiten\b0  m\'f6glich. Dazu muss der zu bearbeitende FIlm zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten und vorhandene Exemplare rechts im Infobereich zu sehen sind.\par
 Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht und ein neuer mit den aktuellen Daten und nat\'fcrlich den vorhandenen Exemplaren angelegt werden. Dadurch erhalten der Film und dessen Exemplare dann allerdings auch neue Filmnummern.\par
-Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
+\par
+\i  Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
 \par
 \par
 \b\fs24 L\'f6schen \b0 eines vorhandenen Films\par
@@ -91,7 +94,8 @@ Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sic
 Wenn ein vorhandener Film oder ein Filmexemplar der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller Filme ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Dort muss dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt, falls nicht der Film mitsamt seiner ganzen Exemplare gel\'f6scht werden soll.\par
 Bevor der Film endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
 \b Nein \b0 bricht den Vorgang ab und der Film wird nicht gel\'f6scht.\par
-Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
+\i\par
+ Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
 \par
 \par
 \par
@@ -103,13 +107,23 @@ Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sic
 2. Hier kann nun im oberen Feld die Kundennummer des Kunden eingegeben werden, der einen bzw. mehrere Filme\par
 ausleihen will.\par
 3. Im darunter liegenden Feld ist die Exemplarnummer des Filmexemplars einzutragen, das ausgeliehen werden soll.\par
-4. Wenn die Ausleihe l\'e4nger als 1 Woche gelten soll, kann dies im Dropdown-Men\'fc zur Ausleihdauer ausgew\'e4hlt werden.\par
+4. Wenn die Ausleihe l\'e4nger als 1 Woche gelten soll, kann dies mittels des Dropdown-Men\'fcs zur Ausleihdauer festgelegt werden.\par
 5. Nun f\'fcgt ein Klick auf \b Hinzuf\'fcgen\b0  dieses Filmexemplar mit der angegebenen Ausleihdauer in die darunter befindliche Liste ein.\par
-Falls dieser Kunde noch weitere Filmexemplare auszuleihen w\'fcnscht, sind die Schritte 3. - 5. solange zu wiederholen, bis alle Filmexemplare in der Ausleihliste eingetragen sind.\par
-Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, wird der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen und diese neue Ausleihe mit den eingegebenen Filmexemplaren und dem Kunden im Programm registriert. Der Kunde erh\'e4lt eine Ausleihquittung, die eine Liste der entliehenen Filme und der Leihgeb\'fchren enth\'e4lt.\par
+Falls dieser Kunde noch weitere Filmexemplare auszuleihen w\'fcnscht, sind die Schritte 3. - 5. solange zu wiederholen, bis alle Filmexemplare in der Ausleihliste eingetragen sind. Unter der Liste der auszuleihenden Filme wird der Gesamtpreis f\'fcr diese Ausleihe angezeigt, der sich aus der Preiskategorie jedes Filmes, multipliziert mit der Ausleihdauer, berechnet.\par
+Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, wird der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen und diese neue Ausleihe mit den eingegebenen Filmexemplaren und dem ausleihenden Kunden im Programm registriert. Der Kunde erh\'e4lt eine Ausleihquittung, die eine Liste der entliehenen Filme und die Leihgeb\'fchren enth\'e4lt.\par
 \par
 Durch Klick auf \b Abbrechen\b0  kann der Ausleihvorgang an dieser Stelle noch abgebrochen werden.\par
 \par
+Nachdem eine neue Ausleihe erstellt wurde, werden die Daten dieser Ausleihe (Filmexemplare, Kunde, R\'fcckgabefrist etc.) im Listenbereich in der Liste der ausgeliehenen Filme dargestellt.\par
+\par
+Anstatt die Filmexemplarnummer und Kundennummer, wie in Schritt 2. und 3. angegeben, im Ausleihbereich per Hand in die Felder einzutragen, ist auch folgendes Vorgehen m\'f6glich:\par
+Den entsprechenden Kunden in der Liste aller Kunden, bzw. den gew\'fcnschten Film in der Liste aller Filme ausw\'e4hlen und jeweils anschlie\'dfend im Infobereich durch einen Klick auf \b\'dcbernehmen\b0  den Kunden/Film (bei Filmen muss vorher noch das richtige Exemplar gew\'e4hlt werden) in den Ausleihbereich \'fcbernehmen. Filmexemplare werden so direkt in die Ausleihliste eingetragen, sodass Schritt 5. bei diesem Vorgehen nicht mehr n\'f6tig ist.\par
+\par
+ \i Hinweis!\i0  Diese Vorgehensweise kann unter Umst\'e4nden hilfreich sein, wenn beispielsweise ein Kunde einen Film ausleihen m\'f6chte, dieser aber seinen Kundenausweis / seine Kundennummer nicht bei sich hat.\par
+\par
+\par
+\par
+\b\fs28 R\'fcckgabe\b0\fs20\par
 \par
 \par
 }

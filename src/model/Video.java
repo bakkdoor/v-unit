@@ -22,7 +22,7 @@ import model.exceptions.FalseIDException;
  * @author Andie Hoffmann (andhoffm@uos.de)
  * @date 15.09.2008
  */
-public class Video
+public class Video implements Comparable<Video>
 {
 
 	private int vID;
@@ -59,8 +59,14 @@ public class Video
 			EmptyFieldException, FalseFieldException, CurrentDateException
 	{
 		this(minvID, title, releaseYear, priceCategory.getID(), ratedAge);
-		minvID++;
 		this.priceCategory = priceCategory;
+		
+		if(containsEqualVideo(this))
+		{
+			throw new FalseFieldException("Video mit gleichen Daten bereits vorhanden!");
+		}
+		
+		minvID++;
 		this.addNewVideoUnits(numberOfVideoUnits);
 
 		videoList.put(this.vID, this);
@@ -566,5 +572,46 @@ public class Video
 	public static int getMinID()
 	{
 		return minvID;
+	}
+	
+	/*
+	 * Gibt an, ob ein angegebener Customer bereits vorhanden ist
+	 * (d.h. dass bereits ein anderer Customer existiert, bei dem alle Datenfelder gleich sind).
+	 */
+	private static boolean containsEqualVideo(Video video)
+	{
+		for(Video v: videoList.values())
+		{
+			if(v.equals(video))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public int compareTo(Video other)
+	{
+		if(this.priceCategoryID == other.priceCategoryID 
+				&& this.ratedAge == other.ratedAge
+				&& this.releaseYear == other.releaseYear
+				&& this.title.equals(other.title))
+		{
+			return 0;
+		}
+		
+		return 1;
+	}
+	
+	/**
+	 * Gibt an, ob dieses Video einem anderen gleicht.
+	 * @param other Das andere Video, mit dem verglichen werden soll.
+	 * @return True, falls gleich, False sonst.
+	 */
+	public boolean equals(Video other)
+	{
+		return this.compareTo(other) == 0;
 	}
 }

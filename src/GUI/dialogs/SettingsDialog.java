@@ -15,6 +15,8 @@ import main.config.Config;
 import main.error.VideothekException;
 import model.PriceCategory;
 import model.data.exceptions.RecordNotFoundException;
+import model.exceptions.EmptyFieldException;
+import model.exceptions.FalseFieldException;
 
 /**
  *
@@ -409,7 +411,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	    return dataRows;
 	}
 	
-	private void addRow()
+	private void addRow() throws FalseFieldException, EmptyFieldException
 	{
 		PriceCategoryDataDialog dialog = new PriceCategoryDataDialog(null, new PriceCategory("NAME", 1.99f));
 		dialog.setVisible(true);
@@ -548,6 +550,9 @@ public class SettingsDialog extends javax.swing.JDialog
 		catch(Exception e)
 		{
 			// hier einfach nichts tun
+			JOptionPane.showMessageDialog(this,
+	                "Bitte erst eine Preiskategorie auswählen", "Keine Auswahl",
+	                JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -579,6 +584,9 @@ public class SettingsDialog extends javax.swing.JDialog
 		catch(Exception e)
 		{
 			// hier einfach nichts tun
+			JOptionPane.showMessageDialog(this,
+	                "Bitte erst eine Preiskategorie auswählen", "Keine Auswahl",
+	                JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
