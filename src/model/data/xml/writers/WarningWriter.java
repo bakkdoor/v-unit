@@ -31,7 +31,7 @@ public class WarningWriter extends AbstractTextWriter
 			// Ordner erstellen, falls er nicht existiert.
 			createDirIfNeeded(this.warningFolder);
 
-			FileWriter fWriter = new FileWriter(this.warningFolder
+			FileWriter fWriter = new FileWriter(this.warningFolder + "/"
 					+ warningToPrint.getID() + ".txt");
 
 			StringBuilder sb = new StringBuilder();

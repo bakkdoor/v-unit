@@ -10,30 +10,35 @@ import model.events.InRentDeletedEvent;
 import model.events.InRentDeletedUnitEvent;
 import model.events.InRentEditedStateEvent;
 import model.events.VideothekEvent;
+import model.events.VideothekEventListener;
 
 /**
  * CustomerTableModel.java
  * @author Christopher Bertels (chbertel@uos.de)
  * @date 18.09.2008
  */
-public class InRentTableModel extends NotEditableTableModel
+public class InRentTableModel extends NotEditableTableModel implements VideothekEventListener
 {
 	private static final long serialVersionUID = 7354689970611412976L;
 	
 	public InRentTableModel(Vector rowData, Vector<String> columnNames)
 	{
 		super(rowData, columnNames);
+		registerAsEventListener();
 		
-		EventManager.registerEventListener(InRentCreatedEvent.class, this);
-		EventManager.registerEventListener(InRentEditedStateEvent.class, this);
-		EventManager.registerEventListener(InRentDeletedUnitEvent.class, this);
-		EventManager.registerEventListener(InRentDeletedEvent.class, this);
 	}
 	
 	public InRentTableModel(Vector<String> columnNames, int rowCount) {
 		 super(columnNames, rowCount);
+                 registerAsEventListener();
 	}
 
+        private void registerAsEventListener() {
+                EventManager.registerEventListener(InRentCreatedEvent.class, this);
+		EventManager.registerEventListener(InRentEditedStateEvent.class, this);
+		EventManager.registerEventListener(InRentDeletedUnitEvent.class, this);
+		EventManager.registerEventListener(InRentDeletedEvent.class, this);
+        }
 	/* (non-Javadoc)
 	 * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
 	 */
@@ -42,7 +47,7 @@ public class InRentTableModel extends NotEditableTableModel
 	{
 		if(event instanceof InRentCreatedEvent)
 		{
-			insertRow(((InRentCreatedEvent)event).getInRent());
+			this.insertRow(((InRentCreatedEvent)event).getInRent());
 		}
 
 		else if(event instanceof InRentEditedStateEvent)

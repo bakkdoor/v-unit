@@ -24,6 +24,11 @@ public abstract class NotEditableTableModel extends DefaultTableModel implements
 		super(rowData, columnNames);
 	}
 	
+	public void removeAll() {
+        getDataVector().removeAllElements();
+        fireTableDataChanged();
+    }
+	
     public boolean isCellEditable(int row, int column) {
         return false;
     }

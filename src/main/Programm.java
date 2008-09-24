@@ -1,4 +1,4 @@
-﻿package main;
+package main;
 
 import java.awt.Dialog.ModalityType;
 import java.io.IOException;
