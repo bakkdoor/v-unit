@@ -160,123 +160,19 @@ public class RentPanel {
 			public void actionPerformed(ActionEvent e) {
 				createInRent();
 			}});
-
-
-        // Datenfelder in panelRent einfügen
-        // Label KundenNr
-        gridBagConstRent.gridx = 0;
-        gridBagConstRent.gridy = 0;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(3, 3, 3, 0);
-        panelRent.add(labelRentCustomer, gridBagConstRent);
-
-        // TextField KundenNr
-        gridBagConstRent.gridx = 2;
-        gridBagConstRent.gridy = 0;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(3, 0, 3, 3);
-        panelRent.add(textFieldRentCustomerID, gridBagConstRent);
-
-        // Label VideoNr
-        gridBagConstRent.gridx = 0;
-        gridBagConstRent.gridy = 1;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(0, 3, 3, 0);
-        panelRent.add(labelRentVideoID, gridBagConstRent);
-
-        // TextField VideoNr
-        gridBagConstRent.gridx = 2;
-        gridBagConstRent.gridy = 1;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(0, 0, 3, 3);
-        panelRent.add(textFieldRentVideoID, gridBagConstRent);
-
-        // Label Dauer
-        gridBagConstRent.gridx = 0;
-        gridBagConstRent.gridy = 2;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(0, 3, 3, 0);
-        panelRent.add(labelRentDuration, gridBagConstRent);
-
-        // ComboBox Dauer
-        gridBagConstRent.gridx = 2;
-        gridBagConstRent.gridy = 2;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(0, 0, 3, 3);
-        panelRent.add(comboBoxRentDuration, gridBagConstRent);
-
-        // Button Hinzufügen
-        gridBagConstRent.gridx = 1;
-        gridBagConstRent.gridy = 3;
-        gridBagConstRent.gridwidth = 2;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(3, 3, 3, 3);
-        panelRent.add(buttonRentAdd, gridBagConstRent);
-
-        // Tabelle mit Ausleihfilmen
-        gridBagConstRent.gridx = 0;
-        gridBagConstRent.gridy = 4;
-        gridBagConstRent.ipady = 60;
-        gridBagConstRent.gridwidth = 3;
-        gridBagConstRent.gridheight = 6;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 1.0;
-        gridBagConstRent.fill = GridBagConstraints.BOTH;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(3, 3, 3, 3);
-        panelRent.add(new JScrollPane(tableRentVideo), gridBagConstRent);
-
-        // Gesamtpreislabel hizufügen
-        Layout.addComponent(panelRent, labelRentVideoCost, 0, 10, 1, 1, 0.0,
-                0.0, 0, 0, GridBagConstraints.HORIZONTAL,
-                GridBagConstraints.NORTHWEST, new Insets(3, 3, 3, 3));
-        Layout.addComponent(panelRent, labelRentVideoCostPrice, 2, 10, 1, 1,
-                0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,
-                GridBagConstraints.NORTHEAST, new Insets(3, 3, 3, 3));
-
-        // Button Abbrechen
-        gridBagConstRent.gridx = 1;
-        gridBagConstRent.gridy = 11;
-        gridBagConstRent.ipady = 0;
-        gridBagConstRent.gridwidth = 1;
-        gridBagConstRent.gridheight = 1;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(3, 0, 3, 3);
-        panelRent.add(buttonRentCancel, gridBagConstRent);
-
-        // Button Akzeptieren
-        gridBagConstRent.gridx = 2;
-        gridBagConstRent.gridy = 11;
-        gridBagConstRent.weightx = 0.3;
-        gridBagConstRent.weighty = 0.0;
-        gridBagConstRent.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstRent.anchor = GridBagConstraints.BELOW_BASELINE;
-        gridBagConstRent.insets = new Insets(3, 3, 3, 3);
-        panelRent.add(buttonRentAccept, gridBagConstRent);
+        // Label, KundenNr, VideoNr,Dauer, Button Hinzufügen, Tabelle mit Ausleihfilmen, Gesamtpreis, Button Abbrechen, Bestätigen mit TextFields in panelRent einfügen
+        Layout.addComponent(panelRent, labelRentCustomer, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 0));
+        Layout.addComponent(panelRent, textFieldRentCustomerID, 2, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+        Layout.addComponent(panelRent, labelRentVideoID, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 0));
+        Layout.addComponent(panelRent, textFieldRentVideoID, 2, 1, 1, 1, 0.3, 0.0, 1, 1, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+        Layout.addComponent(panelRent, labelRentDuration, 0, 2, 1, 1, 0.3, 0.0, 1, 1, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 0));
+        Layout.addComponent(panelRent, comboBoxRentDuration, 2, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+        Layout.addComponent(panelRent, buttonRentAdd, 1, 3, 2, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+        Layout.addComponent(panelRent, new JScrollPane(tableRentVideo), 0, 4, 3, 6, 0.3, 1.0, 0, 60, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+        Layout.addComponent(panelRent, labelRentVideoCost, 0, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, new Insets(3, 3, 3, 3));
+        Layout.addComponent(panelRent, labelRentVideoCostPrice, 2, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,GridBagConstraints.NORTHEAST, new Insets(3, 3, 3, 3));
+        Layout.addComponent(panelRent, buttonRentCancel, 1, 11, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+        Layout.addComponent(panelRent, buttonRentAccept, 2, 11, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
 
         return panelRent;
     }
