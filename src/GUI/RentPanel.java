@@ -121,6 +121,7 @@ public class RentPanel {
                     VideoUnit videoUnit = VideoUnit.findByID(unitID);
                     RentTableModel tableRentModel = (RentTableModel) tableRentVideo.getModel();
                     tableRentModel.insertVideoUnit(videoUnit);
+                    calculateRentPrice();
                     textFieldRentVideoID.setText("");
                 } catch (RecordNotFoundException e1) {
                     // TODO Auto-generated catch block
@@ -216,6 +217,7 @@ public class RentPanel {
 					Integer uID = Integer.parseInt(textFieldReturnVideoID.getText());
 					addVideoUnitInReturnTable(VideoUnit.findByID(uID));
 					textFieldReturnVideoID.setText("");
+					textFieldReturnVideoID.grabFocus();
 				} catch (RecordNotFoundException e1) {
 					JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
@@ -358,7 +360,7 @@ public class RentPanel {
     		price = tmpPrice + priceCat.getPrice();
     	}
     	price *= rentDuration;
-    	this.setRentPrice(price);
+    	setRentPrice(price);
     }
     
     private void setRentPrice(float price) {
@@ -454,22 +456,32 @@ public class RentPanel {
     	for(InRent ir : videoUnitMap.keySet())
     	{
     		int amountVideoUnits = ir.getVideoUnits().size();
+    		int amountVideoUnitsInMap = videoUnitMap.get(ir).size();
     		
-    		if(amountVideoUnits == videoUnitMap.get(ir).size() 
-    				&& ir.isOverDuration())
+    		ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
+    		
+    		if(amountVideoUnits == amountVideoUnitsInMap)
     		{
-    			increaseReturnPrice();
     			try {
-    				ir.getWarning().createInvoice();
-    				ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
+    				
+    				if(ir.isOverDuration())
+    				{
+    					increaseReturnPrice();
+    					ir.getWarning().createInvoice();
+    				}
+    				
     				ir.setWarned(false);
+    				
 					ir.delete();
+					
 				} catch (VideothekException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
     		}
     	}
+    	
+    	videoUnitMap.clear();
     }
     
     private float returnPrice = 0.0f;

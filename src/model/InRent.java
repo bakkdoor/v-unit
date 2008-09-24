@@ -476,6 +476,8 @@ public class InRent implements Comparable<InRent>
 	{
 		this.videoUnitIDs.remove(videoUnit.getID());
 		this.getVideoUnits().remove(videoUnit);
+
+		EventManager.fireEvent(new InRentDeletedUnitEvent(this, videoUnit));
 	}
 
 	public void deleteMultipleVideoUnits(Collection<VideoUnit> videoUnits)
