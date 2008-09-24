@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import main.error.VideothekException;
 import model.Customer;
 import model.Data;
 import model.Date;
@@ -204,16 +205,9 @@ public class CustomerDataDialog {
                                 comboBoxTitle.getSelectedIndex() == 0 ? "Herr" : "Frau");
                         
                         customerDataDialog.dispose();
-                    } catch (FalseIDException ex) {
-                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (EmptyFieldException ex) {
-                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (FalseBirthDateException ex) {
-                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (CurrentDateException ex) {
-                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (FalseFieldException ex) {
-                        Logger.getLogger(CustomerDataDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (VideothekException ex) {
+                    	JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+                    			ex.getMessage(), "Fehler beim Erstellen des Kunden", JOptionPane.ERROR_MESSAGE);
                     }
                     
                 } else {
@@ -224,8 +218,10 @@ public class CustomerDataDialog {
                         // TODO meldet zipcode fehler
                         editedCustomer.setZipCode(Integer.parseInt(textFieldZipCode.getText()));
                         editedCustomer.setCity(textFieldCity.getText());
-                        editedCustomer.save();
+                        
                         customerDataDialog.dispose();
+                        editedCustomer.save();
+                        
                     } catch (FalseFieldException ex) {
                         JOptionPane.showMessageDialog(mainWindow.getMainFrame(), ex.getMessage(), "Falsche Eingaben", JOptionPane.ERROR_MESSAGE);
                     } catch (EmptyFieldException ex) {

@@ -498,7 +498,7 @@ public class Customer
 	 */
 	public void setZipCode(int newZipCode) throws FalseFieldException
 	{
-		if (newZipCode < 0)
+		if (newZipCode > 0)
 		{
 			this.zipCode = newZipCode;
 		}

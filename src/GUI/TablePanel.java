@@ -67,7 +67,8 @@ public class TablePanel {
 //				}
 //				TableVideoListSelectionHandler selHandler = (TableVideoListSelectionHandler) tableVideo.getSelectionModel();
 				int selectedRow = tableVideo.getSelectedRow();
-				new ListSelectionEvent(tableVideo.getSelectionModel(), selectedRow, selectedRow, true);
+//				new ListSelectionEvent(e, selectedRow, selectedRow, true);
+				tableVideo.getSelectionModel().setSelectionInterval(selectedRow, selectedRow);
 			}
 		});
 
