@@ -186,7 +186,7 @@ public class VideoDataDialog {
 			PriceCategory priceCategory = video.getPriceCategory();
 
 			VideoDataDialog videoEditDialog = new VideoDataDialog(mainWindow,
-					vID, title, releaseYear, ratedAge, priceCategory, 1);
+					vID, title, releaseYear, ratedAge, priceCategory, video.getNumberOfVideoUnits());
 		} catch (RecordNotFoundException e1) {
 			// TODO Dialog wird als MassegeDialog dargestellt und nicht als
 			// Errordialog! ändern
@@ -225,15 +225,31 @@ public class VideoDataDialog {
 	private void updateVideo() {
 
 		try {
-			int quantity = Integer.parseInt(textFieldUnitQuantity.getText());
-			
 			PriceCategory priceCategory = (PriceCategory) comboBoxPriceCategory
 					.getSelectedItem();
 			int vID = Integer.parseInt(textFieldVID.getText());
 			Video video = Video.findByID(vID);
-			video.setPriceCategory(priceCategory);
-			video.save();
 			
+			int quantity = Integer.parseInt(textFieldUnitQuantity.getText());
+			int diff = quantity - video.getNumberOfVideoUnits();
+			
+			if(diff > 0)
+			{
+				Collection<VideoUnit> newVideoUnits = video.addNewVideoUnits(diff);
+				
+				video.setPriceCategory(priceCategory);
+				
+				String newVideoUnitIDs = "Neue Exemplar Nummern:\n";
+				for(VideoUnit unit : newVideoUnits)
+				{
+					newVideoUnitIDs += (unit.getID() + "  ");
+				}
+				
+				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+						newVideoUnitIDs, "Neue VideoExemplar Nummern", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			video.save();
 			
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
