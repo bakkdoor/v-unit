@@ -557,13 +557,15 @@ public class RentPanel {
     	
     	for(InRent ir : videoUnitMap.keySet())
     	{
-    		ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
+    		int amountVideoUnits = ir.getVideoUnits().size();
     		
-    		if(ir.getVideoUnits().size() == 0 && ir.isOverDuration())
+    		if(amountVideoUnits == videoUnitMap.get(ir).size() 
+    				&& ir.isOverDuration())
     		{
     			increaseReturnPrice();
     			try {
     				ir.getWarning().createInvoice();
+    				ir.deleteMultipleVideoUnits(videoUnitMap.get(ir));
     				ir.setWarned(false);
 					ir.delete();
 				} catch (VideothekException e) {
