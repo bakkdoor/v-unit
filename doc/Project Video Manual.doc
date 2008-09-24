@@ -1,5 +1,5 @@
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
-{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\ul\b\f0\fs40 Project Video\ulnone\b0\fs20\par
+{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\ul\b\f0\fs40 V-Unit\ulnone\b0\fs20\par
 \par
 \par
 \par
@@ -7,7 +7,7 @@
 \par
 \b\fs28 Kurzbeschreibung\b0\fs24\par
 \fs20\par
-Aufgabe und Ziel von Project Video ist die umfangreiche und benutzerfreundliche Unterst\'fctzung einer Videothek bei ihren t\'e4glichen Routinegesch\'e4ftsvorg\'e4ngen.\par
+Aufgabe und Ziel von V-Unit ist die umfangreiche und benutzerfreundliche Unterst\'fctzung einer Videothek bei ihren t\'e4glichen Routinegesch\'e4ftsvorg\'e4ngen.\par
 Dazu z\'e4hlen u.a. das Anlegen und Verwalten von Kunden und Fillmen, Verleih- und R\'fcckgabevorg\'e4nge, Quittungs- und Mahnungserstellungen.\par
 \par
 \par
@@ -15,12 +15,12 @@ Dazu z\'e4hlen u.a. das Anlegen und Verwalten von Kunden und Fillmen, Verleih- u
 \b\fs28\par
 Programmstart\par
 \b0\fs20\par
-Beim Starten von Project Video erfolgt zun\'e4chst die Datumsabfrage. Standardm\'e4\'dfig ist hier das aktuelle Datum eingetragen, das durch einen Klick auf \b OK\b0  \'fcbernommen oder vorher nach eigenem Wunsch frei gesetzt werden kann. (Bitte beachten Sie, dass alle Vorg\'e4nge im laufenden Programm, wie Ausleihen, Quittungen oder auch Mahnungen sich auf das hier gesetzte Datum beziehen.)\par
+Beim Starten von V-Unit erfolgt zun\'e4chst die Datumsabfrage. Standardm\'e4\'dfig ist hier das aktuelle Datum eingetragen, das durch einen Klick auf \b OK\b0  \'fcbernommen oder vorher nach eigenem Wunsch frei gesetzt werden kann. (Bitte beachten Sie, dass alle Vorg\'e4nge im laufenden Programm, wie Ausleihen, Quittungen oder auch Mahnungen sich auf das hier gesetzte Datum beziehen.)\par
 Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'fc unter\par
 \b Extras \b0 -> \b Einstellungen \b0 -> \b Allgemeines \b0 deaktiviert werden.\par
 \par
 \par
-\i\tab\tab\tab Hier Bild vom Reiter Allgemein\i0\par
+\tab\tab\tab\i Hier Bild vom Reiter Allgemein\i0\par
 \par
 \par
 \par
@@ -107,10 +107,10 @@ Bevor der Film endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinende
 2. Hier kann nun im oberen Feld die Kundennummer des Kunden eingegeben werden, der einen bzw. mehrere Filme\par
 ausleihen will.\par
 3. Im darunter liegenden Feld ist die Exemplarnummer des Filmexemplars einzutragen, das ausgeliehen werden soll.\par
-4. Wenn die Ausleihe l\'e4nger als 1 Woche gelten soll, kann dies mittels des Dropdown-Men\'fcs zur Ausleihdauer festgelegt werden.\par
-5. Nun f\'fcgt ein Klick auf \b Hinzuf\'fcgen\b0  dieses Filmexemplar mit der angegebenen Ausleihdauer in die darunter befindliche Liste ein.\par
-Falls dieser Kunde noch weitere Filmexemplare auszuleihen w\'fcnscht, sind die Schritte 3. - 5. solange zu wiederholen, bis alle Filmexemplare in der Ausleihliste eingetragen sind. Unter der Liste der auszuleihenden Filme wird der Gesamtpreis f\'fcr diese Ausleihe angezeigt, der sich aus der Preiskategorie jedes Filmes, multipliziert mit der Ausleihdauer, berechnet.\par
-Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, wird der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen und diese neue Ausleihe mit den eingegebenen Filmexemplaren und dem ausleihenden Kunden im Programm registriert. Der Kunde erh\'e4lt eine Ausleihquittung, die eine Liste der entliehenen Filme und die Leihgeb\'fchren enth\'e4lt.\par
+4. Nun f\'fcgt ein Klick auf \b Hinzuf\'fcgen\b0  dieses Filmexemplar in die darunter befindliche Liste ein.\par
+5. Wenn die Ausleihe l\'e4nger als 1 Woche gelten soll, kann dies mittels des Dropdown-Men\'fcs zur Ausleihdauer festgelegt werden.\par
+Falls dieser Kunde noch weitere Filmexemplare auszuleihen w\'fcnscht, sind die Schritte 3. und 4. solange zu wiederholen, bis alle Filmexemplare in der Ausleihliste eingetragen sind. Unter der Liste der auszuleihenden Filme wird der Gesamtpreis f\'fcr diese Ausleihe angezeigt, der sich aus der Preiskategorie jedes Filmes, multipliziert mit der Ausleihdauer, berechnet.\par
+Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, wird der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen und diese neue Ausleihe mit den eingegebenen Filmexemplaren und dem ausleihenden Kunden im Programm registriert.\par
 \par
 Durch Klick auf \b Abbrechen\b0  kann der Ausleihvorgang an dieser Stelle noch abgebrochen werden.\par
 \par
@@ -122,8 +122,47 @@ Den entsprechenden Kunden in der Liste aller Kunden, bzw. den gew\'fcnschten Fil
  \i Hinweis!\i0  Diese Vorgehensweise kann unter Umst\'e4nden hilfreich sein, wenn beispielsweise ein Kunde einen Film ausleihen m\'f6chte, dieser aber seinen Kundenausweis / seine Kundennummer nicht bei sich hat.\par
 \par
 \par
+\b\fs24 Einschr\'e4nkung des Ausleihrechts\par
+\b0\fs20\par
+Wenn ein Kunde einen neuen Film ausleihen will, obwohl noch eine ungel\'f6ste Mahnung gegen ihn vorliegt, d.h. er hat mit mindestens einem Film, den er ausgeliehen hat, die R\'fcckgabefrist um mindestens drei Tage \'fcberschritten, dann wird die erneute Ausleihe an diesen Kunden verweigert. Erst wenn diese Mahnung aufgel\'f6st wurde, also wenn der Kunde den/ die \'fcberzogenen Film/e zur\'fcckgegeben hat, kann er wieder neue Filme ausleihen.\par
 \par
-\b\fs28 R\'fcckgabe\b0\fs20\par
+\par
+\b\fs24 Ausleihquittung\par
+\fs20\par
+\b0 Am Ende jedes abgeschlossenen Ausleihvorgangs erh\'e4lt der Kunde eine Ausleihquittung, die eine Liste der entliehenen Filme, die Leihgeb\'fchren und den R\'fcckgabetermin enth\'e4lt. Die Quittung ist vom Mitarbeiter, der den Ausleihvorgang durchgef\'fchrt hat, zu unterschreiben.\par
+\par
+\par
+\par
+\b\fs28\par
+R\'fcckgabe\b0\fs20\par
+\par
+\b\fs24\par
+Einzelnen Film\b0  zur\'fcckgeben\par
+\fs20\par
+Um einen einzelnen entliehenen Film zur\'fcckzunehmen, muss zun\'e4chst im Ausleih- und R\'fcckgabebereich mit einem Klick auf \b R\'fcckgabe\b0  zur R\'fcckgabeansicht gewechselt werden. In das Feld muss nun per Hand die Exemplarnummer des Films eingegeben werden, den der Kunde zur\'fcckgeben m\'f6chte. Nach einem Klick auf \b Hinzuf\'fcgen\b0  steht dieser Film dann in der unteren R\'fcckgabeliste.\par
+Um den R\'fcckgabevorgang zu best\'e4tigen, gen\'fcgt jetzt noch ein letzter Klick auf \b Best\'e4tigen\b0 .\par
+Nun ist der Film aus der Liste \b Ausgeliehen\b0  gestrichen und steht ab sofort wieder zur Ausleihe zur Verf\'fcgung.\par
+\par
+\par
+\b\fs24 Mehrere Filme\b0  zur\'fcckgeben\par
+\fs20\par
+Um mehrerere Filme auf einmal zur\'fcckzunehmen, verfahren Sie ebenso wie mit einem einzelnen (s.oben). Nur mit dem Zusatz, dass vor der Best\'e4tigung des R\'fcckgabevorgangs durch \b Best\'e4tigen\b0  auch noch die weiteren entliehenen Filmexemplare, die zur\'fcckgegeben werden sollen, wie unter "Einzelnen Film zur\'fcckgeben" beschrieben, in die R\'fcckgabeliste eingetragen werden.\par
+So werden alle diese Filme in nur einem einzigen R\'fcckgabevorgang zur\'fcckgenommen.\par
+\par
+\par
+\b\fs24 Mahnungsquittung \b0 bei R\'fcckgabe\fs20\par
+\par
+W\'e4hrend eines R\'fcckgabevorgangs \'fcberpr\'fcft das V-Unit, ob der Kunde mit einem oder mehreren Filmen die R\'fcckgabefrist \'fcberschritten hat. Ist dies der Fall, wird eine Mahnungsquittung ausgestellt und dem Kunden der Mahnungsbetrag in Rechnung gestellt.\par
+\par
+\par
+\b\fs24 Mahnungen erstellen\b0\fs20\par
+\par
+Bei jeder Programmbeendigung \'fcberpr\'fcft V-Unit alle Ausleihen, ob ihre R\'fcckgabefrist um mindestens 3 Tage \'fcberschritten wurde. Ist dies der Fall, wird automatisch eine Mahnung zu dieser Ausleihe generiert. Diese Mahnung ist adressiert an den zugeh\'f6rigen Kunden dieser Ausleihe und enth\'e4lt neben einer Auflistung der \'fcberzogenen Filme den f\'e4lligen Mahnungsbetrag und eine sofortige R\'fcckgabeaufforderung f\'fcr die entliehenen Filme.\par
+Wurden eine oder mehrere Mahnungen erzeugt, wird der Benutzer durch ein erscheinendes Informationsfenster, in dem die Mahnung/en aufgelistet werden, informiert.\par
+Dieser Routineprozess basiert auf der Annahme, dass das Programm mindestens ein Mal t\'e4glich (i.d.R. abends nach Gesch\'e4ftsschluss) beendet wird. Ist dies allerdings aus verschiedenen Gr\'fcnden einmalig oder regelm\'e4\'dfig nicht gegeben, steht dem Benutzer zus\'e4tzlich zu der autmatisierten Mahnungs\'fcberpr\'fcfung auch noch eine manuelle \'dcberpr\'fcfung zur Verf\'fcgung.\par
+Erreichbar ist die Funktion unter \b Extras \b0 -> \b Mahnungen erstellen\b0 .\par
+Wurden so neue Mahnungen erzeugt, erscheint dasselbe Informationsfenster, wie bei der automatischen Mahnungengenerierung bei Programmende.\par
+F\'fcr eine \'fcberzogene Ausleihe wird die f\'e4llige Mahnung nur ein einziges Mal erstellt und bleibt danach so lange erhalten und der betroffene Kunde von der Ausleihe weiterer Filme ausgeschlossen, bis sie aufgel\'f6st wird.\par
 \par
 \par
 }
