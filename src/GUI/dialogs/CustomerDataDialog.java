@@ -294,8 +294,7 @@ public class CustomerDataDialog {
     }
 
     /**
-     * füllt die 
-     * @param mainWindow
+     * füllt die Kundeninformationen in die entsprächenden Felder ein
      */
     public static void createFilledCustomerDataDialog() {
         DetailPanel detailPanel = MainWindow.get().getDetailPanel();
