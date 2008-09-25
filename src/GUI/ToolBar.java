@@ -24,9 +24,9 @@ public class ToolBar {
 	private JButton toolBarButtonEdit;
 	private JButton toolBarButtonDelete;
 
-	protected Component createToolBar(MainWindow owner) {
+	protected Component createToolBar() {
 
-		final MainWindow mainWindow = owner;
+		final MainWindow mainWindow = MainWindow.get();
 
 		// ToolBar erzeugen
 		JToolBar toolBarButtons = new JToolBar();

@@ -31,10 +31,7 @@ public class MenuBar {
 
 	private MainWindow owner;
 
-	protected JMenuBar createMenuBar(MainWindow owner) {
-
-		final MainWindow mainWindow = owner;
-		this.owner = owner;
+	protected JMenuBar createMenuBar() {
 
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();
@@ -61,7 +58,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CustomerDataDialog(mainWindow);
+				new CustomerDataDialog(MainWindow.get());
 			}
 		});
 
@@ -71,7 +68,7 @@ public class MenuBar {
 		menuItemCustomerEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CustomerDataDialog.createFilledCustomerDataDialog(mainWindow);
+				CustomerDataDialog.createFilledCustomerDataDialog(MainWindow.get());
 			}
 		});
 
@@ -82,7 +79,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainWindow.getDetailPanel().deleteCustomer();
+				MainWindow.get().getDetailPanel().deleteCustomer();
 			}
 		});
 
@@ -98,7 +95,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VideoDataDialog(mainWindow);
+				new VideoDataDialog(MainWindow.get());
 			}
 		});
 		menuItemVideoEdit = new JMenuItem("Bearbeiten", new ImageIcon(
@@ -108,7 +105,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainWindow.showEditVideoDialog();
+				MainWindow.get().showEditVideoDialog();
 			}
 		});
 
@@ -119,7 +116,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainWindow.getDetailPanel().deleteVideo();
+				MainWindow.get().getDetailPanel().deleteVideo();
 			}
 		});
 
@@ -130,7 +127,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainWindow.getDetailPanel().deleteVideoUnit();
+				MainWindow.get().getDetailPanel().deleteVideoUnit();
 			}
 		});
 
@@ -176,10 +173,10 @@ public class MenuBar {
 						.createPendingWarnings();
 				if (createdWarnings.size() > 0) {
 					CreatedWarningsDialog dialog = new CreatedWarningsDialog(
-							mainWindow.getMainFrame(), createdWarnings);
+							MainWindow.get().getMainFrame(), createdWarnings);
 					dialog.setVisible(true);
 				} else {
-					JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+					JOptionPane.showMessageDialog(MainWindow.get().getMainFrame(),
 							"Keine neuen Mahnungen vorhanden.");
 				}
 			}
@@ -284,7 +281,7 @@ public class MenuBar {
 	}
 
 	private void openSettingsDialog() {
-		SettingsDialog dialog = new SettingsDialog(this.owner.getMainFrame(),
+		SettingsDialog dialog = new SettingsDialog(MainWindow.get().getMainFrame(),
 				true);
 		dialog.setVisible(true);
 	}

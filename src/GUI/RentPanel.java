@@ -62,9 +62,9 @@ public class RentPanel {
     public static final String RENTVIDEOCARD = "RentCard";
     public static final String RETURNVIDEOCARD = "ReturnCard";
 
-    protected Component createRentPanel(MainWindow mainWindow) {
+    protected Component createRentPanel() {
 
-        this.mainWindow = mainWindow;
+        this.mainWindow = MainWindow.get();
         // Panel erstellen
 
         panelRent = new JPanel();
