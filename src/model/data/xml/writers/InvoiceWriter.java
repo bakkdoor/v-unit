@@ -2,6 +2,7 @@ package model.data.xml.writers;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collection;
 
 import main.config.Config;
 import model.CurrentDate;
@@ -39,20 +40,21 @@ public class InvoiceWriter extends AbstractTextWriter
 	 * Schreibt Quittung für Mahnung in Textdatei.
 	 * @param warning Die Mahnung, für die die Quittung 
 	 * 					erstellt werden soll.
+	 * @param videoUnits Die VideoUnits, die einst dem InRent dieser Warning gehört haben.
 	 */
-	public void writeInvoiceFor(Warning warning)
+	public void writeInvoiceFor(Warning warning, Collection<VideoUnit> videoUnits)
 	{
-		System.out.println("warnungsquittung wird geschrieben..");
 		try
 		{
 			// Ordner erstellen, falls er nicht existiert.
 			createDirIfNeeded(this.warningInvoiceFolder);
 			
-			FileWriter fWriter = new FileWriter(this.warningInvoiceFolder + "/" + warning.getID() + ".txt");
+			FileWriter fWriter = new FileWriter(this.warningInvoiceFolder + "/" 
+					+ warning.getInRent().getID() + ".txt");
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("Quittung fuer Mahnung");
+			sb.append("Quittung fuer Mahnung" + formatLeft("", 16));
 			sb.append(" Datum: " + CurrentDate.get() + "\n");
 			sb.append("========================================================\n");
 			sb.append("\n");
@@ -62,7 +64,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			
 			sb.append("Filme:\n");
 			
-			for(VideoUnit unit : warning.getInRent().getVideoUnits())
+			for(VideoUnit unit : videoUnits)
 			{
 				sb.append(formatInt(unit.getID(), 10) + unit.getVideo().getTitle());
 				try
@@ -82,7 +84,8 @@ public class InvoiceWriter extends AbstractTextWriter
 			sb.append("Mahnungskosten: \t" + Warning.warningPrice + " Euro" + "\n");
 			sb.append("\n\n");
 			sb.append("========================================================\n");
-			sb.append("Unterschrift Kunde:");
+			sb.append("Unterschrift Kunde:\n\n");
+			sb.append("Unterschrift Mirarbeiter:");
 			
 			fWriter.append(sb.toString());
 			fWriter.flush();
@@ -141,7 +144,8 @@ public class InvoiceWriter extends AbstractTextWriter
 			sb.append("Ausleihpreis: \t\t" + inRent.getPrice() +  " Euro" + "\n");
 			sb.append("\n\n");
 			sb.append("=======================================================\n");
-			sb.append("Unterschrift Kunde:");
+			sb.append("Unterschrift Kunde:\n\n");
+			sb.append("Unterschrift Mirarbeiter:");
 			
 			fWriter.append(sb.toString());
 			fWriter.flush();

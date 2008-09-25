@@ -109,11 +109,12 @@ public class Warning
 	/**
 	 * Erstellt eine Quittung für diese Mahnung im mahnungen/quittungen/ Ordner. Name der
 	 * Quittings-Datei ist die ID dieses Warning Objektes + '.txt'
+	 * @param videoUnits Die VideoUnits die einst dem InRent dieser Warning gehört haben.
 	 */
-	public void createInvoice()
+	public void createInvoice(Collection<VideoUnit> videoUnits)
 	{
 		InvoiceWriter writer = new InvoiceWriter();
-		writer.writeInvoiceFor(this);
+		writer.writeInvoiceFor(this, videoUnits);
 	}
 
 //	/**
