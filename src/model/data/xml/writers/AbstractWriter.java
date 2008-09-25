@@ -17,7 +17,7 @@ public abstract class AbstractWriter
 	
 	public AbstractWriter(String xmlFileName) throws DataSaveException, FileNotFoundException
 	{
-		if(xmlFileName == null && xmlFileName.equals(""))
+		if(xmlFileName == null || xmlFileName.equals(""))
 			throw new DataSaveException("Dateiname ungültig!", xmlFileName);
 			
 		this.xmlFileName = xmlFileName;
