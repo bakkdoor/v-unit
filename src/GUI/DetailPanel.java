@@ -242,6 +242,7 @@ public class DetailPanel {
 		listDetailVUnit.setModel(new VideoUnitListModel(mainWindow));
 
 		buttonDetailVadd = new JButton("Hinzufügen");
+		buttonDetailVadd.setEnabled(false);
 		buttonDetailVadd.addActionListener(new ActionListener() {
 
 			@Override
