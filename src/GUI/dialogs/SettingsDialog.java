@@ -12,6 +12,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableRowSorter;
+
+import GUI.TablePanel;
 
 import main.config.Config;
 import main.error.VideothekException;
@@ -399,12 +402,13 @@ public class SettingsDialog extends javax.swing.JDialog
 		columnNames.add("Nr.");
 		columnNames.add("Name");
 		columnNames.add("Preis");
+		columnNames.add("Anzahl Filme");
 
 		priceCategoryTable.setModel(new javax.swing.table.DefaultTableModel(
 				createEntries(), columnNames)
 		{
 			Class[] types = new Class[] { java.lang.Integer.class,
-					java.lang.String.class, java.lang.Float.class };
+					java.lang.String.class, java.lang.Float.class, java.lang.Integer.class };
 
 			public Class getColumnClass(int columnIndex)
 			{
@@ -415,6 +419,9 @@ public class SettingsDialog extends javax.swing.JDialog
 		    }
 		});
 		
+		TableRowSorter priceCategorySorter = TablePanel.createIntegerSorter(new int[]{0,3}, priceCategoryTable);
+		priceCategoryTable.setRowSorter(priceCategorySorter);
+		
 		priceCategoryTable.getTableHeader().setReorderingAllowed(false);
 		jScrollPane1.setViewportView(priceCategoryTable);
 		priceCategoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -422,6 +429,7 @@ public class SettingsDialog extends javax.swing.JDialog
 		priceCategoryTable.getColumnModel().getColumn(1)
 				.setPreferredWidth(1100);
 		priceCategoryTable.getColumnModel().getColumn(2).setPreferredWidth(400);
+		priceCategoryTable.getColumnModel().getColumn(3).setPreferredWidth(400);
 
 		this.priceCategoryTable.getModel().addTableModelListener(
 				new TableModelListener()
@@ -445,6 +453,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	    	row.add(pc.getID());
 	    	row.add(pc.getName());
 	    	row.add(pc.getPrice());
+	    	row.add(pc.getVideos().size());
 	    	
 	    	dataRows.add(row);
 	    }
@@ -613,15 +622,23 @@ public class SettingsDialog extends javax.swing.JDialog
 			Integer id = (Integer) this.priceCategoryTable.getValueAt(selectedRow, 0);
 			
 			PriceCategory pc = PriceCategory.findByID(id);
+
+			int selectedOption = JOptionPane.showConfirmDialog(this.priceCategoriesPanel, 
+					"Möchten Sie die Preiskategorie mit der Nummer "
+					+ pc.getID() + " wirklich löschen?",
+					"Preiskategorie Löschen", JOptionPane.YES_NO_OPTION);
 			
-			if(pc.getVideos().size() > 0)
+			if(selectedOption == JOptionPane.YES_OPTION)
 			{
-				throw new VideothekException("Fehler beim Löschen: Preiskategorie enthält noch Videos.");
-			}
-			else
-			{
-				pc.delete();
-				fillTableContent();
+				if(pc.getVideos().size() > 0)
+				{
+					throw new VideothekException("Fehler beim Löschen: Preiskategorie enthält noch Filme.");
+				}
+				else
+				{
+					pc.delete();
+					fillTableContent();
+				}
 			}
 		}
 		catch (VideothekException e)
