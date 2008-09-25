@@ -66,7 +66,9 @@ public class CustomerDataDialog {
 
     public CustomerDataDialog() {
 
-        this(MainWindow.get(), Data.NOTSET, "", "", "", "", new Date(1, 1, 19), "", "", 0, "");
+
+        this(MainWindow.get(), Data.NOTSET, "Herr", "", "", "", new Date(1, 1, 19), "", "", 0, "");
+
     }
 
     public CustomerDataDialog(MainWindow mainWindow,
@@ -228,7 +230,6 @@ public class CustomerDataDialog {
         Layout.addComponent(contentPane, labelBirthDay, 0, 5, 1, 1, 0.3, 0.0);
         Layout.addComponent(contentPane, comboBoxBirthDay, 1, 5, 1, 1, 0.23, 0.0);
         Layout.addComponent(contentPane, comboBoxBirthMonth, 2, 5, 1, 1, 0.23, 0.0);
-//        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0);
         Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0, 40, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
 
         Layout.addComponent(contentPane, labelAddress, 0, 6, 1, 1, 0.3, 0.0);

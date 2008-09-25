@@ -33,7 +33,13 @@ public class MenuBar {
 
 	private MainWindow owner;
 
+	/**
+	 * Erstellt MenuBar
+	 * @return MenuBar
+	 */
 	protected JMenuBar createMenuBar() {
+		
+		this.owner = MainWindow.get();
 
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();
@@ -214,7 +220,7 @@ public class MenuBar {
 					// TODO: systempreferences prüfen 
 					// => unter linux evtl. anderer befehl
 					Runtime.getRuntime().exec(
-							new String[] { "hh", "doc/V-Unit Manual.html" });
+							new String[] { "hh", "doc/V-Unit Manual/V-Unit Manual.html" });
 				}
 				catch (IOException e)
 				{
@@ -251,20 +257,25 @@ public class MenuBar {
 		return menuBarMain;
 	}
 	
-
+	/**
+	 * Öffnet das Film/Kundendialog
+	 * @param searchType Suchreiter Kunde oder Video
+	 */
 	private void openSearchDialog(String searchType)
 	{
-		SearchDialog dialog = null;
 		if(searchType.equals(SearchEvent.SearchType.COSTUMER))
 		{
-			dialog = new SearchDialog(owner.getMainFrame(), SearchDialog.CUSTOMERSEARCHMODEDIALOG);
+			new SearchDialog(owner.getMainFrame(), SearchDialog.CUSTOMERSEARCHMODEDIALOG);
 		}
 		else
 		{
-			dialog = new SearchDialog(owner.getMainFrame(), SearchDialog.VIDEOSEARCHMODEDIALOG);
+			new SearchDialog(owner.getMainFrame(), SearchDialog.VIDEOSEARCHMODEDIALOG);
 		}
 	}
 
+	/**
+	 * aktiviert die Kunde Bearbeiten und Löschen Buttons 
+	 */
 	public void setCustomerButtonsEnabled() {
 
 		this.menuItemCustomerEdit.setEnabled(true);
@@ -274,6 +285,9 @@ public class MenuBar {
 		this.menuItemVideoUnitDelete.setEnabled(false);
 	}
 
+	/**
+	 * aktiviert die Film Bearbeiten und Löschen Buttons 
+	 */
 	public void setVideoButtonsEnabled() {
 		this.menuItemCustomerEdit.setEnabled(false);
 		this.menuItemCustomerDelete.setEnabled(false);
@@ -283,6 +297,9 @@ public class MenuBar {
 
 	}
 
+	/**
+	 * deaktiviert die Bearbeiten Löschen Buttons
+	 */
 	public void setButtonsDisabled() {
 		this.menuItemCustomerEdit.setEnabled(false);
 		this.menuItemCustomerDelete.setEnabled(false);
@@ -291,6 +308,9 @@ public class MenuBar {
 		this.menuItemVideoUnitDelete.setEnabled(false);
 	}
 
+	/**
+	 * Erstellt das Einstellungsdialog
+	 */
 	private void openSettingsDialog() {
 		SettingsDialog dialog = new SettingsDialog(MainWindow.get().getMainFrame(),
 				true);

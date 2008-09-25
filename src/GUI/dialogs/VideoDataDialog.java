@@ -85,7 +85,7 @@ public class VideoDataDialog {
 		textFieldVID.setEditable(false);
 		textFieldVID.setVisible(!addVideo);
 
-		JLabel labelTitle = new JLabel("Film Titel:");
+		JLabel labelTitle = new JLabel("Titel:");
 		textFieldTitle = new JTextField(title);
 		textFieldTitle.setEditable(addVideo);
 
@@ -94,7 +94,7 @@ public class VideoDataDialog {
 		textFieldReleaseYear.setText(addVideo ? "" : releaseYear.toString());
 		textFieldReleaseYear.setEditable(addVideo);
 
-		JLabel labelratedAge = new JLabel("Altersbeschränkung:");
+		JLabel labelratedAge = new JLabel("Altersfreigabe:");
 		textFieldRatedAge = new JTextField();
 		textFieldRatedAge.setText(addVideo ? "" : ratedAge.toString());
 		textFieldRatedAge.setEditable(addVideo);
@@ -235,7 +235,7 @@ public class VideoDataDialog {
 				}
 				
 				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
-						newVideoUnitIDs, "Neue VideoExemplar Nummern", JOptionPane.INFORMATION_MESSAGE);
+						newVideoUnitIDs, "Neue Filmexemplar Nummern", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			video.save();
