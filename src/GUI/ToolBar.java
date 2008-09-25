@@ -35,7 +35,7 @@ public class ToolBar {
 		toolBarButtons.setBorderPainted(true);
 
 		// Button Suche
-		JButton toolBarButtonSearch = new JButton("Suchen");
+		JButton toolBarButtonSearch = new JButton("Suche");
 		// toolBarButtonSearch.setBorderPainted(false); //Rahmen anzegen
 		toolBarButtonSearch.setFocusable(false);
 		toolBarButtonSearch.setDefaultCapable(false);

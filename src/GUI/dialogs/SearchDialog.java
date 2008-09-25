@@ -98,6 +98,14 @@ public class SearchDialog {
 			}
 		});
 		
+		textFieldVideo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				startSearch();
+			}
+		});
+		
 		panelVideo.add(labelVideo);
 		panelVideo.add(textFieldVideo);
 		tabbedPane.addTab("Film", new ImageIcon("icons/film.png"), panelVideo);
@@ -124,9 +132,18 @@ public class SearchDialog {
 			
 		});
 		
+		textFieldCustomer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				startSearch();
+			}
+		});
+		
+		
 		panelCustomer.add(labelCustomer);
 		panelCustomer.add(textFieldCustomer);
-		tabbedPane.addTab("Kunde", new ImageIcon("icons/user.png"), panelCustomer);
+		tabbedPane.addTab("Kunden", new ImageIcon("icons/user.png"), panelCustomer);
 
 		if(this.searchMode == CUSTOMERSEARCHMODEDIALOG)
 		{
