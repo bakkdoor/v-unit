@@ -211,10 +211,10 @@ Unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Preiskategorien\b0  k\'f6nnen 
 Um eine vorhandene Preiskategorie zu bearbeiten, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann mit einem Klick auf \b Bearbeiten\b0  den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen der Name und der Preis ge\'e4ndert werden.\par
 Ein Klick auf \b OK\b0  speichert die \'c4nderungen, wohingegen ein Klick auf \b Abbrechen\b0  die \'c4nderungen verwirft.\par
 \par
-Um eine vorhandene Preiskategorie zu l\'f6schen, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann nach  einem Klick auf \b L\'f6schen\b0  sich \'f6ffnenden Dialog mit \b Ja\b0  best\'e4tigen. Ein Klick auf \b Nein\b0  bricht den L\'f6schvorgang ab.\par
- \i Hinweis! \i0 Eine Preiskategorie kann nur gel\'f6scht werden, wenn sich kein Exemplar eines Filmes dieser Preiskategorie noch in Ausleihe befindet.\par
+Um eine vorhandene Preiskategorie zu l\'f6schen, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann nach einem Klick auf \b L\'f6schen\b0  den sich \'f6ffnenden Dialog mit \b Ja\b0  best\'e4tigen. Ein Klick auf \b Nein\b0  bricht den L\'f6schvorgang ab.\par
+ \i Hinweis! \i0 Eine Preiskategorie kann nur gel\'f6scht werden, wenn kein Film mehr dieser Preiskategorie zugeordnet ist.\par
 \par
-Um eine neue Preiskategorie hinzuzuf\'fcgen, mit einem Klick auf \b Hinzuf\'fcgen \b0 den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen der Name und der Preis der neuen Preiskategorie eingegeben werden.\par
+Um eine neue Preiskategorie hinzuzuf\'fcgen, mit einem Klick auf \b Hinzuf\'fcgen \b0 den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen Name und Preis der neuen Preiskategorie eingegeben werden.\par
 Ein Klick auf \b OK\b0  speichert die neue Preiskategorie, wohingegen ein Klick auf \b Abbrechen\b0  die neue Preiskategorie verwirft.\par
 \par
 \par
