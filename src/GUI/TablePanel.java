@@ -275,11 +275,12 @@ public class TablePanel {
 		JTable table = new JTable(new String[][] {}, colNames);
 		
 		TableColumnModel colModel = table.getColumnModel();
-		colModel.getColumn(0).setWidth(60);
-		colModel.getColumn(1).setWidth(150);
-		colModel.getColumn(2).setWidth(60);
-		colModel.getColumn(3).setWidth(100);
-		colModel.getColumn(4).setWidth(60);
+		colModel.getColumn(0).setPreferredWidth(60);
+		colModel.getColumn(1).setPreferredWidth(150);
+		colModel.getColumn(2).setPreferredWidth(60);
+		colModel.getColumn(3).setPreferredWidth(100);
+		colModel.getColumn(4).setPreferredWidth(60);
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		return table;
 	}
@@ -291,12 +292,13 @@ public class TablePanel {
 		JTable table  = new JTable(new String[][] {}, colNames);
 		
 		TableColumnModel colModel = table.getColumnModel();
-		colModel.getColumn(0).setWidth(60);
-		colModel.getColumn(1).setWidth(70);
-		colModel.getColumn(2).setWidth(150);
-		colModel.getColumn(3).setWidth(150);
-		colModel.getColumn(4).setWidth(60);
-		colModel.getColumn(5).setWidth(1500);
+		colModel.getColumn(0).setPreferredWidth(60);
+		colModel.getColumn(1).setPreferredWidth(70);
+		colModel.getColumn(2).setPreferredWidth(150);
+		colModel.getColumn(3).setPreferredWidth(150);
+		colModel.getColumn(4).setPreferredWidth(60);
+		colModel.getColumn(5).setPreferredWidth(150);
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		return table;
 	}
