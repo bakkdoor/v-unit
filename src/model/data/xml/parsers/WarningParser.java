@@ -72,7 +72,7 @@ public class WarningParser extends AbstractParser
 	{
 		String tagname = qName;
 
-		if (tagname == "warnings") // öffnendes tag <warnings>
+		if (tagname.equals("warnings")) // öffnendes tag <warnings>
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
@@ -85,7 +85,7 @@ public class WarningParser extends AbstractParser
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 		}
-		else if (tagname == "warning") // öffnendes tag <warning>
+		else if (tagname.equals("warning")) // öffnendes tag <warning>
 		{
 			int wID, inRentID = Data.NOTSET;
 

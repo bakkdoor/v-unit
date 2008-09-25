@@ -613,15 +613,23 @@ public class SettingsDialog extends javax.swing.JDialog
 			Integer id = (Integer) this.priceCategoryTable.getValueAt(selectedRow, 0);
 			
 			PriceCategory pc = PriceCategory.findByID(id);
+
+			int selectedOption = JOptionPane.showConfirmDialog(this.priceCategoriesPanel, 
+					"Möchten Sie die Preiskategorie mit der Nummer "
+					+ pc.getID() + " wirklich löschen?",
+					"Preiskategorie Löschen", JOptionPane.YES_NO_OPTION);
 			
-			if(pc.getVideos().size() > 0)
+			if(selectedOption == JOptionPane.YES_OPTION)
 			{
-				throw new VideothekException("Fehler beim Löschen: Preiskategorie enthält noch Videos.");
-			}
-			else
-			{
-				pc.delete();
-				fillTableContent();
+				if(pc.getVideos().size() > 0)
+				{
+					throw new VideothekException("Fehler beim Löschen: Preiskategorie enthält noch Videos.");
+				}
+				else
+				{
+					pc.delete();
+					fillTableContent();
+				}
 			}
 		}
 		catch (VideothekException e)

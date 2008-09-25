@@ -342,9 +342,9 @@ public class Video implements Comparable<Video>
 	private boolean noEmptyFields(String newTitle, int newReleaseYear,
 			int newRatedAge) throws EmptyFieldException
 	{
-		if (newTitle == null || newTitle == "" || newReleaseYear == Data.NOTSET
+		if (newTitle == null || newTitle.equals("") || newReleaseYear == Data.NOTSET
 				|| newRatedAge == Data.NOTSET)
-			throw new EmptyFieldException();
+			throw new EmptyFieldException("Titel, Erscheinungsjahr oder Altersbeschränkung ungültig.");
 		else
 			return true;
 	}

@@ -84,7 +84,7 @@ public class CustomerParser extends AbstractParser
 		String tagname = qName.toLowerCase();
 
 		// customers-tag erreicht: außerstes tag im xml-dokument
-		if (tagname == "customers")
+		if (tagname.equals("customers"))
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
@@ -98,7 +98,7 @@ public class CustomerParser extends AbstractParser
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 		}
-		else if (tagname == "customer") // öffnendes tag <customer>
+		else if (tagname.equals("customer")) // öffnendes tag <customer>
 		{
 			// daten einlesen aus xml-datei (jeweils attribute, siehe xml-spec)
 			int cID = Data.NOTSET;

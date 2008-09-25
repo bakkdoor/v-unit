@@ -53,7 +53,7 @@ public class CustomerTest extends ModelTest
 		try
 		{
 			c = new Customer("chris", "bertels", new Date(1, 2, 1981), "blaStreet", "9a",
-					48455, "osnabrück", "129821210398asdölkj", "Herr");
+					48455, "osnabrück", "129821210398asdölkj^23883298", "Herr");
 		}
 		catch (VideothekException e)
 		{
