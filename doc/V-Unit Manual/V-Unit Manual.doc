@@ -100,12 +100,12 @@ Durch Klick auf \b Abbrechen\b0  bleiben Preiskategorie und Exemplaranzahl unver
 \par
 \b\fs24 L\'f6schen \b0 eines vorhandenen Films\par
 \fs20\par
-Wenn ein vorhandener Film oder ein Filmexemplar der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller \b Filme \b0 ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Dort muss dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt werden.\par
-Bevor das Filmexemplar endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
-\b Nein \b0 bricht den Vorgang ab und das Filmexemplar wird nicht gel\'f6scht.\par
-Um einen Film mitsamt seiner gesamten Exemplare aus der Filmbank zu l\'f6schen, ist es n\'f6tig, nacheinander alle seine Exemplare, wie oben beschrieben, zu l\'f6schen. Wird das letzte Exemplar eines Films gel\'f6scht, wird dann auch der Film gel\'f6scht.\par
+Wenn ein vorhandener Film der Videothek gel\'f6scht werden soll, ist dies \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  m\'f6glich. \par
+Einzelne Filmexemplare eines Films zu l\'f6schen ist entweder \'fcber das Men\'fc \b Film\b0  -> \b Exemplar L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 in der Toolbar m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller \b Filme \b0 ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Um ein einzelnes Exemplar zu l\'f6schen, muss das zuvor noch im Infobereich ausgew\'e4hlt werden.\par
+Bevor der Film/das Filmexemplar endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster durch Klick auf \b Ja \b0 zu best\'e4tigen.\par
+\b Nein \b0 bricht den Vorgang ab und der Film/das Filmexemplar wird nicht gel\'f6scht.\par
 \i\par
- Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Filmexemplars nur m\'f6glich ist, wenn es sich zum aktuellen Zeitpunkt nicht in Ausleihe befindet.\par
+ Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Filmexemplars nur m\'f6glich ist, wenn es sich zum aktuellen Zeitpunkt nicht in Ausleihe befindet. Gleiches gilt f\'fcr das L\'f6schen eines Films in Bezug auf dessen Exemplare.\par
 \par
 \par
 \par
