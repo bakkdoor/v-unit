@@ -5,6 +5,7 @@ import java.util.Vector;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
@@ -82,6 +83,15 @@ public class SearchController implements VideothekEventListener
 				});
 		
 		this.tablePanel.getTableSearchCustomer().getSelectionModel().addListSelectionListener(new TableCustomerListSelectionHandler(MainWindow.get()));
+		
+		TableColumnModel colModel = this.tablePanel.getTableSearchCustomer().getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(80);
+		colModel.getColumn(1).setPreferredWidth(100);
+		colModel.getColumn(2).setPreferredWidth(250);
+		colModel.getColumn(3).setPreferredWidth(250);
+		colModel.getColumn(4).setPreferredWidth(100);
+		colModel.getColumn(5).setPreferredWidth(450);
+		this.tablePanel.getTableSearchCustomer().getTableHeader().setReorderingAllowed(false);
 	}
 	private Vector getCustomerColumns()
 	{
@@ -122,7 +132,7 @@ public class SearchController implements VideothekEventListener
 		Vector rowData = getVideoRows(this.currentSearchTerm);
 		Vector columns = getVideoColumns();
 		
-		this.tablePanel.getTableSearchVideo().setModel(new javax.swing.table.DefaultTableModel(
+		this.tablePanel.getTableSearchVideo().setModel(new DefaultTableModel(
 				rowData, columns)
 		{
 		    public boolean isCellEditable(int row, int column) {
@@ -140,7 +150,17 @@ public class SearchController implements VideothekEventListener
 					}
 				});
 		this.tablePanel.getTableSearchVideo().getSelectionModel().addListSelectionListener(new TableVideoListSelectionHandler(MainWindow.get()));
+		
+		TableColumnModel colModel = this.tablePanel.getTableSearchVideo().getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(80);
+		colModel.getColumn(1).setPreferredWidth(350);
+		colModel.getColumn(2).setPreferredWidth(80);
+		colModel.getColumn(3).setPreferredWidth(100);
+		colModel.getColumn(4).setPreferredWidth(80);
+		this.tablePanel.getTableSearchVideo().getTableHeader().setReorderingAllowed(false);
 	}
+	
+	
 	private Vector getVideoColumns()
 	{
 		Vector columns = new Vector();
@@ -149,7 +169,7 @@ public class SearchController implements VideothekEventListener
 		columns.add("Titel");
 		columns.add("Erscheinungsjahr");
 		columns.add("Preisklasse");
-		columns.add("Altersbeschr.");
+		columns.add("FSK.");
 		
 		return columns;
 	}
