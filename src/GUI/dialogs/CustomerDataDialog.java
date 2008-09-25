@@ -204,6 +204,7 @@ public class CustomerDataDialog {
                 if (addCustomer) {
                     createCustomer();
                 } else {
+                	updateCustomer();
                 }
 
             }
