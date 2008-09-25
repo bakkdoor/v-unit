@@ -301,7 +301,7 @@ public class CustomerDataDialog {
 
     private String[] createMonthCollection() {
 
-        return new String[]{"Januar", "Februar", "März", "April", "Mai", "Juni", "juli",
+        return new String[]{"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
                     "August", "September", "Oktober", "November", "Dezember"
                 };
     }
