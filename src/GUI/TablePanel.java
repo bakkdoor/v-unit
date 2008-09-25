@@ -271,8 +271,16 @@ public class TablePanel {
 	private JTable createTableSearchVideo () {
 		
 		String[] colNames = { "FilmNr", "Titel",
-				"Erscheinungsjahr", "Preisklasse.", "Altersbeschr" };
+				"Erscheinungsjahr", "Preisklasse.", "FSK" };
 		JTable table = new JTable(new String[][] {}, colNames);
+		
+		TableColumnModel colModel = table.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(80);
+		colModel.getColumn(1).setPreferredWidth(350);
+		colModel.getColumn(2).setPreferredWidth(80);
+		colModel.getColumn(3).setPreferredWidth(100);
+		colModel.getColumn(4).setPreferredWidth(80);
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		return table;
 	}
@@ -282,6 +290,15 @@ public class TablePanel {
 		String[] colNames = { "KundenNr", "Anrede", "Nachname",
 				"Vorname", "Geburtsdatum", "Anschrift" };
 		JTable table  = new JTable(new String[][] {}, colNames);
+		
+		TableColumnModel colModel = table.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(80);
+		colModel.getColumn(1).setPreferredWidth(100);
+		colModel.getColumn(2).setPreferredWidth(250);
+		colModel.getColumn(3).setPreferredWidth(250);
+		colModel.getColumn(4).setPreferredWidth(100);
+		colModel.getColumn(5).setPreferredWidth(450);
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		return table;
 	}
