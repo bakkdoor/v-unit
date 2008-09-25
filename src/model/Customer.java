@@ -595,7 +595,23 @@ public class Customer implements Comparable<Customer>
 	 */
 	public boolean canRent(VideoUnit unit)
 	{
-		return unit.canBeRentedBy(this) && !this.hasDueInRents();
+		return unit.canBeRentedBy(this) && !this.hasWarnings();
+	}
+	
+	/**
+	 * Gibt an, ob ein Kunde zur Zeit Mahnungen hat.
+	 * @return True, falls Mahnungen vorhanden, False sonst.
+	 */
+	public boolean hasWarnings()
+	{
+		for(InRent ir: this.getInRents())
+		{
+			if(ir.isWarned())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

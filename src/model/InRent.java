@@ -46,8 +46,7 @@ public class InRent implements Comparable<InRent>
 			for (VideoUnit unit : videoUnits)
 			{
 				if(!customer.canRent(unit))
-					throw new FalseFieldException("Kunde ist nicht alt genug für Film: " 
-							+ unit.getVideo().getTitle() + " (FSK " + unit.getVideo().getRatedAge() + ")");
+					throw new FalseFieldException("Kunde kann Film nicht ausleihen (FSK oder es liegen Mahnungen vor)");
 				
 				if (unit.isRented())
 					throw new VideoUnitRentedException(
