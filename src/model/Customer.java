@@ -228,13 +228,13 @@ public class Customer implements Comparable<Customer>
 			String city, String identificationNr, String title)
 			throws EmptyFieldException
 	{
-		if (firstName == null || firstName == "" || lastName == null
-				|| lastName == "" || birthDate.getYear() == 0
+		if (firstName == null || firstName.equals("") || lastName == null
+				|| lastName.equals("") || birthDate.getYear() == 0
 				|| birthDate.getMonth() == 0 || birthDate.getDate() == 0
-				|| street == null || street == "" || houseNr == null
-				|| houseNr == "" || zipCode == 0 || city == null || city == ""
-				|| identificationNr == null || identificationNr == ""
-				|| title == null || title == "")
+				|| street == null || street.equals("") || houseNr == null
+				|| houseNr.equals("") || zipCode == 0 || city == null || city.equals("")
+				|| identificationNr == null || identificationNr.equals("")
+				|| title == null || title.equals(""))
 		{
 			throw new EmptyFieldException();
 		}

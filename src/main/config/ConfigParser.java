@@ -61,7 +61,7 @@ public class ConfigParser extends AbstractParser
 	{
 		String tagname = qName;
 
-		if (tagname == "setting") // öffnendes tag <setting>
+		if (tagname.equals("setting")) // öffnendes tag <setting>
 		{
 			String key = attributes.getValue("key");
 			String value = attributes.getValue("value");

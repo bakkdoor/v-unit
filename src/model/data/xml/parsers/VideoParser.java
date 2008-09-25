@@ -85,7 +85,7 @@ public class VideoParser extends AbstractParser
 	{
 		String tagname = qName;
 
-		if (tagname == "videos") // öffnendes tag <videos>
+		if (tagname.equals("videos")) // öffnendes tag <videos>
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
@@ -110,7 +110,7 @@ public class VideoParser extends AbstractParser
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 		}
-		else if (tagname == "video") // öffnendes tag <video>
+		else if (tagname.equals("video")) // öffnendes tag <video>
 		{
 			vID = Integer.parseInt(attributes.getValue("vID"));
 			releaseYear = Integer.parseInt(attributes.getValue("releaseYear"));
@@ -119,7 +119,7 @@ public class VideoParser extends AbstractParser
 			ratedAge = Integer.parseInt(attributes.getValue("ratedAge"));
 			title = attributes.getValue("title");
 		}
-		else if (tagname == "videoUnit") // öffnendes tag <videoUnit>
+		else if (tagname.equals("videoUnit")) // öffnendes tag <videoUnit>
 		{
 			int uID, videoID = -1;
 			uID = Integer.parseInt(attributes.getValue("uID"));
@@ -139,7 +139,7 @@ public class VideoParser extends AbstractParser
 		super.endElement(uri, localName, qName);
 
 		String tagname = qName.toLowerCase();
-		if (tagname == "video") // video zuende
+		if (tagname.equals("video")) // video zuende
 		{
 			try
 			{
