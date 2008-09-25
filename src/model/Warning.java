@@ -9,6 +9,7 @@ import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
 import model.data.xml.writers.WarningWriter;
 import model.events.EventManager;
+import model.events.InRentEditedStateEvent;
 import model.events.WarningCreatedEvent;
 //import model.events.WarningDeletedEvent;
 import model.exceptions.FalseFieldException;
@@ -296,6 +297,8 @@ public class Warning
 		{
 			writer.writeWarning(w);
 			w.inRent.setWarned(true);
+			
+			EventManager.fireEvent(new InRentEditedStateEvent(w.inRent));
 		}
 		
 		return newPendingWarnings;

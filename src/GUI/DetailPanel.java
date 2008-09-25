@@ -68,9 +68,9 @@ public class DetailPanel {
 	public static final String RENTDETAILS = "Rent";
 
 	/**
+	 * Mainklasse von DetailPanel
 	 * 
-	 * @param mainWindow
-	 * @return
+	 * @return das fertige DetailPanel
 	 */
 	protected Component createDetailPanel() {
 
@@ -90,6 +90,10 @@ public class DetailPanel {
 		return panelDetails;
 	}
 
+	/**
+	 * Erstellt ein Container mit Kunden - Informationen.
+	 * @return Container mit KundenInformationen
+	 */
 	private Container createCustomerDetails() {
 
 		// KundenPanel generieren
@@ -198,6 +202,10 @@ public class DetailPanel {
 		return panelDetailCustomer;
 	}
 
+	/**
+	 * Erstellt ein Container mit Video - Informationen
+	 * @return Container mit Video - Informationen
+	 */
 	private Container createVideoDetails() {
 
 		// Panel für Videodetails
@@ -231,14 +239,13 @@ public class DetailPanel {
 		textFieldDetailVDuration.setEditable(false);
 
 		JLabel labelDetailVUnit = new JLabel("Exemplare:");
-		
 
 		// Model definieren
 		listDetailVUnit = new JList();
 		listDetailVUnit
 				.addListSelectionListener(new DetailVideoListSelectionHandler(
 						mainWindow));
-		
+
 		listDetailVUnit.setModel(new VideoUnitListModel(mainWindow));
 
 		buttonDetailVadd = new JButton("Hinzufügen");
@@ -249,8 +256,10 @@ public class DetailPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				VideoUnit selectedVideoUnit;
 				try {
-					selectedVideoUnit = (VideoUnit) listDetailVUnit.getSelectedValue();
-					mainWindow.getRentPanel().addVideoUnitInRentTable(selectedVideoUnit);
+					selectedVideoUnit = (VideoUnit) listDetailVUnit
+							.getSelectedValue();
+					mainWindow.getRentPanel().addVideoUnitInRentTable(
+							selectedVideoUnit);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -312,6 +321,10 @@ public class DetailPanel {
 		return panelDetailVideo;
 	}
 
+	/**
+	 * Erstellt ein Container mit Ausleih - Informationen
+	 * @return Container mit Ausleih - Informationen
+	 */
 	private Container createRentDetails() {
 
 		JPanel rentPanel = new JPanel();
@@ -386,6 +399,10 @@ public class DetailPanel {
 		return rentPanel;
 	}
 
+	/**
+	 * Wechselt die Detailkarten von DetailPanel CardLayout
+	 * @param cardName Kartenname
+	 */
 	public void changePanelDetailsCard(String cardName) {
 
 		CardLayout layout = (CardLayout) panelDetails.getLayout();
@@ -401,12 +418,16 @@ public class DetailPanel {
 		}
 	}
 
+	/**
+	 * Setzt die Werte einzelner Datenfelder im Video Panel 
+	 * @param video Video Objekt, woher die Daten entnommen werden
+	 */
 	public void fillPanelDetailVideo(Video video) {
-		
+
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setVideoButtonsEnabled();
 		mainWindow.getToolBar().setButtonsEnabled();
-		
+
 		changePanelDetailsCard(VIDEODETAILS);
 		buttonDetailVadd.setEnabled(false);
 
@@ -423,27 +444,33 @@ public class DetailPanel {
 		}
 		textFieldDetailVState.setText("");
 		textFieldDetailVDuration.setText("");
-		
+
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video
 				.getSortedVideoUnits());
-		
+
 		this.listDetailVUnit.setListData(videoUnits);
 	}
 
-
+	/**
+	 * Setzt die Werte einzelner Datenfelder im Video Panel 
+	 * @param videoUnit VideoUnit Objekt, woher die Daten entnommen werden
+	 */
 	public void fillPanelDetailVideo(VideoUnit videoUnit) {
-		
+
 		boolean isRented = videoUnit.isRented();
-		textFieldDetailVState.setText(isRented ? "Ausgeliehen"
-				: "Verfügbar");
+		textFieldDetailVState.setText(isRented ? "Ausgeliehen" : "Verfügbar");
 		if (isRented) {
-			this.textFieldDetailVDuration.setText(videoUnit.getInRent().getReturnDate()
-					.toString());
+			this.textFieldDetailVDuration.setText(videoUnit.getInRent()
+					.getReturnDate().toString());
 		} else {
 			this.textFieldDetailVDuration.setText("");
 		}
 	}
 
+	/**
+	 * Setzt die Werte einzelner Datenfelder im Customer Panel 
+	 * @param customer Customer Objekt, woher die Daten entnommen werden
+	 */
 	public void fillPanelDetailCustomer(Customer customer) {
 
 		this.changePanelDetailsCard(CUSTOMERDETAILS);
@@ -460,12 +487,17 @@ public class DetailPanel {
 		textFieldDetailCustLastAddress.setText(customer.getLastAddressRow());
 	}
 
+	/**
+	 * Setzt die Werte einzelner Datenfelder im InRent Panel
+	 * @param inRent InRent Objekt, woher die Daten entnommen werden
+	 * @param selectedVideoUnit VideoUnit Objekt, woher die Daten entnommen werden
+	 */
 	public void fillPanelDetailInRent(InRent inRent, VideoUnit selectedVideoUnit) {
 
 		// Buttons aktivieren
 		mainWindow.getMenuBar().setButtonsDisabled();
 		mainWindow.getToolBar().setButtonsDisabled();
-		
+
 		if (inRent.getVideoUnitIDs().contains(selectedVideoUnit.getID())) {
 			this.textFieldRentID.setText(Integer.toString(inRent.getID()));
 			this.textFieldRentCustomerID.setText(Integer.toString(inRent
@@ -476,10 +508,14 @@ public class DetailPanel {
 					.getTitle());
 			this.textFieldRentReturnDate.setText(inRent.getReturnDate()
 					.toString());
-			this.textFieldRentWarning.setText(inRent.isWarned()?"Ja":"Nein");
+			this.textFieldRentWarning
+					.setText(inRent.isWarned() ? "Ja" : "Nein");
 		}
 	}
 
+	/**
+	 * Löscht den in dem DetailPanel aktiven Kunden (mit bfrage-Dialog)
+	 */
 	public void deleteCustomer() {
 		try {
 			Integer cusrrentCustomerID = Integer.parseInt(this
@@ -498,22 +534,28 @@ public class DetailPanel {
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
 					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Löscht den in dem DetailPanel aktives Video (mit bfrage-Dialog)
+	 */
 	public void deleteVideo() {
 		try {
-			if(listDetailVUnit.getModel().getSize() > 0){
-				Video video = ((VideoUnit) listDetailVUnit.getModel().getElementAt(0)).getVideo();
-				
-				int selectedOption = JOptionPane.showConfirmDialog(mainWindow
-						.getMainFrame(), "Möchten Sie den Film mit der Nummer "
-						+ video.getID() 
-						+ " wirklich löschen? Es werden auch alle Filmexemplare mit gelöscht!",
-						"Film Löschen", JOptionPane.YES_NO_OPTION);
-	
+			if (listDetailVUnit.getModel().getSize() > 0) {
+				Video video = ((VideoUnit) listDetailVUnit.getModel()
+						.getElementAt(0)).getVideo();
+
+				int selectedOption = JOptionPane
+						.showConfirmDialog(
+								mainWindow.getMainFrame(),
+								"Möchten Sie den Film mit der Nummer "
+										+ video.getID()
+										+ " wirklich löschen? Es werden auch alle Filmexemplare mit gelöscht!",
+								"Film Löschen", JOptionPane.YES_NO_OPTION);
+
 				if (selectedOption == JOptionPane.YES_OPTION) {
 					video.delete();
 				}
@@ -523,19 +565,24 @@ public class DetailPanel {
 					.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
+	/**
+	 * Löscht den in dem DetailPanel aktives Videoexemplar (mit Abfrage-Dialog)
+	 */
 	public void deleteVideoUnit() {
 		try {
 			if (listDetailVUnit.isSelectionEmpty()) {
-				throw new VideothekException("Bitte erst ein Exemplar auswählen!");
+				throw new VideothekException(
+						"Bitte erst ein Exemplar auswählen!");
 			}
-			
+
 			VideoUnit currentVideoUnit = (VideoUnit) this.getListDetailVUnit()
 					.getSelectedValue();
-			
+
 			int selectedOption = JOptionPane.showConfirmDialog(mainWindow
-					.getMainFrame(), "Möchten Sie den Filmexemplar mit der Nummer "
-					+ currentVideoUnit.getID() + " wirklich löschen?",
+					.getMainFrame(),
+					"Möchten Sie den Filmexemplar mit der Nummer "
+							+ currentVideoUnit.getID() + " wirklich löschen?",
 					"Filmexemplar Löschen", JOptionPane.YES_NO_OPTION);
 
 			if (selectedOption == JOptionPane.YES_OPTION) {
@@ -547,62 +594,122 @@ public class DetailPanel {
 		}
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailVTitle
+	 * @return TextFieldDetailVTitle
+	 */
 	public JTextField getTextFieldDetailVTitle() {
 		return textFieldDetailVTitle;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailVReleaseYear
+	 * @return TextFieldDetailVReleaseYear
+	 */
 	public JTextField getTextFieldDetailVReleaseYear() {
 		return textFieldDetailVReleaseYear;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailVRatedAge
+	 * @return TextFieldDetailVRatedAge
+	 */
 	public JTextField getTextFieldDetailVRatedAge() {
 		return textFieldDetailVRatedAge;
 	}
 
+	/**
+	 * Geta Methode für getTextFieldDetailVPriceCategory
+	 * @return getTextFieldDetailVPriceCategory
+	 */
 	public JTextField getTextFieldDetailVPriceCategory() {
 		return textFieldDetailVPriceCategory;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailVState
+	 * @return TextFieldDetailVState
+	 */
 	public JTextField getTextFieldDetailVState() {
 		return textFieldDetailVState;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailVDuration
+	 * @return TextFieldDetailVDuration
+	 */
 	public JTextField getTextFieldDetailVDuration() {
 		return textFieldDetailVDuration;
 	}
 
+	/**
+	 * Geta Methode für ListDetailVUnit
+	 * @return ListDetailVUnit
+	 */
 	public JList getListDetailVUnit() {
 		return listDetailVUnit;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustID
+	 * @return TextFieldDetailCustID
+	 */
 	public JTextField getTextFieldDetailCustID() {
 		return textFieldDetailCustID;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustTitle
+	 * @return TextFieldDetailCustTitle
+	 */
 	public JTextField getTextFieldDetailCustTitle() {
 		return textFieldDetailCustTitle;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustFirstName
+	 * @return TextFieldDetailCustFirstName
+	 */
 	public JTextField getTextFieldDetailCustFirstName() {
 		return textFieldDetailCustFirstName;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustLastName
+	 * @return TextFieldDetailCustLastName
+	 */
 	public JTextField getTextFieldDetailCustLastName() {
 		return textFieldDetailCustLastName;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustBirthDay
+	 * @return TextFieldDetailCustBirthDay
+	 */
 	public JTextField getTextFieldDetailCustBirthDay() {
 		return textFieldDetailCustBirthDay;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustFirstAddress
+	 * @return TextFieldDetailCustFirstAddress
+	 */
 	public JTextField getTextFieldDetailCustFirstAddress() {
 		return textFieldDetailCustFirstAddress;
 	}
 
+	/**
+	 * Geta Methode für TextFieldDetailCustLastAddress
+	 * @return TextFieldDetailCustLastAddress
+	 */
 	public JTextField getTextFieldDetailCustLastAddress() {
 		return textFieldDetailCustLastAddress;
 	}
 
+	/**
+	 * Geta Methode für ButtonDetailVadd
+	 * @return ButtonDetailVadd
+	 */
 	public JButton getButtonDetailVadd() {
 		return buttonDetailVadd;
 	}

@@ -235,7 +235,7 @@ public class VideoDataDialog {
 				}
 				
 				JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
-						newVideoUnitIDs, "Neue VideoExemplar Nummern", JOptionPane.INFORMATION_MESSAGE);
+						newVideoUnitIDs, "Neue Filmexemplar Nummern", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			video.save();
