@@ -506,6 +506,6 @@ public class RentPanel {
     
     private void increaseReturnPrice()
     {
-    	returnPrice += Warning.warningPrice;
+    	returnPrice += Warning.getWarningPrice();
     }
 }

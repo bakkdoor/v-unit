@@ -71,6 +71,12 @@ public class Programm
 				}
 			}
 			
+			// falls kein mahnungspreis angegeben, default-wert setzen
+			if(!Config.get().hasSetting(Config.Settings.WARNINGPRICE))
+			{
+				Config.get().setSetting(Config.Settings.WARNINGPRICE, "10.0f");
+			}
+			
 			if(resetWarnings)
 			{
 				for(model.InRent ir : model.InRent.findAll())
