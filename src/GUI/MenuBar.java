@@ -141,7 +141,7 @@ public class MenuBar {
 
 		// Menu Suchen
 		JMenu menuSearch = new JMenu("Suche");
-		JMenuItem menuItemSearchVideo = new JMenuItem("Nach Film",
+		JMenuItem menuItemSearchVideo = new JMenuItem("Film",
 				new ImageIcon("icons/magnifier.png"));
 		menuItemSearchVideo.addActionListener(new ActionListener(){
 			@Override
@@ -151,7 +151,7 @@ public class MenuBar {
 			}
 		});
 		
-		JMenuItem menuItemSearchCustomer = new JMenuItem("Nach Kunden",
+		JMenuItem menuItemSearchCustomer = new JMenuItem("Kunden",
 				new ImageIcon("icons/magnifier.png"));
 		menuItemSearchCustomer.addActionListener(new ActionListener(){
 			@Override

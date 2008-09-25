@@ -6,7 +6,9 @@ import java.util.Collection;
 
 import logging.Logger;
 import main.config.Config;
+import main.error.VideothekException;
 import model.CurrentDate;
+import model.PriceCategory;
 import model.Warning;
 import model.data.DataBase;
 import model.data.exceptions.DataException;
@@ -55,6 +57,25 @@ public class Programm
 		try
 		{
 			DataBase.loadData();
+			
+			// falls keine preiskategorie vorhanden, eine defaultkategorie anlegen
+			if(PriceCategory.findAll().size() == 0)
+			{
+				try
+				{
+					PriceCategory defaultPriceCategory = new PriceCategory("A", 1.0f);
+				}
+				catch (VideothekException e)
+				{
+					Logger.get().write("Fehler beim Erstellen der Default-Preiskategorie: " + e.getMessage());
+				}
+			}
+			
+			// falls kein mahnungspreis angegeben, default-wert setzen
+			if(!Config.get().hasSetting(Config.Settings.WARNINGPRICE))
+			{
+				Config.get().setSetting(Config.Settings.WARNINGPRICE, "10.0f");
+			}
 			
 			if(resetWarnings)
 			{

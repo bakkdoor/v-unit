@@ -55,29 +55,35 @@ public class SettingsDialog extends javax.swing.JDialog
 	  // <editor-fold defaultstate="collapsed" desc="Generated Code">
 	  private void initComponents()
 	  {
-	    jTabbedPane1 = new javax.swing.JTabbedPane();
-	    settingsPanel = new javax.swing.JPanel();
-	    setCurrentDateCheckbox = new javax.swing.JCheckBox();
-	    invoiceFolderFileChooser = new javax.swing.JFileChooser();
-	    jPanel1 = new javax.swing.JPanel();
-	    jLabel2 = new javax.swing.JLabel();
-	    invoiceFolderSetButton = new javax.swing.JButton();
-	    jLabel3 = new javax.swing.JLabel();
-	    warningInvoiceFolderSetButton = new javax.swing.JButton();
-	    invoiceFolderTextField = new javax.swing.JTextField();
-	    warningInvoiceFolderTextField = new javax.swing.JTextField();
-	    jPanel2 = new javax.swing.JPanel();
-	    jLabel4 = new javax.swing.JLabel();
-	    warningFolderSetButton = new javax.swing.JButton();
-	    warningFolderTextField = new javax.swing.JTextField();
-	    priceCategoriesPanel = new javax.swing.JPanel();
-	    jScrollPane1 = new javax.swing.JScrollPane();
-	    priceCategoryTable = new javax.swing.JTable();
-	    addButton = new javax.swing.JButton();
-	    deleteButton = new javax.swing.JButton();
-	    okButton = new javax.swing.JButton();
-	    cancelButton = new javax.swing.JButton();
-	    editButton = new javax.swing.JButton();
+		  jFileChooser2 = new javax.swing.JFileChooser();
+		    jTabbedPane1 = new javax.swing.JTabbedPane();
+		    settingsPanel = new javax.swing.JPanel();
+		    setCurrentDateCheckbox = new javax.swing.JCheckBox();
+		    invoiceFolderFileChooser = new javax.swing.JFileChooser();
+		    jPanel1 = new javax.swing.JPanel();
+		    jLabel2 = new javax.swing.JLabel();
+		    invoiceFolderSetButton = new javax.swing.JButton();
+		    jLabel3 = new javax.swing.JLabel();
+		    warningInvoiceFolderSetButton = new javax.swing.JButton();
+		    invoiceFolderTextField = new javax.swing.JTextField();
+		    warningInvoiceFolderTextField = new javax.swing.JTextField();
+		    jPanel2 = new javax.swing.JPanel();
+		    jLabel4 = new javax.swing.JLabel();
+		    warningFolderSetButton = new javax.swing.JButton();
+		    warningFolderTextField = new javax.swing.JTextField();
+		    warningPriceEuroSpinner = new javax.swing.JSpinner();
+		    warningPriceCentSpinner = new javax.swing.JSpinner();
+		    jLabel1 = new javax.swing.JLabel();
+		    jLabel5 = new javax.swing.JLabel();
+		    jLabel6 = new javax.swing.JLabel();
+		    priceCategoriesPanel = new javax.swing.JPanel();
+		    jScrollPane1 = new javax.swing.JScrollPane();
+		    priceCategoryTable = new javax.swing.JTable();
+		    addButton = new javax.swing.JButton();
+		    deleteButton = new javax.swing.JButton();
+		    editButton = new javax.swing.JButton();
+		    okButton = new javax.swing.JButton();
+		    cancelButton = new javax.swing.JButton();
 	
 	    okButton.addActionListener(new ActionListener()
 	    {
@@ -182,6 +188,12 @@ public class SettingsDialog extends javax.swing.JDialog
 	    });
 	
 	    warningFolderTextField.setText("jTextField1");
+	    
+	    jLabel1.setText(",");
+
+	    jLabel5.setText("Euro");
+
+	    jLabel6.setText("Mahnungsgebühr:");
 	
 	    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 	    jPanel2.setLayout(jPanel2Layout);
@@ -194,9 +206,18 @@ public class SettingsDialog extends javax.swing.JDialog
 	          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 	            .addComponent(warningFolderTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
 	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	            .addComponent(warningFolderSetButton)))
-//	            .addComponent(warningFolderSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-	        .addContainerGap())
+	            .addComponent(warningFolderSetButton))
+	          .addGroup(jPanel2Layout.createSequentialGroup()
+	            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	            .addComponent(warningPriceEuroSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	            .addComponent(warningPriceCentSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+	            .addGap(10, 10, 10)
+	            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+		        .addContainerGap())
 	    );
 	    jPanel2Layout.setVerticalGroup(
 	      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,6 +228,13 @@ public class SettingsDialog extends javax.swing.JDialog
 	        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 	          .addComponent(warningFolderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 	          .addComponent(warningFolderSetButton))
+        .addGap(18, 18, 18)
+        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(warningPriceCentSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(warningPriceEuroSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel1)
+          .addComponent(jLabel5))
 	        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	    );
 	
@@ -354,6 +382,11 @@ public class SettingsDialog extends javax.swing.JDialog
 	    warningFolderTextField.setText(this.warningFolder);
 	    setCurrentDateCheckbox.setSelected(this.setCurrentDateOnStartup);
 	    
+	    float warningPrice = Float.parseFloat(Config.get().getSetting(Config.Settings.WARNINGPRICE));
+	    int euros = (int)warningPrice;
+	    int cents = (int) ((warningPrice - euros) * 100);
+	    warningPriceEuroSpinner.setValue(new Integer(euros));
+	    warningPriceCentSpinner.setValue(new Integer(cents));
 
 	    setToMiddle();
 	    
@@ -480,6 +513,14 @@ public class SettingsDialog extends javax.swing.JDialog
 		Config.get().setSetting(Config.Settings.WARNINGINVOICEFOLDER,
 				this.warningInvoiceFolder);
 		
+		int euros = (Integer)this.warningPriceEuroSpinner.getValue();
+		int cents = (Integer)this.warningPriceCentSpinner.getValue();
+		float price = (float) euros + ((float) cents / 100);
+		
+		if(price > 0.0f)
+		{
+			Config.get().setSetting(Config.Settings.WARNINGPRICE, Float.toString(price));
+		}
 //		savePriceCategoryRows();
 		
 		this.dispose();
@@ -598,30 +639,37 @@ public class SettingsDialog extends javax.swing.JDialog
 		}
 	}
 
-	// Variables declaration - do not modify
-	private javax.swing.JButton addButton;
-	private javax.swing.JButton cancelButton;
-	private javax.swing.JButton deleteButton;
-	private javax.swing.JButton editButton;
-	private javax.swing.JFileChooser invoiceFolderFileChooser;
-	private javax.swing.JButton invoiceFolderSetButton;
-	private javax.swing.JTextField invoiceFolderTextField;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JTabbedPane jTabbedPane1;
-	private javax.swing.JButton okButton;
-	private javax.swing.JPanel priceCategoriesPanel;
-	private javax.swing.JTable priceCategoryTable;
-	private javax.swing.JCheckBox setCurrentDateCheckbox;
-	private javax.swing.JPanel settingsPanel;
-	private javax.swing.JButton warningFolderSetButton;
-	private javax.swing.JTextField warningFolderTextField;
-	private javax.swing.JButton warningInvoiceFolderSetButton;
-	private javax.swing.JTextField warningInvoiceFolderTextField;
-	// End of variables declaration
+	  // Variables declaration - do not modify
+	  private javax.swing.JButton addButton;
+	  private javax.swing.JButton cancelButton;
+	  private javax.swing.JButton deleteButton;
+	  private javax.swing.JButton editButton;
+	  private javax.swing.JFileChooser invoiceFolderFileChooser;
+	  private javax.swing.JButton invoiceFolderSetButton;
+	  private javax.swing.JTextField invoiceFolderTextField;
+	  private javax.swing.JFileChooser jFileChooser2;
+	  private javax.swing.JLabel jLabel1;
+	  private javax.swing.JLabel jLabel2;
+	  private javax.swing.JLabel jLabel3;
+	  private javax.swing.JLabel jLabel4;
+	  private javax.swing.JLabel jLabel5;
+	  private javax.swing.JLabel jLabel6;
+	  private javax.swing.JPanel jPanel1;
+	  private javax.swing.JPanel jPanel2;
+	  private javax.swing.JScrollPane jScrollPane1;
+	  private javax.swing.JTabbedPane jTabbedPane1;
+	  private javax.swing.JButton okButton;
+	  private javax.swing.JPanel priceCategoriesPanel;
+	  private javax.swing.JTable priceCategoryTable;
+	  private javax.swing.JCheckBox setCurrentDateCheckbox;
+	  private javax.swing.JPanel settingsPanel;
+	  private javax.swing.JButton warningFolderSetButton;
+	  private javax.swing.JTextField warningFolderTextField;
+	  private javax.swing.JButton warningInvoiceFolderSetButton;
+	  private javax.swing.JTextField warningInvoiceFolderTextField;
+	  private javax.swing.JSpinner warningPriceCentSpinner;
+	  private javax.swing.JSpinner warningPriceEuroSpinner;
+	  // End of variables declaration
+	  
 	  
 }

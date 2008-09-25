@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
+import main.config.Config;
 import model.data.exceptions.RecordNotFoundException;
 import model.data.xml.writers.InvoiceWriter;
 import model.data.xml.writers.WarningWriter;
@@ -34,7 +35,10 @@ public class Warning
 	private static Map<Integer, Warning> warningList;
 
 	public static final float billFactor = 1.5f;
-	public static final float warningPrice = 5.99f;
+	public static final float getWarningPrice()
+	{
+		return Float.parseFloat(Config.get().getSetting(Config.Settings.WARNINGPRICE));
+	}
 
 	/**
 	 * Öffentlicher Konstruktor für Warnings.

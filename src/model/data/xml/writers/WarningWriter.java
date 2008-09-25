@@ -57,7 +57,7 @@ public class WarningWriter extends AbstractTextWriter
 			sb.append("\n");
 			sb.append("Rueckgabefrist: \t"
 					+ warningToPrint.getInRent().getReturnDate() + "\n");
-			sb.append("Mahnungsgebuehr: \t" + Warning.warningPrice + " Euro"
+			sb.append("Mahnungsgebuehr: \t" + Warning.getWarningPrice() + " Euro"
 					+ "\n");
 			sb.append("\n\n");
 			sb.append("=====================================================\n");
