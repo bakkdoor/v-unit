@@ -58,7 +58,7 @@ public class EventManager
 	 *            EventListener abgemeldet werden soll.
 	 * @param eventListener Der Eventlistener, der abgemeldet werden soll.
 	 */
-	public void removeEventListener(Class<? extends VideothekEvent> c,
+	public static void removeEventListener(Class<? extends VideothekEvent> c,
 			VideothekEventListener eventListener)
 	{
 		if (listenerMap.containsKey(c))
