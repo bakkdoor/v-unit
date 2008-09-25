@@ -481,7 +481,7 @@ public class Video implements Comparable<Video>
 
 		for (Video vid : videoList.values())
 		{
-			if (vid.title.toLowerCase().startsWith(videoTitle.toLowerCase()))
+			if (vid.title.toLowerCase().contains(videoTitle.toLowerCase()))
 			{
 				foundVideos.add(vid);
 			}
