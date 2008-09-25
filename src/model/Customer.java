@@ -744,7 +744,7 @@ public class Customer implements Comparable<Customer>
 		Collection<Customer> foundCustomers = new LinkedList<Customer>();
 		for (Customer c : customerList.values())
 		{
-			if (c.lastName.startsWith(lastName))
+			if (c.lastName.toLowerCase().startsWith(lastName.toLowerCase()))
 			{
 				foundCustomers.add(c);
 			}

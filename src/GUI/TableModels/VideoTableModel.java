@@ -6,8 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import main.error.VideothekException;
 import model.PriceCategory;
 import model.Video;

@@ -50,8 +50,11 @@ public class TablePanel {
 	private JTable tableSearchVideo;
 	private JTable tableSearchCustomer;
 
+	private JTabbedPane tableTabbedPane;
+	private SearchController searchController;
+	
 	protected Component createTablePanel(MainWindow mainWindow) {
-
+		
 		this.mainWindow = mainWindow;
 		tableVideo = this.createTableVideo();
 		tableVideo.setRowSorter(createIntegerSorter(new int[]{0,4}, tableVideo));
@@ -106,7 +109,7 @@ public class TablePanel {
 		// Carten im Layout wechseln zu testzwecken
 		this.changeSearchCard(SEARCHCUSTOMERCARD);
 
-		JTabbedPane tableTabbedPane = new JTabbedPane();
+		this.tableTabbedPane = new JTabbedPane();
 		tableTabbedPane.addTab("Filme", new ImageIcon("icons/film.png"),
 				new JScrollPane(tableVideo));
 		tableTabbedPane.addTab("Kunden", new ImageIcon("icons/user.png"),
@@ -115,15 +118,18 @@ public class TablePanel {
 				"icons/film_key.png"), new JScrollPane(tableInRent));
 		tableTabbedPane.addTab("Suchergebnisse", new ImageIcon(
 				"icons/magnifier.png"), panelSearch);
+		
+		// searchController setzen & erstellen ...
+		this.searchController = new SearchController(this);
 
-		return new JPanel().add(tableTabbedPane);
+		return new JPanel().add(this.tableTabbedPane);
 	}
 
 	protected void changeSearchCard(String searchCardName) {
 
 		CardLayout layout = (CardLayout) panelSearch.getLayout();
 		if (searchCardName.equals(SEARCHVIDEOCARD)) {
-			layout.first(panelSearch);
+//			layout.first(panelSearch);
 		} else if (searchCardName.equals(SEARCHCUSTOMERCARD)) {
 			layout.last(panelSearch);
 		}
@@ -289,5 +295,22 @@ public class TablePanel {
 
 	public JTable getTableSearchCustomer() {
 		return tableSearchCustomer;
+	}
+	
+	public void setSearchTableActive()
+	{
+		this.tableTabbedPane.setSelectedIndex(3);
+	}
+	
+	public void setCustomerSearchTableActive()
+	{
+		this.panelSearch.getComponent(0).setVisible(false);
+		this.panelSearch.getComponent(1).setVisible(true);
+	}
+	
+	public void setVideoSearchTableActive()
+	{
+		this.panelSearch.getComponent(0).setVisible(true);
+		this.panelSearch.getComponent(1).setVisible(false);
 	}
 }

@@ -4,45 +4,45 @@
 Punkt "Programmstart": 
 	1) unter dem Foto bitte den text wegmachen.
 
-Punkt "Übersicht - Programmfenster":
-	1) bitte die Reihenfolge ändern 
-	  ... Suche - Anlegen - Bearbeiten - Löschen - und zusätzlich - Ausleihe - und - Rückgabe
-	  auf Suchen - Ausleihe - Rückgabe - und zusätzlich - Anlegen - Bearbeiten - Löschen.
+Punkt "Ãœbersicht - Programmfenster":
+	1) bitte die Reihenfolge Ã¤ndern 
+	  ... Suche - Anlegen - Bearbeiten - LÃ¶schen - und zusÃ¤tzlich - Ausleihe - und - RÃ¼ckgabe
+	  auf Suchen - Ausleihe - RÃ¼ckgabe - und zusÃ¤tzlich - Anlegen - Bearbeiten - LÃ¶schen.
 
 Punkt "Kunden/Anlegen":
 	 /zu schreiben/ es darf die Personen nur ab 16 jahre regestriert werden.
 
 Punkt "Film/ Anlegen":
-	/zu ergänzen/: wenn nur die Filmexemplare zu existirendem Film zugelegt werden sollen, dann es ist über "Film/Bearbeiten" möglich...
+	/zu ergÃ¤nzen/: wenn nur die Filmexemplare zu existirendem Film zugelegt werden sollen, dann es ist Ã¼ber "Film/Bearbeiten" mÃ¶glich...
 
 Punkt "Film/ Bearbeiten":
 	 sehe Punkt "Film/ Anlegen".
 	  
 Punkt "Ausleihe":
 	1) ... Bevor dies geschieht, kontrolliert V-Unit allerdings noch, ob ...
-	   der Kunde Ausleihrecht hat. Sehen Sie bitte den Punkt "Einschränkung des Ausleihrechts".
+	   der Kunde Ausleihrecht hat. Sehen Sie bitte den Punkt "EinschrÃ¤nkung des Ausleihrechts".
 
 	
 	2) ...sodass Schritt 5. bei diesem ...
 	   statt Schritt5. soll Schritt 4. sein.
 
-Punkt "Einschränkung des Ausleihrechts":
+Punkt "EinschrÃ¤nkung des Ausleihrechts":
 	
-	1) /zu überlegen/ ... die Rückgabefrist um mindestens drei Tage überschritten hat...
+	1) /zu Ã¼berlegen/ ... die RÃ¼ckgabefrist um mindestens drei Tage Ã¼berschritten hat...
 	                  oder
-	                  ... die Rückgabefrist überschritten hat
+	                  ... die RÃ¼ckgabefrist Ã¼berschritten hat
 
 Punkt "Ausleihquittung":
 	1) ... eine Ausleihquittung, die eine Liste ...
-	   mit dem Kundennamen, den Filmtitel(s), den Filmnummer(n); die Leihgebühren und den Rückgabetermin enthält.
-	2) die Quittung wird erzeugt und nach Bedarf kann ausgedrückt werden. Im Fall muss die Quttung von Mitarbeiter unterschriben werden.
+	   mit dem Kundennamen, den Filmtitel(s), den Filmnummer(n); die LeihgebÃ¼hren und den RÃ¼ckgabetermin enthÃ¤lt.
+	2) die Quittung wird erzeugt und nach Bedarf kann ausgedrÃ¼ckt werden. Im Fall muss die Quttung von Mitarbeiter unterschriben werden.
 
 
 Punkt "Mahnungsquittung":
-	1) ...und dem Kunden der Mahnungsbetrag in Höhe .../beschreiben wovon der Mahnungsbetrag besteht/ ...in Rechnung gestellt.
+	1) ...und dem Kunden der Mahnungsbetrag in HÃ¶he .../beschreiben wovon der Mahnungsbetrag besteht/ ...in Rechnung gestellt.
 
 
 Punkt "Mahnungen erstellen":
-	1) ...neben einer Auflistung der überzogenen Filme den fälligen Mahnungsbetrag...
+	1) ...neben einer Auflistung der Ã¼berzogenen Filme den fÃ¤lligen Mahnungsbetrag...
 	   
-	   überschrittenen Rückgabefrist.
+	   Ã¼berschrittenen RÃ¼ckgabefrist.

@@ -37,8 +37,7 @@ public class CustomerDataDialog {
     private MainWindow mainWindow;
     private Frame mainWindowFrame;
     private JDialog customerDataDialog;
-    private boolean addCustomer = false;    
-    // KundenDaten
+    private boolean addCustomer = false;  // KundenDaten
     private Integer CID;
     private String title;
     private String firstName;
@@ -48,8 +47,7 @@ public class CustomerDataDialog {
     private String housNr;
     private Integer zipCode;
     private String city;
-    private String identificationID;    
-    // Eingabefelder anlegen
+    private String identificationID;  // Eingabefelder anlegen
     private JLabel labelID;
     private JTextField textFieldID;
     private JLabel labelTitle;
@@ -64,8 +62,7 @@ public class CustomerDataDialog {
     private JTextField textFieldStreet;
     private JTextField textFieldHouseNr;
     private JTextField textFieldZipCode;
-    private JTextField textFieldCity;    
-    // Geburtsdatum-Eingabefelder
+    private JTextField textFieldCity;  // Geburtsdatum-Eingabefelder
     private JLabel labelBirthDay;
     private JComboBox comboBoxBirthDay;
     private JComboBox comboBoxBirthMonth;
@@ -105,7 +102,7 @@ public class CustomerDataDialog {
         String dialogName = "Kunde " + (addCustomer ? "anlegen" : "bearbeiten");
         this.customerDataDialog = new JDialog(mainWindowFrame, dialogName, true);
         customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        
+
         // Dialog mittig auf dem bildschirm setzen
         DialogHelper.setToCenterScreen(this.customerDataDialog);
 
@@ -115,7 +112,7 @@ public class CustomerDataDialog {
         textFieldID.setVisible(!addCustomer);
 
         labelTitle = new JLabel("Anrede:");
-        comboBoxTitle = new JComboBox(new String[] {"Herr", "Frau"});
+        comboBoxTitle = new JComboBox(new String[]{"Herr", "Frau"});
 
         labelFirstName = new JLabel("Vorname:");
         textFieldFirstName = new JTextField();
@@ -152,7 +149,7 @@ public class CustomerDataDialog {
         textFieldID.setEditable(false);
 
         // Anrede erzeugen
-        comboBoxTitle.setSelectedIndex(title.equals("Herr")?0:1);
+        comboBoxTitle.setSelectedIndex(title.equals("Herr") ? 0 : 1);
         comboBoxTitle.setEnabled(addCustomer);
 
         // Vorname erzeugen
@@ -182,14 +179,13 @@ public class CustomerDataDialog {
         textFieldZipCode.setText(zipCode > 0 ? zipCode.toString() : "PLZ");
         textFieldCity.setText(city);
 
-        if(addCustomer)
-        {
-        	textFieldStreet.addFocusListener(new OnFocusClearTextFieldListener(textFieldStreet, "Straße"));
-        	textFieldCity.addFocusListener(new OnFocusClearTextFieldListener(textFieldCity, "Ort"));
-        	textFieldHouseNr.addFocusListener(new OnFocusClearTextFieldListener(textFieldHouseNr, "Nr."));
-        	textFieldZipCode.addFocusListener(new OnFocusClearTextFieldListener(textFieldZipCode, "PLZ"));
+        if (addCustomer) {
+            textFieldStreet.addFocusListener(new OnFocusClearTextFieldListener(textFieldStreet, "Straße"));
+            textFieldCity.addFocusListener(new OnFocusClearTextFieldListener(textFieldCity, "Ort"));
+            textFieldHouseNr.addFocusListener(new OnFocusClearTextFieldListener(textFieldHouseNr, "Nr."));
+            textFieldZipCode.addFocusListener(new OnFocusClearTextFieldListener(textFieldZipCode, "PLZ"));
         }
-        
+
         // Übernehmen Button erzeugen
         JButton buttonCancel = new JButton("Abbrechen");
         buttonCancel.addActionListener(new ActionListener() {
@@ -206,44 +202,10 @@ public class CustomerDataDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (addCustomer) {
-                    try {
-                        new Customer(textFieldFirstName.getText(), 
-                                textFieldLastName.getText(), 
-                                new Date(comboBoxBirthDay.getSelectedIndex() + 1, comboBoxBirthMonth.getSelectedIndex() + 1, Integer.parseInt(textFieldBirthYear.getText())), 
-                                textFieldStreet.getText(), 
-                                textFieldHouseNr.getText(), 
-                                Integer.parseInt(textFieldZipCode.getText()), 
-                                textFieldCity.getText(), 
-                                textFieldIdentificationID.getText(), 
-                                comboBoxTitle.getSelectedIndex() == 0 ? "Herr" : "Frau");
-                        
-                        customerDataDialog.dispose();
-                    } catch (VideothekException ex) {
-                    	JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
-                    			ex.getMessage(), "Fehler beim Erstellen des Kunden", JOptionPane.ERROR_MESSAGE);
-                    }
-                    
+                    createCustomer();
                 } else {
-                    try {
-                        Customer editedCustomer = Customer.findByID(Integer.parseInt(textFieldID.getText()));
-                        editedCustomer.setStreet(textFieldStreet.getText());
-                        editedCustomer.setHouseNr(textFieldHouseNr.getText());
-                        // TODO meldet zipcode fehler
-                        editedCustomer.setZipCode(Integer.parseInt(textFieldZipCode.getText()));
-                        editedCustomer.setCity(textFieldCity.getText());
-                        
-                        customerDataDialog.dispose();
-                        editedCustomer.save();
-                        
-                    } catch (FalseFieldException ex) {
-                        JOptionPane.showMessageDialog(mainWindow.getMainFrame(), ex.getMessage(), "Falsche Eingaben", JOptionPane.ERROR_MESSAGE);
-                    } catch (EmptyFieldException ex) {
-                        JOptionPane.showMessageDialog(mainWindow.getMainFrame(), ex.getMessage(), "Falsche Eingaben", JOptionPane.ERROR_MESSAGE);
-                    } catch (RecordNotFoundException ex) {
-                        JOptionPane.showMessageDialog(mainWindow.getMainFrame(), ex.getMessage(), "Kunden nicht gefunden", JOptionPane.ERROR_MESSAGE);
-                    }
                 }
-                
+
             }
         });
 
@@ -270,7 +232,7 @@ public class CustomerDataDialog {
         Layout.addComponent(contentPane, comboBoxBirthDay, 1, 5, 1, 1, 0.23, 0.0);
         Layout.addComponent(contentPane, comboBoxBirthMonth, 2, 5, 1, 1, 0.23, 0.0);
 //        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0, 40, 0,GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3,3,3,3));
+        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0, 40, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
 
         Layout.addComponent(contentPane, labelAddress, 0, 6, 1, 1, 0.3, 0.0);
         Layout.addComponent(contentPane, textFieldStreet, 1, 6, 2, 1, 0.46, 0.0);
@@ -323,8 +285,6 @@ public class CustomerDataDialog {
             new CustomerDataDialog(mainWindow, cID, title, firstName, lastName, identificationNr, birthDate, street, houseNr, zipCode, city);
 
         } catch (RecordNotFoundException e) {
-            // TODO Dialog wird als MassegeDialog dargestellt und nicht als
-            // Errordialog! ändern
 
             // Exception abfangen und Dialog erstellen
             JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
@@ -332,5 +292,59 @@ public class CustomerDataDialog {
                     JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    private void createCustomer() {
+        try {
+            String firstName = textFieldFirstName.getText();
+            String lastName = textFieldLastName.getText();
+            Date bDate = new Date(comboBoxBirthDay.getSelectedIndex() + 1, comboBoxBirthMonth.getSelectedIndex() + 1, Integer.parseInt(textFieldBirthYear.getText()));
+            String street = textFieldStreet.getText();
+            String houseNr = textFieldHouseNr.getText();
+            int zipCode = Integer.parseInt(textFieldZipCode.getText());
+            String city = textFieldCity.getText();
+            String identificationID = textFieldIdentificationID.getText();
+            String title = (comboBoxTitle.getSelectedIndex() == 0 ? "Herr" : "Frau");
+
+            new Customer(firstName, lastName, bDate, street, houseNr, zipCode, city, identificationID, title);
+
+            customerDataDialog.dispose();
+        } catch (VideothekException ex) {
+            if (ex.getClass().equals(VideothekException.class)) {
+                JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+                        "Es ist ein Fehler aufgetreten, bitte prüfen Sie die Eingaben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+                        ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(mainWindowFrame, "Es ist ein Fehler aufgetreten, bitte prüfen Sie die Eingaben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateCustomer() {
+
+        try {
+            Customer editedCustomer = Customer.findByID(Integer.parseInt(textFieldID.getText()));
+            editedCustomer.setStreet(textFieldStreet.getText());
+            editedCustomer.setHouseNr(textFieldHouseNr.getText());
+            // TODO meldet zipcode fehler
+            editedCustomer.setZipCode(Integer.parseInt(textFieldZipCode.getText()));
+            editedCustomer.setCity(textFieldCity.getText());
+
+            customerDataDialog.dispose();
+            editedCustomer.save();
+
+        } catch (VideothekException ex) {
+            if (ex.getClass().equals(VideothekException.class)) {
+                JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+                        "Es ist ein Fehler aufgetreten, bitte prüfen Sie die Eingaben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+                        ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(mainWindowFrame, "Es ist ein Fehler aufgetreten, bitte prüfen Sie die Eingaben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
