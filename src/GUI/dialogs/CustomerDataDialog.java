@@ -70,7 +70,7 @@ public class CustomerDataDialog {
 
     public CustomerDataDialog(MainWindow mainWindow) {
 
-        this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 19), "", "", 0, "");
+        this(mainWindow, Data.NOTSET, "Herr", "", "", "", new Date(1, 1, 19), "", "", 0, "");
     }
 
     public CustomerDataDialog(MainWindow mainWindow,
