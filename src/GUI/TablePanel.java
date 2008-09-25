@@ -90,13 +90,13 @@ public class TablePanel {
 		tableSelectionModel.addListSelectionListener(new TableInRentListSelectionHandler(mainWindow));
 
 		String[][] searchVideo = { { "", "", "", "" } };
-		String[] searchVideoName = { "Titel", "Erscheinungsjahr",
-				"Preisklasse", "Altersbeschr." };
+		String[] searchVideoName = { "FilmNr", "Titel",
+				"Erscheinungsjahr", "Preisklasse.", "Altersbeschr" };
 		tableSearchVideo = new JTable(searchVideo, searchVideoName);
 
 		String[][] searchCustomer = { { "", "", "", "", "" } };
-		String[] searchCustomerName = { "Anrede", "Nachname", "Vorname",
-				"Geburtsdatum", "Anschrift" };
+		String[] searchCustomerName = { "KundenNr", "Anrede", "Nachname",
+				"Vorname", "Geburtsdatum", "Anschrift" };
 		tableSearchCustomer = new JTable(searchCustomer, searchCustomerName);
 
 		panelSearch = new JPanel();
