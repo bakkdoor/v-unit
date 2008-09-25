@@ -25,8 +25,7 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 		lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		DetailPanel detailPanel = mainWindow.getDetailPanel();
-		if (lsm.getMinSelectionIndex() >= 0) {
+		if (lsm.getMinSelectionIndex() >= 0 && lsm.getMinSelectionIndex() < Video.findAll().size()) {
 			int vID = (Integer) videoTable.getValueAt(lsm
 					.getMinSelectionIndex(), 0);
 
