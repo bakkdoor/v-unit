@@ -24,6 +24,9 @@ Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'
 \tab\tab\tab\i Hier Bild vom Reiter Allgemein\i0\par
 \par
 \par
+ \i Hinweis! \i0 Wenn V-Unit zum allerersten Mal gestartet wird, ist nur eine einzige Standardpreiskategorie (A, 1 Euro) eingetragen.\par
+Es wird also empfohlen, die gew\'fcnschten Preiskategorien mit den entsprechenden Preisen im Einstellungsmen\'fc anzulegen unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Preiskategorien\b0  (s. dazu auch "Einstellungen")\b .\b0\par
+\par
 \par
 \b\fs28\'dcbersicht - Programmfenster\par
 \fs20\par
@@ -171,6 +174,50 @@ Dieser Routineprozess basiert auf der Annahme, dass das Programm mindestens ein 
 Erreichbar ist die Funktion unter \b Extras \b0 -> \b Mahnungen erstellen\b0 .\par
 Wurden so neue Mahnungen erzeugt, erscheint dasselbe Informationsfenster, wie bei der automatischen Mahnungengenerierung bei Programmende.\par
 F\'fcr eine \'fcberzogene Ausleihe wird die f\'e4llige Mahnung nur ein einziges Mal erstellt und bleibt danach so lange erhalten und der betroffene Kunde von der Ausleihe weiterer Filme ausgeschlossen, bis sie aufgel\'f6st wird.\par
+\par
+\par
+\par
+\par
+\b\fs28 Suche\par
+\b0\fs20\par
+Die Suche erm\'f6glicht es, einen Film nach seinem Titel, oder aber einen Kunden nach seinem Nachnamen zu suchen.\par
+Zur Suche gelangt der Benutzer entweder \'fcber den Button \b Suche\b0  in der Toolbar oder \'fcber das Men\'fc \b Suche -> Film\b0  bzw. \b Suche -> Kunden\b0 .\par
+Daraufhin \'f6ffnet sich das "\b Suche\b0 "-Dialogfenster, das einen Reiter f\'fcr die Suche nach Filmen, und einen weiteren f\'fcr die Suche nach Kunden enth\'e4lt. M\'f6chte man nun einen Film suchen, klickt man auf den entsprechenden Reiter (wenn nicht schon aktiv), und gibt im Suchfeld den Titel bzw. einen Teil des Titels des gesuchten Films ein.\par
+Ein Klick auf \b Suchen\b0  startet die Suche, deren Ergebnisse dann im Listenbereich unter \b Suchergebnisse\b0  aufgelistet werden.\par
+Aus der Liste der Filme, deren Titel dem Suchkriterium entsprechen, kann so der gesuchte Film ausgew\'e4hlt werden, wodurch dessen Daten und Exemplare wieder im Infobereich sichtbar werden. Dadurch kann sofort eingesehen werden, ob beispielsweise noch Exemplare f\'fcr die Ausleihe zur Verf\'fcgung stehen, und diese dann auch direkt in die Ausleihliste \'fcbernommen werden.\par
+Wurde kein Film, dessen Name den Suchbegriff enth\'e4lt, gefunden, bleibt die Liste der \b Suchergebnisse\b0  leer.\par
+Analog gilt das beschriebene Vorgehen f\'fcr die Suche nach Kunden.\par
+Das "\b Suche\b0 "-Dialogfenster schlie\'dft nicht automatisch sondern erst durch Klick auf \b Abbrechen \b0 oder das Fenster-schlie\'dfen-Symbol.\par
+\par
+\par
+\par
+\par
+\b\fs28 Einstellungen\b0\fs20\par
+\par
+\b\fs24\par
+Allgemeines\b0\fs20\par
+\par
+Unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Allgemeines\b0  k\'f6nnen allgemeine Einstellungen von V-Unit eingesehen und ge\'e4ndert werden. Dazu z\'e4hlen die Abfrage der manuellen Tagesdatumsabfrage bei Programmstart (s. Abb 1), die Pfadangaben zu den Ordnern, in denen erstellte Quittungen und Mahnungen abgelegt werden, und au\'dferdem die Mahnungsgeb\'fchr der Videothek, die f\'fcr einen Kunden anf\'e4llt, wenn er einen ausgeliehenen Film nicht bis zur vereinbarten R\'fcckgabefrist zur\'fcckgegeben hat.\par
+\par
+Um einen der Ablageordner zu \'e4ndern, \'f6ffnet ein Klick auf das Ordner-Explorer-Symbol neben dem Feld, das den aktuellen Pfad enth\'e4lt, das "\b Ordner ausw\'e4hlen"\b0 -Dialogfenster, in dem der Pfad zu dem neuen Ordner angegeben werden muss oder auch ein neuer Ordner angelegt werden kann.\par
+\par
+ \i Hinweis!\i0  Alle vorgenommen \'c4nderungen werden nur \'fcbernommen und gespeichert, wenn das "\b Einstellungen\b0 "-Fenster per Klick auf \b OK\b0  geschlossen wird. Ein Klick auf \b Abbrechen\b0  hingegen schlie\'dft das "\b Einstellungen\b0 "-Fenster und setzt alle ge\'e4nderten Einstellungen wieder zur\'fcck.\par
+\par
+\par
+\b\fs24 Preiskategorien\b0\fs20\par
+\par
+Unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Preiskategorien\b0  k\'f6nnen die vorhandenen Preiskategorien eingesehen, bearbeitet, gel\'f6scht und neue Preiskategorien hinzugef\'fcgt werden.\par
+\par
+Um eine vorhandene Preiskategorie zu bearbeiten, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann mit einem Klick auf \b Bearbeiten\b0  den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen der Name und der Preis ge\'e4ndert werden.\par
+Ein Klick auf \b OK\b0  speichert die \'c4nderungen, wohingegen ein Klick auf \b Abbrechen\b0  die \'c4nderungen verwirft.\par
+\par
+Um eine vorhandene Preiskategorie zu l\'f6schen, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann nach  einem Klick auf \b L\'f6schen\b0  sich \'f6ffnenden Dialog mit \b Ja\b0  best\'e4tigen. Ein Klick auf \b Nein\b0  bricht den L\'f6schvorgang ab.\par
+ \i Hinweis! \i0 Eine Preiskategorie kann nur gel\'f6scht werden, wenn sich kein Exemplar eines Filmes dieser Preiskategorie noch in Ausleihe befindet.\par
+\par
+Um eine neue Preiskategorie hinzuzuf\'fcgen, mit einem Klick auf \b Hinzuf\'fcgen \b0 den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen der Name und der Preis der neuen Preiskategorie eingegeben werden.\par
+Ein Klick auf \b OK\b0  speichert die neue Preiskategorie, wohingegen ein Klick auf \b Abbrechen\b0  die neue Preiskategorie verwirft.\par
+\par
+\par
 \par
 \par
 }
