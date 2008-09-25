@@ -1,22 +1,46 @@
 package GUI;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.*;
-
-import GUI.TableModels.*;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import main.error.VideothekException;
-import model.*;
+import model.CurrentDate;
+import model.Customer;
+import model.InRent;
+import model.PriceCategory;
+import model.VideoUnit;
+import model.Warning;
 import model.data.exceptions.RecordNotFoundException;
-import model.data.xml.writers.InvoiceWriter;
-import model.exceptions.*;
+import model.exceptions.VideoUnitRentedException;
+import GUI.TableModels.RentTableModel;
+import GUI.TableModels.ReturnTableModel;
 
 public class RentPanel {
 

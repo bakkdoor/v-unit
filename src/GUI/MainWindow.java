@@ -84,7 +84,7 @@ public class MainWindow {
 		rentPanel = new RentPanel();
 		detailPanel = new DetailPanel();
 		panelAboveCentral.add(rentPanel.createRentPanel(this));
-		panelAboveCentral.add(detailPanel.createDetailPanel(this));
+		panelAboveCentral.add(detailPanel.createDetailPanel());
 
 		// RentPanel - Cards zu Testzwecken umschalten
 		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);

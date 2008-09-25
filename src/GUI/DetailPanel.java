@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
@@ -10,29 +9,26 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-
-import GUI.SelectionListeners.DetailVideoListSelectionHandler;
-import GUI.TableModels.VideoUnitListModel;
 
 import main.error.VideothekException;
-import model.*;
+import model.Customer;
+import model.InRent;
+import model.Video;
+import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
+import GUI.SelectionListeners.DetailVideoListSelectionHandler;
+import GUI.TableModels.VideoUnitListModel;
 
 public class DetailPanel {
 
@@ -40,7 +36,6 @@ public class DetailPanel {
 	private JPanel panelDetails;
 
 	// Videocard Felder
-	private JTextField textFieldDetailVID;
 	private JTextField textFieldDetailVTitle;
 	private JTextField textFieldDetailVReleaseYear;
 	private JTextField textFieldDetailVRatedAge;
@@ -72,9 +67,14 @@ public class DetailPanel {
 	public static final String CUSTOMERDETAILS = "Customer";
 	public static final String RENTDETAILS = "Rent";
 
-	protected Component createDetailPanel(MainWindow mainWindow) {
+	/**
+	 * 
+	 * @param mainWindow
+	 * @return
+	 */
+	protected Component createDetailPanel() {
 
-		this.mainWindow = mainWindow;
+		this.mainWindow = MainWindow.get();
 
 		panelDetails = new JPanel(new CardLayout());
 		panelDetails.add(this.createVideoDetails(), VIDEODETAILS);
@@ -94,7 +94,6 @@ public class DetailPanel {
 
 		// KundenPanel generieren
 		JPanel panelDetailCustomer = new JPanel(new GridBagLayout());
-		GridBagConstraints gridBagConstDetailCust = new GridBagConstraints();
 
 		// ***************************************************************
 
@@ -203,7 +202,6 @@ public class DetailPanel {
 
 		// Panel für Videodetails
 		JPanel panelDetailVideo = new JPanel(new GridBagLayout());
-		GridBagConstraints gridBagConstDetailVideo = new GridBagConstraints();
 
 		// ***************************************************************
 		// Datenelemente für Video erstellen
@@ -420,7 +418,6 @@ public class DetailPanel {
 			this.textFieldDetailVPriceCategory.setText(video.getPriceCategory()
 					.getName());
 		} catch (RecordNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		textFieldDetailVState.setText("");

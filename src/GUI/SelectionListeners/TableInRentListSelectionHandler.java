@@ -5,11 +5,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.Customer;
 import model.InRent;
 import model.VideoUnit;
 import model.data.exceptions.RecordNotFoundException;
-
 import GUI.DetailPanel;
 import GUI.MainWindow;
 
