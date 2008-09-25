@@ -1,11 +1,6 @@
 package GUI;
 
-import GUI.dialogs.DataDialog;
-import GUI.dialogs.DialogHelper;
-import GUI.dialogs.SearchDialog;
-import GUI.dialogs.VideoDataDialog;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -15,7 +10,6 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,6 +17,10 @@ import javax.swing.JSplitPane;
 
 import main.Programm;
 import model.VideoUnit;
+import GUI.dialogs.DataDialog;
+import GUI.dialogs.DialogHelper;
+import GUI.dialogs.SearchDialog;
+import GUI.dialogs.VideoDataDialog;
 
 public class MainWindow {
 
@@ -40,11 +38,9 @@ public class MainWindow {
 	
 	private static MainWindow _instance;
 	
-	public static MainWindow get()
-	{
-		return _instance;
-	}
-	
+	/**
+	 * MainWindow Konstruktor. Erstellt das Hauptfenster mit den einzelnen Panels.
+	 */
 	public MainWindow() {
 
 		_instance = this;
@@ -103,50 +99,92 @@ public class MainWindow {
 		Image iconImage = Toolkit.getDefaultToolkit().getImage("icons/V-Unit.png");
 		mainFrame.setIconImage(iconImage);
 	}
-
-	public RentPanel getRentPanel() {
-		return rentPanel;
-	}
-
-	public DetailPanel getDetailPanel() {
-		return detailPanel;
-	}
 	
-	public TablePanel getTablePanel() {
-		return tablePanel;
-	}
-	
+	/**
+	 * Zeigt das such Dialog
+	 */
 	public void showSearchDialog() {
-		SearchDialog searchDialog = new SearchDialog(mainFrame);
+		new SearchDialog(mainFrame);
 	}
 	
+	/**
+	 * Zeigt erstellen Dialog
+	 */
 	public void showCreateDialog() {
 		String[] options = {"Film", "Kunde"};
 		int section = JOptionPane.showOptionDialog(mainFrame, "Möchten Sie einen Film oder Kunden anlegen?", "Anlegen Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
 				options , null);
 			
 		if (section == 0) {
-			DataDialog createCustomerDialog = new DataDialog(this, DataDialog.VIDEODIALOG);
+			new DataDialog(this, DataDialog.VIDEODIALOG);
 		}else if (section == 1) {
-			DataDialog createVideoDialog = new DataDialog(this, DataDialog.CUSTOMERDIALOG);
+			new DataDialog(this, DataDialog.CUSTOMERDIALOG);
 			
 		}
 	}
 	
+	/**
+	 * Zeigt Video Bearbeitungsdialog
+	 */
 	public void showEditVideoDialog() {
 		VideoUnit selectedVideoUnit = (VideoUnit) detailPanel.getListDetailVUnit().getModel().getElementAt(0);
 		VideoDataDialog.createFilledVideoDataDialog(this, selectedVideoUnit.getVideo());
 	}
 
+	/**
+	 * Geta Methode für MainWindow
+	 * @return MainWindow
+	 */
+	public static MainWindow get()
+	{
+		return _instance;
+	}
+	
+	/**
+	 * Geta Methode für MainFrame
+	 * @return JFrame
+	 */
 	public JFrame getMainFrame() {
 		return mainFrame;
 	}
 
+	/**
+	 * Geta Methode für MenuBar
+	 * @return MenuBar
+	 */
 	public MenuBar getMenuBar() {
 		return menuBar;
 	}
 
+	/**
+	 * Geta Methode für MenuBar
+	 * @return MenuBar
+	 */
 	public ToolBar getToolBar() {
 		return toolBar;
+	}
+	
+	/**
+	 * Geta Methode für RentPanel
+	 * @return RentPanel
+	 */
+	public RentPanel getRentPanel() {
+		return rentPanel;
+	}
+
+	/**
+	 * Geta Methode für DetailPanel
+	 * @return DetailPanel
+	 */
+	public DetailPanel getDetailPanel() {
+		return detailPanel;
+	}
+	
+	/**
+	 * Geta Methode für TablePanel
+	 * @return TablePanel
+	 */
+	public TablePanel getTablePanel() {
+		return tablePanel;
 	}
 }
