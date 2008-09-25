@@ -127,7 +127,7 @@ Durch Klick auf \b Abbrechen\b0  kann der Ausleihvorgang auch vor der Alters\'fc
 Nachdem eine neue Ausleihe erfolgreich erstellt wurde, werden die Daten dieser Ausleihe (Filmexemplare, Kunde, R\'fcckgabefrist etc.) im Listenbereich unter \b Ausgeliehen \b0 dargestellt.\par
 \par
 Anstatt die Filmexemplarnummer und Kundennummer, wie in Schritt 2. und 3. angegeben, im Ausleihbereich per Hand in die Felder einzutragen, ist auch folgendes Vorgehen m\'f6glich:\par
-Den entsprechenden Kunden in der Liste aller \b Kunden\b0 , bzw. den gew\'fcnschten Film in der Liste aller \b Filme \b0 ausw\'e4hlen und jeweils anschlie\'dfend im Infobereich durch einen Klick auf \b\'dcbernehmen\b0  den Kunden/Film (bei Filmen muss vorher noch das richtige Exemplar gew\'e4hlt werden) in den Ausleihbereich \'fcbernehmen. Filmexemplare werden so direkt in die Ausleihliste eingetragen, sodass Schritt 4. bei diesem Vorgehen nicht mehr n\'f6tig ist.\par
+Den entsprechenden Kunden in der Liste aller \b Kunden\b0 , bzw. den gew\'fcnschten Film in der Liste aller \b Filme \b0 ausw\'e4hlen und jeweils anschlie\'dfend im Infobereich durch einen Klick auf \b Zuf\'fcgen/\'dcbernehmen\b0  den Kunden/Film (bei Filmen muss vorher noch das richtige Exemplar gew\'e4hlt werden) in den Ausleihbereich \'fcbernehmen. Filmexemplare werden so direkt in die Ausleihliste eingetragen, sodass Schritt 4. bei diesem Vorgehen nicht mehr n\'f6tig ist.\par
 \par
  \i Hinweis!\i0  Diese Vorgehensweise kann unter Umst\'e4nden hilfreich sein, wenn beispielsweise ein Kunde, der einen Film ausleihen m\'f6chte, seinen Kundenausweis / seine Kundennummer nicht bei sich hat.\par
 \par
