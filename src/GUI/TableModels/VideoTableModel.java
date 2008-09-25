@@ -27,16 +27,29 @@ public class VideoTableModel extends NotEditableTableModel implements VideothekE
 
     private static final long serialVersionUID = 7354689970611412976L;
 
+    /**
+     * Konstruktor
+     * @param rowData Vector mit Daten
+     * @param columnNames Vector mit Spaltennamen
+     */
     public VideoTableModel(Vector rowData, Vector columnNames) {
         super(rowData, columnNames);
         registerAsEventListener();
     }
 
+    /**
+     * Konstruktor
+     * @param videeoColumnNames Vector mit Spaltennamen
+     * @param rowCount #Zeilen
+     */
     public VideoTableModel(Vector<String> videeoColumnNames, int rowCount) {
         super(videeoColumnNames, rowCount);
         registerAsEventListener();
     }
 
+    /**
+     * registriert sich für passende Events bei EventManager
+     */
     private void registerAsEventListener() {
         EventManager.registerEventListener(VideoCreatedEvent.class, this);
         EventManager.registerEventListener(VideoEditedEvent.class, this);
@@ -75,6 +88,10 @@ public class VideoTableModel extends NotEditableTableModel implements VideothekE
         }
     }
 
+    /**
+     * fügt ein VideoUnit ein
+     * @param newVideo
+     */
     public void insertRow(Video newVideo) {
         Vector rowData = new Vector();
 
@@ -93,6 +110,11 @@ public class VideoTableModel extends NotEditableTableModel implements VideothekE
         fireTableDataChanged();
     }
 
+    /**
+     * liefert Zeilenindex zu VideoUnit
+     * @param videoID VideoUnitID
+     * @return Zeilenindex
+     */
     public int findByVideoID(Integer videoID) {
         int foundIndex = -1;
         Vector<Vector> data = getDataVector();

@@ -40,10 +40,19 @@ public class SearchDialog {
 	public final static int CUSTOMERSEARCHMODEDIALOG = 1;
 	public final static int VIDEOSEARCHMODEDIALOG = 2;
 	
+        /**
+         * Konstruktor für Suchdialog
+         * @param owner
+         */
 	public SearchDialog(Frame owner) {
 		this(owner, SearchDialog.VIDEOSEARCHMODEDIALOG);
 	}
 	
+        /**
+         * Konstruktor für Suchdialog
+         * @param owner
+         * @param searchModeDialog
+         */
 	public SearchDialog(Frame owner, int searchModeDialog) {
 		
 		this.owner = owner;
@@ -73,6 +82,11 @@ public class SearchDialog {
 		dialogSearch.setVisible(true);
 	}
 	
+        /**
+         * erstellt Tabs für Sucheingaben
+         * @param searchMode
+         * @return
+         */
 	private JTabbedPane createTabbedPanne(int searchMode) {
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -145,7 +159,7 @@ public class SearchDialog {
 		panelCustomer.add(textFieldCustomer);
 		tabbedPane.addTab("Kunden", new ImageIcon("icons/user.png"), panelCustomer);
 
-		if(this.searchMode == CUSTOMERSEARCHMODEDIALOG)
+		if(searchMode == CUSTOMERSEARCHMODEDIALOG)
 		{
 			tabbedPane.setSelectedIndex(1);
 		}
@@ -153,11 +167,19 @@ public class SearchDialog {
 		return tabbedPane;
 	}
 	
+        /**
+         * Löschen von Sucheingaben bei verlohrenem Tabfokus
+         * @param textField
+         */
 	private void removeFocusFrom(JTextField textField)
 	{
 		textField.setText("");
 	}
 	
+        /**
+         * erstellt Abbrechen Button
+         * @return Button
+         */
 	private Component createButtonCancel() {
 		
 		JButton buttonCancel = new JButton("Abbrechen");
@@ -171,6 +193,10 @@ public class SearchDialog {
 		return buttonCancel;
 	}
 	
+        /**
+         * erstellt Suchen Button
+         * @return Button
+         */
 	private Component createButtonSearch() {
 		
 		JButton buttonSearch = new JButton("Suchen");
@@ -184,6 +210,9 @@ public class SearchDialog {
 		return buttonSearch;
 	}
 	
+        /**
+         * führe Suche aus
+         */
 	private void startSearch()
 	{
 		if(!this.textFieldCustomer.getText().trim().equals(""))

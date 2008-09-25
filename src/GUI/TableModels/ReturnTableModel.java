@@ -26,18 +26,31 @@ import model.exceptions.VideoUnitRentedException;
  */
 public class ReturnTableModel extends DefaultTableModel
 {
-	
+	/**
+         * Konstruktor
+         * @param rowData Vector mit Daten
+         * @param columnNames Vector mit Spaltennamen
+         */
 	public ReturnTableModel(Vector rowData, Vector columnNames)
 	{
 		super(rowData, columnNames);
 		
 	}
 	
+        /**
+         * Konstruktor
+         * @param videeoColumnNames Vector mit Spaltennamen
+         * @param rowCount #Zeilen
+         */
 	public ReturnTableModel(Vector<String> videeoColumnNames, int rowCount) {
 		super(videeoColumnNames, rowCount);
 	}
 
-	
+	/**
+         * fügt ein VideoUnit mit Abfrage in die Tabelle ein
+         * @param videoUnit VideoUnit
+         * @throws main.error.VideothekException VideoUnit momentan nicht ausgeliehen
+         */
 	public void insertVideoUnit(VideoUnit videoUnit) throws VideothekException {
 		if (!videoUnit.isRented()) throw new VideothekException("Filmexemplar momentan nicht ausgeliehen!");
 		
@@ -51,6 +64,10 @@ public class ReturnTableModel extends DefaultTableModel
 		insertRow(videoUnit);
 	}
 	
+        /**
+         * fügt ein VideoUnit in die Tabelle ein
+         * @param videoUnit VideoUnit
+         */
 	public void insertRow(VideoUnit videoUnit)
 	{
 		InRent inRent = videoUnit.getInRent();

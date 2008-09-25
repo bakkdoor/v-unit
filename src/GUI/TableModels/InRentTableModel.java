@@ -22,17 +22,30 @@ public class InRentTableModel extends NotEditableTableModel implements
 		VideothekEventListener {
 	private static final long serialVersionUID = 7354689970611412976L;
 
+        /**
+         * Konstruktor
+         * @param rowData Vektor mit Daten
+         * @param columnNames Vector mit Spaltennamen
+         */
 	public InRentTableModel(Vector rowData, Vector<String> columnNames) {
 		super(rowData, columnNames);
 		registerAsEventListener();
 
 	}
 
+        /**
+         * Konstruktor
+         * @param columnNames Vector mit Spaltennamen
+         * @param rowCount #Zeilen
+         */
 	public InRentTableModel(Vector<String> columnNames, int rowCount) {
 		super(columnNames, rowCount);
 		registerAsEventListener();
 	}
 
+        /**
+         * meldet sich für verschiedene Events
+         */
 	private void registerAsEventListener() {
 		EventManager.registerEventListener(InRentCreatedEvent.class, this);
 		EventManager.registerEventListener(InRentEditedStateEvent.class, this);
@@ -68,6 +81,10 @@ public class InRentTableModel extends NotEditableTableModel implements
 		}
 	}
 
+        /**
+         * fügt einen InRent in die Tabelle ein
+         * @param inRent
+         */
 	public void insertRow(InRent inRent) {
 		Vector rowData;
 		for (VideoUnit videoUnit : inRent.getVideoUnits()) {
@@ -83,6 +100,10 @@ public class InRentTableModel extends NotEditableTableModel implements
 		fireTableDataChanged();
 	}
 
+        /**
+         * aktualisiert Status des übergebenen InRents
+         * @param inRent InRent
+         */
 	public void editState(InRent inRent) {
 		Vector dataVector = getDataVector();
 		for (int rowIndex = 0; rowIndex < dataVector.size(); rowIndex++) {
@@ -94,6 +115,10 @@ public class InRentTableModel extends NotEditableTableModel implements
 		}
 	}
 
+        /**
+         * löscht Zeilen mit übergebenen InRent
+         * @param inRent InRent
+         */
 	public void deleteRow(InRent inRent) {
 
 		Vector<Vector> data = getDataVector();
@@ -105,6 +130,10 @@ public class InRentTableModel extends NotEditableTableModel implements
 		}
 	}
 
+        /**
+         * löscht Zeilen mit übergebenen VideoUnit
+         * @param videoUnit VideoUnit
+         */
 	public void deleteRow(VideoUnit videoUnit) {
 
 		Vector dataVector = getDataVector();
@@ -112,7 +141,6 @@ public class InRentTableModel extends NotEditableTableModel implements
 			Vector rentValue = (Vector) dataVector.elementAt(rowIndex);
 			if (rentValue.elementAt(0).equals(videoUnit.getID())) {
 				removeRow(rowIndex);
-//				fireTableRowsDeleted(rowIndex, rowIndex);
 				fireTableDataChanged();
 			}
 		}

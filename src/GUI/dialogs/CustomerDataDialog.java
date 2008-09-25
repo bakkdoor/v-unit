@@ -322,6 +322,9 @@ public class CustomerDataDialog {
 
     }
 
+    /**
+     * Liest gesetzte Werte aus den Feldern und erstellt daraus einen Kunden
+     */
     private void createCustomer() {
         try {
             String firstName = textFieldFirstName.getText();
@@ -350,6 +353,9 @@ public class CustomerDataDialog {
         }
     }
 
+    /**
+     * Liest gesetzte Werte aus den Feldern und aktualisiert den Kunden
+     */
     private void updateCustomer() {
 
         try {

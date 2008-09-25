@@ -20,11 +20,18 @@ public class VideoUnitListModel extends DefaultListModel implements
 
 	private MainWindow mainWindow;
 
+        /**
+         * Konstruktor
+         * @param mainWindow
+         */
 	public VideoUnitListModel(MainWindow mainWindow) {
 		super();
 		this.mainWindow = mainWindow;
 	}
 
+        /**
+         * registriert sich für passende Events bei EventManager
+         */
 	private void registerAsEventListener() {
 		EventManager.registerEventListener(VideoUnitCreatedEvent.class, this);
 		EventManager.registerEventListener(VideoEditedEvent.class, this);
@@ -63,6 +70,10 @@ public class VideoUnitListModel extends DefaultListModel implements
 		}
 	}
 
+        /**
+         * läd Liste neu
+         * @param video
+         */
 	private void reloadList(Video video) {
 
 		Vector<VideoUnit> videoUnits = new Vector<VideoUnit>(video.getSortedVideoUnits());
