@@ -76,7 +76,7 @@ public class MenuBar {
 		menuItemCustomerEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CustomerDataDialog.createFilledCustomerDataDialog(MainWindow.get());
+				CustomerDataDialog.createFilledCustomerDataDialog();
 			}
 		});
 

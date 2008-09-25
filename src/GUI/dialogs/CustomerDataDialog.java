@@ -64,14 +64,30 @@ public class CustomerDataDialog {
     private JComboBox comboBoxBirthMonth;
     private JTextField textFieldBirthYear;
 
+    /**
+     * erstellt Kunden Erstellungsdialog
+     */
     public CustomerDataDialog() {
 
 
-        this(MainWindow.get(), Data.NOTSET, "Herr", "", "", "", new Date(1, 1, 19), "", "", 0, "");
+        this(Data.NOTSET, "Herr", "", "", "", new Date(1, 1, 19), "", "", 0, "");
 
     }
 
-    public CustomerDataDialog(MainWindow mainWindow,
+    /**
+     * erstellen Kunden Bearbeitendialog
+     * @param CID KundenID
+     * @param title Anrede
+     * @param firstName Vorname
+     * @param Lastname Nachname
+     * @param identificationID Ausweisnummer
+     * @param birthDate Geb.datum
+     * @param street Straße
+     * @param housNr Hausnummer
+     * @param zipCode PLZ
+     * @param city Stadt
+     */
+    public CustomerDataDialog(
             int CID,
             String title,
             String firstName,
@@ -81,7 +97,7 @@ public class CustomerDataDialog {
             String street, String housNr,
             int zipCode, String city) {
 
-        this.mainWindow = mainWindow;
+        this.mainWindow = MainWindow.get();
         this.mainWindowFrame = mainWindow.getMainFrame();
         this.addCustomer = (CID == Data.NOTSET);
         this.CID = (addCustomer ? Data.NOTSET : CID);
@@ -129,7 +145,7 @@ public class CustomerDataDialog {
 
         // Geburtsdatum-Eingabefelder
         labelBirthDay = new JLabel("Geburtsdatum:");
-        comboBoxBirthDay = new JComboBox(this.createDayCollection());
+        comboBoxBirthDay = new JComboBox(this.createDayArr());
         comboBoxBirthMonth = new JComboBox(this.createMonthCollection());
         textFieldBirthYear = new JTextField("Geburtsjahr");
 
@@ -140,6 +156,9 @@ public class CustomerDataDialog {
         this.fillDataDialog();
     }
 
+    /**
+     * Setzt die Daten in die entsprächende Felder
+     */
     private void fillDataDialog() {
 
         // KundenNr erzeugen
@@ -248,7 +267,11 @@ public class CustomerDataDialog {
         this.customerDataDialog.setVisible(true);
     }
 
-    private Integer[] createDayCollection() {
+    /**
+     * erstellt Tageszahlenarray
+     * @return Tageszahlenarray
+     */
+    private Integer[] createDayArr() {
 
         Integer[] dayCollection = new Integer[31];
 
@@ -259,6 +282,10 @@ public class CustomerDataDialog {
         return dayCollection;
     }
 
+    /**
+     * erstellt Monatenarray
+     * @return Monatenarray
+     */
     private String[] createMonthCollection() {
 
         return new String[]{"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
@@ -266,8 +293,12 @@ public class CustomerDataDialog {
                 };
     }
 
-    public static void createFilledCustomerDataDialog(MainWindow mainWindow) {
-        DetailPanel detailPanel = mainWindow.getDetailPanel();
+    /**
+     * füllt die 
+     * @param mainWindow
+     */
+    public static void createFilledCustomerDataDialog() {
+        DetailPanel detailPanel = MainWindow.get().getDetailPanel();
         try {
             int cID = Integer.parseInt(detailPanel.getTextFieldDetailCustID().getText());
             Customer currentCustomer = Customer.findByID(cID);
@@ -280,12 +311,12 @@ public class CustomerDataDialog {
             String houseNr = currentCustomer.getHouseNr();
             int zipCode = currentCustomer.getZipCode();
             String city = currentCustomer.getCity();
-            new CustomerDataDialog(mainWindow, cID, title, firstName, lastName, identificationNr, birthDate, street, houseNr, zipCode, city);
+            new CustomerDataDialog(cID, title, firstName, lastName, identificationNr, birthDate, street, houseNr, zipCode, city);
 
         } catch (RecordNotFoundException e) {
 
             // Exception abfangen und Dialog erstellen
-            JOptionPane.showMessageDialog(mainWindow.getMainFrame(),
+            JOptionPane.showMessageDialog(MainWindow.get().getMainFrame(),
                     "Konnte Kundendaten nicht einlesen", "Fehler",
                     JOptionPane.ERROR_MESSAGE);
         }

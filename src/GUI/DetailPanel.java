@@ -587,6 +587,7 @@ public class DetailPanel {
 
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentVideoUnit.delete();
+				mainWindow.getDetailPanel().fillPanelDetailVideo(currentVideoUnit.getVideo());
 			}
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e
