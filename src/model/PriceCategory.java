@@ -39,6 +39,11 @@ public class PriceCategory
 	public PriceCategory(String name, float price) throws FalseFieldException, EmptyFieldException
 	{
 		this(minpID, name, price);
+		if(name.trim().equals(""))
+			throw new FalseFieldException("Name ungültig.");
+		if(price <= 0.0f)
+			throw new FalseFieldException("Preis ungültig.");
+		
 		minpID++;
 
 		// Event feuern

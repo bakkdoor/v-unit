@@ -90,7 +90,7 @@ public class InRentParser extends AbstractParser
 		super.startElement(uri, localName, qName, attributes);
 		String tagname = qName;
 
-		if (tagname == "inRents") // öffnendes tag <inRents> (mainTag)
+		if (tagname.equals("inRents")) // öffnendes tag <inRents> (mainTag)
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
@@ -104,7 +104,7 @@ public class InRentParser extends AbstractParser
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 		}
-		else if (tagname == "inRent") // öffnendes tag <inRent>
+		else if (tagname.equals("inRent")) // öffnendes tag <inRent>
 		{
 			this.rID = Integer.parseInt(attributes.getValue("rID"));
 			this.customerID = Integer.parseInt(attributes.getValue("customerID"));
@@ -112,7 +112,7 @@ public class InRentParser extends AbstractParser
 			this.duration = Integer.parseInt(attributes.getValue("duration"));
 			this.warned = Boolean.parseBoolean(attributes.getValue("warned"));
 		}
-		else if(tagname == "videoUnit")
+		else if(tagname.equals("videoUnit"))
 		{
 			int uID = Data.NOTSET;
 			
@@ -132,7 +132,7 @@ public class InRentParser extends AbstractParser
 		
 		String tagname = qName;
 		
-		if(tagname == "inRent") // schließendes tag </inRent>
+		if(tagname.equals("inRent")) // schließendes tag </inRent>
 		{
 			// Neues InRent objekt erstellen und in liste packen.
 			InRent newInRent = null;

@@ -73,7 +73,7 @@ public class PriceCategoryParser extends AbstractParser
 	{
 		String tagname = qName;
 
-		if (tagname == "priceCategories") // öffnendes tag <priceCategories>
+		if (tagname.equals("priceCategories")) // öffnendes tag <priceCategories>
 		{
 			// min ID wert auslesen
 			minId = Integer.parseInt(attributes.getValue("minID"));
@@ -86,7 +86,7 @@ public class PriceCategoryParser extends AbstractParser
 				this.exceptionsToThrow.add(new DataException(e.getMessage()));
 			}
 		}
-		else if (tagname == "priceCategory") // öffnendes tag <priceCategory>
+		else if (tagname.equals("priceCategory")) // öffnendes tag <priceCategory>
 		{
 			int pID = Data.NOTSET;
 			float price = Data.NOTSET;
