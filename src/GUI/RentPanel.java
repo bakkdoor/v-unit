@@ -62,6 +62,10 @@ public class RentPanel {
     public static final String RENTVIDEOCARD = "RentCard";
     public static final String RETURNVIDEOCARD = "ReturnCard";
 
+    /**
+     * erstellt RentPanel mit den nötigen Komponennten
+     * @return RentPanel
+     */
     protected Component createRentPanel() {
 
         this.mainWindow = MainWindow.get();
@@ -76,10 +80,13 @@ public class RentPanel {
         return panelRent;
     }
 
+    /**
+     * Erstellt die Ausleihkarte
+     * @return RentPanel
+     */
     private Container rentVideoPanel() {
 
         JPanel panelRent = new JPanel(new GridBagLayout());
-        GridBagConstraints gridBagConstRent = new GridBagConstraints();
 
         TitledBorder border = BorderFactory.createTitledBorder("Ausleihe");
         border.setTitleFont(new Font("Arial", Font.BOLD, 14));
@@ -107,7 +114,6 @@ public class RentPanel {
                 	Integer custID = Integer.parseInt(textFieldRentCustomerID.getText());
                     mainWindow.getDetailPanel().fillPanelDetailCustomer(Customer.findByID(custID));
                 } catch (RecordNotFoundException e) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "Kunden nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar-/Kundennummer-Feld eingeben!");
@@ -128,7 +134,6 @@ public class RentPanel {
                     mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit.getVideo());
                     mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit);
                 } catch (RecordNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Videoexemplar nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
@@ -161,7 +166,6 @@ public class RentPanel {
                     textFieldRentVideoID.setText("");
                     textFieldRentVideoID.grabFocus();
                 } catch (RecordNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage());
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar- und Kundennummer-Feld eingeben!");
@@ -215,6 +219,10 @@ public class RentPanel {
         return panelRent;
     }
 
+    /**
+     * erstellt die RückgabeKarte
+     * @return ReturnPanel
+     */
     private Container returnVideoPanel() {
         JPanel returnVideoPanel = new JPanel();
 
@@ -235,7 +243,6 @@ public class RentPanel {
                 	mainWindow.getDetailPanel().fillPanelDetailVideo(VideoUnit.findByID(uID).getVideo());
                     mainWindow.getDetailPanel().fillPanelDetailVideo(VideoUnit.findByID(uID));
                 } catch (RecordNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Kunde nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar Feld eingeben!");
@@ -305,6 +312,10 @@ public class RentPanel {
         return returnVideoPanel;
     }
 
+    /**
+     * Wechselt die Karte vom RentPanel
+     * @param VIDEOCARD zu zeigende Karte (Ausleihe/Rückgabe)
+     */
     public void changeCard(final String VIDEOCARD) {
         CardLayout layout = (CardLayout) this.panelRent.getLayout();
         if (VIDEOCARD.equals(RENTVIDEOCARD)) {
@@ -314,6 +325,10 @@ public class RentPanel {
         }
     }
 
+    /**
+     * Erstellt die Rückgabetabelle
+     * @return
+     */
     private JTable createReturnTable() {
 
         Vector<String> columnNames = new Vector<String>(5);
@@ -336,6 +351,10 @@ public class RentPanel {
         return returnTable;
     }
 
+    /**
+     * Erstellt die Ausleihtabelle
+     * @return
+     */
     private JTable createRentTable() {
 
         Vector rentColumnNames = new Vector() {
@@ -352,6 +371,10 @@ public class RentPanel {
         return rentTable;
     }
 
+    /**
+     * Legt VideoUnit in die Ausleihtabelle ab
+     * @param videoUnit VideoUnit
+     */
     public void addVideoUnitInRentTable(VideoUnit videoUnit) {
     	try {
     	RentTableModel model = (RentTableModel)tableRentVideo.getModel();
@@ -364,6 +387,9 @@ public class RentPanel {
     	}
     }
     
+    /**
+     * Setzt die Werte der Ausleihtabelle zurück
+     */
     private void clearRentDataFields() {
     	textFieldRentCustomerID.setText("");
         textFieldRentVideoID.setText("");
@@ -373,6 +399,9 @@ public class RentPanel {
         calculateRentPrice();
     }
     
+    /**
+     * Setzt die Werte der Rückgabetabelle zurück
+     */
     private void clearReturnDataFields() {
     	textFieldReturnVideoID.setText("");
     	setReturnPrice(0.0f);
@@ -383,10 +412,17 @@ public class RentPanel {
         videoUnitMap.clear();
     }
     
+    /**
+     * GetaMethode für die Leihdauer
+     * @return Leihdauer
+     */
     private int getRentDuration() {
     	return comboBoxRentDuration.getSelectedIndex()+1;
     }
     
+    /**
+     * berechnet den Leihpreis
+     */
     public void calculateRentPrice() {
     	int rentDuration = this.getRentDuration();
     	float price = 0.0f;
@@ -401,11 +437,18 @@ public class RentPanel {
     	setRentPrice(price);
     }
     
+    /**
+     * Setzt formatiert den Preis in das entsprechende Feld
+     * @param price Preis
+     */
     private void setRentPrice(float price) {
     	// TODO auf 2Stellen genau ausgeben
     	labelRentVideoCostPrice.setText(String.format("%5.2f €", price));
     }
     
+    /**
+     * erstellt ein Ausleih Objekt mit den eingegebenen Daten
+     */
     private void createInRent() {
     	
 		try {
@@ -428,21 +471,37 @@ public class RentPanel {
     	
     }
     
+    /**
+     * setzt die KundenNr in das vorgesehenes Feld in der Ausleihkarte
+     * @param custID KundenNr
+     */
     public void setTextRentCustID(int custID) {
     	changeCard(RENTVIDEOCARD);
     	textFieldRentCustomerID.setText(Integer.toString(custID));
     }
     
+    /**
+     * setzt die VideoexemplarNr in das vorgesehenes Feld in der Ausleihkarte
+     * @param videoUnitID VideoexemplarNr
+     */
     public void setTextRentVideoID(int videoUnitID) {
     	changeCard(RENTVIDEOCARD);
     	textFieldRentVideoID.setText(Integer.toString(videoUnitID));
     }
     
+    /**
+     * setzt die VideoexemplarNr in das vorgesehenes Feld in der Rückgabekarte
+     * @param videoUnitID VideoexemplarNr
+     */
     public void setTextReturnVideoID(int videoUnitID) {
     	changeCard(RETURNVIDEOCARD);
     	textFieldReturnVideoID.setText(Integer.toString(videoUnitID));
     }
     
+    /**
+     * fügt ein Videoexemplar in dei Rückgabetabelle ein
+     * @param videoUnit Videoexemplar
+     */
     public void addVideoUnitInReturnTable(VideoUnit videoUnit) {
     	
     	try {
@@ -455,13 +514,21 @@ public class RentPanel {
 		}
     }
     
+    /**
+     * stezt formatiert den Rückgabepreis
+     * @param price Rückgabepreis
+     */
     private void setReturnPrice(float price) {
     	labelReturnVideoSumWarning.setText(String.format("%5.2f €", price));
     }
-    
+
     private Map<InRent, Collection<VideoUnit>> videoUnitMap = 
     	new HashMap<InRent, Collection<VideoUnit>>();
     
+    /**
+     * Speichert ein ViedeoUnit zur Abgabe temporär ab, prüft ob der Rückgabepreis erhöht werden soll
+     * @param unit
+     */
     private void collectReturnUnit(VideoUnit unit)
     {
     	if(!videoUnitMap.containsKey(unit.getInRent()))
@@ -528,6 +595,9 @@ public class RentPanel {
     
     private float returnPrice = 0.0f;
     
+    /**
+     * erhöht Rückgabepreis
+     */
     private void increaseReturnPrice()
     {
     	returnPrice += Warning.getWarningPrice();
