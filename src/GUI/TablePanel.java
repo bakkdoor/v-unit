@@ -162,7 +162,7 @@ public class TablePanel {
 		return custTable;
 	}
 
-	private TableRowSorter<TableModel> createIntegerSorter(int[] columns, JTable table)
+	public static TableRowSorter<TableModel> createIntegerSorter(int[] columns, JTable table)
 	{
 		TableRowSorter<TableModel> tableSorter = new TableRowSorter<TableModel>(table.getModel());
 		Comparator<Integer> comp = createIntegerComparator();
@@ -174,7 +174,7 @@ public class TablePanel {
 		return tableSorter;
 	}
 	
-	private TableRowSorter<TableModel> createDateSorter(int[] columns, JTable table, TableRowSorter<TableModel> sorter)
+	public static TableRowSorter<TableModel> createDateSorter(int[] columns, JTable table, TableRowSorter<TableModel> sorter)
 	{
 		Comparator<Date> comp = createDateComparator();
 		for(int columnIndex : columns)
@@ -185,7 +185,7 @@ public class TablePanel {
 		return sorter;
 	}
 	
-	private Comparator<Date> createDateComparator()
+	public static Comparator<Date> createDateComparator()
 	{
 		return new Comparator<Date>(){
 			@Override
@@ -195,7 +195,7 @@ public class TablePanel {
 		};
 	}
 	
-	private Comparator<Integer> createIntegerComparator()
+	public static Comparator<Integer> createIntegerComparator()
 	{
 		return new Comparator<Integer>(){
 			@Override
