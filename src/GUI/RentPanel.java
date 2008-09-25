@@ -485,7 +485,7 @@ public class RentPanel {
     				if(ir.isOverDuration())
     				{
     					increaseReturnPrice();
-    					ir.getWarning().createInvoice();
+    					ir.getWarning().createInvoice(videoUnitMap.get(ir));
     				}
     				
     				ir.setWarned(false);

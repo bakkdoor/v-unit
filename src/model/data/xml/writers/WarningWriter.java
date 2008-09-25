@@ -32,7 +32,7 @@ public class WarningWriter extends AbstractTextWriter
 			createDirIfNeeded(this.warningFolder);
 
 			FileWriter fWriter = new FileWriter(this.warningFolder + "/"
-					+ warningToPrint.getID() + ".txt");
+					+ warningToPrint.getInRent().getID() + ".txt");
 
 			StringBuilder sb = new StringBuilder();
 
