@@ -91,7 +91,7 @@ public class MainWindow {
 
 		// **************************************************************
 
-		// mainFrame.pack();
+                mainFrame.setMinimumSize(new Dimension(800, 600));
 		mainFrame.setSize(1024, 768);
 		
 		// icon setzen.

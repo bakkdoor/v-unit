@@ -60,6 +60,7 @@ public class SearchDialog {
 		Layout.addComponent(mainContainer, this.createButtonSearch(), 2, 1, 1, 1, 0.3, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
 		
 		dialogSearch.pack();
+                dialogSearch.setResizable(false);
 		dialogSearch.setVisible(true);
 	}
 	
