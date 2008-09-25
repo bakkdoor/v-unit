@@ -52,7 +52,6 @@ public class WarningTest extends ModelTest
 //		}
 //		catch (RecordNotFoundException e1)
 //		{
-//			// TODO Auto-generated catch block
 //			e1.printStackTrace();
 //		}
 //		

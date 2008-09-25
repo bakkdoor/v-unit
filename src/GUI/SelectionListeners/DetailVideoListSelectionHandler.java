@@ -24,7 +24,6 @@ public class DetailVideoListSelectionHandler implements ListSelectionListener {
 			detailPanel.fillPanelDetailVideo(selectedVideoUnit);
 			detailPanel.getButtonDetailVadd().setEnabled(true);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

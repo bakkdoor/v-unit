@@ -107,7 +107,6 @@ public class RentPanel {
                 	Integer custID = Integer.parseInt(textFieldRentCustomerID.getText());
                     mainWindow.getDetailPanel().fillPanelDetailCustomer(Customer.findByID(custID));
                 } catch (RecordNotFoundException e) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage(), "Kunden nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar-/Kundennummer-Feld eingeben!");
@@ -128,7 +127,6 @@ public class RentPanel {
                     mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit.getVideo());
                     mainWindow.getDetailPanel().fillPanelDetailVideo(videoUnit);
                 } catch (RecordNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Videoexemplar nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
@@ -161,7 +159,6 @@ public class RentPanel {
                     textFieldRentVideoID.setText("");
                     textFieldRentVideoID.grabFocus();
                 } catch (RecordNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage());
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar- und Kundennummer-Feld eingeben!");
@@ -235,7 +232,6 @@ public class RentPanel {
                 	mainWindow.getDetailPanel().fillPanelDetailVideo(VideoUnit.findByID(uID).getVideo());
                     mainWindow.getDetailPanel().fillPanelDetailVideo(VideoUnit.findByID(uID));
                 } catch (RecordNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e1.getMessage(), "Kunde nicht gefunden", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(mainWindow.getMainFrame(), "Bitte nur Zahlen in das Exemplar Feld eingeben!");
@@ -450,7 +446,6 @@ public class RentPanel {
 			model.insertVideoUnit(videoUnit);
 			collectReturnUnit(videoUnit);
 		} catch (VideothekException e) {
-			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage());
 		}
     }
@@ -517,8 +512,8 @@ public class RentPanel {
 					ir.delete();
 					
 				} catch (VideothekException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(MainWindow.get().getMainFrame(), "Fehler: " + e.getMessage(),
+							"Fehler", JOptionPane.ERROR_MESSAGE);
 				}
     		}
     	}

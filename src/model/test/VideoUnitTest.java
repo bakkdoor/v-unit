@@ -86,7 +86,6 @@ public class VideoUnitTest extends ModelTest
 		}
 		catch (RecordNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

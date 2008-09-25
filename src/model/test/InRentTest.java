@@ -119,7 +119,6 @@ public class InRentTest extends ModelTest
 		}
 		catch (RecordNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -134,7 +133,6 @@ public class InRentTest extends ModelTest
 		}
 		catch (RecordNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

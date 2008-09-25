@@ -2,6 +2,7 @@ package GUI.TableModels;
 
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import main.error.VideothekException;
@@ -43,8 +44,8 @@ public class RentTableModel extends DefaultTableModel {
 			fireTableDataChanged();
 			
 		} catch (RecordNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Fehler: " + e.getMessage(),
+					"Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

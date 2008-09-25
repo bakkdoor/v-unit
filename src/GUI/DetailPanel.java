@@ -252,8 +252,8 @@ public class DetailPanel {
 					selectedVideoUnit = (VideoUnit) listDetailVUnit.getSelectedValue();
 					mainWindow.getRentPanel().addVideoUnitInRentTable(selectedVideoUnit);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Fehler: " + e.getMessage(),
+							"Fehler", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

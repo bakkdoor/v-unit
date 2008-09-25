@@ -7,8 +7,6 @@ import javax.swing.event.ListSelectionListener;
 
 import model.Video;
 import model.data.exceptions.RecordNotFoundException;
-
-import GUI.DetailPanel;
 import GUI.MainWindow;
 
 public class TableVideoListSelectionHandler implements ListSelectionListener {
@@ -33,9 +31,8 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 				Video selectedVideo = Video.findByID(vID);
 				mainWindow.getDetailPanel().fillPanelDetailVideo(selectedVideo);
 			} catch (RecordNotFoundException e1) {
-				// TODO Auto-generated catch block
-				System.out.println("TableVideoListSelectionHandler:");
-				System.out.println(e1);
+//				JOptionPane.showMessageDialog(null, "Fehler: " + e1.getMessage(),
+//						"Fehler", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
