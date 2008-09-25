@@ -37,6 +37,9 @@ public class SearchController implements VideothekEventListener
 		EventManager.registerEventListener(SearchEvent.class, this);
 	}
 
+	/**
+	 * verwaltet die empfangenen Events
+	 */
 	@Override
 	public void handleEvent(VideothekEvent event)
 	{
@@ -63,6 +66,9 @@ public class SearchController implements VideothekEventListener
 		}
 	}
 	
+	/**
+	 * füllt die Kundentabelle mit den gefundenen Daten
+	 */
 	private void fillCustomerTableContent()
 	{
 		Vector rowData = getCustomerRows(this.currentSearchTerm);
@@ -97,6 +103,11 @@ public class SearchController implements VideothekEventListener
 		colModel.getColumn(5).setPreferredWidth(450);
 		this.tablePanel.getTableSearchCustomer().getTableHeader().setReorderingAllowed(false);
 	}
+	
+	/**
+	 * Liefert Kunden Spaltennamen
+	 * @return Kunden Spaltennamen
+	 */
 	private Vector getCustomerColumns()
 	{
 		Vector columns = new Vector();
@@ -110,6 +121,12 @@ public class SearchController implements VideothekEventListener
 		
 		return columns;
 	}
+	
+	/**
+	 * Liefert Vektor mit den gesuchten Kundenelementen für die Tabelle
+	 * @param searchTerm gesuchter Kunde
+	 * @return Vector mit den gefundenen Daten
+	 */
 	private Vector getCustomerRows(String searchTerm)
 	{
 		Vector rows = new Vector();
@@ -131,6 +148,9 @@ public class SearchController implements VideothekEventListener
 		return rows;
 	}
 	
+	/**
+	 * erstellt die Filmtabelle 
+	 */
 	private void fillVideoTableContent()
 	{
 		Vector rowData = getVideoRows(this.currentSearchTerm);
@@ -164,7 +184,10 @@ public class SearchController implements VideothekEventListener
 		this.tablePanel.getTableSearchVideo().getTableHeader().setReorderingAllowed(false);
 	}
 	
-	
+	/**
+	 * Liefert Film Spaltennamen
+	 * @return Vector mit Film Spaltennamen
+	 */
 	private Vector getVideoColumns()
 	{
 		Vector columns = new Vector();
@@ -177,6 +200,12 @@ public class SearchController implements VideothekEventListener
 		
 		return columns;
 	}
+	
+	/**
+	 * Liefert einen Vector mit gefundenen Filmen
+	 * @param searchTerm gesuchter Titel
+	 * @return Vector
+	 */
 	private Vector getVideoRows(String searchTerm)
 	{
 		Vector rows = new Vector();
