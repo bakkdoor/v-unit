@@ -35,6 +35,7 @@ public class SearchDialog {
 	private JTextField textFieldVideo;
 	private JTextField textFieldCustomer;
 	private int searchMode;
+	private JTabbedPane tabbedPane;
 	
 	public final static int CUSTOMERSEARCHMODEDIALOG = 1;
 	public final static int VIDEOSEARCHMODEDIALOG = 2;
@@ -60,8 +61,8 @@ public class SearchDialog {
 		mainContainer.setLayout(new GridBagLayout());
 		
 		// **************************************************************
-		
-		Layout.addComponent(mainContainer, this.createTabbedPanne(), 0, 0, 3, 1, 0.0, 1.0, 200,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(6, 3, 3, 3));
+		this.tabbedPane = this.createTabbedPanne(this.searchMode);
+		Layout.addComponent(mainContainer, this.tabbedPane, 0, 0, 3, 1, 0.0, 1.0, 200,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(6, 3, 3, 3));
 		
 		Layout.addComponent(mainContainer, new JLabel(), 0, 1, 1, 1, 0.3, 0.0);
 		Layout.addComponent(mainContainer, this.createButtonCancel(), 1, 1, 1, 1, 0.21, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
@@ -72,7 +73,7 @@ public class SearchDialog {
 		dialogSearch.setVisible(true);
 	}
 	
-	private Container createTabbedPanne() {
+	private JTabbedPane createTabbedPanne(int searchMode) {
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
@@ -126,6 +127,12 @@ public class SearchDialog {
 		panelCustomer.add(labelCustomer);
 		panelCustomer.add(textFieldCustomer);
 		tabbedPane.addTab("Kunde", new ImageIcon("icons/user.png"), panelCustomer);
+
+		if(this.searchMode == CUSTOMERSEARCHMODEDIALOG)
+		{
+			tabbedPane.setSelectedIndex(1);
+		}
+		
 		return tabbedPane;
 	}
 	
@@ -154,7 +161,6 @@ public class SearchDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// noch implementieren
 				startSearch();
 			}
 		});
@@ -163,8 +169,6 @@ public class SearchDialog {
 	
 	private void startSearch()
 	{
-		
-		
 		if(!this.textFieldCustomer.getText().trim().equals(""))
 		{
 			String searchTerm = this.textFieldCustomer.getText();

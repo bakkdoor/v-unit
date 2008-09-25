@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.dialogs.CreatedWarningsDialog;
+import GUI.dialogs.SearchDialog;
 import GUI.dialogs.SettingsDialog;
 import GUI.dialogs.VideoDataDialog;
 import GUI.dialogs.CustomerDataDialog;
@@ -18,6 +19,7 @@ import javax.swing.JSeparator;
 
 import main.Programm;
 import model.Warning;
+import model.events.SearchEvent;
 
 public class MenuBar {
 
@@ -141,9 +143,24 @@ public class MenuBar {
 		JMenu menuSearch = new JMenu("Suche");
 		JMenuItem menuItemSearchVideo = new JMenuItem("Nach Film",
 				new ImageIcon("icons/magnifier.png"));
+		menuItemSearchVideo.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				openSearchDialog(SearchEvent.SearchType.VIDEO);
+			}
+		});
+		
 		JMenuItem menuItemSearchCustomer = new JMenuItem("Nach Kunden",
 				new ImageIcon("icons/magnifier.png"));
-
+		menuItemSearchCustomer.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				openSearchDialog(SearchEvent.SearchType.COSTUMER);
+			}
+		});
+		
 		menuSearch.add(menuItemSearchVideo);
 		menuSearch.add(menuItemSearchCustomer);
 
@@ -224,6 +241,20 @@ public class MenuBar {
 		menuBarMain.add(menuHelp);
 
 		return menuBarMain;
+	}
+	
+
+	private void openSearchDialog(String searchType)
+	{
+		SearchDialog dialog = null;
+		if(searchType.equals(SearchEvent.SearchType.COSTUMER))
+		{
+			dialog = new SearchDialog(owner.getMainFrame(), SearchDialog.CUSTOMERSEARCHMODEDIALOG);
+		}
+		else
+		{
+			dialog = new SearchDialog(owner.getMainFrame(), SearchDialog.VIDEOSEARCHMODEDIALOG);
+		}
 	}
 
 	public void setCustomerButtonsEnabled() {
