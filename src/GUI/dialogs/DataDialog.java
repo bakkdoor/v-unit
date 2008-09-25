@@ -14,9 +14,9 @@ public class DataDialog {
 	public DataDialog(MainWindow owner, final String dialogView){
 
 		if (dialogView.equals(CUSTOMERDIALOG)) {
-			new GUI.dialogs.CustomerDataDialog(owner);
+			new GUI.dialogs.CustomerDataDialog();
 		} else if (dialogView.equals(VIDEODIALOG)) {
-			new GUI.dialogs.VideoDataDialog(owner);
+			new GUI.dialogs.VideoDataDialog();
 		}
 	}
 }

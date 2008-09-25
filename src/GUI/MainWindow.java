@@ -35,9 +35,7 @@ public class MainWindow {
 	
 	// Ausrichtungswerte
 	private final int  HORIZONTAL = GridBagConstraints.HORIZONTAL;
-	private final int  VERTICAL = GridBagConstraints.VERTICAL;
 	private final int  BOTH = GridBagConstraints.BOTH;
-	private final int  BELOW_BASELINE = GridBagConstraints.BELOW_BASELINE;
 	private final int  NORTHWEST = GridBagConstraints.NORTHWEST;
 	
 	private static MainWindow _instance;
@@ -49,6 +47,8 @@ public class MainWindow {
 	
 	public MainWindow() {
 
+		_instance = this;
+		
 		mainFrame = new JFrame("V-Unit v1.0");
 		mainFrame.addWindowListener(new WindowAdapter(){
 			@Override
@@ -56,9 +56,8 @@ public class MainWindow {
 				Programm.shutdown();
 			}
 		});
-//		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
 		
-//		 Frame mittig auf dem Bildschirm setzen
+		// Frame mittig auf dem Bildschirm setzen
 		DialogHelper.setLargeWindowToCenterScreen(this.mainFrame);
 		
 		// Haupt Container Layout setzen
@@ -68,12 +67,12 @@ public class MainWindow {
 		// **************************************************************
 		// MenuBar
 		menuBar = new MenuBar();
-		mainFrame.setJMenuBar(menuBar.createMenuBar(this));
+		mainFrame.setJMenuBar(menuBar.createMenuBar());
 
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen
 		toolBar = new ToolBar();
-		Layout.addComponent(mainContainer, toolBar.createToolBar(this), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
+		Layout.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
 
@@ -83,17 +82,17 @@ public class MainWindow {
 		// rentPanel und detailPanel erstellen und in Panel hinzufügen
 		rentPanel = new RentPanel();
 		detailPanel = new DetailPanel();
-		panelAboveCentral.add(rentPanel.createRentPanel(this));
-		panelAboveCentral.add(detailPanel.createDetailPanel(this));
+		panelAboveCentral.add(rentPanel.createRentPanel());
+		panelAboveCentral.add(detailPanel.createDetailPanel());
 
 		// RentPanel - Cards zu Testzwecken umschalten
 		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);
 		// detailPanel - Cards zu Testzwecken umschalten
-		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
+		detailPanel.changePanelDetailsCard(DetailPanel.VIDEODETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		tablePanel = new TablePanel();
-		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel(this));
+		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel());
 		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************
@@ -103,8 +102,6 @@ public class MainWindow {
 		// icon setzen.
 		Image iconImage = Toolkit.getDefaultToolkit().getImage("icons/V-Unit.png");
 		mainFrame.setIconImage(iconImage);
-		
-		_instance = this;
 	}
 
 	public RentPanel getRentPanel() {

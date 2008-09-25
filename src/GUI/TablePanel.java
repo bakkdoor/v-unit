@@ -54,9 +54,10 @@ public class TablePanel {
 	private JTabbedPane tableTabbedPane;
 	private SearchController searchController;
 	
-	protected Component createTablePanel(MainWindow mainWindow) {
+	protected Component createTablePanel() {
 		
-		this.mainWindow = mainWindow;
+		this.mainWindow = MainWindow.get();
+		
 		tableVideo = this.createTableVideo();
 		tableVideo.setRowSorter(createIntegerSorter(new int[]{0,4}, tableVideo));
 		ListSelectionModel tableVideoSelectionModel = tableVideo
@@ -74,7 +75,7 @@ public class TablePanel {
 		});
 
 		tableCustomer = this.createTableCustomer();
-		TableRowSorter customerSorter = createIntegerSorter(new int[]{0}, tableCustomer);
+		TableRowSorter<TableModel> customerSorter = createIntegerSorter(new int[]{0}, tableCustomer);
 		customerSorter = createDateSorter(new int[]{4}, tableCustomer, customerSorter);
 		tableCustomer.setRowSorter(customerSorter);
 		ListSelectionModel tableCustomerSelectionModel = tableCustomer
@@ -84,7 +85,7 @@ public class TablePanel {
 						mainWindow));
 
 		tableInRent = this.createTableRent();
-		TableRowSorter inRentSorter = createIntegerSorter(new int[]{0,1,2}, tableInRent);
+		TableRowSorter<TableModel> inRentSorter = createIntegerSorter(new int[]{0,1,2}, tableInRent);
 		inRentSorter = createDateSorter(new int[]{4}, tableInRent, inRentSorter);
 		tableInRent.setRowSorter(inRentSorter);
 		ListSelectionModel tableSelectionModel = tableInRent.getSelectionModel();
@@ -139,7 +140,7 @@ public class TablePanel {
 
 		CustomerTableModel tableModel = new CustomerTableModel(
 				customerColumnNames, 0);
-		Vector<Customer> customerVector = new Vector(Customer.findAll());
+		Vector<Customer> customerVector = new Vector<Customer>(Customer.findAll());
 
 		for (int indexCustomer = 0; indexCustomer < customerVector.size(); indexCustomer++) {
 			Customer newCustomer = customerVector.get(indexCustomer);
@@ -207,7 +208,7 @@ public class TablePanel {
 	
 	private JTable createTableVideo() {
 
-		Vector<String> videeoColumnNames = new Vector(5);
+		Vector<String> videeoColumnNames = new Vector<String>(5);
 		videeoColumnNames.add("FilmNr.");
 		videeoColumnNames.add("Titel");
 		videeoColumnNames.add("Preisklasse");
@@ -215,7 +216,7 @@ public class TablePanel {
 		videeoColumnNames.add("Erscheinungsjahr");
 
 		VideoTableModel tableModel = new VideoTableModel(videeoColumnNames, 0);
-		Vector<Video> videoVector = new Vector(Video.findAll());
+		Vector<Video> videoVector = new Vector<Video>(Video.findAll());
 
 		// initiales Füllen
 		for (int indexVideo = 0; indexVideo < videoVector.size(); indexVideo++) {
@@ -248,7 +249,7 @@ public class TablePanel {
 		colNames.add("Mahnung.");
 		
 		InRentTableModel tableModel = new InRentTableModel(colNames, 0);
-		Vector<InRent> inRentVector = new Vector(InRent.findAll());
+		Vector<InRent> inRentVector = new Vector<InRent>(InRent.findAll());
 		
 		for (InRent inRent : inRentVector) {
 			tableModel.insertRow(inRent);

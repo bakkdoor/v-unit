@@ -1,7 +1,5 @@
 package GUI.dialogs;
 
-import GUI.*;
-
 import java.awt.Container;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
@@ -9,11 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -26,18 +20,18 @@ import model.Customer;
 import model.Data;
 import model.Date;
 import model.data.exceptions.RecordNotFoundException;
-import model.exceptions.CurrentDateException;
-import model.exceptions.EmptyFieldException;
-import model.exceptions.FalseBirthDateException;
-import model.exceptions.FalseFieldException;
-import model.exceptions.FalseIDException;
+import GUI.DetailPanel;
+import GUI.Layout;
+import GUI.MainWindow;
+import GUI.OnFocusClearTextFieldListener;
 
 public class CustomerDataDialog {
     // Dialogdtanen
     private MainWindow mainWindow;
     private Frame mainWindowFrame;
     private JDialog customerDataDialog;
-    private boolean addCustomer = false;  // KundenDaten
+    private boolean addCustomer = false;  
+    // KundenDaten
     private Integer CID;
     private String title;
     private String firstName;
@@ -47,7 +41,8 @@ public class CustomerDataDialog {
     private String housNr;
     private Integer zipCode;
     private String city;
-    private String identificationID;  // Eingabefelder anlegen
+    private String identificationID;  
+    // Eingabefelder anlegen
     private JLabel labelID;
     private JTextField textFieldID;
     private JLabel labelTitle;
@@ -62,15 +57,16 @@ public class CustomerDataDialog {
     private JTextField textFieldStreet;
     private JTextField textFieldHouseNr;
     private JTextField textFieldZipCode;
-    private JTextField textFieldCity;  // Geburtsdatum-Eingabefelder
+    private JTextField textFieldCity;  
+    // Geburtsdatum-Eingabefelder
     private JLabel labelBirthDay;
     private JComboBox comboBoxBirthDay;
     private JComboBox comboBoxBirthMonth;
     private JTextField textFieldBirthYear;
 
-    public CustomerDataDialog(MainWindow mainWindow) {
+    public CustomerDataDialog() {
 
-        this(mainWindow, Data.NOTSET, "", "", "", "", new Date(1, 1, 19), "", "", 0, "");
+        this(MainWindow.get(), Data.NOTSET, "", "", "", "", new Date(1, 1, 19), "", "", 0, "");
     }
 
     public CustomerDataDialog(MainWindow mainWindow,
@@ -104,7 +100,7 @@ public class CustomerDataDialog {
         customerDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Dialog mittig auf dem bildschirm setzen
-        DialogHelper.setToCenterScreen(this.customerDataDialog);
+        DialogHelper.setToCenterScreen(customerDataDialog);
 
         labelID = new JLabel("KundenNr.:");
         labelID.setVisible(!addCustomer);
@@ -329,7 +325,6 @@ public class CustomerDataDialog {
             Customer editedCustomer = Customer.findByID(Integer.parseInt(textFieldID.getText()));
             editedCustomer.setStreet(textFieldStreet.getText());
             editedCustomer.setHouseNr(textFieldHouseNr.getText());
-            // TODO meldet zipcode fehler
             editedCustomer.setZipCode(Integer.parseInt(textFieldZipCode.getText()));
             editedCustomer.setCity(textFieldCity.getText());
 
