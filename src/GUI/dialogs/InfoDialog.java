@@ -1,5 +1,8 @@
 package GUI.dialogs;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * InfoDialog.java
  * @author Christopher Bertels (chbertel@uos.de)
@@ -27,14 +30,21 @@ public class InfoDialog extends javax.swing.JDialog
 	  private void initComponents()
 	  {
 	
-	    jButton1 = new javax.swing.JButton();
+	    okButton = new javax.swing.JButton();
 	    jScrollPane1 = new javax.swing.JScrollPane();
 	    textPane = new javax.swing.JTextPane();
 	
 	    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 	    setTitle("V-Unit: Informationen");
 	
-	    jButton1.setText("OK");
+	    okButton.setText("OK");
+	    okButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				okButtonActionPerformed(e);
+			}
+	    });
 	
 	    textPane.setText("V-Unit - Videothek Management Software\n\nEntwickelt im Zuge des Java Programmierpraktikums an der Universität Osnabrück im September 2008.\n\n(C) 2008 Waldemar Smirnow, Olga Baranouskaya, Andie Hoffmann, Christopher Bertels\n\nKontakt:\nWaldemar Smirnow (wsmirnow@uos.de)\nOlga Baranouskaya (vbaranou@uos.de)\nAndie Hoffmann (andhoffm@uos.de)\nChristopher Bertels (chbertel@uos.de\n\n===========================================================\n\nHinweis:\nAlle verwendeten Icons (außer V-Unit.ico / V-Unit logo) sind Eigentum von Mark James.\n(C) Mark James, Website: http://www.famfamfam.com");
 	    jScrollPane1.setViewportView(textPane);
@@ -47,7 +57,7 @@ public class InfoDialog extends javax.swing.JDialog
 	        .addContainerGap()
 	        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 	          .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
-	          .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+	          .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
 	        .addContainerGap())
 	    );
 	    layout.setVerticalGroup(
@@ -56,20 +66,20 @@ public class InfoDialog extends javax.swing.JDialog
 	        .addContainerGap()
 	        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
 	        .addGap(18, 18, 18)
-	        .addComponent(jButton1)
+	        .addComponent(okButton)
 	        .addContainerGap())
 	    );
-	
+	    
 	    pack();
 	  }// </editor-fold>
-	  
-	  private void bla()
-	  {
-	    this.textPane.setText("hello");
-	  }
-	  
+
+	private void okButtonActionPerformed(ActionEvent e)
+	{
+		this.dispose();
+	}
+		
 	  // Variables declaration - do not modify
-	  private javax.swing.JButton jButton1;
+	  private javax.swing.JButton okButton;
 	  private javax.swing.JScrollPane jScrollPane1;
 	  private javax.swing.JTextPane textPane;
 	  // End of variables declaration

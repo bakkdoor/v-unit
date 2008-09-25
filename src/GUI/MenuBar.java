@@ -1,6 +1,8 @@
 package GUI;
 
 import GUI.dialogs.CreatedWarningsDialog;
+import GUI.dialogs.DialogHelper;
+import GUI.dialogs.InfoDialog;
 import GUI.dialogs.SearchDialog;
 import GUI.dialogs.SettingsDialog;
 import GUI.dialogs.VideoDataDialog;
@@ -228,6 +230,15 @@ public class MenuBar {
 		
 		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon(
 				"icons/tag_blue.png"));
+		menuItemHelpAbout.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				InfoDialog dialog = new InfoDialog(MainWindow.get().getMainFrame(), true);
+				DialogHelper.setToCenterScreen(dialog);
+				dialog.setVisible(true);
+			}
+		});
 
 		menuHelp.add(menuItemHelpGetHelp);
 		menuHelp.add(menuItemHelpAbout);
