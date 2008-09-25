@@ -10,7 +10,7 @@ package model;
 public class Data
 {
 	/**
-	 * Konstante für nicht gesetzte werde in Model-Klassen.
+	 * Konstante für nicht gesetzte Werte in Model-Klassen.
 	 */
 	public static final int NOTSET = -1;
 }

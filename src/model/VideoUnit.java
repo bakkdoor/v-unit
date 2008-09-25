@@ -74,7 +74,7 @@ public class VideoUnit
 	}
 
 	/**
-	 * Gibt an, ob das VideoExemplar ausgeliehen kann. Ist dann der Fall, wenn
+	 * Gibt an, ob das VideoExemplar ausgeliehen werden kann. Ist dann der Fall, wenn
 	 * es nicht ausgeliehen und nicht gelöscht wurde.
 	 * 
 	 * @return True, falls ja, sonst False.
@@ -333,6 +333,12 @@ public class VideoUnit
 		}
 	}
 
+	/**
+	 * Soll gespeicherte VideoUnits aus der xml-Datei erzeugen 
+	 * @param uID Filmexemplarnummer
+	 * @param videoID Nummer des zugehörigen Films
+	 * @return
+	 */
 	public static VideoUnit reCreate(int uID, int videoID)
 	{
 		return new VideoUnit(uID, videoID);
