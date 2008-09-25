@@ -24,23 +24,26 @@ Die regelm\'e4\'dfige Datumsabfrage bei Programmstart kann im Einstellungenmen\'
 \tab\tab\tab\i Hier Bild vom Reiter Allgemein\i0\par
 \par
 \par
+ \i Hinweis! \i0 Wenn V-Unit zum allerersten Mal gestartet wird, ist nur eine einzige Standardpreiskategorie (A, 1 Euro) eingetragen.\par
+Es wird also empfohlen, die gew\'fcnschten Preiskategorien mit den entsprechenden Preisen im Einstellungsmen\'fc anzulegen unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Preiskategorien\b0  (s. dazu auch "Einstellungen")\b .\b0\par
+\par
 \par
 \b\fs28\'dcbersicht - Programmfenster\par
 \fs20\par
 \b0 Am oberen Fensterrand befindet sich die Men\'fcleiste mit den Eintr\'e4gen:\par
-\b Programm\b0  - \b Kunde\b0  - \b Video\b0  - \b Suche \b0 - \b Extras \b0 - \b Hilfe\b0\par
+\b Programm\b0  - \b Suche \b0 - \b Kunde\b0  -\b Film -\b0  \b Extras \b0 - \b Hilfe\b0\par
 Deren Untermen\'fcs stellen die jeweiligen Funktionalit\'e4ten zur Verf\'fcgung.\par
 Zus\'e4tzlich zu den Men\'fcs werden die wichtigsten Funktionen unterhalb der Men\'fcleiste in einer Toolbar bereitgestellt. Hier hat der Benutzer folgende Buttons zur Wahl:\par
-\b Suche \b0 - \b Anlegen\b0  - \b Bearbeiten\b0  - \b L\'f6schen\b0  - und zus\'e4tzlich - \b Ausleihe - \b0 und - \b R\'fcckgabe\b0\par
-Diese beiden Buttons wechseln die Ansicht des R\'fcckgabe- und Ausleihbereiches unterhalb der Toolbar, wo entsprechend jeweils eine R\'fcckgabe oder aber eine neue Ausleihe eingegeben werden kann.\par
+\b Suche \b0 -- \b Ausleihe - R\'fcckgabe -- \b0  \b Anlegen\b0  - \b Bearbeiten\b0  - \b L\'f6schen\b0\par
+Die beiden Buttons \b Ausleihe - R\'fcckgabe \b0 wechseln die Ansicht des R\'fcckgabe- und Ausleihbereiches unterhalb der Toolbar, wo entsprechend jeweils eine R\'fcckgabe oder aber eine neue Ausleihe eingegeben werden kann.\par
 Rechts daneben werden Details im Infobereich dargestellt. Diese beziehen sich auf die aktuelle Auswahl im Listenbereich, der sich in der unteren Fensterh\'e4lfte befindet:\par
  Ist z.B. ein Film ausgew\'e4hlt, stehen im Infobereich Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse, Status (verliehen, oder nicht) , R\'fcckgabefrist (falls verliehen) und die vorhandenen Exemplare mitsamt ihrer Nummer aufgelistet.\par
 In den anderen F\'e4llen werden hier die Daten der entsprechenden Auswahl (Kunde, Ausleihe) dargestellt.\par
-Der Listenbereich im unteren Teil enth\'e4lt Reiter f\'fcr:\par
+Der Listenbereich im unteren Teil enth\'e4lt vier Reiter f\'fcr:\par
  -\b Filme\b0 , wo alle Filme aus dem Bestand der Videothek aufgelistet werden,\par
  -\b Kunden\b0 , wo alle Kunden der Videothek aufgelistet werden,\par
  -\b Ausgeliehene\b0  Filme, wo eine Liste der aktuell verliehenen Filme zu finden ist und\par
-( -\b Suchergebnisse\b0 , wo ggf. nach einer Suche gefundene Ergebnisse dargestellt werden (\i noch nicht sicher\i0 ) )\par
+ -\b Suchergebnisse\b0 , wo ggf. nach einer Suche gefundene Ergebnisse dargestellt werden\par
 \par
 \par
 \par
@@ -52,6 +55,8 @@ Der Listenbereich im unteren Teil enth\'e4lt Reiter f\'fcr:\par
 Wenn ein neuer Kunde der Videothek angelegt bzw. zugef\'fcgt werden soll, ist dies entweder \'fcber das Men\'fc \b Kunde\b0  -> \b Anlegen\b0  oder aber den Button \b Anlegen\b0  m\'f6glich, der dann zus\'e4tzlich in einem neuen Dialogfenster abfragt, ob ein neuer \b Kunde \b0 oder \b Film \b0 angelegt werden soll. In beiden F\'e4llen \'f6ffnet sich dann der "\b Kunde anlegen\b0 "-Dialog. Hier m\'fcssen die Daten des anzulegenden Kunden eingetragen werden (Anrede, Vorname, Nachname, Personalausweisnummer, Geburtsdatum, Anschrift mit Stra\'dfe, Hausnummer, Postleitzahl und Stadt).\par
 Durch Klick auf \b Best\'e4tigen\b0  wird der neue Kunde angelegt und ihm dabei eine feste, einzigartige Kundennummer zugeteilt. Er steht von nun an in der Liste aller \b Kunden \b0 und ist berechtigt, Videos auszuleihen. \par
 Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Kunden anzulegen.\par
+\par
+ \i Hinweis!\i0  Das Mindestalter f\'fcr einen Neukunden der Videothek betr\'e4gt 16 Jahre. Ergibt das eingegebene Alter beim Alegen eines neuen Kunden in Relation zum aktuellen Datum ein Alter unter 16 Jahren, erscheint ein entsprechendes Infofenster und der Vorgang kann nicht abgeschlossen werden.\par
 \par
 \b\fs24\par
 Bearbeiten \b0 eines bestehenden Kunden\par
@@ -85,19 +90,22 @@ Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den 
 \b\fs24 Bearbeiten \b0 eines vorhandenen Films\par
 \fs20\par
 Wenn ein vorhandener Film der Videothek bearbeitet werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Bearbeiten\b0  oder aber den Button \b Bearbeiten\b0  m\'f6glich. Dazu muss der zu bearbeitende Film zun\'e4chst in der Liste aller \b Filme \b0 ausgew\'e4hlt werden, wonach dessen Daten und vorhandene Exemplare rechts im Infobereich zu sehen sind.\par
-Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht (s. Film l\'f6schen) und ein neuer mit den aktuellen Daten und nat\'fcrlich den vorhandenen Exemplaren angelegt werden. Dadurch erhalten der Film und dessen Exemplare dann allerdings auch neue Filmnummern.\par
+Im "\b Film bearbeiten\b0 "-Dialogfenster ist es dann m\'f6glich die Preisklasse des Films zu \'e4ndern. \par
+Au\'dferdem besteht hier die M\'f6glichkeit, neue Exemplare zu einem schon vorhandenen Film zuzuf\'fcgen. Dazu muss lediglich der Button \b Hinzuf\'fcgen\b0  mit der H\'e4ufigkeit der Anzahl neuer Exemplare gedr\'fcckt werden. Im Feld "Exemplaranzahl" wird nach jedem Klick die neue Menge vorhandener Exemplare dieses Films angezeigt. Ist die korrekte neue Exemplaranzahl erreicht, kann der Bearbeitungsvorgang durch Klick auf \b Best\'e4tigen\b0  abzuschlie\'dfen.\par
+Durch Klick auf \b Abbrechen\b0  bleiben Preiskategorie und Exemplaranzahl unver\'e4ndert und der Vorgang wird abgebrochen.\b\par
+\b0 Andere Daten d\'fcrfen und k\'f6nnen nicht bearbeitet werden. Wenn dies jedoch aus gegebenem Anlass trotzdem gew\'fcnscht ist, muss dieser Film gel\'f6scht (s. Film l\'f6schen) und ein neuer mit den aktuellen Daten und den vorhandenen Exemplaren angelegt werden. Dadurch erhalten der Film und dessen Exemplare dann allerdings auch neue Filmnummern.\par
 \par
 \i  Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Films nur m\'f6glich ist, wenn sich keines seiner Exemplare zum aktuellen Zeitpunkt in Ausleihe befindet.\par
 \par
 \par
 \b\fs24 L\'f6schen \b0 eines vorhandenen Films\par
 \fs20\par
-Wenn ein vorhandener Film oder ein Filmexemplar der Videothek gel\'f6scht werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller \b Filme \b0 ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Dort muss dann noch das zu l\'f6schende Exemplar ausgew\'e4hlt werden.\par
-Bevor das Filmexemplar endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster noch zu best\'e4tigen durch Klick auf \b Ja\b0 .\par
-\b Nein \b0 bricht den Vorgang ab und das Filmexemplar wird nicht gel\'f6scht.\par
-Um einen Film mitsamt seiner gesamten Exemplare aus der Filmbank zu l\'f6schen, ist es n\'f6tig, nacheinander alle seine Exemplare, wie oben beschrieben, zu l\'f6schen. Wird das letzte Exemplar eines Films gel\'f6scht, wird dann auch der Film gel\'f6scht.\par
+Wenn ein vorhandener Film der Videothek gel\'f6scht werden soll, ist dies \'fcber das Men\'fc \b Film\b0  -> \b L\'f6schen\b0  m\'f6glich. \par
+Einzelne Filmexemplare eines Films zu l\'f6schen ist entweder \'fcber das Men\'fc \b Film\b0  -> \b Exemplar L\'f6schen\b0  oder aber den Button \b L\'f6schen \b0 in der Toolbar m\'f6glich. Dazu muss der zu l\'f6schende Film zun\'e4chst in der Liste aller \b Filme \b0 ausgew\'e4hlt werden, wonach dessen Daten und Exemplare rechts im Infobereich zu sehen sind. Um ein einzelnes Exemplar zu l\'f6schen, muss das zuvor noch im Infobereich ausgew\'e4hlt werden.\par
+Bevor der Film/das Filmexemplar endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinenden Dialogfenster durch Klick auf \b Ja \b0 zu best\'e4tigen.\par
+\b Nein \b0 bricht den Vorgang ab und der Film/das Filmexemplar wird nicht gel\'f6scht.\par
 \i\par
- Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Filmexemplars nur m\'f6glich ist, wenn es sich zum aktuellen Zeitpunkt nicht in Ausleihe befindet.\par
+ Hinweis! \i0 Bitte beachten Sie, dass das L\'f6schen eines Filmexemplars nur m\'f6glich ist, wenn es sich zum aktuellen Zeitpunkt nicht in Ausleihe befindet. Gleiches gilt f\'fcr das L\'f6schen eines Films in Bezug auf dessen Exemplare.\par
 \par
 \par
 \par
@@ -111,14 +119,15 @@ Um einen Film mitsamt seiner gesamten Exemplare aus der Filmbank zu l\'f6schen, 
 4. Nun f\'fcgt ein Klick auf \b Hinzuf\'fcgen\b0  dieses Filmexemplar in die darunter befindliche Liste ein.\par
 5. Wenn die Ausleihe l\'e4nger als 1 Woche gelten soll, kann dies mittels des Dropdown-Men\'fcs zur Ausleihdauer festgelegt werden.\par
 Falls dieser Kunde noch weitere Filmexemplare auszuleihen w\'fcnscht, sind die Schritte 3. und 4. solange zu wiederholen, bis alle Filmexemplare in der Ausleihliste eingetragen sind. Unter der Liste der auszuleihenden Filme wird der Gesamtpreis f\'fcr diese Ausleihe angezeigt, welcher sich aus der Summe der Preiskategorien der einzelnen Filme, multipliziert mit der Ausleihdauer, berechnet.\par
-Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, kann der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen und diese neue Ausleihe mit den eingegebenen Filmexemplaren, der R\'fcckgabefrist und dem ausleihenden Kunden im Programm registriert werden. Bevor dies geschieht, kontrolliert V-Unit allerdings noch, ob der Kunde auch die Altersbeschr\'e4nkung der Filme erf\'fcllt, die er ausleihen m\'f6chte.\par
+Wenn die Ausleihliste nun vollst\'e4ndig und korrekt ist, kann der Ausleihvorgang mit einem Klick auf \b Best\'e4tigen \b0 abgeschlossen werden. Diese neue Ausleihe wird mit den eingegebenen Filmexemplaren, der R\'fcckgabefrist und dem ausleihenden Kunden im Programm registriert. Bevor dies geschieht, kontrolliert V-Unit allerdings noch, ob der Kunde die Altersbeschr\'e4nkung der Filme erf\'fcllt, die er ausleihen m\'f6chte.\par
 Wenn das nicht gegeben ist, erscheint ein entsprechendes Infofenster, und der Ausleihvorgang muss abgebrochen werden.\par
+(F\'fcr weitere Einschr\'e4nkungen siehe "Einschr\'e4nkungen des Ausleihrechts)\par
 Durch Klick auf \b Abbrechen\b0  kann der Ausleihvorgang auch vor der Alters\'fcberpr\'fcfung noch abgebrochen werden.\par
 \par
 Nachdem eine neue Ausleihe erfolgreich erstellt wurde, werden die Daten dieser Ausleihe (Filmexemplare, Kunde, R\'fcckgabefrist etc.) im Listenbereich unter \b Ausgeliehen \b0 dargestellt.\par
 \par
 Anstatt die Filmexemplarnummer und Kundennummer, wie in Schritt 2. und 3. angegeben, im Ausleihbereich per Hand in die Felder einzutragen, ist auch folgendes Vorgehen m\'f6glich:\par
-Den entsprechenden Kunden in der Liste aller \b Kunden\b0 , bzw. den gew\'fcnschten Film in der Liste aller \b Filme \b0 ausw\'e4hlen und jeweils anschlie\'dfend im Infobereich durch einen Klick auf \b\'dcbernehmen\b0  den Kunden/Film (bei Filmen muss vorher noch das richtige Exemplar gew\'e4hlt werden) in den Ausleihbereich \'fcbernehmen. Filmexemplare werden so direkt in die Ausleihliste eingetragen, sodass Schritt 5. bei diesem Vorgehen nicht mehr n\'f6tig ist.\par
+Den entsprechenden Kunden in der Liste aller \b Kunden\b0 , bzw. den gew\'fcnschten Film in der Liste aller \b Filme \b0 ausw\'e4hlen und jeweils anschlie\'dfend im Infobereich durch einen Klick auf \b\'dcbernehmen\b0  den Kunden/Film (bei Filmen muss vorher noch das richtige Exemplar gew\'e4hlt werden) in den Ausleihbereich \'fcbernehmen. Filmexemplare werden so direkt in die Ausleihliste eingetragen, sodass Schritt 4. bei diesem Vorgehen nicht mehr n\'f6tig ist.\par
 \par
  \i Hinweis!\i0  Diese Vorgehensweise kann unter Umst\'e4nden hilfreich sein, wenn beispielsweise ein Kunde, der einen Film ausleihen m\'f6chte, seinen Kundenausweis / seine Kundennummer nicht bei sich hat.\par
 \par
@@ -131,7 +140,7 @@ Wenn ein Kunde einen neuen Film ausleihen will, obwohl noch eine ungel\'f6ste Ma
 \b\fs24 Ausleihquittung\par
 \fs20\par
 \b0 Am Ende jedes abgeschlossenen Ausleihvorgangs erh\'e4lt der Kunde eine Ausleihquittung, die eine Liste der entliehenen Filme, die Leihgeb\'fchren und den R\'fcckgabetermin enth\'e4lt.\par
-Die Quittung ist vom Mitarbeiter, der den Ausleihvorgang durchgef\'fchrt hat, zu unterschreiben.\par
+Die Quittung ist vom Mitarbeiter, der den Ausleihvorgang durchgef\'fchrt hat, und dem Kunden zu unterschreiben.\par
 \par
 \par
 \par
@@ -154,17 +163,61 @@ So werden alle diese Filme in nur einem einzigen R\'fcckgabevorgang zur\'fcckgen
 \par
 \b\fs24 Mahnungsquittung \b0 bei R\'fcckgabe\fs20\par
 \par
-W\'e4hrend eines R\'fcckgabevorgangs \'fcberpr\'fcft das V-Unit, ob der Kunde mit einem oder mehreren Filmen die R\'fcckgabefrist \'fcberschritten hat. Ist dies der Fall, wird eine Mahnungsquittung ausgestellt und dem Kunden der Mahnungsbetrag in Rechnung gestellt.\par
+W\'e4hrend eines R\'fcckgabevorgangs \'fcberpr\'fcft V-Unit, ob der Kunde mit einem oder mehreren Filmen die R\'fcckgabefrist \'fcberschritten hat. Ist dies der Fall, wird eine Mahnungsquittung ausgestellt und dem Kunden die Mahnungsgeb\'fchr in Rechnung gestellt.\par
 \par
 \par
 \b\fs24 Mahnungen erstellen\b0\fs20\par
 \par
-Bei jeder Programmbeendigung \'fcberpr\'fcft V-Unit alle Ausleihen, ob ihre R\'fcckgabefrist um mindestens 3 Tage \'fcberschritten wurde. Ist dies der Fall, wird automatisch eine Mahnung zu dieser Ausleihe generiert. Diese Mahnung ist adressiert an den zugeh\'f6rigen Kunden dieser Ausleihe und enth\'e4lt neben einer Auflistung der \'fcberzogenen Filme den f\'e4lligen Mahnungsbetrag und eine sofortige R\'fcckgabeaufforderung f\'fcr die entliehenen Filme.\par
+Bei jeder Programmbeendigung \'fcberpr\'fcft V-Unit alle Ausleihen, ob ihre R\'fcckgabefrist um mindestens 3 Tage \'fcberschritten wurde. Ist dies der Fall, wird automatisch eine Mahnung zu dieser Ausleihe generiert. Diese Mahnung ist adressiert an den zugeh\'f6rigen Kunden dieser Ausleihe und enth\'e4lt neben einer Auflistung der \'fcberzogenen Filme die f\'e4lligen Mahnungsgeb\'fchr, die alte R\'fcckgabefrist und eine sofortige R\'fcckgabeaufforderung f\'fcr die \'fcberzogenen Filme.\par
 Wurden eine oder mehrere Mahnungen erzeugt, wird der Benutzer durch ein erscheinendes Informationsfenster, in dem die Mahnung/en aufgelistet werden, informiert.\par
-Dieser Routineprozess basiert auf der Annahme, dass das Programm mindestens ein Mal t\'e4glich (i.d.R. abends nach Gesch\'e4ftsschluss) beendet wird. Ist dies allerdings aus verschiedenen Gr\'fcnden einmalig oder regelm\'e4\'dfig nicht gegeben, steht dem Benutzer zus\'e4tzlich zu der autmatisierten Mahnungs\'fcberpr\'fcfung auch noch eine manuelle \'dcberpr\'fcfung zur Verf\'fcgung.\par
+Dieser Routineprozess basiert auf der Annahme, dass das Programm mindestens ein Mal t\'e4glich (i.d.R. abends nach Gesch\'e4ftsschluss) beendet wird. Ist dies allerdings aus verschiedenen Gr\'fcnden einmalig oder regelm\'e4\'dfig nicht gegeben, steht dem Benutzer zus\'e4tzlich zu der automatisierten Mahnungs\'fcberpr\'fcfung auch noch eine manuelle \'dcberpr\'fcfung zur Verf\'fcgung.\par
 Erreichbar ist die Funktion unter \b Extras \b0 -> \b Mahnungen erstellen\b0 .\par
 Wurden so neue Mahnungen erzeugt, erscheint dasselbe Informationsfenster, wie bei der automatischen Mahnungengenerierung bei Programmende.\par
 F\'fcr eine \'fcberzogene Ausleihe wird die f\'e4llige Mahnung nur ein einziges Mal erstellt und bleibt danach so lange erhalten und der betroffene Kunde von der Ausleihe weiterer Filme ausgeschlossen, bis sie aufgel\'f6st wird.\par
+\par
+\par
+\par
+\par
+\b\fs28 Suche\par
+\b0\fs20\par
+Die Suche erm\'f6glicht es, einen Film nach seinem Titel, oder aber einen Kunden nach seinem Nachnamen zu suchen.\par
+Zur Suche gelangt der Benutzer entweder \'fcber den Button \b Suche\b0  in der Toolbar oder \'fcber das Men\'fc \b Suche -> Film\b0  bzw. \b Suche -> Kunden\b0 .\par
+Daraufhin \'f6ffnet sich das "\b Suche\b0 "-Dialogfenster, das einen Reiter f\'fcr die Suche nach Filmen, und einen weiteren f\'fcr die Suche nach Kunden enth\'e4lt. M\'f6chte man nun einen Film suchen, klickt man auf den entsprechenden Reiter (wenn nicht schon aktiv), und gibt im Suchfeld den Titel bzw. einen Teil des Titels des gesuchten Films ein.\par
+Ein Klick auf \b Suchen\b0  startet die Suche, deren Ergebnisse dann im Listenbereich unter \b Suchergebnisse\b0  aufgelistet werden.\par
+Aus der Liste der Filme, deren Titel dem Suchkriterium entsprechen, kann so der gesuchte Film ausgew\'e4hlt werden, wodurch dessen Daten und Exemplare wieder im Infobereich sichtbar werden. Dadurch kann sofort eingesehen werden, ob beispielsweise noch Exemplare f\'fcr die Ausleihe zur Verf\'fcgung stehen, und diese dann auch direkt in die Ausleihliste \'fcbernommen werden.\par
+Wurde kein Film, dessen Name den Suchbegriff enth\'e4lt, gefunden, bleibt die Liste der \b Suchergebnisse\b0  leer.\par
+Analog gilt das beschriebene Vorgehen f\'fcr die Suche nach Kunden.\par
+Das "\b Suche\b0 "-Dialogfenster schlie\'dft nicht automatisch sondern erst durch Klick auf \b Abbrechen \b0 oder das Fenster-schlie\'dfen-Symbol.\par
+\par
+\par
+\par
+\par
+\b\fs28 Einstellungen\b0\fs20\par
+\par
+\b\fs24\par
+Allgemeines\b0\fs20\par
+\par
+Unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Allgemeines\b0  k\'f6nnen allgemeine Einstellungen von V-Unit eingesehen und ge\'e4ndert werden. Dazu z\'e4hlen die Abfrage der manuellen Tagesdatumsabfrage bei Programmstart (s. Abb 1), die Pfadangaben zu den Ordnern, in denen erstellte Quittungen und Mahnungen abgelegt werden, und au\'dferdem die Mahnungsgeb\'fchr der Videothek, die f\'fcr einen Kunden anf\'e4llt, wenn er einen ausgeliehenen Film nicht bis zur vereinbarten R\'fcckgabefrist zur\'fcckgegeben hat.\par
+\par
+Um einen der Ablageordner zu \'e4ndern, \'f6ffnet ein Klick auf das Ordner-Explorer-Symbol neben dem Feld, das den aktuellen Pfad enth\'e4lt, das "\b Ordner ausw\'e4hlen"\b0 -Dialogfenster, in dem der Pfad zu dem neuen Ordner angegeben werden muss oder auch ein neuer Ordner angelegt werden kann.\par
+\par
+ \i Hinweis!\i0  Alle vorgenommen \'c4nderungen werden nur \'fcbernommen und gespeichert, wenn das "\b Einstellungen\b0 "-Fenster per Klick auf \b OK\b0  geschlossen wird. Ein Klick auf \b Abbrechen\b0  hingegen schlie\'dft das "\b Einstellungen\b0 "-Fenster und setzt alle ge\'e4nderten Einstellungen wieder zur\'fcck.\par
+\par
+\par
+\b\fs24 Preiskategorien\b0\fs20\par
+\par
+Unter \b Extras \b0 -> \b Einstellungen \b0 -> \b Preiskategorien\b0  k\'f6nnen die vorhandenen Preiskategorien eingesehen, bearbeitet, gel\'f6scht und neue Preiskategorien hinzugef\'fcgt werden.\par
+\par
+Um eine vorhandene Preiskategorie zu bearbeiten, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann mit einem Klick auf \b Bearbeiten\b0  den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen der Name und der Preis ge\'e4ndert werden.\par
+Ein Klick auf \b OK\b0  speichert die \'c4nderungen, wohingegen ein Klick auf \b Abbrechen\b0  die \'c4nderungen verwirft.\par
+\par
+Um eine vorhandene Preiskategorie zu l\'f6schen, zuerst in der Liste die gew\'fcnschte Preiskategorie ausw\'e4hlen und dann nach einem Klick auf \b L\'f6schen\b0  den sich \'f6ffnenden Dialog mit \b Ja\b0  best\'e4tigen. Ein Klick auf \b Nein\b0  bricht den L\'f6schvorgang ab.\par
+ \i Hinweis! \i0 Eine Preiskategorie kann nur gel\'f6scht werden, wenn kein Film mehr dieser Preiskategorie zugeordnet ist.\par
+\par
+Um eine neue Preiskategorie hinzuzuf\'fcgen, mit einem Klick auf \b Hinzuf\'fcgen \b0 den "\b Preiskategorie: Daten bearbeiten\b0 "-Dialog \'f6ffnen. Hier k\'f6nnen Name und Preis der neuen Preiskategorie eingegeben werden.\par
+Ein Klick auf \b OK\b0  speichert die neue Preiskategorie, wohingegen ein Klick auf \b Abbrechen\b0  die neue Preiskategorie verwirft.\par
+\par
+\par
 \par
 \par
 }
