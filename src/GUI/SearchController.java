@@ -122,7 +122,7 @@ public class SearchController implements VideothekEventListener
 		Vector rowData = getVideoRows(this.currentSearchTerm);
 		Vector columns = getVideoColumns();
 		
-		this.tablePanel.getTableSearchVideo().setModel(new javax.swing.table.DefaultTableModel(
+		this.tablePanel.getTableSearchVideo().setModel(new DefaultTableModel(
 				rowData, columns)
 		{
 		    public boolean isCellEditable(int row, int column) {
@@ -149,7 +149,7 @@ public class SearchController implements VideothekEventListener
 		columns.add("Titel");
 		columns.add("Erscheinungsjahr");
 		columns.add("Preisklasse");
-		columns.add("Altersbeschr.");
+		columns.add("FSK.");
 		
 		return columns;
 	}
