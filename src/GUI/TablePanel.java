@@ -54,6 +54,10 @@ public class TablePanel {
 	private JTabbedPane tableTabbedPane;
 	private SearchController searchController;
 	
+	/**
+	 * erstellt TablePanel
+	 * @return TeblePanel
+	 */
 	protected Component createTablePanel() {
 		
 		this.mainWindow = MainWindow.get();
@@ -117,6 +121,10 @@ public class TablePanel {
 		return new JPanel().add(this.tableTabbedPane);
 	}
 
+	/**
+	 * wechselt Karten im TablePanel
+	 * @param searchCardName Kartenname
+	 */
 	protected void changeSearchCard(String searchCardName) {
 
 		CardLayout layout = (CardLayout) panelSearch.getLayout();
@@ -127,6 +135,10 @@ public class TablePanel {
 		}
 	}
 
+	/**
+	 * erstellt Kundentabelle
+	 * @return Kundentabelle
+	 */
 	private JTable createTableCustomer() {
 
 		Vector<String> customerColumnNames = new Vector<String>(7);
@@ -163,6 +175,12 @@ public class TablePanel {
 		return custTable;
 	}
 
+	/**
+	 * Liefert IntegerRowSortet
+	 * @param columns für welche Spalten der Rowsorter eingesetzt werden soll
+	 * @param table Tabelle
+	 * @return IntegerRowSortet
+	 */
 	public static TableRowSorter<TableModel> createIntegerSorter(int[] columns, JTable table)
 	{
 		TableRowSorter<TableModel> tableSorter = new TableRowSorter<TableModel>(table.getModel());
@@ -175,6 +193,13 @@ public class TablePanel {
 		return tableSorter;
 	}
 	
+	/**
+	 * Liefert RowSorter für Date Objekte
+	 * @param columns für welche Spalten der Rowsorter eingesetzt werden soll
+	 * @param table Tabelle
+	 * @param sorter schon vorhandener row sorter
+	 * @return RowSorter
+	 */
 	public static TableRowSorter<TableModel> createDateSorter(int[] columns, JTable table, TableRowSorter<TableModel> sorter)
 	{
 		Comparator<Date> comp = createDateComparator();
@@ -186,6 +211,10 @@ public class TablePanel {
 		return sorter;
 	}
 	
+	/**
+	 * liefert Comparator<Date>
+	 * @return Comparator<Date>
+	 */
 	public static Comparator<Date> createDateComparator()
 	{
 		return new Comparator<Date>(){
@@ -196,6 +225,10 @@ public class TablePanel {
 		};
 	}
 	
+	/**
+	 * liefert Comparator<Integer>
+	 * @return Comparator<Integer>
+	 */
 	public static Comparator<Integer> createIntegerComparator()
 	{
 		return new Comparator<Integer>(){
@@ -206,6 +239,10 @@ public class TablePanel {
 		};
 	}
 	
+	/**
+	 * erstellt Filmtabelle
+	 * @return Filmtabelle
+	 */
 	private JTable createTableVideo() {
 
 		Vector<String> videeoColumnNames = new Vector<String>(5);
@@ -237,6 +274,10 @@ public class TablePanel {
 		return videoTable;
 	}
 	
+	/**
+	 * erstellt Ausleihtabelle
+	 * @return Ausleihtabelle
+	 */
 	private JTable createTableRent() {
 		
 		Vector<String> colNames = new Vector<String>(6);
@@ -269,6 +310,10 @@ public class TablePanel {
 		return rentTable;
 	}
 	
+	/**
+	 * erstellt Suchtabelle für Filme
+	 * @return Suchtabelle für Filme
+	 */
 	private JTable createTableSearchVideo () {
 		
 		String[] colNames = { "FilmNr", "Titel",
@@ -286,6 +331,10 @@ public class TablePanel {
 		return table;
 	}
 	
+	/**
+	 * erstellt Suchtabelle für Kunden
+	 * @return Suchtabelle für Kunden
+	 */
 	private JTable createTableSearchCustomer() {
 		
 		String[] colNames = { "KundenNr", "Anrede", "Nachname",
@@ -304,37 +353,66 @@ public class TablePanel {
 		return table;
 	}
 
+	/**
+	 * liefert Filmtabelle
+	 * @return Filmtabelle
+	 */
 	public JTable getTableVideo() {
 		return tableVideo;
 	}
 
+	/**
+	 * liefert Kunden Tabelle
+	 * @return Kunden Tabelle
+	 */
 	public JTable getTableCustomer() {
 		return tableCustomer;
 	}
 
+	/**
+	 * liefert Ausleihtabelle
+	 * @return Ausleihtabelle
+	 */
 	public JTable getTableInRent() {
 		return tableInRent;
 	}
 
+	/**
+	 * liefert Suchtabelle für Fiilme
+	 * @return Suchtabelle für Fiilme
+	 */
 	public JTable getTableSearchVideo() {
 		return tableSearchVideo;
 	}
 
+	/**
+	 * liefert Suchtabelle für Kunden
+	 * @return Suchtabelle für Kunden
+	 */
 	public JTable getTableSearchCustomer() {
 		return tableSearchCustomer;
 	}
 	
+	/**
+	 * aktiviert Suchtabellentab
+	 */
 	public void setSearchTableActive()
 	{
 		this.tableTabbedPane.setSelectedIndex(3);
 	}
 	
+	/**
+	 * wechselt die Karte auf Kundensuche
+	 */
 	public void setCustomerSearchTableActive()
 	{
 		this.panelSearch.getComponent(0).setVisible(false);
 		this.panelSearch.getComponent(1).setVisible(true);
 	}
 	
+	/**
+	 * wechseelt die Karte auf Filmsuche
+	 */
 	public void setVideoSearchTableActive()
 	{
 		this.panelSearch.getComponent(0).setVisible(true);

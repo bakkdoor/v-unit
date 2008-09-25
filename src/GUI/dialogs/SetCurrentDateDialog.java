@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 import model.CurrentDate;
 import model.Date;
-import model.InRent;
 import model.exceptions.CurrentDateException;
 
 

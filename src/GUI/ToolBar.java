@@ -24,6 +24,10 @@ public class ToolBar {
 	private JButton toolBarButtonEdit;
 	private JButton toolBarButtonDelete;
 
+	/**
+	 * erstellt ToolBar
+	 * @return ToolBar
+	 */
 	protected Component createToolBar() {
 
 		final MainWindow mainWindow = MainWindow.get();
@@ -87,7 +91,7 @@ public class ToolBar {
 					mainWindow.showEditVideoDialog();
 				} else if (dialogCard.equals(DetailPanel.CUSTOMERDETAILS)) {
 
-					CustomerDataDialog.createFilledCustomerDataDialog(mainWindow);
+					CustomerDataDialog.createFilledCustomerDataDialog();
 				}
 			}
 		});
@@ -175,11 +179,17 @@ public class ToolBar {
 		return toolBarButtons;
 	}
 	
+	/**
+	 * aktiviert Bearbeiten und Löschen Buttons
+	 */
 	public void setButtonsEnabled() {
 		this.toolBarButtonEdit.setEnabled(true);
 		this.toolBarButtonDelete.setEnabled(true);
 	}
 	
+	/**
+	 * deaktiviert Bearbeiten und Löschen Buttons
+	 */
 	public void setButtonsDisabled() {
 		this.toolBarButtonEdit.setEnabled(false);
 		this.toolBarButtonDelete.setEnabled(false);
