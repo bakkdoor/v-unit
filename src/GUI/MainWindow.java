@@ -35,9 +35,7 @@ public class MainWindow {
 	
 	// Ausrichtungswerte
 	private final int  HORIZONTAL = GridBagConstraints.HORIZONTAL;
-	private final int  VERTICAL = GridBagConstraints.VERTICAL;
 	private final int  BOTH = GridBagConstraints.BOTH;
-	private final int  BELOW_BASELINE = GridBagConstraints.BELOW_BASELINE;
 	private final int  NORTHWEST = GridBagConstraints.NORTHWEST;
 	
 	private static MainWindow _instance;
@@ -58,9 +56,8 @@ public class MainWindow {
 				Programm.shutdown();
 			}
 		});
-//		mainFrame.setImageIcon(new ImageIcon("icons/book_open.png"));
 		
-//		 Frame mittig auf dem Bildschirm setzen
+		// Frame mittig auf dem Bildschirm setzen
 		DialogHelper.setLargeWindowToCenterScreen(this.mainFrame);
 		
 		// Haupt Container Layout setzen
@@ -91,11 +88,11 @@ public class MainWindow {
 		// RentPanel - Cards zu Testzwecken umschalten
 		rentPanel.changeCard(RentPanel.RENTVIDEOCARD);
 		// detailPanel - Cards zu Testzwecken umschalten
-		detailPanel.changePanelDetailsCard(detailPanel.VIDEODETAILS);
+		detailPanel.changePanelDetailsCard(DetailPanel.VIDEODETAILS);
 
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		tablePanel = new TablePanel();
-		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel(this));
+		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel());
 		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, new Insets(0,0,0,0));
 
 		// **************************************************************

@@ -1,5 +1,7 @@
 package GUI.dialogs;
 
+import java.awt.Frame;
+
 import javax.swing.JOptionPane;
 
 import main.error.VideothekException;
@@ -19,7 +21,7 @@ public class PriceCategoryDataDialog extends javax.swing.JDialog
 	private PriceCategory priceCategory;
 	
   /** Creates new form PriceCategoryDataDialog */
-	public PriceCategoryDataDialog(java.awt.Frame parent,
+	public PriceCategoryDataDialog(Frame parent,
 			PriceCategory priceCategory)
 	{
 		super(parent, true);
@@ -37,7 +39,7 @@ public class PriceCategoryDataDialog extends javax.swing.JDialog
 		this.centSpinner.setValue(new Integer(cents));
 	}
 	
-	public PriceCategoryDataDialog(java.awt.Frame parent)
+	public PriceCategoryDataDialog(Frame parent)
 	{
 		super(parent, true);
 		this.priceCategory = null;

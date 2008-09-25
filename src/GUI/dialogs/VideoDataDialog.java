@@ -1,20 +1,11 @@
 package GUI.dialogs;
 
-import GUI.*;
-import main.error.VideothekException;
-import model.Data;
-import model.Video;
-import model.VideoUnit;
-
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,12 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import main.error.VideothekException;
+import model.Data;
 import model.PriceCategory;
-import model.data.exceptions.RecordNotFoundException;
-import model.exceptions.CurrentDateException;
-import model.exceptions.EmptyFieldException;
-import model.exceptions.FalseFieldException;
-import model.exceptions.FalseIDException;
+import model.Video;
+import model.VideoUnit;
+import GUI.Layout;
+import GUI.MainWindow;
 
 public class VideoDataDialog {
 
@@ -51,8 +43,8 @@ public class VideoDataDialog {
 	private JComboBox comboBoxPriceCategory;
 	private JTextField textFieldUnitQuantity;
 
-	public VideoDataDialog(MainWindow mainWindow) {
-		this(mainWindow, Data.NOTSET, "", Data.NOTSET, Data.NOTSET,
+	public VideoDataDialog() {
+		this(MainWindow.get(), Data.NOTSET, "", Data.NOTSET, Data.NOTSET,
 				PriceCategory.findFirst(), 1);
 	}
 
@@ -75,7 +67,7 @@ public class VideoDataDialog {
 		videoDataDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 		// Dialog mittig auf dem bildschirm setzen
-		DialogHelper.setToCenterScreen(this.videoDataDialog);
+		DialogHelper.setToCenterScreen(videoDataDialog);
 
 		// LauoutManager einstellen
 		Container contentPane = videoDataDialog.getContentPane();

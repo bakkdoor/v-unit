@@ -58,7 +58,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CustomerDataDialog(MainWindow.get());
+				new CustomerDataDialog();
 			}
 		});
 
@@ -95,7 +95,7 @@ public class MenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VideoDataDialog(MainWindow.get());
+				new VideoDataDialog();
 			}
 		});
 		menuItemVideoEdit = new JMenuItem("Bearbeiten", new ImageIcon(
