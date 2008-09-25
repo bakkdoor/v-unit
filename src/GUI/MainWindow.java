@@ -40,6 +40,13 @@ public class MainWindow {
 	private final int  BELOW_BASELINE = GridBagConstraints.BELOW_BASELINE;
 	private final int  NORTHWEST = GridBagConstraints.NORTHWEST;
 	
+	private static MainWindow _instance;
+	
+	public static MainWindow get()
+	{
+		return _instance;
+	}
+	
 	public MainWindow() {
 
 		mainFrame = new JFrame("V-Unit v1.0");
@@ -96,6 +103,8 @@ public class MainWindow {
 		// icon setzen.
 		Image iconImage = Toolkit.getDefaultToolkit().getImage("icons/V-Unit.png");
 		mainFrame.setIconImage(iconImage);
+		
+		_instance = this;
 	}
 
 	public RentPanel getRentPanel() {

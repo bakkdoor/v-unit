@@ -7,6 +7,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import GUI.SelectionListeners.TableCustomerListSelectionHandler;
+import GUI.SelectionListeners.TableVideoListSelectionHandler;
 import GUI.TableModels.NotEditableTableModel;
 
 import model.Customer;
@@ -78,6 +80,8 @@ public class SearchController implements VideothekEventListener
 						fillCustomerTableContent();
 					}
 				});
+		
+		this.tablePanel.getTableSearchCustomer().getSelectionModel().addListSelectionListener(new TableCustomerListSelectionHandler(MainWindow.get()));
 	}
 	private Vector getCustomerColumns()
 	{
@@ -135,6 +139,7 @@ public class SearchController implements VideothekEventListener
 						fillVideoTableContent();
 					}
 				});
+		this.tablePanel.getTableSearchVideo().getSelectionModel().addListSelectionListener(new TableVideoListSelectionHandler(MainWindow.get()));
 	}
 	private Vector getVideoColumns()
 	{
