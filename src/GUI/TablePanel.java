@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -89,25 +90,15 @@ public class TablePanel {
 		ListSelectionModel tableSelectionModel = tableInRent.getSelectionModel();
 		tableSelectionModel.addListSelectionListener(new TableInRentListSelectionHandler(mainWindow));
 
-		String[][] searchVideo = { { "", "", "", "" } };
-		String[] searchVideoName = { "FilmNr", "Titel",
-				"Erscheinungsjahr", "Preisklasse.", "Altersbeschr" };
-		tableSearchVideo = new JTable(searchVideo, searchVideoName);
+		tableSearchVideo = createTableSearchVideo();
 
-		String[][] searchCustomer = { { "", "", "", "", "" } };
-		String[] searchCustomerName = { "KundenNr", "Anrede", "Nachname",
-				"Vorname", "Geburtsdatum", "Anschrift" };
-		tableSearchCustomer = new JTable(searchCustomer, searchCustomerName);
+		tableSearchCustomer = createTableSearchCustomer();
 
 		panelSearch = new JPanel();
 		panelSearch.setLayout(new CardLayout());
 		panelSearch.add(new JScrollPane(tableSearchVideo), SEARCHVIDEOCARD);
-		panelSearch.add(new JScrollPane(tableSearchCustomer),
-				SEARCHCUSTOMERCARD);
+		panelSearch.add(new JScrollPane(tableSearchCustomer), SEARCHCUSTOMERCARD);
 
-		CardLayout layout = (CardLayout) panelSearch.getLayout();
-		// Carten im Layout wechseln zu testzwecken
-		this.changeSearchCard(SEARCHCUSTOMERCARD);
 
 		this.tableTabbedPane = new JTabbedPane();
 		tableTabbedPane.addTab("Filme", new ImageIcon("icons/film.png"),
@@ -129,9 +120,9 @@ public class TablePanel {
 
 		CardLayout layout = (CardLayout) panelSearch.getLayout();
 		if (searchCardName.equals(SEARCHVIDEOCARD)) {
-//			layout.first(panelSearch);
+			layout.show(panelSearch, SEARCHVIDEOCARD);
 		} else if (searchCardName.equals(SEARCHCUSTOMERCARD)) {
-			layout.last(panelSearch);
+			layout.show(panelSearch, SEARCHCUSTOMERCARD);
 		}
 	}
 
@@ -275,6 +266,24 @@ public class TablePanel {
 		rentTable.getTableHeader().setReorderingAllowed(false);
 		
 		return rentTable;
+	}
+	
+	private JTable createTableSearchVideo () {
+		
+		String[] colNames = { "FilmNr", "Titel",
+				"Erscheinungsjahr", "Preisklasse.", "Altersbeschr" };
+		JTable table = new JTable(new String[][] {}, colNames);
+		
+		return table;
+	}
+	
+	private JTable createTableSearchCustomer() {
+		
+		String[] colNames = { "KundenNr", "Anrede", "Nachname",
+				"Vorname", "Geburtsdatum", "Anschrift" };
+		JTable table  = new JTable(new String[][] {}, colNames);
+		
+		return table;
 	}
 
 	public JTable getTableVideo() {
