@@ -26,6 +26,10 @@ public class SearchController implements VideothekEventListener
 	
 	private String currentSearchTerm;
 	
+	/**
+	 * Erstellt einen Suchcontroller (registriert sich als EventListener)
+	 * @param tablePanel worauf der Suchcontroller gelten soll
+	 */
 	public SearchController(TablePanel tablePanel)
 	{
 		this.tablePanel = tablePanel;

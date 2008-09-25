@@ -128,7 +128,7 @@ public class CreatedWarningsDialog extends JDialog {
 												okButton).addContainerGap()));
 
 		// dialog mittig auf dem bildschirm setzen
-		DialogHelper.setToCenterScreen(MainWindow.get().getMainFrame());
+		DialogHelper.setToCenterScreen(this);
 
 		pack();
 	}// </editor-fold>

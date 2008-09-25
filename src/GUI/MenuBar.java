@@ -182,6 +182,7 @@ public class MenuBar {
 				if (createdWarnings.size() > 0) {
 					CreatedWarningsDialog dialog = new CreatedWarningsDialog(
 							MainWindow.get().getMainFrame(), createdWarnings);
+					DialogHelper.setLargeWindowToCenterScreen(dialog);
 					dialog.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(MainWindow.get().getMainFrame(),
