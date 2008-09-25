@@ -321,7 +321,7 @@ public class Customer implements Comparable<Customer>
 	 */
 	public void setFirstName(String newFirstName) throws EmptyFieldException
 	{
-		if (newFirstName != null && newFirstName != "")
+		if (newFirstName != null && !newFirstName.equals(""))
 		{
 			this.firstName = newFirstName;
 		}
@@ -346,7 +346,7 @@ public class Customer implements Comparable<Customer>
 	 */
 	public void setLastName(String newLastName) throws EmptyFieldException
 	{
-		if (newLastName != null && newLastName != "")
+		if (newLastName != null && !newLastName.equals(""))
 		{
 			this.lastName = newLastName;
 		}
@@ -419,7 +419,7 @@ public class Customer implements Comparable<Customer>
 	 */
 	public void setStreet(String newStreet) throws EmptyFieldException
 	{
-		if (newStreet != null && newStreet != "")
+		if (newStreet != null && !newStreet.equals(""))
 		{
 			this.street = newStreet;
 		}
@@ -449,7 +449,7 @@ public class Customer implements Comparable<Customer>
 
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
-		if (newTitle != null && newTitle != "")
+		if (newTitle != null && !newTitle.equals(""))
 		{
 			this.title = newTitle;
 		}
@@ -479,7 +479,7 @@ public class Customer implements Comparable<Customer>
 	 */
 	public void setHouseNr(String newHouseNr) throws EmptyFieldException
 	{
-		if (newHouseNr != null && newHouseNr != "")
+		if (newHouseNr != null && !newHouseNr.equals(""))
 		{
 			this.houseNr = newHouseNr;
 		}
@@ -529,7 +529,7 @@ public class Customer implements Comparable<Customer>
 	 */
 	public void setCity(String newCity) throws EmptyFieldException
 	{
-		if (newCity != null && newCity != "")
+		if (newCity != null && !newCity.equals(""))
 		{
 			this.city = newCity;
 		}
@@ -555,7 +555,7 @@ public class Customer implements Comparable<Customer>
 	public void setIdentificationNr(String newIdentificationNr)
 			throws EmptyFieldException
 	{
-		if (newIdentificationNr != null && newIdentificationNr != "")
+		if (newIdentificationNr != null && !newIdentificationNr.equals(""))
 		{
 			this.identificationNr = newIdentificationNr;
 		}
