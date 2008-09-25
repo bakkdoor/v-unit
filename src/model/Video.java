@@ -66,6 +66,11 @@ public class Video implements Comparable<Video>
 		}
 		
 		minvID++;
+		if(numberOfVideoUnits <= 0)
+		{
+			throw new FalseFieldException("Anzahl Exemplare muss mindestens 1 sein!");
+		}
+		
 		this.addNewVideoUnits(numberOfVideoUnits);
 
 		videoList.put(this.vID, this);

@@ -21,7 +21,8 @@ public class Config
 		public static final String WARNINGFOLDER = "warningFolder";
 		public static final String WARNINGINVOICEFOLDER = "warningInvoiceFolder";
 		public static final String MAINWINDOWRESX = "mainWindowResX";
-		public static final String MAINWINDOWRESY = "mainWindowResY";		
+		public static final String MAINWINDOWRESY = "mainWindowResY";
+		public static final String WARNINGPRICE = "warningPrice";
 	}
 
 	/**

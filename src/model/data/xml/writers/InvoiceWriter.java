@@ -81,7 +81,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			sb.append("\n");
 			sb.append("Rueckgabefrist: \t" + warning.getInRent().getReturnDate() + "\n");
 			sb.append("Rueckgabedatum: \t" + CurrentDate.get() + "\n");
-			sb.append("Mahnungskosten: \t" + Warning.warningPrice + " Euro" + "\n");
+			sb.append("Mahnungskosten: \t" + Warning.getWarningPrice() + " Euro" + "\n");
 			sb.append("\n\n");
 			sb.append("========================================================\n");
 			sb.append("Unterschrift Kunde:\n\n");
