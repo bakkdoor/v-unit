@@ -32,6 +32,8 @@ public class MenuBar {
 	private MainWindow owner;
 
 	protected JMenuBar createMenuBar() {
+		
+		this.owner = MainWindow.get();
 
 		// MenuBar
 		JMenuBar menuBarMain = new JMenuBar();

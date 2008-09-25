@@ -210,11 +210,11 @@ public class DetailPanel {
 		textFieldDetailVTitle = new JTextField();
 		textFieldDetailVTitle.setEditable(false);
 
-		JLabel labelDetailVReliaseYear = new JLabel("Erscheinungsdatum:");
+		JLabel labelDetailVReliaseYear = new JLabel("Erscheinungsjahr:");
 		textFieldDetailVReleaseYear = new JTextField();
 		textFieldDetailVReleaseYear.setEditable(false);
 
-		JLabel labelDetailVRatedAge = new JLabel("Altersbeschränkung:");
+		JLabel labelDetailVRatedAge = new JLabel("Altersfreigabe:");
 		textFieldDetailVRatedAge = new JTextField();
 		textFieldDetailVRatedAge.setEditable(false);
 
@@ -241,7 +241,7 @@ public class DetailPanel {
 		
 		listDetailVUnit.setModel(new VideoUnitListModel(mainWindow));
 
-		buttonDetailVadd = new JButton("Übernehmen");
+		buttonDetailVadd = new JButton("Hinzufügen");
 		buttonDetailVadd.addActionListener(new ActionListener() {
 
 			@Override
