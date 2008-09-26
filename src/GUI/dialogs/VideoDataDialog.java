@@ -43,11 +43,24 @@ public class VideoDataDialog {
 	private JComboBox comboBoxPriceCategory;
 	private JTextField textFieldUnitQuantity;
 
+        /**
+         * Konstruktor für VideoDataDialog
+         */
 	public VideoDataDialog() {
 		this(MainWindow.get(), Data.NOTSET, "", Data.NOTSET, Data.NOTSET,
 				PriceCategory.findFirst(), 1);
 	}
 
+        /**
+         * Konstruktor für VideoDataDialog mit Werten
+         * @param mainWindow 
+         * @param VID VideoID
+         * @param title Titel
+         * @param releaseYear Erscheinungsjahr
+         * @param ratedAge FSK
+         * @param priceCategory Preiskategorie
+         * @param unitQuantity Exemplar#
+         */
 	public VideoDataDialog(MainWindow mainWindow, Integer VID, String title,
 			Integer releaseYear, Integer ratedAge,
 			model.PriceCategory priceCategory, Integer unitQuantity) {
@@ -76,6 +89,9 @@ public class VideoDataDialog {
 		this.fillDataDialog();
 	}
 
+        /**
+         * erstellt die nötigen Komponenten im Dialog
+         */
 	private void fillDataDialog() {
 
 		JLabel labelVID = new JLabel("FilmNr.:");
@@ -166,6 +182,11 @@ public class VideoDataDialog {
 
 	}
 
+        /**
+         * erstellt die nötigen Komponente imDialog und füllt diese mit Werten aus Video
+         * @param mainWindow
+         * @param video Video
+         */
 	public static void createFilledVideoDataDialog(MainWindow mainWindow,
 			Video video) {
 		try {
@@ -186,6 +207,9 @@ public class VideoDataDialog {
 		}
 	}
 
+        /**
+         * liest die gesetzten Werte aus den Feldern und erstellt ein Video daraus
+         */
 	private void createVideo() {
 		try {
 			String title = textFieldTitle.getText();
@@ -210,6 +234,9 @@ public class VideoDataDialog {
 		}
 	}
 
+        /**
+         * aktualisiert das Video mit den geänderten Werten
+         */
 	private void updateVideo() {
 
 		try {
@@ -247,6 +274,9 @@ public class VideoDataDialog {
 		}
 	}
 	
+        /**
+         * erhöht #Exemplare um 1
+         */
 	private void addVideoQuantity () {
 		int quantity = Integer.parseInt(textFieldUnitQuantity.getText());
 		quantity += 1;

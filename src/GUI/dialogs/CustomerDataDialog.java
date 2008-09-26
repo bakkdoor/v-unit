@@ -294,8 +294,7 @@ public class CustomerDataDialog {
     }
 
     /**
-     * füllt die 
-     * @param mainWindow
+     * füllt die Kundeninformationen in die entsprächenden Felder ein
      */
     public static void createFilledCustomerDataDialog() {
         DetailPanel detailPanel = MainWindow.get().getDetailPanel();
@@ -323,6 +322,9 @@ public class CustomerDataDialog {
 
     }
 
+    /**
+     * Liest gesetzte Werte aus den Feldern und erstellt daraus einen Kunden
+     */
     private void createCustomer() {
         try {
             String firstName = textFieldFirstName.getText();
@@ -351,6 +353,9 @@ public class CustomerDataDialog {
         }
     }
 
+    /**
+     * Liest gesetzte Werte aus den Feldern und aktualisiert den Kunden
+     */
     private void updateCustomer() {
 
         try {

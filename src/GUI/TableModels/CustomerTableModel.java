@@ -20,16 +20,29 @@ public class CustomerTableModel extends NotEditableTableModel implements Videoth
 
     private static final long serialVersionUID = 7354689970611412976L;
 
-    public CustomerTableModel(Vector rowData, Vector columnNames) {
+    /**
+     * Konstruktor
+     * @param rowData Vector mit Daten
+     * @param columnNames Vector mit Spaltennamen
+     */
+    public CustomerTableModel(Vector rowData, Vector<String> columnNames) {
         super(rowData, columnNames);
         registerAsEventListener();
     }
 
+    /**
+     * Konstruktor
+     * @param columnNames Vector mit Spaltennamen
+     * @param rowCount #Zeilen
+     */
     public CustomerTableModel(Vector<String> columnNames, int rowCount) {
         super(columnNames, rowCount);
         registerAsEventListener();
     }
 
+    /**
+     * meldet sich für bestimmte Events bei dem EventManager
+     */
     private void registerAsEventListener() {
         EventManager.registerEventListener(CustomerCreatedEvent.class, this);
         EventManager.registerEventListener(CustomerEditedEvent.class, this);
@@ -63,6 +76,10 @@ public class CustomerTableModel extends NotEditableTableModel implements Videoth
         }
     }
 
+    /**
+     * Zeile mit Kunden einfügen
+     * @param newCustomer
+     */
     public void insertRow(Customer newCustomer) {
         Vector rowData = new Vector();
         rowData.add(newCustomer.getID());
@@ -76,7 +93,11 @@ public class CustomerTableModel extends NotEditableTableModel implements Videoth
         super.getDataVector().add(rowData);
         fireTableDataChanged();
     }
-    
+    /**
+     * liefert Zeilenindex für entsprechenden Kunden mit der übergebenen Nr fals gefunden, sonst -1
+     * @param custID KundenNr
+     * @return Zeilenindex
+     */
     public int findByCustID(Integer custID) {
         int foundIndex = -1;
         Vector<Vector> data = getDataVector();
