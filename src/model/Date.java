@@ -9,7 +9,7 @@ import java.util.Calendar;
  * @date 15.09.2008
  * 
  * Eigene {@link Date} Klasse. Wird genutzt für korrekte Verwaltung von Zeitpunkten
- * {@link java.util.Date} funktioniert nicht korrekt/ist deprecated.
+ * {@link java.util.Date} funktioniert nicht ausreichend/ist deprecated.
  */
 public class Date implements Comparable<Date>
 {

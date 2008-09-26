@@ -19,10 +19,10 @@ import java.util.Map;
  * @author Andie Hoffmann (andhoffm@uos.de)
  * @date 12.09.2008
  * 
- * Diese Klasse liefert Customer-Objekte, die je einen Kunden der Videothek
- * repräsentieren. Ein Customer verfügt über eine feste, einzigartige ID, Vor-
+ * Diese Klasse liefert {@link Customer}-Objekte, die je einen Kunden der Videothek
+ * repräsentieren. Ein {@link Customer} verfügt über eine feste, einzigartige ID, Vor-
  * und Nachnamen, Geburtsdatum, Alter, Adresse, Personalausweisnummer, Anrede,
- * und optional eine Liste der von ihm ausgliehenen Videos.
+ * und optional eine Liste von Ausleihen.
  */
 public class Customer implements Comparable<Customer>
 {
@@ -42,7 +42,7 @@ public class Customer implements Comparable<Customer>
 	private static Map<Integer, Customer> customerList;
 
 	/**
-	 * public Konstruktor, der von der GUI genutzt wird
+	 * Öffentlicher Konstruktor, der von der GUI genutzt wird
 	 * 
 	 * @param firstName Vorname
 	 * @param lastName Nachname
@@ -54,7 +54,7 @@ public class Customer implements Comparable<Customer>
 	 * @param identificationNr Personalausweisnummer
 	 * @param title Anrede
 	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
-	 *             ID für einen neuen Customer vergeben werden soll
+	 *             ID für einen neuen {@link Customer} vergeben werden soll
 	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
 	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
 	 *             gefunden werden
@@ -64,7 +64,7 @@ public class Customer implements Comparable<Customer>
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
 	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
 	 *             gesetzte CurrentDate nachträglich verändert werden soll
-	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
+	 * @throws FalseFieldException wird geworfen, wenn schon ein {@link Customer} mit
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public Customer(String firstName, String lastName, Date birthDate,
@@ -77,12 +77,12 @@ public class Customer implements Comparable<Customer>
 		this(mincID, firstName, lastName, birthDate, street, houseNr, zipCode,
 				city, identificationNr, title);
 
-
-		if(containsEqualCustomer(this))
+		if (containsEqualCustomer(this))
 		{
-			throw new FalseFieldException("Kunde mit gleichen Daten bereits vorhanden!");
+			throw new FalseFieldException(
+					"Kunde mit gleichen Daten bereits vorhanden!");
 		}
-		
+
 		mincID++;
 
 		customerList.put(this.cID, this);
@@ -90,12 +90,10 @@ public class Customer implements Comparable<Customer>
 		// Event feuern
 		EventManager.fireEvent(new CustomerCreatedEvent(this));
 
-		// TODO: evtl. hier noch prüfen, ob personalausweisnr. schon vergeben
-		// wurde...
 	}
 
 	/**
-	 * private Konstruktor, der vom public-Konstruktor und von der
+	 * Privater Konstruktor, der vom öffentlichen Konstruktor und von der
 	 * recreate-Methode genutzt wird
 	 * 
 	 * @param cID einzigartige und unveränderbare ID des Customers
@@ -111,7 +109,7 @@ public class Customer implements Comparable<Customer>
 	 * @param identificationNr Personalausweisnummer
 	 * @param title Anrede
 	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
-	 *             ID für einen neuen Customer vergeben werden soll
+	 *             ID für einen neuen {@link Customer} vergeben werden soll
 	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
 	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
 	 *             gefunden werden
@@ -121,7 +119,7 @@ public class Customer implements Comparable<Customer>
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
 	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
 	 *             gesetzte CurrentDate nachträglich verändert werden soll
-	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
+	 * @throws FalseFieldException wird geworfen, wenn schon ein {@link Customer} mit
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	private Customer(int cID, String firstName, String lastName,
@@ -150,6 +148,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
+	 * Soll gespeicherte {@link Customer} aus der xml-Datei erzeugen 
 	 * @param cID einzigartige und unveränderbare ID des Customers
 	 * @param firstName Vorname
 	 * @param lastName Nachname
@@ -162,10 +161,10 @@ public class Customer implements Comparable<Customer>
 	 * @param city Stadt
 	 * @param identificationNr Personalausweisnummer
 	 * @param title Anrede
-	 * @return liefert einen Customer mit dessen Eigenschaften aus der
+	 * @return liefert einen {@link Customer} mit dessen Eigenschaften aus der
 	 *         vorhandenen Kundendatenbank
 	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
-	 *             ID für einen neuen Customer vergeben werden soll
+	 *             ID für einen neuen {@link Customer} vergeben werden soll
 	 * @throws EmptyFieldException wird geworfen, wenn beim Anlegen oder
 	 *             Bearbeiten eines Customers leere Felder übergeben bzw.
 	 *             gefunden werden
@@ -175,7 +174,7 @@ public class Customer implements Comparable<Customer>
 	 * @throws CurrentDateException wird geworfen, wenn ein noch nicht
 	 *             existentes CurrentDate-Objekt abgefragt wird, oder das schon
 	 *             gesetzte CurrentDate nachträglich verändert werden soll
-	 * @throws FalseFieldException wird geworfen, wenn schon ein Customer mit
+	 * @throws FalseFieldException wird geworfen, wenn schon ein {@link Customer} mit
 	 *             der neuen Personalausweisnummer in der Kundenbank existiert.
 	 */
 	public static Customer reCreate(int cID, String firstName, String lastName,
@@ -189,12 +188,13 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
+	 * Überprüft die Kundennummer, die gesetzt werden soll
 	 * 
-	 * @param newcID ID, die einem neuen Customer zugewiesen werden soll
+	 * @param newcID ID, die einem neuen {@link Customer} zugewiesen werden soll
 	 * @return true, wenn die übergebene ID offensichtlich falsch ist, true
 	 *         sonst
 	 * @throws FalseIDException wird geworfen, wenn eine offensichtlich falsche
-	 *             ID für einen neuen Customer vergeben werden soll
+	 *             ID für einen neuen {@link Customer} vergeben werden soll
 	 */
 	private boolean correctID(int newcID) throws FalseIDException
 	{
@@ -205,6 +205,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
+	 * Überprüft, die übergebenen Felder auf Inhalt
 	 * 
 	 * @param firstName Vorname
 	 * @param lastName Nachname
@@ -232,9 +233,10 @@ public class Customer implements Comparable<Customer>
 				|| lastName.equals("") || birthDate.getYear() == 0
 				|| birthDate.getMonth() == 0 || birthDate.getDate() == 0
 				|| street == null || street.equals("") || houseNr == null
-				|| houseNr.equals("") || zipCode == 0 || city == null || city.equals("")
-				|| identificationNr == null || identificationNr.equals("")
-				|| title == null || title.equals(""))
+				|| houseNr.equals("") || zipCode == 0 || city == null
+				|| city.equals("") || identificationNr == null
+				|| identificationNr.equals("") || title == null
+				|| title.equals(""))
 		{
 			throw new EmptyFieldException();
 		}
@@ -243,6 +245,8 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
+	 * Überprüft die generelle Plausibilität des Geburtsdatums und ob das
+	 * Mindestalter erreicht ist
 	 * 
 	 * @param date ist ein Date-Objekt, das Geburtstdatum enthält, das dann auf
 	 *            Sinnhaftigkeit überprüft wird, und aus dem das aktuelle Alter
@@ -338,7 +342,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt den Nachnamen des Customers
+	 * Setzt den Nachnamen des Customers
 	 * 
 	 * @param newLastName neuer Nachname
 	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
@@ -357,7 +361,7 @@ public class Customer implements Comparable<Customer>
 	/**
 	 * Gibt den kompletten Namen (Vorname & Nachname) zurück.
 	 * 
-	 * @return Der komplette Name.
+	 * @return Der komplette Name des Customers
 	 */
 	public String getName()
 	{
@@ -373,7 +377,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt den Geburtstag eines Customers bei Übergabe eines Date-Objektes
+	 * Setzt den Geburtstag eines Customers auf das übergebene Date-Objekt
 	 * 
 	 * @param newBirthDate neuer Geburtstag als Date
 	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
@@ -411,7 +415,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt die Straße der Adresse des Customers
+	 * Setzt die Straße der Adresse des Customers
 	 * 
 	 * @param newStreet neue Straße
 	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
@@ -428,9 +432,9 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt Strasse/Hausnummer Adresszeile zurück
+	 * Gibt Strasse/Hausnummer-Adresszeile zurück
 	 * 
-	 * @return Strasse/Hausnummer Adresszeile
+	 * @return Strasse/Hausnummer-Adresszeile
 	 */
 	public String getFirstAddressRow()
 	{
@@ -438,15 +442,22 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt PLZ/Stadt Adresszeile zurück
+	 * Gibt PLZ/Stadt-Adresszeile zurück
 	 * 
-	 * @return PLZ/Stadt Adresszeile
+	 * @return PLZ/Stadt-Adresszeile
 	 */
 	public String getLastAddressRow()
 	{
 		return this.zipCode + " " + this.city;
 	}
 
+	/**
+	 * Setzt die Anrede
+	 * 
+	 * @param newTitle neue Anrede (Frau/Herr)
+	 * @throws EmptyFieldException wird geworfen, wenn ein leeres Feld übergeben
+	 *             wurde
+	 */
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
 		if (newTitle != null && !newTitle.equals(""))
@@ -457,13 +468,20 @@ public class Customer implements Comparable<Customer>
 			throw new EmptyFieldException("Kein Titel eingegeben!");
 	}
 
+	/**
+	 * Liefert die Anrede
+	 * 
+	 * @return Die Anrede
+	 */
 	public String getTitle()
 	{
 		return this.title;
 	}
 
 	/**
-	 * @return die Hausnummer der Adresse des Customers
+	 * Liefert die Hausnummer der Adresse des Customers
+	 * 
+	 * @return die Hausnummer der Adresse
 	 */
 	public String getHouseNr()
 	{
@@ -471,7 +489,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt die Hausnummer der Adresse des Customers
+	 * Setzt die Hausnummer der Adresse des Customers
 	 * 
 	 * @param newHouseNr neue Hausnummer
 	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
@@ -488,7 +506,9 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * @return die Postleitzahl des Customers
+	 * Liefert die PLZ des Customers
+	 * 
+	 * @return die Postleitzahl
 	 */
 	public int getZipCode()
 	{
@@ -496,7 +516,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt die PLZ der Adresse des Customers
+	 * Setzt die PLZ der Adresse des Customers
 	 * 
 	 * @param newZipCode neue Postleitzahl
 	 * @throws FalseFieldException wird geworfen, wenn keine oder eine PLZ
@@ -513,7 +533,9 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * @return die Stadt(Wohnort) des Customers
+	 * Liedert die Stadt der Adresse des Customers
+	 * 
+	 * @return die Stadt(Wohnort)
 	 */
 	public String getCity()
 	{
@@ -521,7 +543,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt die Stadt der Adresse des Customers
+	 * Setzt die Stadt der Adresse des Customers
 	 * 
 	 * @param newCity neue Stadt
 	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
@@ -538,7 +560,9 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * @return die Personalausweisnummer des Customers
+	 * Liefert die Personalausweisnummer des Customers
+	 * 
+	 * @return die Personalausweisnummer
 	 */
 	public String getIdentificationNr()
 	{
@@ -546,7 +570,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt die Personalausweisnummer des Customers
+	 * Setzt die Personalausweisnummer des Customers
 	 * 
 	 * @param newIdentificationNr neue Personalausweisnummer
 	 * @throws EmptyFieldException wird geworfen, wenn beim Bearbeiten leere
@@ -565,9 +589,9 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt an, ob der Kunde zur Zeit Filme ausgeliehen hat.
+	 * Gibt an, ob der {@link Customer} zur Zeit Filme ausgeliehen hat.
 	 * 
-	 * @return True, falls ja, False sonst.
+	 * @return True, falls der {@link Customer} Filme ausgeliehen hat, False sonst.
 	 */
 	public boolean hasInRents()
 	{
@@ -576,7 +600,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt die Menge aller InRent Objekte (Ausleihungen) dieses Customers
+	 * Gibt die Menge aller InRent-Objekte (Ausleihungen) dieses Customers
 	 * zurück (falls vorhanden).
 	 * 
 	 * @return Die Menge aller InRent Objekte dieses Customers (falls keine
@@ -588,7 +612,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt an, ob ein Kunde einen Film (ein VideoExemplar) ausleihen kann.
+	 * Gibt an, ob ein {@link Customer} einen Film (ein VideoExemplar) ausleihen kann.
 	 * 
 	 * @param unit Das VideoExemplar, das überprüft werden soll.
 	 * @return True, falls ausleihbar, False sonst.
@@ -597,16 +621,17 @@ public class Customer implements Comparable<Customer>
 	{
 		return unit.canBeRentedBy(this) && !this.hasWarnings();
 	}
-	
+
 	/**
-	 * Gibt an, ob ein Kunde zur Zeit Mahnungen hat.
+	 * Gibt an, ob gegen einen Kunden zur Zeit Mahnungen vorliegen.
+	 * 
 	 * @return True, falls Mahnungen vorhanden, False sonst.
 	 */
 	public boolean hasWarnings()
 	{
-		for(InRent ir: this.getInRents())
+		for (InRent ir : this.getInRents())
 		{
-			if(ir.isWarned())
+			if (ir.isWarned())
 			{
 				return true;
 			}
@@ -615,14 +640,15 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt an, ob dieser Kunde fällige Ausleihen hat.
-	 * @return True, falls Kunde fällige Ausleihen hat, False sonst.
+	 * Gibt an, ob dieser {@link Customer} überfällige Ausleihen hat.
+	 * 
+	 * @return True, falls {@link Customer} überfällige Ausleihen hat, False sonst.
 	 */
 	public boolean hasDueInRents()
 	{
-		for(InRent ir : this.getInRents())
+		for (InRent ir : this.getInRents())
 		{
-			if(ir.isOverDuration() && ir.getVideoUnits().size() > 0)
+			if (ir.isOverDuration() && ir.getVideoUnits().size() > 0)
 			{
 				return true;
 			}
@@ -631,6 +657,8 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
+	 * Liefert die Daten des Kunden als String
+	 * 
 	 * @return einen String, der die Daten eines Customers enthält( Name,
 	 *         Kundennummer, Geburtsdatum, Adresse und Personalausweisnummer)
 	 */
@@ -647,12 +675,13 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Entfernt Customer aus globaler Customer-Liste. Wird beim nächsten
+	 * Entfernt {@link Customer} aus globaler {@link Customer}-Liste. Wird beim nächsten
 	 * Speichern nicht mehr mitgespeichert und geht somit verloren.
+	 * @throws VideothekException wird geworfen, wenn der {@link Customer} noch Ausleihen hat
 	 */
 	public void delete() throws VideothekException
 	{
-		if (this.getInRents().isEmpty() )
+		if (this.getInRents().isEmpty())
 		{
 			customerList.remove(this.getID());
 			this.deleted = true;
@@ -660,7 +689,9 @@ public class Customer implements Comparable<Customer>
 			// Event feuern
 			EventManager.fireEvent(new CustomerDeletedEvent(this));
 		}
-		else throw new VideothekException("Kunde hat noch aktive Ausleihen. Löschen nicht möglich!");
+		else
+			throw new VideothekException(
+					"Kunde hat noch aktive Ausleihen. Löschen nicht möglich!");
 	}
 
 	/**
@@ -672,11 +703,11 @@ public class Customer implements Comparable<Customer>
 	{
 		return this.deleted;
 	}
-	
+
 	/**
-	 * Informiert alle anderen Teilsysteme, dass dieser Customer evtl. geändert wurde.
-	 * Feuert ein CustomerEditedEvent und sollte einmal nach einem Bearbeitungsvorgang
-	 * aufgerufen werden.
+	 * Informiert alle anderen Teilsysteme, dass dieser {@link Customer} evtl. geändert
+	 * wurde. Feuert ein CustomerEditedEvent und sollte einmal nach einem
+	 * Bearbeitungsvorgang aufgerufen werden.
 	 */
 	public void save()
 	{
@@ -685,9 +716,9 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * setzt das statische Feld mincID
+	 * Setzt das statische Feld mincID, die für die Vergabe neuer Kundennummern zuständig ist
 	 * 
-	 * @param newMincID neue mincID (wird für nächsten Customer vergeben)
+	 * @param newMincID neue mincID (wird für nächsten {@link Customer} vergeben)
 	 * @throws FalseIDExceptionwird geworfen, wenn übergebene MinID kleiner o
 	 */
 	public static void setMinID(int newMincID) throws FalseIDException
@@ -714,7 +745,7 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Gibt die Menge aller Customer-Objekte zurück, die existieren.
+	 * Gibt die Menge aller {@link Customer}-Objekte zurück, die existieren.
 	 * 
 	 * @return Die Menge aller Customers in der Datenbasis.
 	 */
@@ -724,12 +755,12 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Sucht einen Customer in der Liste der Customer nach seiner ID und liefert
-	 * diesen, falls gefunden, dann als Customer-Objekt zurück
+	 * Sucht einen {@link Customer} in der Liste der {@link Customer} nach seiner ID und liefert
+	 * diesen, falls gefunden, dann als {@link Customer}-Objekt zurück
 	 * 
 	 * @param customerID die ID des zu suchenden Customers
-	 * @return den Customer mit der übergebenen ID
-	 * @throws RecordNotFoundException wird geworfen, wenn kein Customer mit der
+	 * @return den {@link Customer} mit der übergebenen ID
+	 * @throws RecordNotFoundException wird geworfen, wenn kein {@link Customer} mit der
 	 *             ID existiert
 	 */
 	public static Customer findByID(int customerID)
@@ -747,12 +778,12 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach allen, deren Nachname mit dem
+	 * Sucht in der Liste der {@link Customer} nach allen, deren Nachname mit dem
 	 * übergebenen String beginnt, und gibt diese alle als Liste zurück.
 	 * 
 	 * @param lastName ist der komplette Nachname, oder der Anfang des
 	 *            Nachnamens eines Customers, der gesucht werden soll
-	 * @return eine Collection aus Customer-Ojekten, deren Nachnamen die
+	 * @return eine Collection aus {@link Customer}-Ojekten, deren Nachnamen die
 	 *         Suchkriterien erfüllen
 	 */
 	public static Collection<Customer> findByLastName(String lastName)
@@ -769,12 +800,12 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach allen, deren Geburtstdatum mit dem
+	 * Sucht in der Liste der {@link Customer} nach allen, deren Geburtstdatum mit dem
 	 * übergebenen übereinstimmt, und gibt diese alle als Liste zurück.
 	 * 
 	 * @param birthDate ist das Geburtstdatum als Date-Objekt, mit dem nach
 	 *            Customern gesucht werden soll
-	 * @return eine Collection aus Customer-Ojekten, deren Geburtsdatum mit dem
+	 * @return eine Collection aus {@link Customer}-Ojekten, deren Geburtsdatum mit dem
 	 *         gesuchten übereinstimmen
 	 */
 	public static Collection<Customer> findByBirthDate(Date birthDate)
@@ -792,12 +823,12 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach einem mit der übergebenen
+	 * Sucht in der Liste der {@link Customer} nach einem mit der übergebenen
 	 * Personalausweisnummer. Falls existent, wird dieser zurückgeliefert.
 	 * 
 	 * @param identificationNr die zu suchende Personalausweisnummer
-	 * @return den zu der Personalausweisnummer gehörigen Customer
-	 * @throws RecordNotFoundException wird geworfen, wenn kein Customer mit der
+	 * @return den zu der Personalausweisnummer gehörigen {@link Customer}
+	 * @throws RecordNotFoundException wird geworfen, wenn kein {@link Customer} mit der
 	 *             gesuchten Personalausweisnummer existiert
 	 */
 	public static Customer findByIdentificationNr(String identificationNr)
@@ -815,11 +846,11 @@ public class Customer implements Comparable<Customer>
 	}
 
 	/**
-	 * Sucht in der Liste der Customer nach allen mit der übergebenen Stadt als
-	 * Wohnort unf gibr eine Liste dieser Customer zurück.
+	 * Sucht in der Liste der {@link Customer} nach allen mit der übergebenen Stadt als
+	 * Wohnort unf gibr eine Liste dieser {@link Customer} zurück.
 	 * 
 	 * @param city die zu suchende Stadt
-	 * @return eine Collection aus Customer-Objekten, die das Suchkriterium
+	 * @return eine Collection aus {@link Customer}-Objekten, die das Suchkriterium
 	 *         erfüllen
 	 */
 	public static Collection<Customer> findByCity(String city)
@@ -838,7 +869,7 @@ public class Customer implements Comparable<Customer>
 	/**
 	 * Methode zur Erstellung einer neuen Liste, die die Customers enthält
 	 * 
-	 * @param newCustomerList eine neue Customer-Liste
+	 * @param newCustomerList eine neue {@link Customer}-Liste
 	 * @throws FalseFieldException wird geworfen, wenn keine Liste übergeben
 	 *             wird
 	 */
@@ -854,47 +885,53 @@ public class Customer implements Comparable<Customer>
 			throw new FalseFieldException("CustomerList ist null!");
 		}
 	}
-	
-	/*
-	 * Gibt an, ob ein angegebener Customer bereits vorhanden ist
-	 * (d.h. dass bereits ein anderer Customer existiert, bei dem alle Datenfelder gleich sind).
+
+	/**
+	 * Gibt an, ob ein angegebener {@link Customer} bereits vorhanden ist (d.h. dass
+	 * bereits ein anderer {@link Customer} existiert, der dieselbe Personalausweisnummer hat).
+	 * @param customer, der auf Gleichheit überprüft werden soll
+	 * @return True, falls schon ein {@link Customer} mit derselben Personalausweisnummer existiert, False sonst 
 	 */
 	private static boolean containsEqualCustomer(Customer customer)
 	{
-		for(Customer c : customerList.values())
+		for (Customer c : customerList.values())
 		{
-			if(c.identificationNr.equals(customer.identificationNr))
+			if (c.identificationNr.equals(customer.identificationNr))
 			{
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
+
 	@Override
+	/**
+	 *  
+	 */
 	public int compareTo(Customer other)
 	{
-		if(this.age == other.age 
-				&& this.birthDate.equals(other.birthDate)
-				&& this.city.equals(other.city) 
+		if (this.age == other.age && this.birthDate.equals(other.birthDate)
+				&& this.city.equals(other.city)
 				&& this.zipCode == other.zipCode
-				&& this.firstName.equals(other.firstName) 
+				&& this.firstName.equals(other.firstName)
 				&& this.lastName.equals(other.lastName)
-				&& this.houseNr.equals(other.houseNr) 
+				&& this.houseNr.equals(other.houseNr)
 				&& this.identificationNr.equals(other.identificationNr)
-				&& this.street.equals(other.street) 
+				&& this.street.equals(other.street)
 				&& this.title.equals(other.title))
 		{
 			return 0;
 		}
-		
+
 		return 1;
 	}
-	
+
 	/**
-	 * Gibt an, ob dieser Customer gleich einem anderen ist.
-	 * @param other Der zu vergleichende Customer.
+	 * Gibt an, ob dieser {@link Customer} gleich einem anderen ist.
+	 * 
+	 * @param other Der zu vergleichende {@link Customer}.
 	 * @return True, falls gleich, False sonst.
 	 */
 	public boolean equals(Customer other)

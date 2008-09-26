@@ -83,6 +83,7 @@ Bevor der Kunde endg\'fcltig gel\'f6scht wird, ist die Aktion in dem erscheinend
 Anlegen \b0 eines neuen Films\par
 \fs20\par
 Wenn ein neuer Film der Videothek angelegt bzw. zugef\'fcgt werden soll, ist dies entweder \'fcber das Men\'fc \b Film\b0  -> \b Anlegen\b0  oder aber den Button \b Anlegen\b0  m\'f6glich, der dann in einem neuen Dialogfenster abfragt, ob ein neuer \b Kunde \b0 oder \b Film \b0 angelegt werden soll. In beiden F\'e4llen \'f6ffnet sich dann der "\b Film anlegen\b0 "-Dialog. Hier m\'fcssen die Daten des anzulegenden Films eingetragen werden (Titel, Erscheinungsjahr, Altersfreigabe, Preisklasse und Exemplaranzahl).\par
+G\'fcltige Eingaben f\'fcr die Altersfreigabe sind 0 (ohne Altersbeschr\'e4nkung freigegeben), 6 (freigegeben ab 6 Jahren),  12 (freigegeben ab 12 Jahren), 16 (freigegeben ab 16 Jahren) und 18 (keine Jugendfreigabe jeweils gem\'e4\'df der FSK). \par
 Durch Klick auf \b Best\'e4tigen\b0  wird der neue Film angelegt und ihm eine feste, einzigartige Filmnummer zugeteilt. Er steht von nun an in der Liste aller Filme. Seine Exemplare, die ebenfalls je eine feste, einzigartige Exemplarnummer erhalten haben, k\'f6nnen nun von Kunden ausgeliehen werden. \par
 Durch Klick auf \b Abbrechen\b0 , kann der Vorgang abgebrochen werden, ohne den neuen Film anzulegen.\par
 \par

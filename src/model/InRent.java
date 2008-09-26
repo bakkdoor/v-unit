@@ -14,7 +14,15 @@ import model.events.*;
 import model.exceptions.*;
 
 import model.exceptions.FalseIDException;
-
+/**
+ * 
+ * InRent.java
+ * @author Andie Hoffmann (andhoffm@uos.de)
+ * 25.09.2008
+ * 
+ * {@link InRent}-Objekte repräsentieren eine Ausleihe, die genau einem {@link Customer} zugeordnet sind,
+ * aber mehrere {@link VideoUnits} haben kann.
+ */
 public class InRent implements Comparable<InRent>
 {
 
@@ -32,6 +40,17 @@ public class InRent implements Comparable<InRent>
 	private static Map<Integer, InRent> inRentList;
 	private static int minrID;
 
+	/**
+	 * Öffentlicher Konstruktor, der von der GUI genutzt wird
+	 * @param customer {@link Customer}, der ausleiht
+	 * @param videoUnits Liste der {@link VideoUnits}, die ausgeliehen werden sollen
+	 * @param date ist das Ausleihdatum
+	 * @param duration Ausleihdauer in Wochen
+	 * @throws FalseIDException
+	 * @throws FalseFieldException
+	 * @throws CurrentDateException
+	 * @throws VideoUnitRentedException
+	 */
 	public InRent(Customer customer, Collection<VideoUnit> videoUnits,
 			Date date, int duration) throws FalseIDException,
 			FalseFieldException, CurrentDateException, VideoUnitRentedException
@@ -46,7 +65,7 @@ public class InRent implements Comparable<InRent>
 			for (VideoUnit unit : videoUnits)
 			{
 				if(!customer.canRent(unit))
-					throw new FalseFieldException("Kunde kann Film nicht ausleihen (FSK oder es liegen Mahnungen vor)");
+					throw new FalseFieldException("Kunde kann Film nicht ausleihen (FSK, oder es liegen Mahnungen vor)");
 				
 				if (unit.isRented())
 					throw new VideoUnitRentedException(
@@ -84,6 +103,19 @@ public class InRent implements Comparable<InRent>
 		inRentList.put(this.rID, this);
 	}
 
+	/**
+	 * Privater Konstruktor, der vom öffentlichen Konstruktor und von der
+	 * recreate-Methode genutzt wird
+	 * @param rID Ausleihnummer
+	 * @param customerID Kundennummer
+	 * @param videoUnitIDs Liste der Filmexemplarnummern, die ausgeliehen werden sollen
+	 * @param date Ausleihdatum
+	 * @param duration Ausleihdauer in Wochen
+	 * @param warned True, wenn für Ausleihe schon eine Mahnung vorliegt, False sonst
+	 * @throws FalseIDException
+	 * @throws FalseFieldException
+	 * @throws CurrentDateException
+	 */
 	private InRent(int rID, int customerID, Collection<Integer> videoUnitIDs,
 			Date date, int duration, boolean warned) throws FalseIDException,
 			FalseFieldException, CurrentDateException
@@ -105,6 +137,19 @@ public class InRent implements Comparable<InRent>
 		checkDuration();
 	}
 
+	/**
+	 * Soll gespeicherte Ausleihen aus der xml-Datei erzeugen
+	 * @param rID Ausleihnummer
+	 * @param customerID Kundennummer
+	 * @param videoUnitIDs Filmexemplarnummern
+	 * @param date Ausleihdatum
+	 * @param duration Ausleihdauer
+	 * @param warned True, wenn für Ausleihe schon eine Mahnung vorliegt, False sonst
+	 * @return InRent die Ausleihe
+	 * @throws FalseIDException
+	 * @throws FalseFieldException
+	 * @throws CurrentDateException
+	 */
 	public static InRent reCreate(int rID, int customerID,
 			Collection<Integer> videoUnitIDs, Date date, int duration,
 			boolean warned) throws FalseIDException, FalseFieldException,
@@ -113,6 +158,11 @@ public class InRent implements Comparable<InRent>
 		return new InRent(rID, customerID, videoUnitIDs, date, duration, warned);
 	}
 
+	/**
+	 * Setzt die MinID für InRents
+	 * @param newMinrID neue MinID für InRrents
+	 * @throws FalseIDException
+	 */
 	public static void setMinID(int newMinrID) throws FalseIDException
 	{
 		if (newMinrID > 0)
@@ -126,11 +176,20 @@ public class InRent implements Comparable<InRent>
 		}
 	}
 
+	/**
+	 * Liefert die MinID
+	 * @return die MinID
+	 */
 	public static int getMinID()
 	{
 		return minrID;
 	}
 
+	/**
+	 * Überprüf, ob das Ausleihdatum dem aktuellen Datum entspricht
+	 * @throws FalseFieldException
+	 * @throws CurrentDateException
+	 */
 	private void checkRentDate() throws FalseFieldException,
 			CurrentDateException
 	{
@@ -138,17 +197,29 @@ public class InRent implements Comparable<InRent>
 			throw new FalseFieldException("Bitte Datum überprüfen");
 	}
 
+	/**
+	 * Überprüft, ob die Ausleihdauer zwischen 1 und 5 Wochen beträgt
+	 * @throws FalseFieldException
+	 */
 	private void checkDuration() throws FalseFieldException
 	{
 		if (this.duration < 1 || this.duration > 5)
 			throw new FalseFieldException();
 	}
 
+	/**
+	 * Liefert die Ausleihnummer
+	 * @return die Ausleihnummer
+	 */
 	public int getID()
 	{
 		return this.rID;
 	}
 
+	/**
+	 * Überprüft die Ausleih- und die Kundennummer
+	 * @throws FalseIDException
+	 */
 	private void checkIDs() throws FalseIDException
 	{
 		int rID = this.rID;
@@ -165,6 +236,10 @@ public class InRent implements Comparable<InRent>
 			throw new FalseIDException();
 	}
 
+	/**
+	 * Liefert den {@link Customer} der Ausleihe
+	 * @return den {@link Customer} der Ausleihe
+	 */
 	public Customer getCustomer()
 	{
 		if (this.customer == null)
@@ -181,18 +256,26 @@ public class InRent implements Comparable<InRent>
 		return this.customer;
 	}
 
+	/**
+	 * Liefert das Ausleihdatum
+	 * @return das Ausleihdatum
+	 */
 	public Date getDate()
 	{
 		return this.date;
 	}
 
+	/**
+	 * Liefert das Rückgabedatum der Ausleihe
+	 * @return das Rückgabedatum der Ausleihe
+	 */
 	public Date getReturnDate()
 	{
 		return this.date.addWeeks(this.duration);
 	}
 
 	/**
-	 * Methode überprüft, ob die Leihfrist abgelaufen ist
+	 * Methode überprüft, ob die Leihfrist + der angegebenen Frist abgelaufen ist
 	 * 
 	 * @param deadline Anzahl der Tage, die auf das Rückgabedatum hinzugerechnet
 	 *            werden.
@@ -218,16 +301,28 @@ public class InRent implements Comparable<InRent>
 		return isOverDuration(0);
 	}
 
+	/**
+	 * Liefert eine Liste der ausgeliehenen Filmexemplarnummern
+	 * @return eine Liste der Filmexemplarnummern
+	 */
 	public Collection<Integer> getVideoUnitIDs()
 	{
 		return this.videoUnitIDs;
 	}
 
+	/**
+	 * Liefert die Ausleihdauer in Wochen
+	 * @return
+	 */
 	public int getDuration()
 	{
 		return this.duration;
 	}
 
+	/**
+	 * Liefert eine Liste der ausgeliehenen Filmexemplare
+	 * @return eine Liste der Filmexemplare
+	 */
 	public Collection<VideoUnit> getVideoUnits()
 	{
 		if (this.videoUnits == null)
@@ -259,7 +354,7 @@ public class InRent implements Comparable<InRent>
 
 	/**
 	 * Gibt den Preis dieser Ausleihe zurück, berechnet aus Ausleihdauer
-	 * (duration) mal Preis des Films.
+	 * (duration) multipliziert mit dem Preis des Films.
 	 * 
 	 * @return Der Preis der Ausleihe.
 	 */
@@ -326,7 +421,7 @@ public class InRent implements Comparable<InRent>
 	}
 
 	/**
-	 * Methode informiert, ob bereits eine Mahnung (Warning) erstellt wurde
+	 * Informiert, ob bereits eine Mahnung (Warning) für diese Ausleihe erstellt wurde
 	 * 
 	 * @return true, wenn schon gemahnt wurde, false sonst
 	 */
@@ -336,7 +431,7 @@ public class InRent implements Comparable<InRent>
 	}
 
 	/**
-	 * Methode markiert, dass bereits eine Mahnung erstellt wurde
+	 * Markiert, dass bereits eine Mahnung erstellt wurde
 	 */
 	public void setWarned(boolean b)
 	{
@@ -355,14 +450,20 @@ public class InRent implements Comparable<InRent>
 	}
 	
 	/**
-	 * Gibt das zugehörige Warning zurück falls vorhanden, ansonsten null.
-	 * @return Das zugehörige Warning bzw null, falls nicht vorhanden.
+	 * Gibt das zugehörige Warning zurück, falls vorhanden, ansonsten null.
+	 * @return Das zugehörige Warning bzw. null, falls nicht vorhanden.
 	 */
 	public Warning getWarning()
 	{
 		return Warning.findByInRent(this);
 	}
 
+	/**
+	 * Liefert die zu der übergebenen Ausleihnummer passende Ausleihe
+	 * @param inRentID Ausleihnummer
+	 * @return Ausleihe, die zu der Ausleihnummer gehört
+	 * @throws RecordNotFoundException
+	 */
 	public static InRent findByID(int inRentID) throws RecordNotFoundException
 	{
 		if (inRentList.containsKey(inRentID))
@@ -376,11 +477,20 @@ public class InRent implements Comparable<InRent>
 		}
 	}
 
+	/**
+	 * Liefert eine Liste aller Ausleihen
+	 * @return eine Liste aller Ausleihen
+	 */
 	public static Collection<InRent> findAll()
 	{
 		return inRentList.values();
 	}
 
+	/**
+	 * Liefert eine Liste aller Ausleihen, die zum übergebenen {@link Customer} gehören
+	 * @param customer {@link Customer}, dessen Ausleihen gesucht werden
+	 * @return Liste aller Ausleihen, die zum übergebenen {@link Customer} gehören
+	 */
 	public static Collection<InRent> findByCustomer(Customer customer)
 	{
 		List<InRent> foundInRents = new LinkedList<InRent>();
@@ -394,6 +504,12 @@ public class InRent implements Comparable<InRent>
 		return foundInRents;
 	}
 
+	/**
+	 * Liefert die Ausleihe, in der sich das Filmexemplar befindet
+	 * @param videoUnit Filmexemplar
+	 * @return die gesuchte Ausleihe zu dem Filmexemplar 
+	 * @throws RecordNotFoundException
+	 */
 	public static InRent findByVideoUnit(VideoUnit videoUnit)
 			throws RecordNotFoundException
 	{
@@ -412,6 +528,11 @@ public class InRent implements Comparable<InRent>
 		// videoUnit.getID());
 	}
 
+	/**
+	 * Liefert eine Liste aller Ausleihen, deren Ausleihdatum mit dem übergebenen Datum übereinstimmt
+	 * @param date Ausleihdatum
+	 * @return eine Liste aller Ausleihen mit dem gesuchten Ausleihdatum
+	 */
 	public static Collection<InRent> findByDate(Date date)
 	{
 		List<InRent> foundInRents = new LinkedList<InRent>();
@@ -425,6 +546,11 @@ public class InRent implements Comparable<InRent>
 		return foundInRents;
 	}
 
+	/**
+	 * Setzt die globale Liste aller Ausleihen
+	 * @param newInRentList neue Liste aller Ausleihen
+	 * @throws FalseFieldException
+	 */
 	public static void setInRentList(Map<Integer, InRent> newInRentList)
 			throws FalseFieldException
 	{
@@ -439,8 +565,8 @@ public class InRent implements Comparable<InRent>
 	}
 
 	/**
-	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller InRents
-	 * auf InRents mit überzogener Leihfrist
+	 * Methode wird aus Warning aufgerufen und überprüft die Liste aller Ausleihen
+	 * auf Ausleihen mit überzogener Leihfrist
 	 * 
 	 * @return true, wenn InRents mit überzogener Leihfrist existieren, false
 	 *         sonst
@@ -458,7 +584,7 @@ public class InRent implements Comparable<InRent>
 	}
 
 	/**
-	 * Methode wird aus Warning aufgerufen, überprüft die Liste der Inrents und
+	 * Methode wird aus Warning aufgerufen, überprüft die Liste der Ausleihen und
 	 * liefert eine Liste mit allen neuen, fälligen Mahnungen
 	 * 
 	 * @return Liste mit den neuen Mahnungen
@@ -476,6 +602,11 @@ public class InRent implements Comparable<InRent>
 		return foundNewWarnings;
 	}
 
+	/**
+	 * Löscht ein einzelnes Filmexemplar aus einer Ausleihe 
+	 * (falls nur dieses Exemplar zurückgegeben wird)
+	 * @param videoUnit Filmexemplar, das gelöscht wird
+	 */
 	public void deleteSingleVideoUnit(VideoUnit videoUnit)
 	{
 		this.videoUnitIDs.remove(videoUnit.getID());
@@ -493,6 +624,9 @@ public class InRent implements Comparable<InRent>
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public int compareTo(InRent other)
 	{
 		if (this.customerID == other.customerID && this.warned == other.warned
@@ -511,6 +645,11 @@ public class InRent implements Comparable<InRent>
 		}
 	}
 
+	/**
+	 * Überprüft eine Ausleihe mit einer anderen auf Gleichheit
+	 * @param other andere Ausleihe
+	 * @return True, wenn Ausleihen gleich, False sonst
+	 */
 	public boolean equals(InRent other)
 	{
 		return this.compareTo(other) == 0;

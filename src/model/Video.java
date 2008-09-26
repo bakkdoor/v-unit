@@ -158,6 +158,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
+	 * Liefert den Titel
 	 * @return den Filmtitel
 	 */
 	public String getTitle()
@@ -166,6 +167,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
+	 * Liefert das Erscheinungsjahr
 	 * @return das Erscheinungsjahr
 	 */
 	public int getReleaseYear()
@@ -174,6 +176,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
+	 * Liefert die Altersfreigabe
 	 * @return die Altersfreigabe
 	 */
 	public int getRatedAge()
@@ -182,6 +185,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
+	 * Liefert die Preiskategorie-ID
 	 * @return die Preiskategorie-ID
 	 */
 	public int getPriceCategoryID()
@@ -190,7 +194,8 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * @return das zum {@link Video} gehörende {@link PriceCategory}-Objekt
+	 * Liefert die zum {@link Video} gehörende Preiskategorie
+	 * @return die Preiskategorie
 	 * @throws RecordNotFoundException , wenn das {@link Video} keine
 	 * {@link PriceCategory} enthält
 	 */
@@ -204,8 +209,9 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
-	 * {@link Video} verknüpften
+	 * Liefert eine Liste aller VideoUnits (Exemplare), die mit diesem
+	 * {@link Video} verknüpft sind
+	 * @return eine Liste von VideoUnits
 	 */
 	public Collection<VideoUnit> getVideoUnits()
 	{
@@ -213,9 +219,10 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * @return eine Liste aller VideoUnits (Exemplare), die mit diesem
+	 * Liefert Liste aller VideoUnits (Exemplare), die mit diesem
 	 * {@link Video} verknüpften, sortiert nach Ausgeliehen-Status (Zuerst nicht
 	 * ausgeliehene, danach ausgeliehene)
+	 * @return eine Liste von VideoUnits
 	 */
 	public Collection<VideoUnit> getSortedVideoUnits()
 	{
@@ -272,7 +279,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * Gibt an, ob das Objekt gelöscht wurde (via delete())
+	 * Gibt an, ob das Video gelöscht wurde (via delete())
 	 * 
 	 * @return True, falls gelöscht, False sonst.
 	 */
@@ -293,7 +300,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * setzt den Wert der statischen Variable MinvID
+	 * Setzt den Wert der statischen Variable MinvID
 	 * 
 	 * @param newMinvID die neue MinID der {@link Video}s
 	 * @throws FalseIDException
@@ -312,7 +319,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * überprüft die übergebenen IDs
+	 * Überprüft die übergebenen IDs
 	 * 
 	 * @param newvID neue ID des {@link Video}
 	 * @param newPriceCategoryID neue Preiskategorie-ID das {@link Video}s
@@ -331,7 +338,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * überprüft die übergebenen Parameter auf Inhalt
+	 * Überprüft die übergebenen Felder auf Inhalt
 	 * 
 	 * @param newTitle Filmtitel
 	 * @param newReleaseYear Erscheinungsjahr
@@ -350,7 +357,7 @@ public class Video implements Comparable<Video>
 	}
 
 	/**
-	 * überprüft die Parameter auf Sinnhaftigkeit
+	 * Überprüft die Parameter auf Plausibilität
 	 * 
 	 * @param newRatedAge Altersfreigabe
 	 * @param newReleaseYear Erscheinungsjahr
@@ -374,11 +381,20 @@ public class Video implements Comparable<Video>
 		return true;
 	}
 
+	/**
+	 * Liefert die Filmnummer
+	 * @return die Filmnummer
+	 */
 	public int getID()
 	{
 		return this.vID;
 	}
 
+	/**
+	 * Setzt den Titel des Films
+	 * @param newTitle neuer Titel
+	 * @throws EmptyFieldException
+	 */
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
 		if (newTitle != null && !newTitle.equals(""))
@@ -389,6 +405,13 @@ public class Video implements Comparable<Video>
 			throw new EmptyFieldException();
 	}
 
+	/**
+	 * Setzt das Erscheinungsjahr des Films
+	 * @param newReleaseYear neues Erscheinungsjahr
+	 * @throws CurrentDateException
+	 * @throws FalseFieldException
+	 * @throws EmptyFieldException
+	 */
 	public void setReleaseYear(int newReleaseYear) throws CurrentDateException,
 			FalseFieldException, EmptyFieldException
 	{
@@ -403,6 +426,11 @@ public class Video implements Comparable<Video>
 		}
 	}
 
+	/**
+	 * Setzt die Preiskategorie des Films
+	 * @param newPriceCategory neue Preiskategorie
+	 * @throws EmptyFieldException
+	 */
 	public void setPriceCategory(PriceCategory newPriceCategory)
 			throws EmptyFieldException
 	{
@@ -414,6 +442,11 @@ public class Video implements Comparable<Video>
 			throw new EmptyFieldException();
 	}
 
+	/**
+	 * Setzt die Altersfreigabe eines Films
+	 * @param newRatedAge neue Altersfreigabe
+	 * @throws FalseFieldException
+	 */
 	public void setRatedAge(int newRatedAge) throws FalseFieldException
 	{
 		if (newRatedAge == 0 || newRatedAge == 6 || newRatedAge == 12
@@ -425,6 +458,12 @@ public class Video implements Comparable<Video>
 			throw new FalseFieldException("Bitte FSK überprüfen");
 	}
 
+	/**
+	 * Fügt einem Film neue Exemplare hinzu und liefert eine Liste der neuen Exemplare zurück
+	 * @param numberOfNewUnits Anzahl der neuen Exemplare
+	 * @return Liste der neuen Exemplare
+	 * @throws FalseFieldException
+	 */
 	public Collection<VideoUnit> addNewVideoUnits(int numberOfNewUnits)
 			throws FalseFieldException
 	{
@@ -438,6 +477,10 @@ public class Video implements Comparable<Video>
 		return newVideoUnits;
 	}
 
+	/**
+	 * Liefert die Anzahl der Filmexemplare
+	 * @return die Anzahl der Filmexemplare
+	 */
 	public int getNumberOfVideoUnits()
 	{
 		return this.getVideoUnits().size();
@@ -573,9 +616,11 @@ public class Video implements Comparable<Video>
 		return minvID;
 	}
 	
-	/*
-	 * Gibt an, ob ein angegebener Customer bereits vorhanden ist
-	 * (d.h. dass bereits ein anderer Customer existiert, bei dem alle Datenfelder gleich sind).
+	/**
+	 * Gibt an, ob ein angegebener Film bereits vorhanden ist
+	 * (d.h. dass bereits ein anderer Film existiert, bei dem alle Datenfelder gleich sind).
+	 * @param video der zu vergleichende Film
+	 * @return True, wenn ein gleicher Film existiert, False sonst
 	 */
 	private static boolean containsEqualVideo(Video video)
 	{
@@ -591,6 +636,9 @@ public class Video implements Comparable<Video>
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public int compareTo(Video other)
 	{
 		if(this.priceCategoryID == other.priceCategoryID 

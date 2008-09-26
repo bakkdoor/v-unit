@@ -1,67 +1,70 @@
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\froman\fprq2\fcharset0 Bookman;}{\f1\fswiss\fprq2\fcharset0 Arial Black;}{\f2\fswiss\fcharset0 Arial;}}
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}}
 {\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs24\par
-\b\fs32\tab\tab\tab\tab      Tests der Haupfunktionen . \par
+\b\fs32\tab\tab\tab\tab      Tests der Haupfunktionen von \fs34 V-Unit \fs32 v1.0\par
 \b0\fs24\par
-\b Auflisten von Haupfunktionen\b0\f1\par
+\b Auflisten von Haupfunktionen\b0\par
 \par
-\f0 1. Anlegen von Film\par
+1. Anlegen von Film\par
+\par
 2. Anlegen von Kunde\par
 \par
 3. Bearbeiten von Film\par
+\par
 4. Bearbeiten von Kunde\par
-\f1\fs20\par
-\f0\fs24 5. L\'f6schen eines Films\par
-\tab 5.1. eines Exemplars\par
-\tab 5.2. eines Films\par
-6. L\'f6schen eiens Kundes\par
+\fs20\par
+\fs24 5. L\'f6schen eines Films\par
 \par
-7. Ausleihe von Film\par
+6. L\'f6schen eines Kundes\par
 \par
-8. R\'fcckgabe von Film\par
+7. Ausleihe eines Films\par
 \par
-9. Suche eines Kundes nach Nachname\par
+8. R\'fcckgabe eines Films\par
+\par
+9. Suche eines Kunden nach Nachname\par
+\par
 10. Suche eines Films nach Titel\par
 \par
 11. Start vom Programm\par
+\par
 12. Beenden vom Programm\par
 \par
 13.Mahnungserstellung\par
 \par
-14. Preiseinstellung.\f2\fs20\par
+14. Preiseinstellung\fs20\par
 \par
 \par
-\f0\fs28 Tests der Haupfunktionen\b\fs24\par
+\fs28 Tests der Haupfunktionen\b\fs24\par
 \par
 1. Anlegen von Film\par
 \b0\par
-\tab - Aufruf \'fcber Men\'fcbar "Film/Anlegen", Toolbar-Button "Anlegen/Film"\par
+\tab - Aufruf \'fcber Men\'fcleiste "Film->Anlegen", Toolbar-Button "Anlegen->Film"\par
 \tab - alle Werte korrekt eingeben\par
 \tab - gleichen Film, der in der Kartei vorhanden ist (d.h. alle Werter sind gleich)\par
-\tab -  ein Film mit mindestens einem verschiedenen Wert zu den anderen Filmen, die in der Kartei vorhanden sind (d.h. nicht alle Werter sind gleich)\par
+\tab - ein Film mit mindestens einem verschiedenen Wert zu den anderen Filmen, die in der Kartei vorhanden sind (d.h. nicht alle Werte sind gleich)\par
 \tab - einzelne Felder leer lassen.\par
 \par
 \tab 1.1 Titel: \par
-\tab\tab mit dem Umlaut.\par
+\tab\tab mit Umlaut.\par
 \tab\tab mit Zahl, beliebigem Zeichen.\par
 \tab 1.2. Erscheinungsjahr:\par
 \tab\tab in Vergangenheit (bis 1900)\par
 \tab\tab im Zeitraum ( von 1900 bis aktuellem Jahr) /korrekt/\par
-\tab\tab im Zukunf (z.B.  ab 2009) \par
+\tab\tab im Zukunft (z.B.  ab 2009) \par
 \tab 1.3.  Preisklasse: \par
 \tab 1.4. Exemplaranzahl:\par
 \tab\tab negative Anzahl oder null\par
 \tab\tab positive Zahl \par
 \tab 1.6. Best\'e4tigen:\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab\tab Korrektheit der Speicherung von Daten\par
 \tab\tab Korrektheit der Weiterleitung von Daten \par
 \tab 1.7. Abbrechen:\par
-\tab\tab Beendigung der Dialog\par
-\tab\tab L\'f6schen der angegebenen Daten.\par
+\tab\tab Beendigung des Dialogs\par
+\tab\tab L\'f6schen der eingegebenen Daten.\par
 \par
 \b 2. Anlegen von Kunde\b0\par
 \tab\tab\par
-\tab - Aufruf \'fcber Men\'fcbar "Kunde/Anlegen", Toolbar-Button "Anlegen/Kunde"\par
+\tab - Aufruf \'fcber Men\'fcleiste "Kunde->Anlegen", Toolbar-Button "Anlegen->Kunde"\par
 \tab - alle Werte korrekt eingeben\par
 \tab - einzelne Felder leer lassen\par
 \tab 2.1. Anrede:\par
@@ -82,69 +85,72 @@
 \tab 2.7. Hausnummer:\par
 \tab\tab  beliebige Zeichen\par
 \tab 2.8. PLZ:\par
-\tab\tab beliebige Zeichen\par
+\tab\tab nur Ziffern\par
 \tab 2.8 Ort:\par
 \tab\tab beliebige Zeichen.\par
 \tab 2.9. Best\'e4tigen:\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab\tab Korrektheit der Speicherung von Daten \par
 \tab\tab Korrektheit der Weiterleitung von Daten \par
 \tab 2.10. Abbrechen:\par
-\tab\tab Beendigung der Dialog\par
-\tab\tab L\'f6schen der angegebenen Daten.\par
+\tab\tab Beendigung des Dialogs\par
+\tab\tab L\'f6schen der eingegebenen Daten.\par
 \par
 \b 3. Bearbeiten von Film\par
 \par
-\tab\b0 - Aufruf \'fcber Markierung eines Films in der Kartei und Men\'fcbar "Film/Bearbeiten"\par
+\tab\b0 - Aufruf \'fcber Markierung eines Films in der Kartei und Men\'fcleiste "Film->Bearbeiten"\par
 \tab - Aufruf \'fcber Toolbar-Button "Bearbeiten" und Markierung eines Exemplars im rechten oberen Teil des Fensters\par
 \tab 3.1. Preisklasse:\par
 \tab\tab richtige ausw\'e4hlen\par
 \tab 3.2. Hinzuf\'fcgen:\par
-\tab\tab ein Klich ist Erh\'f6hung der Exemplaranzahl auf 1.\par
+\tab\tab ein Klich ist Erh\'f6hung der Exemplaranzahl um 1.\par
 \tab 3.3. Best\'e4tigen:\par
-\tab\tab Meldung \'fcber neue angelegten Exemplaren.\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Meldung \'fcber neu angelegte Exemplare.\par
+\tab\tab Beendigung des Dialogs\par
 \tab\tab Korrektheit der Speicherung von Daten \par
 \tab\tab Korrektheit der Weiterleitung von Daten \par
 \tab 3.4. Abbrechen:\par
 \tab\tab Ignorieren der angegebenen Daten.\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \par
 \b 4. Bearbeiten von Kunde\b0\par
 \tab\tab\par
-\tab - Aufruf \'fcber Markierung eines Kundes in der Kartei und Men\'fcbar "Kunde/Bearbeiten" oder Toolbar-Button "Bearbeiten"\par
+\tab - Aufruf \'fcber Markierung eines Kundes in der Kartei und Men\'fcleiste "Kunde/Bearbeiten" oder Toolbar-Button "Bearbeiten"\par
 \tab - alle Werte korrekt eingeben\par
 \tab - einzelne Felder leer lassen\par
 \tab - beliebige Zeichen\par
 \tab 4.1. Best\'e4tigen:\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab\tab Korrektheit der Speicherung von Daten \par
 \tab\tab Korrektheit der Weiterleitung von Daten \par
 \tab 4.2. Abbrechen:\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab\tab Ignorieren der angegebenen Daten.\par
 \par
 \b 5. L\'f6schen eines Films\par
 \tab 5.1. eines Exemplars\par
 \tab\tab\b0 - Aufruf \'fcber Markierung eines Exemplars im rechten oberen Teil des Fensters  und Toolbar-Button "L\'f6schen"\par
-\tab\tab - Aufruf \'fcber Markierung eines Films in der Kartei und Men\'fcbar "Film/Exemplar L\'f6schen"\par
+\tab\tab - Aufruf \'fcber Markierung eines Films in der Kartei und Men\'fcleiste "Film->Exemplar L\'f6schen"\par
 \tab\tab - L\'f6schen des verf\'fcgbaren/ausgeliehenen Films\par
-\tab\tab - Meldung \'fcber L\'f6schen eines Exemplaren.\b\par
+\tab\tab - Abfrage beim L\'f6schen eines Exemplares.\b\par
 \b0\par
 \tab\b 5.2. eines Films\par
-\tab\tab\b0 - Aufruf \'fcber Markierung eines Films in der Kartei und Men\'fcbar "Film/L\'f6schen"\par
+\tab\tab\b0 - Aufruf \'fcber Markierung eines Films in der Kartei und Men\'fcleiste "Film/L\'f6schen"\par
 \tab\tab - Fehlermeldung "Videoexemplar ist noch ausgeliehen"\par
+\tab\tab - Abfrage beim L\'f6schen eines Films.\b\par
+\b0\par
 \b\par
 \par
-6. L\'f6schen eiens Kundes\b0\par
-\b\tab\b0 - Aufruf \'fcber Markierung eines Kundes in der Kartei und Men\'fcbar "Kunde/L\'f6schen" oder Toolbar-Button "L\'f6schen"\par
+6. L\'f6schen eines Kunden\b0\par
+\b\tab\b0 - Aufruf \'fcber Markierung eines Kunden in der Kartei und Men\'fcleiste "Kunde->L\'f6schen" oder Toolbar-Button "L\'f6schen"\par
 \tab - Fehlermeldung "Kunde hat noch aktive Ausleihen"\par
+\tab - Abfrage beim L\'f6schen eines Kunden\par
 \par
 \b 7. Ausleihe von Film\par
 \tab\b0 - Aufruf \'fcber Toolbar-Button "Ausleihe"\par
 \tab - alle Werte korrekt eingeben\par
-\tab - Fehlermeldung "Der Kunde nicht existiert"\par
-\tab - Fehlermeldung "Der Kunde kann Film nicht ausleihen(Fsk oder es liegen mahnunf vor)"\par
+\tab - Fehlermeldung "Der Kunde existiert nicht"\par
+\tab - Fehlermeldung "Der Kunde kann Film nicht ausleihen(FSK, oder es liegen Mahnungen vor)"\par
 \tab - Fehlermeldung "Filmexemplar schon in der Liste vorhanden"\par
 \tab 7.1. Hinzuf\'fcgen:\par
 \tab\tab\'dcbergabe in die Ausleihtabelle\par
@@ -160,58 +166,58 @@
 \b 8. R\'fcckgabe von Film\b0\par
 \tab - Aufruf \'fcber Toolbar-Button "R\'fcckgabe"\par
 \tab - alle Werte korrekt eingeben\par
-\tab - Fehlermeldung "Filmexemplar momentan ist nicht ausgeliehen"\par
+\tab - Fehlermeldung "Filmexemplar ist momentan nicht ausgeliehen"\par
 \tab 8.1. Hinzuf\'fcgen:\par
 \tab\tab\'dcbergabe in die R\'fcckgabetabelle\par
-\tab\tab Gesammtpreis-Testing\par
+\tab\tab Gesamtpreis-Testing\par
 \par
 \tab 8.2. Best\'e4tigen:\par
 \tab\tab Korrektheit der Speicherung von Daten \par
 \tab\tab Korrektheit der Weiterleitung von Daten \par
-\tab\tab\'c4nderung der Status des Filmes\par
+\tab\tab\'c4nderung des Status des Filmes\par
 \tab 8.3. Abbrechen:\par
 \tab\tab L\'f6schen der angegebenen Daten\par
 \par
 \par
-\b 9. Suche eines Kundes nach Nachname\par
-\tab\b0 - Aufruf \'fcber Men\'fcbar "Suche/Kunden", Toolbar-Button "Suche/Kunden"\par
+\b 9. Suche eines Kunden nach Nachname\par
+\tab\b0 - Aufruf \'fcber Men\'fcleiste "Suche->Kunden", Toolbar-Button "Suche->Kunden"\par
 \tab - Nachname korrekt angeben\par
 \tab 9.1. Abbrechen:\par
 \tab\tab L\'f6schen der angegebenen Daten\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab 9.2. Best\'e4tigen:\par
 \tab\tab Korrektheit der Weiterleitung von Daten\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab\par
 \par
 \b 10. Suche eines Films nach Titel\par
-\tab\b0 - Aufruf \'fcber Men\'fcbar "Suche/Film", Toolbar-Button "Suche/Film"\par
+\tab\b0 - Aufruf \'fcber Men\'fcleiste "Suche->Film", Toolbar-Button "Suche->Film"\par
 \tab - Filmtitel korrekt angeben\par
 \tab 10.1. Abbrechen:\par
 \tab\tab L\'f6schen der angegebenen Daten\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \tab 10.2. Best\'e4tigen:\par
 \tab\tab Korrektheit der Weiterleitung von Daten\par
-\tab\tab Beendigung der Dialog\par
+\tab\tab Beendigung des Dialogs\par
 \par
 \b 11. Start vom Programm\par
-\b0\tab - korrekte Datumangabe\par
+\b0\tab - korrekte, automatische Datumsangabe\par
 \tab - Mahnungen zur\'fccksetzen\par
 \par
 \b 12. Beenden vom Programm\par
-\tab\b0 - Aufruf \'fcber Men\'fcbar "Programm/Beenden", Fenster schlie\'dfen\par
+\tab\b0 - Aufruf \'fcber Men\'fcleiste "Programm->Beenden", Fenster schlie\'dfen\par
 \tab - Meldung \'fcber erstellte Mahnungen\par
-\tab - Beendigung der Dialog\par
+\tab - Beendigung des Dialogs\par
 \par
 \b 13.Mahnungserstellung\b0\par
-\tab - Aufruf \'fcber Men\'fcbar "Extras/ Mahnungen erstellen"\par
-\tab - Aufruf \'fcber Men\'fcbar "Extras/ Einstellungen/Allgemeines"\par
+\tab - Aufruf \'fcber Men\'fcleiste "Extras-> Mahnungen erstellen"\par
+\tab - Aufruf \'fcber Men\'fcleiste "Extras-> Einstellungen->Allgemeines": Geb\'fchr \'e4ndern\par
 \tab - Werte korrekt eingeben\par
 \par
-\b 14. Preiseinstellung\par
-\tab\b0 - Aufruf  \'fcber Men\'fcbar "Extras/ Einstellungen/Preiskategorien"\par
+\b 14. Preiskategorieeinstellung\par
+\tab\b0 - Aufruf  \'fcber Men\'fcleiste "Extras-> Einstellungen->Preiskategorien"\par
 \tab - Werte korrekt eingeben\par
-\tab - 0 < Preis \par
+\tab - Preis > 0\par
 \tab 14.1. Hinzuf\'fcgen\par
 \tab\tab  Namefeld leer lassen\par
 \tab 14.2 Bearbeiten\par
@@ -220,25 +226,7 @@
 \tab\tab Fehlermeldung "Preiskategorie enth\'e4lt noch Film"\par
 \par
 Alle Teste sind erfolgreich durchgef\'fchrt.\par
-\tab\tab\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\f2\fs20\par
+\tab\tab\fs20\par
 \par
 }
  
