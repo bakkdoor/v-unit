@@ -55,7 +55,7 @@ public class MenuBar {
 				new ImageIcon("icons/door_out.png"));
 		menuItemProgrammExit.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				Programm.shutdown();
 			}
@@ -69,7 +69,7 @@ public class MenuBar {
 				"icons/user_add.png"));
 		menuItemCustomerNew.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				new CustomerDataDialog();
 			}
@@ -79,7 +79,7 @@ public class MenuBar {
 				"icons/user_edit.png"));
 		menuItemCustomerEdit.setEnabled(false);
 		menuItemCustomerEdit.addActionListener(new ActionListener() {
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				CustomerDataDialog.createFilledCustomerDataDialog();
 			}
@@ -90,7 +90,7 @@ public class MenuBar {
 		menuItemCustomerDelete.setEnabled(false);
 		menuItemCustomerDelete.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				MainWindow.get().getDetailPanel().deleteCustomer();
 			}
@@ -106,7 +106,7 @@ public class MenuBar {
 				"icons/film_add.png"));
 		menuItemVideoNew.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				new VideoDataDialog();
 			}
@@ -116,7 +116,7 @@ public class MenuBar {
 		menuItemVideoEdit.setEnabled(false);
 		menuItemVideoEdit.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				MainWindow.get().showEditVideoDialog();
 			}
@@ -127,7 +127,7 @@ public class MenuBar {
 		menuItemVideoDelete.setEnabled(false);
 		menuItemVideoDelete.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				MainWindow.get().getDetailPanel().deleteVideo();
 			}
@@ -138,7 +138,7 @@ public class MenuBar {
 		menuItemVideoUnitDelete.setEnabled(false);
 		menuItemVideoUnitDelete.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				MainWindow.get().getDetailPanel().deleteVideoUnit();
 			}
@@ -154,7 +154,7 @@ public class MenuBar {
 		JMenuItem menuItemSearchVideo = new JMenuItem("Film",
 				new ImageIcon("icons/magnifier.png"));
 		menuItemSearchVideo.addActionListener(new ActionListener(){
-			@Override
+			
 			public void actionPerformed(ActionEvent e)
 			{
 				openSearchDialog(SearchEvent.SearchType.VIDEO);
@@ -164,7 +164,7 @@ public class MenuBar {
 		JMenuItem menuItemSearchCustomer = new JMenuItem("Kunden",
 				new ImageIcon("icons/magnifier.png"));
 		menuItemSearchCustomer.addActionListener(new ActionListener(){
-			@Override
+			
 			public void actionPerformed(ActionEvent e)
 			{
 				openSearchDialog(SearchEvent.SearchType.COSTUMER);
@@ -180,7 +180,7 @@ public class MenuBar {
 				new ImageIcon("icons/clock.png"));
 		menuItemToolsWarnings.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				Collection<Warning> createdWarnings = Warning
 						.createPendingWarnings();
@@ -202,7 +202,7 @@ public class MenuBar {
 				new ImageIcon("icons/cog.png"));
 
 		menuItemToolsOptions.addActionListener(new ActionListener() {
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				openSettingsDialog();
 			}
@@ -218,7 +218,7 @@ public class MenuBar {
 				new ImageIcon("icons/help.png"));
 		// handbuch öffnen
 		menuItemHelpGetHelp.addActionListener(new ActionListener(){
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0)
 			{
 				try
@@ -240,7 +240,7 @@ public class MenuBar {
 		JMenuItem menuItemHelpAbout = new JMenuItem("Info", new ImageIcon(
 				"icons/tag_blue.png"));
 		menuItemHelpAbout.addActionListener(new ActionListener(){
-			@Override
+			
 			public void actionPerformed(ActionEvent e)
 			{
 				InfoDialog dialog = new InfoDialog(MainWindow.get().getMainFrame(), true);

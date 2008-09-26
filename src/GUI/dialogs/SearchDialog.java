@@ -105,13 +105,13 @@ public class SearchDialog {
 		textFieldVideo = new JTextField();
 		textFieldVideo.addFocusListener(new FocusListener(){
 
-			@Override
+			
 			public void focusGained(FocusEvent e)
 			{
 				removeFocusFrom(textFieldCustomer);
 			}
 
-			@Override
+			
 			public void focusLost(FocusEvent e)
 			{	
 			}
@@ -119,7 +119,7 @@ public class SearchDialog {
 		
 		textFieldVideo.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				startSearch();
 			}
@@ -138,13 +138,13 @@ public class SearchDialog {
 		textFieldCustomer = new JTextField();
 		textFieldCustomer.addFocusListener(new FocusListener(){
 
-			@Override
+			
 			public void focusGained(FocusEvent e)
 			{
 				removeFocusFrom(textFieldVideo);
 			}
 
-			@Override
+			
 			public void focusLost(FocusEvent e)
 			{
 			}
@@ -153,7 +153,7 @@ public class SearchDialog {
 		
 		textFieldCustomer.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				startSearch();
 			}
@@ -190,7 +190,7 @@ public class SearchDialog {
 		JButton buttonCancel = new JButton("Abbrechen");
 		buttonCancel.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				dialogSearch.dispose();
 			}
@@ -207,7 +207,7 @@ public class SearchDialog {
 		JButton buttonSearch = new JButton("Suchen");
 		buttonSearch.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				startSearch();
 			}

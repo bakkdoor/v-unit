@@ -142,7 +142,7 @@ public class DetailPanel {
 		JButton buttonDetailCustAdd = new JButton("Übernehmen");
 		buttonDetailCustAdd.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				int custID = Integer.parseInt(textFieldDetailCustID.getText());
 				mainWindow.getRentPanel().setTextRentCustID(custID);
@@ -257,7 +257,7 @@ public class DetailPanel {
 		buttonDetailVadd.setEnabled(false);
 		buttonDetailVadd.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				VideoUnit selectedVideoUnit;
 				try {

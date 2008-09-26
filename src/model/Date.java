@@ -151,7 +151,7 @@ public class Date implements Comparable<Date>
 	 * Vergleicht dieses {@link Date} Objekt mit einem übergebenen
 	 * Siehe {@link Comparable}.compareTo().
 	 */
-	@Override
+	
 	public int compareTo(Date other)
 	{
 		int diffYear = this.year - other.year;

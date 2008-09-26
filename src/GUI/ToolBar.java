@@ -54,7 +54,7 @@ public class ToolBar {
 		toolBarButtonSearch.setIconTextGap(2);
 		toolBarButtonSearch.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				mainWindow.showSearchDialog();
 			}
@@ -70,7 +70,7 @@ public class ToolBar {
 		toolBarButtonNew.setIconTextGap(2);
 		toolBarButtonNew.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				mainWindow.showCreateDialog();
 			}
@@ -88,7 +88,7 @@ public class ToolBar {
 		toolBarButtonEdit.setIconTextGap(2);
 		toolBarButtonEdit.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				String dialogCard = mainWindow.getDetailPanel().currentCard;
 
@@ -113,7 +113,7 @@ public class ToolBar {
 		toolBarButtonDelete.setIconTextGap(2);
 		toolBarButtonDelete.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				String dialogCard = mainWindow.getDetailPanel().currentCard;
 
@@ -141,7 +141,7 @@ public class ToolBar {
 		toolBarButtonPanelRentCard.setIconTextGap(2);
 		toolBarButtonPanelRentCard.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				mainWindow.getRentPanel().changeCard(RentPanel.RENTVIDEOCARD);
 			}
@@ -162,7 +162,7 @@ public class ToolBar {
 		toolBarButtonRentPanelReturnCard
 				.addActionListener(new ActionListener() {
 
-					@Override
+					
 					public void actionPerformed(ActionEvent e) {
 						mainWindow.getRentPanel().changeCard(
 								RentPanel.RETURNVIDEOCARD);

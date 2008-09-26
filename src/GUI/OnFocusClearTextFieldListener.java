@@ -27,7 +27,7 @@ public class OnFocusClearTextFieldListener implements FocusListener {
 	/**
 	 * Fokus bekommen
 	 */
-	@Override
+	
 	public void focusGained(FocusEvent e) {
 		textField.setText("");
 	}
@@ -35,7 +35,7 @@ public class OnFocusClearTextFieldListener implements FocusListener {
 	/**
 	 * Fokus verlohren
 	 */
-	@Override
+	
 	public void focusLost(FocusEvent e) {
 	}
 }

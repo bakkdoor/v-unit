@@ -56,6 +56,6 @@ public abstract class NotEditableTableModel extends DefaultTableModel implements
          * Reaktion auf ein registriertes Event
          * @param event Event
          */
-	@Override
+	
 	public abstract void handleEvent(VideothekEvent event);
 }

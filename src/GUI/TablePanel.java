@@ -223,7 +223,7 @@ public class TablePanel {
 	public static Comparator<Date> createDateComparator()
 	{
 		return new Comparator<Date>(){
-			@Override
+			
 			public int compare(Date o1, Date o2) {
 				return o1.compareTo(o2);
 			}
@@ -237,7 +237,7 @@ public class TablePanel {
 	public static Comparator<Integer> createIntegerComparator()
 	{
 		return new Comparator<Integer>(){
-			@Override
+			
 			public int compare(Integer o1, Integer o2) {
 				return o1.compareTo(o2);
 			}			

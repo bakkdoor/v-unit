@@ -91,7 +91,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	
 	    okButton.addActionListener(new ActionListener()
 	    {
-			@Override
+			
 			public void actionPerformed(ActionEvent e)
 			{
 				okButtonActionPerformed(e);
@@ -284,7 +284,7 @@ public class SettingsDialog extends javax.swing.JDialog
 	    deleteButton.setText("Löschen");
 	    deleteButton.addActionListener(new ActionListener()
 	    {
-			@Override
+			
 			public void actionPerformed(ActionEvent e)
 			{
 				deleteButtonActionPerformed(e);
@@ -435,7 +435,7 @@ public class SettingsDialog extends javax.swing.JDialog
 		this.priceCategoryTable.getModel().addTableModelListener(
 				new TableModelListener()
 				{
-					@Override
+					
 					public void tableChanged(TableModelEvent e)
 					{
 						fillTableContent();

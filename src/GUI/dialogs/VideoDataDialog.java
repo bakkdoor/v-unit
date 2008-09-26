@@ -133,7 +133,7 @@ public class VideoDataDialog {
 		buttonUnitQuantity.setVisible(!addVideo);
 		buttonUnitQuantity.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				addVideoQuantity();
 			}
@@ -143,7 +143,7 @@ public class VideoDataDialog {
 		JButton buttonCancel = new JButton("Abbrechen");
 		buttonCancel.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				videoDataDialog.dispose();
 			}
@@ -151,7 +151,7 @@ public class VideoDataDialog {
 
 		JButton buttonAdd = new JButton("Bestätigen");
 		buttonAdd.addActionListener(new ActionListener() {
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				if (addVideo) {
 					createVideo();

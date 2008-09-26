@@ -40,7 +40,7 @@ public class InfoDialog extends javax.swing.JDialog
 	
 	    okButton.setText("OK");
 	    okButton.addActionListener(new ActionListener(){
-			@Override
+			
 			public void actionPerformed(ActionEvent e)
 			{
 				okButtonActionPerformed(e);

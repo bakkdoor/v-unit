@@ -112,7 +112,7 @@ public class Logger implements Closeable
 	 * Schließt die Log-Datei. Sollte am Ende des Programmablaufs aufgerufen
 	 * werden.
 	 */
-	@Override
+	
 	public void close() throws IOException
 	{
 		this.fw.flush();

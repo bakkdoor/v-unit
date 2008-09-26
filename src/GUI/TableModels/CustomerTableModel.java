@@ -52,7 +52,7 @@ public class CustomerTableModel extends NotEditableTableModel implements Videoth
     /* (non-Javadoc)
      * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
      */
-    @Override
+    
     public void handleEvent(VideothekEvent event) {
         if (event instanceof CustomerCreatedEvent) {
             insertRow(((CustomerCreatedEvent) event).getCustomer());

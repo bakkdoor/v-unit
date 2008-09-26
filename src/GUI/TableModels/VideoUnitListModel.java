@@ -44,7 +44,7 @@ public class VideoUnitListModel extends DefaultListModel implements
 		EventManager.registerEventListener(InRentCreatedEvent.class, this);
 	}
 
-	@Override
+	
 	public void handleEvent(VideothekEvent event) {
 
 		if (event instanceof VideoUnitCreatedEvent) {

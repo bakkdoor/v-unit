@@ -58,7 +58,7 @@ public class InRentTableModel extends NotEditableTableModel implements
 	 * 
 	 * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
 	 */
-	@Override
+	
 	public void handleEvent(VideothekEvent event) {
 		if (event instanceof InRentCreatedEvent) {
 			insertRow(((InRentCreatedEvent) event).getInRent());

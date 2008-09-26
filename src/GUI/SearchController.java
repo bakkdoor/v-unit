@@ -45,7 +45,7 @@ public class SearchController implements VideothekEventListener
 	/**
 	 * verwaltet die empfangenen Events
 	 */
-	@Override
+	
 	public void handleEvent(VideothekEvent event)
 	{
 		if(event instanceof SearchEvent)
@@ -90,7 +90,7 @@ public class SearchController implements VideothekEventListener
 		this.tablePanel.getTableSearchCustomer().getModel().addTableModelListener(
 				new TableModelListener()
 				{
-					@Override
+					
 					public void tableChanged(TableModelEvent e)
 					{
 						fillCustomerTableContent();
@@ -172,7 +172,7 @@ public class SearchController implements VideothekEventListener
 		this.tablePanel.getTableSearchVideo().getModel().addTableModelListener(
 				new TableModelListener()
 				{
-					@Override
+					
 					public void tableChanged(TableModelEvent e)
 					{
 						fillVideoTableContent();

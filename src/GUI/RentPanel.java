@@ -102,7 +102,7 @@ public class RentPanel {
         textFieldRentCustomerID = new JFormattedTextField();
 //        textFieldRentCustomerID.setInputVerifier(new InputVerifier() {
 //
-//			@Override
+//			
 //			public boolean verify(JComponent input) {
 //				 Pattern p = Pattern.compile("\\d*");
 //				 Matcher m = p.matcher(((JTextField)input).getText());
@@ -112,7 +112,7 @@ public class RentPanel {
 //        });
         textFieldRentCustomerID.addActionListener(new ActionListener() {
 
-            @Override
+            
             public void actionPerformed(ActionEvent arg0) {
                 
                 try {
@@ -131,7 +131,7 @@ public class RentPanel {
         textFieldRentVideoID = new JTextField();
         textFieldRentVideoID.addActionListener(new ActionListener() {
 
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
                 try {
                 	Integer unitID = Integer.parseInt(textFieldRentVideoID.getText());
@@ -149,7 +149,7 @@ public class RentPanel {
         comboBoxRentDuration = new JComboBox(comboBoxRentDurationContent);
         comboBoxRentDuration.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				calculateRentPrice();
 				
@@ -159,7 +159,7 @@ public class RentPanel {
         JButton buttonRentAdd = new JButton("Hinzufügen");
         buttonRentAdd.addActionListener(new ActionListener() {
 
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
 
                 try {
@@ -203,7 +203,7 @@ public class RentPanel {
         JButton buttonRentAccept = new JButton("Bestätigen");
         buttonRentAccept.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				createInRent();
 			}});
@@ -241,7 +241,7 @@ public class RentPanel {
         textFieldReturnVideoID = new JTextField();
         textFieldReturnVideoID.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				try {
                 	Integer uID = Integer.parseInt(textFieldReturnVideoID.getText());
@@ -259,7 +259,7 @@ public class RentPanel {
         JButton buttonReturnVideoAdd = new JButton("Hinzufügen");
         buttonReturnVideoAdd.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
@@ -287,7 +287,7 @@ public class RentPanel {
         JButton buttonReturnVideoCancel = new JButton("Abbrechen");
         buttonReturnVideoCancel.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				clearReturnDataFields();
 			}
@@ -296,7 +296,7 @@ public class RentPanel {
         JButton buttonReturnVideoAccept = new JButton("Bestätigen");
         buttonReturnVideoAccept.addActionListener(new ActionListener(){
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				loopVideoUnitMap();
 				clearReturnDataFields();

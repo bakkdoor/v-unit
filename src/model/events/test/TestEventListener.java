@@ -9,7 +9,7 @@ public class TestEventListener implements VideothekEventListener {
 		EventManager.registerEventListener(TestEvent.class, this);
 	}
 	
-	@Override
+	
 	public void handleEvent(VideothekEvent event) {
 		if(event instanceof TestEvent){
 			TestEvent t = (TestEvent)event;

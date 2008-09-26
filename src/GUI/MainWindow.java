@@ -52,7 +52,7 @@ public class MainWindow {
 		
 		mainFrame = new JFrame("V-Unit v1.0");
 		mainFrame.addWindowListener(new WindowAdapter(){
-			@Override
+			
 			public void windowClosing(WindowEvent e) {
 				Programm.shutdown();
 			}

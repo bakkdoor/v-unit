@@ -212,7 +212,7 @@ public class CustomerDataDialog {
         JButton buttonCancel = new JButton("Abbrechen");
         buttonCancel.addActionListener(new ActionListener() {
 
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
                 customerDataDialog.dispose();
             }
@@ -221,7 +221,7 @@ public class CustomerDataDialog {
         JButton buttonAccept = new JButton("Bestätigen");
         buttonAccept.addActionListener(new ActionListener() {
 
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
                 if (addCustomer) {
                     createCustomer();

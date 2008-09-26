@@ -59,7 +59,7 @@ public class VideoTableModel extends NotEditableTableModel implements VideothekE
     /* (non-Javadoc)
      * @see GUI.TableModels.NotEditableTableModel#handleEvent(model.events.VideothekEvent)
      */
-    @Override
+    
     public void handleEvent(VideothekEvent event) {
         if (event instanceof VideoCreatedEvent) {
             insertRow(((VideoCreatedEvent) event).getVideo());
