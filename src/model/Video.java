@@ -397,7 +397,7 @@ public class Video implements Comparable<Video>
 	 */
 	public void setTitle(String newTitle) throws EmptyFieldException
 	{
-		if (newTitle != null && newTitle != "")
+		if (newTitle != null && !newTitle.equals(""))
 		{
 			this.title = newTitle;
 		}

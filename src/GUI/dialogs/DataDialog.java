@@ -10,8 +10,11 @@ public class DataDialog {
 	public static final String CUSTOMERDIALOG = "customerDialog";
 	public static final String VIDEODIALOG = "videoDialog";
 	
-	
-	public DataDialog(MainWindow owner, final String dialogView){
+	/**
+         * erstellt einen Kunden oder Videodialog
+         * @param dialogView gewünschter Dialog
+         */
+	public DataDialog(final String dialogView){
 
 		if (dialogView.equals(CUSTOMERDIALOG)) {
 			new GUI.dialogs.CustomerDataDialog();

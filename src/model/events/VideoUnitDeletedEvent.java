@@ -18,7 +18,6 @@ public class VideoUnitDeletedEvent extends VideoUnitEvent
 	public VideoUnitDeletedEvent(VideoUnit deletedVideoUnit)
 	{
 		super(deletedVideoUnit);
-		// TODO Auto-generated constructor stub
 	}
 
 }

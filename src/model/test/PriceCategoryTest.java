@@ -66,7 +66,6 @@ public class PriceCategoryTest extends ModelTest
 		}
 		catch (VideothekException e2)
 		{
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
@@ -106,7 +105,6 @@ public class PriceCategoryTest extends ModelTest
 		}
 		catch (VideothekException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

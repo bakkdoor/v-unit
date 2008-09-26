@@ -116,9 +116,9 @@ public class MainWindow {
 				options , null);
 			
 		if (section == 0) {
-			new DataDialog(this, DataDialog.VIDEODIALOG);
+			new DataDialog(DataDialog.VIDEODIALOG);
 		}else if (section == 1) {
-			new DataDialog(this, DataDialog.CUSTOMERDIALOG);
+			new DataDialog(DataDialog.CUSTOMERDIALOG);
 			
 		}
 	}

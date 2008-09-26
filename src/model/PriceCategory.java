@@ -102,7 +102,7 @@ public class PriceCategory
 	 */
 	public void setName(String newName) throws EmptyFieldException
 	{
-		if (newName != "" && newName != null)
+		if (!newName.trim().equals("") && newName != null)
 		{
 			this.name = newName;
 		}

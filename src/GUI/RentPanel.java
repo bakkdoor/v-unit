@@ -509,7 +509,6 @@ public class RentPanel {
 			model.insertVideoUnit(videoUnit);
 			collectReturnUnit(videoUnit);
 		} catch (VideothekException e) {
-			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e.getMessage());
 		}
     }
@@ -584,8 +583,8 @@ public class RentPanel {
 					ir.delete();
 					
 				} catch (VideothekException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(MainWindow.get().getMainFrame(), "Fehler: " + e.getMessage(),
+							"Fehler", JOptionPane.ERROR_MESSAGE);
 				}
     		}
     	}

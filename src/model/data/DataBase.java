@@ -3,6 +3,8 @@ package model.data;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import main.error.VideothekException;
 import model.Customer;
 import model.InRent;
@@ -116,7 +118,7 @@ public class DataBase
 		videoUnits = vidParser.getVideoUnitList();
 		inRents = irParser.parseInRents("data/inRents.xml");
 //		warnings = wParser.parseWarnings("data/warnings.xml");
-
+		
 		try
 		{
 			Warning.setMinID(1);
@@ -124,8 +126,8 @@ public class DataBase
 		}
 		catch (VideothekException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Fehler beim Laden der Daten: " + e.getMessage(),
+					"Lade-Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		setGlobalLists();

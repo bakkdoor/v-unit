@@ -261,8 +261,8 @@ public class DetailPanel {
 					mainWindow.getRentPanel().addVideoUnitInRentTable(
 							selectedVideoUnit);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Fehler: " + e.getMessage(),
+							"Fehler", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -587,6 +587,7 @@ public class DetailPanel {
 
 			if (selectedOption == JOptionPane.YES_OPTION) {
 				currentVideoUnit.delete();
+				mainWindow.getDetailPanel().fillPanelDetailVideo(currentVideoUnit.getVideo());
 			}
 		} catch (VideothekException e) {
 			JOptionPane.showMessageDialog(mainWindow.getMainFrame(), e

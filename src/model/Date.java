@@ -247,7 +247,7 @@ public class Date implements Comparable<Date>
 	 */
 	public static Date parseString(String dateString)
 	{
-		if (dateString != null && dateString != "")
+		if (dateString != null && !dateString.equals(""))
 		{
 			String[] date = dateString.split(":");
 
