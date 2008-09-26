@@ -68,7 +68,7 @@ public class TablePanel {
 		this.mainWindow = MainWindow.get();
 		
 		tableVideo = this.createTableVideo();
-		tableVideo.setRowSorter(createIntegerSorter(new int[]{0,4}, tableVideo));
+		tableVideo.setRowSorter(createIntegerSorter(new int[]{0, 3, 4}, tableVideo));
 		ListSelectionModel tableVideoSelectionModel = tableVideo
 				.getSelectionModel();
 		tableVideoSelectionModel
