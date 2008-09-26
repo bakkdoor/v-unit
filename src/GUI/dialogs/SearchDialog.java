@@ -28,6 +28,11 @@ import javax.swing.JTextField;
 import model.events.EventManager;
 import model.events.SearchEvent;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class SearchDialog {
 
 	private Frame owner;

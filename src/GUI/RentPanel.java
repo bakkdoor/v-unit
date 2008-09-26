@@ -42,6 +42,11 @@ import model.exceptions.VideoUnitRentedException;
 import GUI.TableModels.RentTableModel;
 import GUI.TableModels.ReturnTableModel;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class RentPanel {
 
     private JComboBox comboBoxRentDuration;

@@ -22,6 +22,11 @@ import GUI.dialogs.DialogHelper;
 import GUI.dialogs.SearchDialog;
 import GUI.dialogs.VideoDataDialog;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class MainWindow {
 
 	private JFrame mainFrame;

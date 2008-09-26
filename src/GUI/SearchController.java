@@ -20,6 +20,11 @@ import model.events.SearchEvent;
 import model.events.VideothekEvent;
 import model.events.VideothekEventListener;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class SearchController implements VideothekEventListener
 {
 	private TablePanel tablePanel;

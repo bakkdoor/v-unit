@@ -7,6 +7,11 @@ import model.VideoUnit;
 import GUI.DetailPanel;
 import GUI.MainWindow;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class DetailVideoListSelectionHandler implements ListSelectionListener {
 
 	

@@ -30,6 +30,11 @@ import model.data.exceptions.RecordNotFoundException;
 import GUI.SelectionListeners.DetailVideoListSelectionHandler;
 import GUI.TableModels.VideoUnitListModel;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class DetailPanel {
 
 	private MainWindow mainWindow;

@@ -5,6 +5,11 @@ import java.awt.Frame;
 
 import javax.swing.JFrame;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class DataDialog {
 
 	public static final String CUSTOMERDIALOG = "customerDialog";

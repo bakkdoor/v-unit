@@ -1,16 +1,17 @@
 package GUI.dialogs;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Collection;
 import java.util.Vector;
 
 import javax.swing.JDialog;
 
-import GUI.MainWindow;
+import model.Warning;
 
-import model.*;
-
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class CreatedWarningsDialog extends JDialog {
 	private static final long serialVersionUID = -1444014212561992995L;
 

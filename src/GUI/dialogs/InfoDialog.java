@@ -47,7 +47,7 @@ public class InfoDialog extends javax.swing.JDialog
 			}
 	    });
 	
-	    textPane.setText("V-Unit - Videothek Management Software\n\nEntwickelt im Zuge des Java Programmierpraktikums an der Universität Osnabrück im September 2008.\n\n(C) 2008 Waldemar Smirnow, Olga Baranouskaya, Andie Hoffmann, Christopher Bertels\n\nKontakt:\nWaldemar Smirnow (wsmirnow@uos.de)\nOlga Baranouskaya (vbaranou@uos.de)\nAndie Hoffmann (andhoffm@uos.de)\nChristopher Bertels (chbertel@uos.de\n\n===========================================================\n\nHinweis:\nAlle verwendeten Icons (außer V-Unit.ico / V-Unit logo) sind Eigentum von Mark James.\n(C) Mark James, Website: http://www.famfamfam.com");
+	    textPane.setText("V-Unit - Videothek Management Software\n\nEntwickelt im Zuge des Java Programmierpraktikums an der Universität Osnabrück im September 2008.\n\n(C) 2008 Waldemar Smirnow, Volha Baranouskaya, Andie Hoffmann, Christopher Bertels\n\nKontakt:\nWaldemar Smirnow (wsmirnow@uos.de)\nVolha Baranouskaya (vbaranou@uos.de)\nAndie Hoffmann (andhoffm@uos.de)\nChristopher Bertels (chbertel@uos.de\n\n===========================================================\n\nHinweis:\nAlle verwendeten Icons (außer V-Unit.ico / V-Unit logo) sind Eigentum von Mark James.\n(C) Mark James, Website: http://www.famfamfam.com");
 	    jScrollPane1.setViewportView(textPane);
 	
 	    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

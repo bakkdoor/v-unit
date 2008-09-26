@@ -9,6 +9,11 @@ import model.Video;
 import model.data.exceptions.RecordNotFoundException;
 import GUI.MainWindow;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class TableVideoListSelectionHandler implements ListSelectionListener {
 
 	private MainWindow mainWindow;

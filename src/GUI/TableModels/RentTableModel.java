@@ -11,6 +11,11 @@ import model.data.exceptions.RecordNotFoundException;
 import model.events.VideothekEvent;
 import model.exceptions.VideoUnitRentedException;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ *  * @author Volha Baranouskaya
+ */
 public class RentTableModel extends DefaultTableModel {
 	
         /**

@@ -24,8 +24,9 @@ import model.exceptions.EmptyFieldException;
 import model.exceptions.FalseFieldException;
 
 /**
- *
- * @author  bakkdoor
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
  */
 public class SettingsDialog extends javax.swing.JDialog
 {
