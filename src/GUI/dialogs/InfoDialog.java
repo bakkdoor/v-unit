@@ -33,6 +33,7 @@ public class InfoDialog extends javax.swing.JDialog
 	    okButton = new javax.swing.JButton();
 	    jScrollPane1 = new javax.swing.JScrollPane();
 	    textPane = new javax.swing.JTextPane();
+	    textPane.setEditable(false);
 	
 	    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 	    setTitle("V-Unit: Informationen");

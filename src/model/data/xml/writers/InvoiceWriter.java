@@ -85,7 +85,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			sb.append("\n\n");
 			sb.append("========================================================\n");
 			sb.append("Unterschrift Kunde:\n\n");
-			sb.append("Unterschrift Mirarbeiter:");
+			sb.append("Unterschrift Mitarbeiter:");
 			
 			fWriter.append(sb.toString());
 			fWriter.flush();
@@ -145,7 +145,7 @@ public class InvoiceWriter extends AbstractTextWriter
 			sb.append("\n\n");
 			sb.append("=======================================================\n");
 			sb.append("Unterschrift Kunde:\n\n");
-			sb.append("Unterschrift Mirarbeiter:");
+			sb.append("Unterschrift Mitarbeiter:");
 			
 			fWriter.append(sb.toString());
 			fWriter.flush();
