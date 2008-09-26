@@ -9,9 +9,9 @@ import model.events.VideothekEvent;
 import model.events.VideothekEventListener;
 
 /**
- *
+ * 
  * @author Waldemar Smirnow
- * @version 13.09.2008
+ * @author Volha Baranouskaya
  */
 public abstract class NotEditableTableModel extends DefaultTableModel implements VideothekEventListener {
     

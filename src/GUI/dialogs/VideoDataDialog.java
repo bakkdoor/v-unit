@@ -22,6 +22,11 @@ import model.VideoUnit;
 import GUI.Layout;
 import GUI.MainWindow;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class VideoDataDialog {
 
 	JDialog videoDataDialog;

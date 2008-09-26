@@ -5,6 +5,11 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class OnFocusClearTextFieldListener implements FocusListener {
 	private JTextField textField = null;
 

@@ -23,6 +23,11 @@ import main.Programm;
 import model.Warning;
 import model.events.SearchEvent;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class MenuBar {
 
 	private JMenuItem menuItemCustomerEdit;

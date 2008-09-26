@@ -38,6 +38,11 @@ import model.InRent;
 import model.Video;
 import model.data.exceptions.RecordNotFoundException;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class TablePanel {
 
 	public static final String SEARCHCUSTOMERCARD = "Customer";

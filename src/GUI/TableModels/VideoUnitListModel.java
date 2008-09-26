@@ -15,6 +15,11 @@ import model.events.VideothekEvent;
 import model.events.VideothekEventListener;
 import GUI.MainWindow;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class VideoUnitListModel extends DefaultListModel implements
 		VideothekEventListener {
 

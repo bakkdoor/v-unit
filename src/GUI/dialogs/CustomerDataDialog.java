@@ -25,6 +25,11 @@ import GUI.Layout;
 import GUI.MainWindow;
 import GUI.OnFocusClearTextFieldListener;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class CustomerDataDialog {
     // Dialogdtanen
     private MainWindow mainWindow;

@@ -7,7 +7,11 @@ import model.CurrentDate;
 import model.Date;
 import model.exceptions.CurrentDateException;
 
-
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class SetCurrentDateDialog extends JDialog
 {	
 	private static final long serialVersionUID = 1247338857373301483L;

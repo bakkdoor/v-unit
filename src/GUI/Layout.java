@@ -5,6 +5,11 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class Layout {
 
 	/**

@@ -19,6 +19,11 @@ import model.data.exceptions.RecordNotFoundException;
 
 import GUI.DetailPanel;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class ToolBar {
 
 	private JButton toolBarButtonEdit;

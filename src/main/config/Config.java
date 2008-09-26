@@ -6,6 +6,12 @@ import java.util.Map;
 
 import model.data.exceptions.DataSaveException;
 
+/**
+ * ConfigParser.java
+ * @author Christopher Bertels (chbertel@uos.de)
+ * @date 16.09.2008
+ * 
+ */
 public class Config
 {
 	private Map<String, String> configSettingsMap = new HashMap<String, String>();

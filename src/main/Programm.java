@@ -17,8 +17,9 @@ import GUI.dialogs.CreatedWarningsDialog;
 import GUI.dialogs.SetCurrentDateDialog;
 
 /**
- * @author java
  * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
  */
 public class Programm
 {

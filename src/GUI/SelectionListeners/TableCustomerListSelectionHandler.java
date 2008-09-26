@@ -11,6 +11,11 @@ import model.data.exceptions.RecordNotFoundException;
 import GUI.DetailPanel;
 import GUI.MainWindow;
 
+/**
+ * 
+ * @author Waldemar Smirnow
+ * @author Volha Baranouskaya
+ */
 public class TableCustomerListSelectionHandler implements ListSelectionListener {
 
 	private MainWindow mainWindow;
