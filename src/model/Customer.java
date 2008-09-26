@@ -284,8 +284,8 @@ public class Customer implements Comparable<Customer>
 		if (diffMonth == 0 && diffDay < 0)
 			diffYear--;
 
-		if (diffYear < 16)
-			throw new FalseBirthDateException("Kunde unter 16");
+//		if (diffYear < 16)
+//			throw new FalseBirthDateException("Kunde unter 16");
 
 		this.age = diffYear;
 
