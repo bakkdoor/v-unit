@@ -1,2 +1,2 @@
 <?xml version="1.0" standalone="yes"?><!DOCTYPE inRents PUBLIC 'inRentList' 'inRents.dtd'>
-<inRents minID='7'><inRent warned='true' rID='3' duration='3' date='23:9:2008' customerID='2'></inRent><inRent warned='true' rID='4' duration='1' date='23:9:2008' customerID='2'></inRent><inRent warned='true' rID='5' duration='1' date='23:9:2008' customerID='2'></inRent><inRent warned='false' rID='6' duration='4' date='23:9:2008' customerID='3'><videoUnit uID='7'></videoUnit></inRent></inRents>
+<inRents minID='9'></inRents>
