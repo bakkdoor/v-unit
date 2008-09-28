@@ -226,7 +226,7 @@ public class MenuBar {
 					// TODO: systempreferences prüfen 
 					// => unter linux evtl. anderer befehl
 					Runtime.getRuntime().exec(
-							new String[] { "hh", "doc/V-Unit Manual/V-Unit Manual.html" });
+							new String[] { "open", "doc/V-Unit Manual/V-Unit Manual.html" });
 				}
 				catch (IOException e)
 				{
