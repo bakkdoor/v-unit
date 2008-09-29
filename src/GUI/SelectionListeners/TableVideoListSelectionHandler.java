@@ -23,6 +23,12 @@ public class TableVideoListSelectionHandler implements ListSelectionListener {
 		this.mainWindow = mainWindow;
 		this.videoTable = mainWindow.getTablePanel().getTableVideo();
 	}
+	
+	public TableVideoListSelectionHandler(MainWindow mainWindow, JTable videoTable)
+	{
+		this.mainWindow = mainWindow;
+		this.videoTable = videoTable;
+	}
 
 	public void valueChanged(ListSelectionEvent e) {
 		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
