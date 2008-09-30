@@ -25,6 +25,11 @@ public class TableCustomerListSelectionHandler implements ListSelectionListener 
 		this.mainWindow = mainWindow;
 		this.customerTable = mainWindow.getTablePanel().getTableCustomer();
 	}
+	
+	public TableCustomerListSelectionHandler(MainWindow mainWindow, JTable customerTable) {
+		this.mainWindow = mainWindow;
+		this.customerTable = customerTable;
+	}
 
 	public void valueChanged(ListSelectionEvent e) {
 		// kann nur eine Zeile markiert werden

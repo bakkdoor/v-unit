@@ -97,7 +97,9 @@ public class SearchController implements VideothekEventListener
 					}
 				});
 		
-		this.tablePanel.getTableSearchCustomer().getSelectionModel().addListSelectionListener(new TableCustomerListSelectionHandler(MainWindow.get()));
+		this.tablePanel.getTableSearchCustomer().getSelectionModel().addListSelectionListener(
+				new TableCustomerListSelectionHandler(MainWindow.get(),
+						this.tablePanel.getTableSearchCustomer()));
 		
 		TableColumnModel colModel = this.tablePanel.getTableSearchCustomer().getColumnModel();
 		colModel.getColumn(0).setPreferredWidth(80);
@@ -178,7 +180,10 @@ public class SearchController implements VideothekEventListener
 						fillVideoTableContent();
 					}
 				});
-		this.tablePanel.getTableSearchVideo().getSelectionModel().addListSelectionListener(new TableVideoListSelectionHandler(MainWindow.get()));
+		
+		this.tablePanel.getTableSearchVideo().getSelectionModel().addListSelectionListener(
+				new TableVideoListSelectionHandler(MainWindow.get(),
+						tablePanel.getTableSearchVideo()));
 		
 		TableColumnModel colModel = this.tablePanel.getTableSearchVideo().getColumnModel();
 		colModel.getColumn(0).setPreferredWidth(80);
