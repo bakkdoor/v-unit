@@ -19,7 +19,7 @@ import model.Data;
 import model.PriceCategory;
 import model.Video;
 import model.VideoUnit;
-import GUI.Layout;
+import GUI.GridBagContainer;
 import GUI.MainWindow;
 
 /**
@@ -162,25 +162,25 @@ public class VideoDataDialog {
 		});
 
 		// ***************************************************************
-		Container container = videoDataDialog.getContentPane();
-		container.setLayout(new GridBagLayout());
+		GridBagContainer mainContainer = new GridBagContainer();
 
-		Layout.addComponent(container, labelVID, 0, 0);
-		Layout.addComponent(container, textFieldVID, 1, 0);
-		Layout.addComponent(container, labelTitle, 0, 1);
-		Layout.addComponent(container, textFieldTitle, 1, 1, 2, 1, 0.0, 0.0);
-		Layout.addComponent(container, labelreleaseYear, 0, 2);
-		Layout.addComponent(container, textFieldReleaseYear, 1, 2);
-		Layout.addComponent(container, labelratedAge, 0, 3);
-		Layout.addComponent(container, textFieldRatedAge, 1, 3);
-		Layout.addComponent(container, labelPriceCategory, 0, 4);
-		Layout.addComponent(container, comboBoxPriceCategory, 1, 4);
-		Layout.addComponent(container, labelUnitQuantity, 0, 5);
-		Layout.addComponent(container, textFieldUnitQuantity, 1, 5);
-		Layout.addComponent(container, buttonUnitQuantity, 2, 5);
-		Layout.addComponent(container, buttonCancel, 1, 6);
-		Layout.addComponent(container, buttonAdd, 2, 6);
+		mainContainer.addComponent(labelVID, 0, 0);
+		mainContainer.addComponent(textFieldVID, 1, 0);
+		mainContainer.addComponent(labelTitle, 0, 1);
+		mainContainer.addComponent(textFieldTitle, 1, 1, 2, 1, 0.0, 0.0);
+		mainContainer.addComponent(labelreleaseYear, 0, 2);
+		mainContainer.addComponent(textFieldReleaseYear, 1, 2);
+		mainContainer.addComponent(labelratedAge, 0, 3);
+		mainContainer.addComponent(textFieldRatedAge, 1, 3);
+		mainContainer.addComponent(labelPriceCategory, 0, 4);
+		mainContainer.addComponent(comboBoxPriceCategory, 1, 4);
+		mainContainer.addComponent(labelUnitQuantity, 0, 5);
+		mainContainer.addComponent(textFieldUnitQuantity, 1, 5);
+		mainContainer.addComponent(buttonUnitQuantity, 2, 5);
+		mainContainer.addComponent(buttonCancel, 1, 6);
+		mainContainer.addComponent(buttonAdd, 2, 6);
 
+                videoDataDialog.setContentPane(mainContainer);
 		videoDataDialog.pack();
 		videoDataDialog.setResizable(false);
 		videoDataDialog.setVisible(true);

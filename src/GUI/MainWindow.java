@@ -2,10 +2,8 @@ package GUI;
 
 import java.awt.Container;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,6 +19,7 @@ import GUI.dialogs.DataDialog;
 import GUI.dialogs.DialogHelper;
 import GUI.dialogs.SearchDialog;
 import GUI.dialogs.VideoDataDialog;
+import java.awt.GridBagLayout;
 
 /**
  * 
@@ -63,7 +62,7 @@ public class MainWindow {
 		
 		// Haupt Container Layout setzen
 		Container mainContainer = mainFrame.getContentPane();
-		mainContainer.setLayout(new GridBagLayout());
+                mainContainer.setLayout(new GridBagLayout());
 		
 		// **************************************************************
 		// MenuBar
@@ -73,7 +72,17 @@ public class MainWindow {
 		// **************************************************************
 		// Toolbar mit Buttons erstellen/hinzufügen
 		toolBar = new ToolBar();
-		Layout.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
+//		GridBagPanel.addComponent(mainContainer, toolBar.createToolBar(), 0, 0, 1, 1, 1.0, 0.0, 0, 0, HORIZONTAL, NORTHWEST, new Insets(0,0,0,0));
+                GridBagConstraints gridBagConst = new GridBagConstraints();
+                gridBagConst.gridx = 0;
+		gridBagConst.gridy = 0;
+		gridBagConst.gridwidth = 1;
+		gridBagConst.gridheight = 1;
+		gridBagConst.weightx = 1.0;
+		gridBagConst.weighty = 0.0;
+		gridBagConst.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConst.anchor = GridBagConstraints.BELOW_BASELINE;
+                mainContainer.add(toolBar.createToolBar(), gridBagConst);
 
 		// **************************************************************
 
@@ -94,7 +103,18 @@ public class MainWindow {
 		// Tabellen erstellen und dem splitPaneCentral hizufügen
 		tablePanel = new TablePanel();
 		JSplitPane splitPaneCentral = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAboveCentral, tablePanel.createTablePanel());
-		Layout.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, new Insets(0,0,0,0));
+//		GridBagPanel.addComponent(mainContainer, splitPaneCentral, 0, 1, 1, 1, 1.0, 1.0, 0, 1, BOTH, NORTHWEST, new Insets(0,0,0,0));
+                
+                gridBagConst = new GridBagConstraints();
+                gridBagConst.gridx = 0;
+		gridBagConst.gridy = 1;
+		gridBagConst.gridwidth = 1;
+		gridBagConst.gridheight = 1;
+		gridBagConst.weightx = 1.0;
+		gridBagConst.weighty = 1.0;
+		gridBagConst.fill = GridBagConstraints.BOTH;
+		gridBagConst.anchor = GridBagConstraints.BELOW_BASELINE;
+                mainContainer.add(splitPaneCentral, gridBagConst);
 
 		// **************************************************************
 

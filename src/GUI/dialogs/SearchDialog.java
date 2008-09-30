@@ -71,17 +71,17 @@ public class SearchDialog {
 		// Dialog mittig auf dem bildschirm setzen
 		DialogHelper.setToCenterScreen(this.dialogSearch);
 		
-		Container mainContainer = dialogSearch.getContentPane();
-		mainContainer.setLayout(new GridBagLayout());
+		GridBagContainer mainContainer = new GridBagContainer();
 		
 		// **************************************************************
 		this.tabbedPane = this.createTabbedPanne(this.searchMode);
-		Layout.addComponent(mainContainer, this.tabbedPane, 0, 0, 3, 1, 0.0, 1.0, 200,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(6, 3, 3, 3));
+		mainContainer.addComponent(this.tabbedPane, 0, 0, 3, 1, 0.0, 1.0, 200,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(6, 3, 3, 3));
 		
-		Layout.addComponent(mainContainer, new JLabel(), 0, 1, 1, 1, 0.3, 0.0);
-		Layout.addComponent(mainContainer, this.createButtonCancel(), 1, 1, 1, 1, 0.21, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
-		Layout.addComponent(mainContainer, this.createButtonSearch(), 2, 1, 1, 1, 0.3, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
+		mainContainer.addComponent(new JLabel(), 0, 1, 1, 1, 0.3, 0.0);
+		mainContainer.addComponent(this.createButtonCancel(), 1, 1, 1, 1, 0.21, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
+		mainContainer.addComponent(this.createButtonSearch(), 2, 1, 1, 1, 0.3, 0.0,  0,	0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(10, 3, 3, 3));
 		
+                dialogSearch.setContentPane(mainContainer);
 		dialogSearch.pack();
                 dialogSearch.setResizable(false);
 		dialogSearch.setVisible(true);

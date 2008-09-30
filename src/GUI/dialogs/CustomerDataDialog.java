@@ -21,7 +21,7 @@ import model.Data;
 import model.Date;
 import model.data.exceptions.RecordNotFoundException;
 import GUI.DetailPanel;
-import GUI.Layout;
+import GUI.GridBagContainer;
 import GUI.MainWindow;
 import GUI.OnFocusClearTextFieldListener;
 
@@ -234,39 +234,41 @@ public class CustomerDataDialog {
 
         // ***************************************************************
 
-        Container contentPane = this.customerDataDialog.getContentPane();
+//        Container contentPane = this.customerDataDialog.getContentPane();
+        GridBagContainer contentPane = new GridBagContainer();
 
-        Layout.addComponent(contentPane, labelID, 0, 0, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, textFieldID, 1, 0, 3, 1, 0.7, 0.0);
+        contentPane.addComponent(labelID, 0, 0, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(textFieldID, 1, 0, 3, 1, 0.7, 0.0);
 
-        Layout.addComponent(contentPane, labelTitle, 0, 1, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, comboBoxTitle, 1, 1, 3, 1, 0.7, 0.0);
+        contentPane.addComponent(labelTitle, 0, 1, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(comboBoxTitle, 1, 1, 3, 1, 0.7, 0.0);
 
-        Layout.addComponent(contentPane, labelFirstName, 0, 2, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, textFieldFirstName, 1, 2, 3, 1, 0.7, 0.0);
+        contentPane.addComponent(labelFirstName, 0, 2, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(textFieldFirstName, 1, 2, 3, 1, 0.7, 0.0);
 
-        Layout.addComponent(contentPane, labelLastName, 0, 3, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, textFieldLastName, 1, 3, 3, 1, 0.7, 0.0);
+        contentPane.addComponent(labelLastName, 0, 3, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(textFieldLastName, 1, 3, 3, 1, 0.7, 0.0);
 
-        Layout.addComponent(contentPane, labelIdentificationID, 0, 4, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, textFieldIdentificationID, 1, 4, 3, 1, 0.7, 0.0);
+        contentPane.addComponent(labelIdentificationID, 0, 4, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(textFieldIdentificationID, 1, 4, 3, 1, 0.7, 0.0);
 
-        Layout.addComponent(contentPane, labelBirthDay, 0, 5, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, comboBoxBirthDay, 1, 5, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, comboBoxBirthMonth, 2, 5, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0, 40, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+        contentPane.addComponent(labelBirthDay, 0, 5, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(comboBoxBirthDay, 1, 5, 1, 1, 0.23, 0.0);
+        contentPane.addComponent(comboBoxBirthMonth, 2, 5, 1, 1, 0.23, 0.0);
+        contentPane.addComponent(textFieldBirthYear, 3, 5, 1, 1, 0.23, 0.0, 40, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
 
-        Layout.addComponent(contentPane, labelAddress, 0, 6, 1, 1, 0.3, 0.0);
-        Layout.addComponent(contentPane, textFieldStreet, 1, 6, 2, 1, 0.46, 0.0);
-        Layout.addComponent(contentPane, textFieldHouseNr, 3, 6, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, textFieldZipCode, 1, 7, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, textFieldCity, 2, 7, 2, 1, 0.46, 0.0);
+        contentPane.addComponent(labelAddress, 0, 6, 1, 1, 0.3, 0.0);
+        contentPane.addComponent(textFieldStreet, 1, 6, 2, 1, 0.46, 0.0);
+        contentPane.addComponent(textFieldHouseNr, 3, 6, 1, 1, 0.23, 0.0);
+        contentPane.addComponent(textFieldZipCode, 1, 7, 1, 1, 0.23, 0.0);
+        contentPane.addComponent(textFieldCity, 2, 7, 2, 1, 0.46, 0.0);
 
-        Layout.addComponent(contentPane, buttonCancel, 1, 8, 1, 1, 0.23, 0.0);
-        Layout.addComponent(contentPane, buttonAccept, 2, 8, 1, 1, 0.23, 0.0);
+        contentPane.addComponent(buttonCancel, 1, 8, 1, 1, 0.23, 0.0);
+        contentPane.addComponent(buttonAccept, 2, 8, 1, 1, 0.23, 0.0);
 
         // ***************************************************************
 
+        customerDataDialog.setContentPane(contentPane);
         this.customerDataDialog.pack();
         this.customerDataDialog.setResizable(false);
         this.customerDataDialog.setVisible(true);

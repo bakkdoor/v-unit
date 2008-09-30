@@ -91,8 +91,8 @@ public class RentPanel {
      */
     private Container rentVideoPanel() {
 
-        JPanel panelRent = new JPanel(new GridBagLayout());
-
+        GridBagContainer panelRent = new GridBagContainer();
+        
         TitledBorder border = BorderFactory.createTitledBorder("Ausleihe");
         border.setTitleFont(new Font("Arial", Font.BOLD, 14));
         panelRent.setBorder(border);
@@ -100,16 +100,6 @@ public class RentPanel {
         // KundenNr - Label/TextField erstellen
         JLabel labelRentCustomer = new JLabel("KundenNr.:");
         textFieldRentCustomerID = new JFormattedTextField();
-//        textFieldRentCustomerID.setInputVerifier(new InputVerifier() {
-//
-//			@Override
-//			public boolean verify(JComponent input) {
-//				 Pattern p = Pattern.compile("\\d*");
-//				 Matcher m = p.matcher(((JTextField)input).getText());
-//				 return m.matches();
-//			}
-//        	
-//        });
         textFieldRentCustomerID.addActionListener(new ActionListener() {
 
             @Override
@@ -208,18 +198,18 @@ public class RentPanel {
 				createInRent();
 			}});
         // Label, KundenNr, VideoNr,Dauer, Button Hinzufügen, Tabelle mit Ausleihfilmen, Gesamtpreis, Button Abbrechen, Bestätigen mit TextFields in panelRent einfügen
-        Layout.addComponent(panelRent, labelRentCustomer, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 0));
-        Layout.addComponent(panelRent, textFieldRentCustomerID, 2, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
-        Layout.addComponent(panelRent, labelRentVideoID, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 0));
-        Layout.addComponent(panelRent, textFieldRentVideoID, 2, 1, 1, 1, 0.3, 0.0, 1, 1, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
-        Layout.addComponent(panelRent, labelRentDuration, 0, 2, 1, 1, 0.3, 0.0, 1, 1, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 0));
-        Layout.addComponent(panelRent, comboBoxRentDuration, 2, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
-        Layout.addComponent(panelRent, buttonRentAdd, 1, 3, 2, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
-        Layout.addComponent(panelRent, new JScrollPane(tableRentVideo), 0, 4, 3, 6, 0.3, 1.0, 0, 60, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
-        Layout.addComponent(panelRent, labelRentVideoCost, 0, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, new Insets(3, 3, 3, 3));
-        Layout.addComponent(panelRent, labelRentVideoCostPrice, 2, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,GridBagConstraints.NORTHEAST, new Insets(3, 3, 3, 3));
-        Layout.addComponent(panelRent, buttonRentCancel, 1, 11, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
-        Layout.addComponent(panelRent, buttonRentAccept, 2, 11, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+        panelRent.addComponent(labelRentCustomer, 0, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 0));
+        panelRent.addComponent(textFieldRentCustomerID, 2, 0, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+        panelRent.addComponent(labelRentVideoID, 0, 1, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 0));
+        panelRent.addComponent(textFieldRentVideoID, 2, 1, 1, 1, 0.3, 0.0, 1, 1, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+        panelRent.addComponent(labelRentDuration, 0, 2, 1, 1, 0.3, 0.0, 1, 1, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 3, 3, 0));
+        panelRent.addComponent(comboBoxRentDuration, 2, 2, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(0, 0, 3, 3));
+        panelRent.addComponent(buttonRentAdd, 1, 3, 2, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+        panelRent.addComponent(new JScrollPane(tableRentVideo), 0, 4, 3, 6, 0.3, 1.0, 0, 60, GridBagConstraints.BOTH, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
+        panelRent.addComponent(labelRentVideoCost, 0, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, new Insets(3, 3, 3, 3));
+        panelRent.addComponent(labelRentVideoCostPrice, 2, 10, 1, 1, 0.0, 0.0, 0, 0, GridBagConstraints.HORIZONTAL,GridBagConstraints.NORTHEAST, new Insets(3, 3, 3, 3));
+        panelRent.addComponent(buttonRentCancel, 1, 11, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 0, 3, 3));
+        panelRent.addComponent(buttonRentAccept, 2, 11, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.BELOW_BASELINE, new Insets(3, 3, 3, 3));
 
         return panelRent;
     }
@@ -229,7 +219,7 @@ public class RentPanel {
      * @return ReturnPanel
      */
     private Container returnVideoPanel() {
-        JPanel returnVideoPanel = new JPanel();
+        GridBagContainer returnVideoPanel = new GridBagContainer();
 
         TitledBorder border = BorderFactory.createTitledBorder("Rückgabe");
         border.setTitleFont(new Font("Arial", Font.BOLD, 14));
@@ -305,14 +295,14 @@ public class RentPanel {
 
         // **************************************************************
         Insets insets = new Insets(3, 3, 3, 3);
-        Layout.addComponent(returnVideoPanel, labelReturnVideo, 0, 0, 1, 1, 0.33, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, textFieldReturnVideoID, 1, 0, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, buttonReturnVideoAdd, 1, 1, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, new JScrollPane(tableReturnVideo), 0, 2, 3, 1, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, labelReturnVideoSum, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, labelReturnVideoSumWarning, 2, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, buttonReturnVideoCancel, 1, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
-        Layout.addComponent(returnVideoPanel, buttonReturnVideoAccept, 2, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(labelReturnVideo, 0, 0, 1, 1, 0.33, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(textFieldReturnVideoID, 1, 0, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(buttonReturnVideoAdd, 1, 1, 2, 1, 0.66, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(new JScrollPane(tableReturnVideo), 0, 2, 3, 1, 1.0, 1.0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(labelReturnVideoSum, 0, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(labelReturnVideoSumWarning, 2, 3, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(buttonReturnVideoCancel, 1, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
+        returnVideoPanel.addComponent(buttonReturnVideoAccept, 2, 4, 1, 1, 0.3, 0.0, 0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.NORTHWEST, insets);
 
         return returnVideoPanel;
     }
