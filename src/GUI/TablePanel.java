@@ -4,8 +4,6 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -15,28 +13,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.TabExpander;
 
 import GUI.SelectionListeners.TableCustomerListSelectionHandler;
 import GUI.SelectionListeners.TableInRentListSelectionHandler;
 import GUI.SelectionListeners.TableVideoListSelectionHandler;
 import GUI.TableModels.CustomerTableModel;
 import GUI.TableModels.InRentTableModel;
-import GUI.TableModels.NotEditableTableModel;
 import GUI.TableModels.VideoTableModel;
 
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import model.Customer;
 import model.Date;
 import model.InRent;
 import model.Video;
-import model.data.exceptions.RecordNotFoundException;
 
 /**
  * 
@@ -141,46 +134,6 @@ public class TablePanel {
 	}
 
 	/**
-	 * erstellt Kundentabelle
-	 * @return Kundentabelle
-	 */
-	private JTable createTableCustomer() {
-
-		Vector<String> customerColumnNames = new Vector<String>(7);
-		customerColumnNames.add("KundenNr.");
-		customerColumnNames.add("Anrede");
-		customerColumnNames.add("Vorname");
-		customerColumnNames.add("Nachname");
-		customerColumnNames.add("Geburtsdatum");
-		customerColumnNames.add("Anschrift");
-		customerColumnNames.add("PersonalNummer");
-
-		CustomerTableModel tableModel = new CustomerTableModel(
-				customerColumnNames, 0);
-		Vector<Customer> customerVector = new Vector<Customer>(Customer.findAll());
-
-		for (int indexCustomer = 0; indexCustomer < customerVector.size(); indexCustomer++) {
-			Customer newCustomer = customerVector.get(indexCustomer);
-			tableModel.insertRow(newCustomer);
-		}
-		JTable custTable = new JTable(tableModel);
-		
-		TableColumnModel colModel = custTable.getColumnModel();
-		colModel.getColumn(0).setPreferredWidth(70);
-		colModel.getColumn(1).setPreferredWidth(60);
-		colModel.getColumn(2).setPreferredWidth(180);
-		colModel.getColumn(3).setPreferredWidth(180);
-		colModel.getColumn(4).setPreferredWidth(90);
-		colModel.getColumn(5).setPreferredWidth(334);
-		colModel.getColumn(6).setPreferredWidth(110);
-		// verschieben der Spalten nicht möglich
-		custTable.getTableHeader().setReorderingAllowed(false);
-		
-		
-		return custTable;
-	}
-
-	/**
 	 * Liefert IntegerRowSortet
 	 * @param columns für welche Spalten der Rowsorter eingesetzt werden soll
 	 * @param table Tabelle
@@ -245,6 +198,47 @@ public class TablePanel {
 	}
 	
 	/**
+	 * erstellt Kundentabelle
+	 * @return Kundentabelle
+	 */
+	private JTable createTableCustomer() {
+
+		Vector<String> customerColumnNames = new Vector<String>(7);
+		customerColumnNames.add("KundenNr.");
+		customerColumnNames.add("Anrede");
+		customerColumnNames.add("Vorname");
+		customerColumnNames.add("Nachname");
+		customerColumnNames.add("Geburtsdatum");
+		customerColumnNames.add("Anschrift");
+		customerColumnNames.add("PersonalNummer");
+
+		CustomerTableModel tableModel = new CustomerTableModel(
+				customerColumnNames, 0);
+		Vector<Customer> customerVector = new Vector<Customer>(Customer.findAll());
+
+		for (int indexCustomer = 0; indexCustomer < customerVector.size(); indexCustomer++) {
+			Customer newCustomer = customerVector.get(indexCustomer);
+			tableModel.insertRow(newCustomer);
+		}
+		JTable custTable = new JTable(tableModel);
+		
+		TableColumnModel colModel = custTable.getColumnModel();
+		colModel.getColumn(0).setPreferredWidth(70);
+		colModel.getColumn(1).setPreferredWidth(60);
+		colModel.getColumn(2).setPreferredWidth(180);
+		colModel.getColumn(3).setPreferredWidth(180);
+		colModel.getColumn(4).setPreferredWidth(90);
+		colModel.getColumn(5).setPreferredWidth(334);
+		colModel.getColumn(6).setPreferredWidth(110);
+		// verschieben der Spalten nicht möglich
+		custTable.getTableHeader().setReorderingAllowed(false);
+		
+                focusDeselect(custTable);
+		
+		return custTable;
+	}
+
+	/**
 	 * erstellt Filmtabelle
 	 * @return Filmtabelle
 	 */
@@ -275,6 +269,8 @@ public class TablePanel {
 		colModel.getColumn(4).setPreferredWidth(155);
 		// verschieben der Spalten nicht möglich
 		videoTable.getTableHeader().setReorderingAllowed(false);
+                
+                focusDeselect(videoTable);
 
 		return videoTable;
 	}
@@ -311,6 +307,8 @@ public class TablePanel {
 		colModel.getColumn(5).setPreferredWidth(100);
 		// verschieben der Spalten nicht möglich
 		rentTable.getTableHeader().setReorderingAllowed(false);
+                
+                focusDeselect(rentTable);
 		
 		return rentTable;
 	}
@@ -333,6 +331,7 @@ public class TablePanel {
 		colModel.getColumn(4).setPreferredWidth(80);
 		table.getTableHeader().setReorderingAllowed(false);
 		
+                focusDeselect(table);
 		return table;
 	}
 	
@@ -355,8 +354,24 @@ public class TablePanel {
 		colModel.getColumn(5).setPreferredWidth(450);
 		table.getTableHeader().setReorderingAllowed(false);
 		
+                focusDeselect(table);
+                
 		return table;
 	}
+        
+        /**
+         * löst die Selektion der übergebenen Tabelle bei verlohrenem Fokus
+         * @param table Tabelle
+         */
+        private void focusDeselect(final JTable table) {
+            
+            table .addFocusListener(new FocusAdapter() {
+
+                public void focusLost(FocusEvent e) {
+                    table.getSelectionModel().clearSelection();
+                }
+            });
+        }
 
 	/**
 	 * liefert Filmtabelle
